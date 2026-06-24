@@ -1,0 +1,47 @@
+{
+  "slug": "first-bank-account",
+  "title": "Get Your First Bank Account",
+  "description": "Open a fee-free bank account, set up direct deposit, and start a $20/week savings habit. The foundation of everything.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Get your ID together",
+      "what": "You'll need a government photo ID, your Social Security card or number, and proof of address.",
+      "why": "Banks legally have to verify who you are. No exceptions.",
+      "action": "Take photos of your ID and SS card. We'll store them safely.",
+      "ai_check": "Have you got your ID and SSN ready?"
+    },
+    {
+      "step": 2,
+      "title": "Pick a bank that doesn't charge fees",
+      "what": "Most banks charge $5-15/month. You want a fee-free one.",
+      "why": "$15/month = $180/year. That's your phone bill.",
+      "action": "Open Chime, Current, or Capital One 360. We'll open the link.",
+      "ai_check": "Did the application go through?"
+    },
+    {
+      "step": 3,
+      "title": "Set up direct deposit",
+      "what": "Get paid 2 days early and avoid check-cashing fees (those are scams).",
+      "why": "Check cashing places take 3-5% of your paycheck. Direct deposit is free.",
+      "action": "Give your employer your routing + account numbers from the app.",
+      "ai_check": "Got direct deposit set up?"
+    },
+    {
+      "step": 4,
+      "title": "Turn on overdraft protection",
+      "what": "Stop the bank from charging you $35 every time your card declines.",
+      "why": "One bad week = $200 in overdraft fees. Don't.",
+      "action": "Open the bank app, go to Settings, turn off overdraft.",
+      "ai_check": "Overdraft protection is on?"
+    },
+    {
+      "step": 5,
+      "title": "Start the $20/week habit",
+      "what": "Set up an auto-transfer of $20/week to savings. That's $1,040/year without thinking.",
+      "why": "This is the foundation of everything. A $1k emergency fund changes your life.",
+      "action": "Open the app, go to Recurring Transfer, set $20/week.",
+      "ai_check": "Auto-save is running?"
+    }
+  ]
+}
