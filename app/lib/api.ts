@@ -82,7 +82,27 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ scenario }),
     }),
+
+  // --- Document Vault ---
+  listDocuments: () => request<{ documents: VaultDocument[] }>('/documents'),
+  createDocument: (kind: DocumentKind, filename: string) =>
+    request<{ id: string; bucket: string; path: string; token: string }>('/documents', {
+      method: 'POST',
+      body: JSON.stringify({ kind, filename }),
+    }),
+  shareDocument: (id: string) =>
+    request<{ url: string; expiresInSeconds: number }>(`/documents/${id}/share`, { method: 'POST' }),
+  deleteDocument: (id: string) => request<{ ok: boolean }>(`/documents/${id}`, { method: 'DELETE' }),
 };
+
+export type DocumentKind = 'birth_certificate' | 'ssn' | 'id' | 'school' | 'medical' | 'court' | 'other';
+
+export interface VaultDocument {
+  id: string;
+  kind: DocumentKind;
+  filename: string;
+  created_at: string;
+}
 
 export interface QuestStep {
   step: number;

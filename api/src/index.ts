@@ -9,6 +9,7 @@ import { questsRouter } from './routes/quests.js';
 import { resourcesRouter } from './routes/resources.js';
 import { panicRouter } from './routes/panic.js';
 import { internalRouter } from './routes/internal.js';
+import { documentsRouter } from './routes/documents.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(questsRouter);
 app.use(resourcesRouter);
 app.use(panicRouter);
 app.use(internalRouter);
+app.use(documentsRouter);
 
 // Fallback 404
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));
