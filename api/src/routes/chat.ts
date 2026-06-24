@@ -5,6 +5,7 @@ import { supabaseForUser } from '../lib/supabase.js';
 import { runChat, type ChatTurn } from '../lib/claude.js';
 import { retrieveResources } from '../lib/rag.js';
 import { buildSystemPrompt, buildResourcesBlock } from '../prompts/system.js';
+import { detectCrisis, CRISIS_PREFIX } from '../lib/crisisDetect.js';
 
 export const chatRouter = Router();
 
@@ -81,6 +82,9 @@ chatRouter.post('/chat', requireAuth, async (req: AuthedRequest, res: Response) 
     content: `${message}\n\n${buildResourcesBlock(resources)}`,
   };
 
+  // Safety net: detect crisis intent before/around the model call.
+  const crisis = detectCrisis(message);
+
   let reply: string;
   try {
     reply = await runChat({ system, messages: [...priorTurns, userTurn] });
@@ -88,6 +92,9 @@ chatRouter.post('/chat', requireAuth, async (req: AuthedRequest, res: Response) 
     console.error('[chat] Claude error:', err);
     return res.status(502).json({ error: 'The navigator is unavailable right now. Try again in a sec.' });
   }
+
+  // Prepend crisis guidance so 988 + Panic always lead, regardless of model output.
+  if (crisis) reply = `${CRISIS_PREFIX}${reply}`;
 
   const citedResources = resources.map((r) => ({ id: r.id, name: r.name, phone: r.phone, url: r.url }));
 
@@ -97,5 +104,5 @@ chatRouter.post('/chat', requireAuth, async (req: AuthedRequest, res: Response) 
     { conversation_id: conversationId, role: 'assistant', content: reply, resources_cited: citedResources },
   ]);
 
-  res.json({ conversationId, reply, resources: citedResources });
+  res.json({ conversationId, reply, resources: citedResources, crisis });
 });

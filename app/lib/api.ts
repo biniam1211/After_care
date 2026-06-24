@@ -37,16 +37,27 @@ export interface CitedResource {
   url: string | null;
 }
 
+export interface StoredMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  resources_cited: CitedResource[];
+  created_at: string;
+}
+
 export const api = {
   getMe: () => request<{ user: unknown }>('/me'),
   saveProfile: (profile: Record<string, unknown>) =>
     request<{ user: unknown }>('/me', { method: 'POST', body: JSON.stringify(profile) }),
 
   sendChat: (message: string, conversationId?: string) =>
-    request<{ conversationId: string; reply: string; resources: CitedResource[] }>('/chat', {
+    request<{ conversationId: string; reply: string; resources: CitedResource[]; crisis: boolean }>('/chat', {
       method: 'POST',
       body: JSON.stringify({ message, conversationId }),
     }),
+
+  getLatestConversation: () =>
+    request<{ conversation: { id: string } | null; messages: StoredMessage[] }>('/conversations/latest'),
 
   listQuests: () => request<{ quests: Quest[] }>('/quests'),
   getQuest: (slug: string) => request<Quest>(`/quests/${slug}`),
