@@ -25,6 +25,7 @@ export default function Onboarding() {
   const [zip, setZip] = useState('');
   const [age, setAge] = useState('');
   const [status, setStatus] = useState<FosterStatus | null>(null);
+  const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
 
   async function sendOtp() {
@@ -78,7 +79,19 @@ export default function Onboarding() {
               value={phone}
               onChangeText={setPhone}
             />
-            <PrimaryButton label="Send code" onPress={sendOtp} disabled={busy || phone.length < 10} />
+
+            <Pressable style={styles.consentRow} onPress={() => setConsent((c) => !c)}>
+              <View style={[styles.checkbox, consent && styles.checkboxOn]}>
+                {consent && <Text style={styles.checkboxMark}>✓</Text>}
+              </View>
+              <Text style={styles.consentText}>
+                I’m 14 or older. I get that AfterCare is an AI (not a person), it’s not a
+                lawyer or therapist, and in an emergency I’ll call 988 or use the Panic
+                button. My info is private and never sold.
+              </Text>
+            </Pressable>
+
+            <PrimaryButton label="Send code" onPress={sendOtp} disabled={busy || phone.length < 10 || !consent} />
           </View>
         )}
 
@@ -166,6 +179,21 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     fontSize: 18,
   },
+  consentRow: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.md, alignItems: 'flex-start' },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 2,
+  },
+  checkboxOn: { backgroundColor: colors.accent, borderColor: colors.accent },
+  checkboxMark: { color: colors.accentText, fontWeight: '800' },
+  consentText: { color: colors.textMuted, fontSize: 13, lineHeight: 19, flex: 1 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   chip: {
     paddingVertical: spacing.sm,

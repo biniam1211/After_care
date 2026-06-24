@@ -2,6 +2,7 @@ import { Router, type Response } from 'express';
 import { z } from 'zod';
 import { requireAuth, type AuthedRequest } from '../lib/auth.js';
 import { supabaseForUser } from '../lib/supabase.js';
+import { zipToState } from '../lib/geo.js';
 
 export const authRouter = Router();
 
@@ -32,10 +33,16 @@ authRouter.post('/me', requireAuth, async (req: AuthedRequest, res: Response) =>
   const parsed = profileSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
 
+  // Derive state from ZIP so RAG + panic can filter to in-state resources.
+  const derivedState = parsed.data.zip_code ? zipToState(parsed.data.zip_code) : undefined;
+
   const db = supabaseForUser(req.accessToken!);
   const { data, error } = await db
     .from('users')
-    .upsert({ id: req.userId!, ...parsed.data }, { onConflict: 'id' })
+    .upsert(
+      { id: req.userId!, ...parsed.data, ...(derivedState ? { state: derivedState } : {}) },
+      { onConflict: 'id' },
+    )
     .select('*')
     .single();
 

@@ -26,6 +26,7 @@ export default function ProfileScreen() {
         <View style={styles.card}>
           <Row label="Phone" value={user?.phone ?? '—'} />
           <Row label="ZIP" value={user?.zip_code ?? '—'} />
+          <Row label="State" value={user?.state ?? '—'} />
           <Row label="Age" value={user?.age ? String(user.age) : '—'} />
           <Row label="Status" value={formatStatus(user?.foster_status)} />
         </View>
