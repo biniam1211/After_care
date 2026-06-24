@@ -35,4 +35,6 @@ export const env = {
   twilioAccountSid: optional('TWILIO_ACCOUNT_SID'),
   twilioAuthToken: optional('TWILIO_AUTH_TOKEN'),
   twilioFromNumber: optional('TWILIO_FROM_NUMBER'),
+
+  cronSecret: optional('CRON_SECRET'),
 };

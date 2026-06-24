@@ -76,6 +76,12 @@ export const api = {
 
   panic: (scenario: PanicScenario) =>
     request<PanicPlan>('/panic', { method: 'POST', body: JSON.stringify({ scenario }) }),
+
+  panicSms: (scenario: PanicScenario) =>
+    request<{ sent: boolean; to: string; reason?: string }>('/panic/sms', {
+      method: 'POST',
+      body: JSON.stringify({ scenario }),
+    }),
 };
 
 export interface QuestStep {

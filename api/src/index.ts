@@ -8,6 +8,7 @@ import { conversationsRouter } from './routes/conversations.js';
 import { questsRouter } from './routes/quests.js';
 import { resourcesRouter } from './routes/resources.js';
 import { panicRouter } from './routes/panic.js';
+import { internalRouter } from './routes/internal.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(conversationsRouter);
 app.use(questsRouter);
 app.use(resourcesRouter);
 app.use(panicRouter);
+app.use(internalRouter);
 
 // Fallback 404
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));

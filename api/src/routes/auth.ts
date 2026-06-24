@@ -18,6 +18,8 @@ const profileSchema = z.object({
   age: z.number().int().min(14).max(26).optional(),
   foster_status: z.enum(['in_care', 'aged_out', 'extended_care']).optional(),
   age_out_date: z.string().optional(),
+  emergency_contact_name: z.string().max(120).optional(),
+  emergency_contact_phone: z.string().max(20).optional(),
 });
 
 /** GET /me — the signed-in user's profile. */

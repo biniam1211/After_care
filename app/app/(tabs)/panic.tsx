@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { api, type PanicPlan, type PanicScenario } from '../../lib/api';
 import { colors, radius, spacing } from '../../lib/theme';
 
@@ -18,6 +18,24 @@ const SCENARIOS: { value: PanicScenario; label: string }[] = [
 export default function PanicScreen() {
   const [plan, setPlan] = useState<PanicPlan | null>(null);
   const [loading, setLoading] = useState<PanicScenario | null>(null);
+  const [smsBusy, setSmsBusy] = useState(false);
+
+  async function textContact(scenario: PanicScenario) {
+    setSmsBusy(true);
+    try {
+      const res = await api.panicSms(scenario);
+      Alert.alert(
+        res.sent ? 'Sent' : 'Couldn’t send',
+        res.sent
+          ? `We texted ${res.to}.`
+          : 'No contact set, or texting is unavailable. Add an emergency contact in your Profile.',
+      );
+    } catch (e) {
+      Alert.alert('Couldn’t send', e instanceof Error ? e.message : 'Add an emergency contact in your Profile.');
+    } finally {
+      setSmsBusy(false);
+    }
+  }
 
   async function trigger(scenario: PanicScenario) {
     setLoading(scenario);
@@ -55,6 +73,14 @@ export default function PanicScreen() {
 
       {plan && (
         <View style={styles.plan}>
+          <Pressable style={styles.smsButton} onPress={() => textContact(plan.scenario)} disabled={smsBusy}>
+            {smsBusy ? (
+              <ActivityIndicator color={colors.accentText} />
+            ) : (
+              <Text style={styles.smsButtonText}>✉️ Text my emergency contact</Text>
+            )}
+          </Pressable>
+
           <Text style={styles.planHeader}>Call now — these are free and 24/7:</Text>
           {plan.national.map((r) => (
             <Pressable
@@ -99,6 +125,8 @@ const styles = StyleSheet.create({
   },
   scenarioText: { color: '#fff', fontSize: 16, fontWeight: '700' },
   plan: { marginTop: spacing.xl },
+  smsButton: { backgroundColor: colors.accent, borderRadius: radius.md, padding: spacing.md, alignItems: 'center', marginBottom: spacing.lg },
+  smsButtonText: { color: colors.accentText, fontWeight: '700', fontSize: 15 },
   planHeader: { color: colors.text, fontSize: 18, fontWeight: '700', marginBottom: spacing.sm },
   resource: {
     backgroundColor: colors.card,
