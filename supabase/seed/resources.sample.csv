@@ -1,7 +1,41 @@
 name,category,description,phone,url,address,zip_codes,states
-Orangewood Foundation,housing,"Drop-in center, housing, and support for current and former foster youth in Orange County.",714-619-0200,https://orangewoodfoundation.org,"1575 E 17th St, Santa Ana, CA",{92705},{CA}
-RightWay Foundation,finance,"Employment, mental health, and financial literacy for transition-age foster youth in LA.",323-922-5000,https://rightwayfoundation.org,"Los Angeles, CA",{90008},{CA}
-James Storehouse,housing,"Wraparound essentials and support for foster youth and families in Ventura County.",805-225-2273,https://jamesstorehouse.org,"Newbury Park, CA",{91320},{CA}
-John Burton Advocates for Youth,legal,"Policy and direct guidance on housing, education, and financial aid for CA foster youth.",415-348-0011,https://jbaforyouth.org,"San Francisco, CA",{94103},{CA}
-211 Orange County,crisis,"24/7 helpline connecting you to local shelters, food, and crisis support. Dial 211.",211,https://211oc.org,"Orange County, CA",{92805},{CA}
-Covenant House California,shelter,"Emergency shelter and crisis services for youth experiencing homelessness.",323-461-3131,https://covenanthouseca.org,"Los Angeles / Oakland, CA",{90028},{CA}
+988 Suicide & Crisis Lifeline,crisis,"Free, 24/7 call or text line for anyone in emotional crisis or thinking about suicide.",988,https://988lifeline.org,,,{CA}
+California Youth Crisis Line,crisis,"24/7 statewide crisis line and referrals for youth ages 12-24 and their families.",1-800-843-5200,https://calyouth.org,,,{CA}
+National Runaway Safeline,crisis,"24/7 support for youth who have run away or are thinking about it. Help with a safe place to go.",1-800-786-2929,https://www.1800runaway.org,,,{CA}
+The Trevor Project,mental_health,"24/7 crisis support for LGBTQ+ young people. Call, text, or chat.",1-866-488-7386,https://www.thetrevorproject.org,,,{CA}
+Trans Lifeline,mental_health,"Peer support hotline run by and for trans people.",1-877-565-8860,https://translifeline.org,,,{CA}
+SAMHSA National Helpline,mental_health,"Free, confidential 24/7 treatment referral and information for mental health and substance use.",1-800-662-4357,https://www.samhsa.gov/find-help/national-helpline,,,{CA}
+National Domestic Violence Hotline,crisis,"24/7 confidential support if you are being hurt or are afraid of someone in your home.",1-800-799-7233,https://www.thehotline.org,,,{CA}
+Covenant House California,shelter,"Emergency shelter and crisis services for youth experiencing homelessness in LA and Oakland.",1-800-388-3888,https://covenanthouseca.org,,,{CA}
+211 California,crisis,"Dial 211 to get connected to local shelters, food, health, and crisis support anywhere in CA.",211,https://www.211ca.org,,,{CA}
+iFoster,finance,"Free resources, jobs program, tech, and benefits for current and former foster youth.",,https://www.ifoster.org,,,{CA}
+John Burton Advocates for Youth,legal,"Guidance and advocacy on housing, education, and financial aid for California foster youth.",,https://jbaforyouth.org,,,{CA}
+RightWay Foundation,employment,"Employment, mental health, and financial literacy for transition-age foster youth in LA.",,https://rightwayfoundation.org,,,{CA}
+James Storehouse,housing,"Wraparound essentials and support for foster youth and families in Ventura County.",,https://jamesstorehouse.org,,,{CA}
+Orangewood Foundation,housing,"Drop-in center, housing, and support for current and former foster youth in Orange County.",,https://orangewoodfoundation.org,,,{CA}
+First Star,education,"College-prep academies on university campuses for foster youth.",,https://www.firststar.org,,,{CA}
+California Youth Connection,legal,"Youth-led advocacy that helps current and former foster youth shape policy and know their rights.",,https://calyouthconn.org,,,{CA}
+Children Now,legal,"Policy and data on improving outcomes for California's children and foster youth.",,https://www.childrennow.org,,,{CA}
+Alliance for Children's Rights,legal,"Free legal help for foster youth on benefits, education, and stability in LA County.",,https://allianceforchildrensrights.org,,,{CA}
+Public Counsel,legal,"Pro bono legal aid, including for foster youth and immigration matters.",,https://publiccounsel.org,,,{CA}
+Legal Aid Foundation of Los Angeles,legal,"Free civil legal help for low-income people in LA, including housing and benefits.",,https://lafla.org,,,{CA}
+National Foster Youth Institute,legal,"Advocacy and leadership programs that center the voices of foster youth.",,https://nfyi.org,,,{CA}
+California Student Aid Commission (Chafee Grant),finance,"Administers the Chafee Grant (up to ~$5,000/yr) for current and former foster youth in college.",1-888-224-7268,https://www.csac.ca.gov/chafee-grant,,,{CA}
+Covered California,health,"California's health insurance marketplace. Foster youth may qualify for free Medi-Cal to age 26.",1-800-300-1506,https://www.coveredca.com,,,{CA}
+GetCalFresh,food,"Apply for CalFresh (food stamps / SNAP) online in about 10 minutes.",,https://www.getcalfresh.org,,,{CA}
+First Place for Youth,housing,"Housing, education, and employment support for foster youth aging out across CA.",,https://www.firstplaceforyouth.org,,,{CA}
+Larkin Street Youth Services,housing,"Housing and services for youth experiencing homelessness in San Francisco.",,https://larkinstreetyouth.org,,,{CA}
+Safe Place for Youth,housing,"Drop-in, housing, and support for youth experiencing homelessness on the Westside of LA.",,https://safeplaceforyouth.org,,,{CA}
+Jovenes Inc,housing,"Housing and support for young people experiencing homelessness in LA County.",,https://jovenesinc.org,,,{CA}
+Bill Wilson Center,housing,"Housing, counseling, and youth services in Santa Clara County.",,https://www.billwilsoncenter.org,,,{CA}
+Beyond Emancipation,employment,"Support for transition-age foster and probation youth in Alameda County.",,https://www.beyondemancipation.org,,,{CA}
+Just in Time for Foster Youth,finance,"Financial, housing, and community support for transition-age foster youth in San Diego.",,https://jitfosteryouth.org,,,{CA}
+Promises2Kids,housing,"Support, camps, and guidance for current and former foster youth in San Diego County.",,https://promises2kids.org,,,{CA}
+Unity Care,housing,"Housing and youth development for foster youth in the Bay Area.",,https://www.unitycare.org,,,{CA}
+Aspiranet,housing,"Foster care, transitional housing, and family services across California.",,https://www.aspiranet.org,,,{CA}
+Pursue Possibility,mental_health,"Mentorship and coaching that helps foster youth build supportive relationships.",,https://www.pursuepossibility.org,,,{CA}
+Foster Care Alumni of America,community,"Community and connection for adults who experienced foster care.",,https://www.fostercarealumni.org,,,{CA}
+Foster Youth to Independence (FYI) Vouchers,housing,"HUD housing vouchers for youth aging out of foster care. Ask your county for an FYI referral.",,https://www.hud.gov/program_offices/public_indian_housing/programs/hcv/fyi,,,{CA}
+THP-Plus / Extended Foster Care (AB 12),housing,"Transitional housing and extended foster care to age 21 in California. Ask your county ILP.",,https://www.cdss.ca.gov,,,{CA}
+California Foster Care Ombudsperson,legal,"File concerns about your foster care experience and learn your rights.",1-877-846-1602,https://fosteryouthhelp.ca.gov,,,{CA}
+National Foster Care & Adoption Directory,crisis,"Search for foster care and adoption resources by state.",,https://www.childwelfare.gov/organizations,,,{CA}

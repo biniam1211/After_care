@@ -1,4 +1,5 @@
 import { supabaseAdmin } from './supabase.js';
+import { embed } from './embeddings.js';
 
 export interface Resource {
   id: string;
@@ -15,12 +16,13 @@ export interface Resource {
 /**
  * Retrieve the top-K curated resources for a chat message.
  *
- * MVP strategy: filter by state/ZIP first (correctness > recall — a kid in CA
- * must never get an NY hotline), then rank. Vector similarity is layered in once
- * embeddings are populated; until then this falls back to a category/text match.
+ * Primary path: embed the query and call the `match_resources` pgvector RPC,
+ * which applies a HARD state/ZIP filter (a kid in CA never gets an out-of-state
+ * result) before cosine ranking.
  *
- * TODO(week 2): embed `query` (Voyage), call the pgvector `match_resources` RPC
- * with the embedding + state filter, and merge with the keyword path below.
+ * Fallback path: if vector search returns nothing (e.g. resources not embedded
+ * yet), fall back to a plain location/recency query so chat still cites real,
+ * local resources.
  */
 export async function retrieveResources(opts: {
   query: string;
@@ -30,19 +32,32 @@ export async function retrieveResources(opts: {
 }): Promise<Resource[]> {
   const limit = opts.limit ?? 5;
 
+  // --- Primary: vector search via RPC ---
+  try {
+    const queryEmbedding = await embed(opts.query);
+    const { data, error } = await supabaseAdmin.rpc('match_resources', {
+      query_embedding: queryEmbedding,
+      match_count: limit,
+      filter_state: opts.state ?? null,
+      filter_zip: null, // ZIP is often too narrow; state filter + ranking is enough
+    });
+    if (!error && data && data.length > 0) {
+      return data as Resource[];
+    }
+  } catch (err) {
+    console.error('[rag] vector search failed, falling back:', (err as Error).message);
+  }
+
+  // --- Fallback: location-filtered keyword/recency query ---
   let q = supabaseAdmin
     .from('resources')
     .select('id, name, category, description, phone, url, address, zip_codes, states')
     .limit(limit);
-
-  // Hard location filter — never surface out-of-state resources.
-  if (opts.state) {
-    q = q.contains('states', [opts.state]);
-  }
+  if (opts.state) q = q.contains('states', [opts.state]);
 
   const { data, error } = await q;
   if (error) {
-    console.error('[rag] retrieveResources failed:', error.message);
+    console.error('[rag] fallback query failed:', error.message);
     return [];
   }
   return (data ?? []) as Resource[];
