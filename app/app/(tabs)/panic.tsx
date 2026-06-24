@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { api, type PanicPlan, type PanicScenario } from '../../lib/api';
+import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 
 const SCENARIOS: { value: PanicScenario; label: string }[] = [
@@ -39,6 +40,7 @@ export default function PanicScreen() {
 
   async function trigger(scenario: PanicScenario) {
     setLoading(scenario);
+    track('panic_triggered', { scenario });
     try {
       setPlan(await api.panic(scenario));
     } catch {

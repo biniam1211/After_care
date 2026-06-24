@@ -5,6 +5,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api, type DocumentKind, type VaultDocument } from '../lib/api';
 import { supabase } from '../lib/supabase';
+import { track } from '../lib/analytics';
 import { colors, radius, spacing } from '../lib/theme';
 
 const KINDS: { value: DocumentKind; label: string }[] = [
@@ -41,6 +42,7 @@ export default function VaultScreen() {
         contentType: asset.mimeType ?? 'application/octet-stream',
       });
       if (error) throw error;
+      track('doc_uploaded', { kind });
       qc.invalidateQueries({ queryKey: ['documents'] });
     } catch (e) {
       Alert.alert('Upload failed', e instanceof Error ? e.message : 'Try again');

@@ -3,6 +3,7 @@ import { GiftedChat, type IMessage } from 'react-native-gifted-chat';
 import { Pressable, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { api, type CitedResource } from '../../lib/api';
+import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 import { ResourceCard } from '../../components/ResourceCard';
 
@@ -60,6 +61,7 @@ export default function ChatScreen() {
       };
       setMessages((prev) => GiftedChat.append(prev, [outgoing]));
       setTyping(true);
+      track('chat_sent');
 
       try {
         const res = await api.sendChat(text, conversationId);

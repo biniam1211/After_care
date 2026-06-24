@@ -3,6 +3,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 import { api } from '../../lib/api';
+import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 
 type Step = 'phone' | 'otp' | 'profile';
@@ -52,6 +53,7 @@ export default function Onboarding() {
         age: age ? Number(age) : undefined,
         foster_status: status ?? undefined,
       });
+      track('onboard_complete', { has_status: !!status });
       // The root layout's auth guard will route into the app.
     } catch (e) {
       Alert.alert('Could not save', e instanceof Error ? e.message : 'Try again');

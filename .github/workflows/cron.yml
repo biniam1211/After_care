@@ -1,0 +1,23 @@
+name: Scheduled jobs
+
+# Triggers panic follow-ups + quest reminders on the deployed API.
+# Requires repo secrets: API_URL (e.g. https://aftercare-api.up.railway.app)
+# and CRON_SECRET (must match the API's CRON_SECRET env).
+
+on:
+  schedule:
+    - cron: '0 * * * *' # hourly
+  workflow_dispatch:
+
+jobs:
+  run-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit /internal/cron
+        run: |
+          if [ -z "${{ secrets.API_URL }}" ] || [ -z "${{ secrets.CRON_SECRET }}" ]; then
+            echo "API_URL or CRON_SECRET not set; skipping."
+            exit 0
+          fi
+          curl -fsS -X POST "${{ secrets.API_URL }}/internal/cron" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"

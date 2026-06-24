@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { api, type Quest } from '../../lib/api';
+import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 
 /** Quest list + step-by-step detail for the flagship "Get Your First Bank Account". */
@@ -59,7 +60,10 @@ function QuestDetail({ quest, onClose }: { quest: Quest; onClose: () => void }) 
 
   const advance = useMutation({
     mutationFn: () => api.advanceQuest(quest.slug, current + 1),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['quests'] }),
+    onSuccess: () => {
+      track('quest_step_done', { slug: quest.slug, step: current });
+      qc.invalidateQueries({ queryKey: ['quests'] });
+    },
   });
 
   // Starting a quest creates the user_quests row (step 1) so progress is tracked.

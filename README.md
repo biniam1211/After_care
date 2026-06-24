@@ -37,13 +37,19 @@ After_care/
 │   └── lib/          # API client, supabase, theme
 ├── api/              # Node.js + Express backend
 │   └── src/
-│       ├── routes/   # /auth /chat /quests /resources /panic /health
-│       ├── lib/      # supabase, claude, rag clients
+│       ├── routes/   # auth, chat, conversations, quests, resources, panic,
+│       │             #   documents, devices, internal(cron), health
+│       ├── lib/      # supabase, claude, embeddings, rag, geo, crisis,
+│       │             #   crisisDetect, twilio, expoPush, auth, env
+│       ├── jobs/      # followups, reminders (run via /internal/cron)
 │       ├── prompts/  # the AfterCare system prompt
+│       ├── scripts/  # seedQuests, embedResources
 │       └── data/     # quest seeds
 ├── supabase/
-│   └── migrations/   # Postgres schema (users, conversations, quests, resources, panic_events)
-└── docs/             # PRD, MVP build plan, master context
+│   ├── migrations/   # 0001 schema → 0005 notifications
+│   └── seed/         # curated CA resources (CSV) + verification policy
+├── .github/workflows # ci.yml (typecheck+test), cron.yml (scheduled jobs)
+└── docs/             # PRD, build plan, master context, legal/ (privacy, terms)
 ```
 
 ## Architecture
@@ -81,13 +87,25 @@ curl http://localhost:4000/health
 
 ### 2. Database
 
-Apply the schema in `supabase/migrations/` via the Supabase SQL editor or CLI:
+Apply all migrations in `supabase/migrations/` (0001 → 0005) via the Supabase
+SQL editor or CLI:
 
 ```bash
-supabase db push          # if using the Supabase CLI
+supabase link --project-ref <ref>
+supabase db push
 ```
 
-Then seed the first quest (see `api/src/data/quests/first-bank-account.json`).
+Then seed quests and the resource RAG index (needs the service-role key, and an
+embeddings key for real vectors):
+
+```bash
+cd api
+npm run seed:quests        # loads the bank-account quest
+npm run embed:resources    # embeds + upserts the curated CA resources
+```
+
+See `supabase/seed/README.md` for the **resource verification gate** (no dead
+numbers before launch).
 
 ### 3. Mobile app
 
@@ -101,6 +119,28 @@ npx expo start
 Scan the QR code with Expo Go, or run on a simulator.
 
 ---
+
+## Deploy
+
+**API → Railway (Docker):** `api/Dockerfile` + `api/railway.json` are ready.
+Create a Railway service from the repo (root `api/`), set the env vars from
+`api/.env.example`, and it deploys with a `/health` check.
+
+**Scheduled jobs:** `.github/workflows/cron.yml` hits `POST /internal/cron`
+hourly (panic follow-ups + quest reminders). Set repo secrets `API_URL` and
+`CRON_SECRET` (the latter must match the API env). Railway cron works too.
+
+**App → EAS / stores:** `app/eas.json` defines development / preview / production
+profiles.
+
+```bash
+cd app
+npx eas build --profile preview --platform all      # internal testing
+npx eas submit --profile production                  # needs Apple/Google accounts
+```
+
+> Store submission, Twilio A2P registration, and the resource-verification pass
+> are user-gated steps — see the build plan.
 
 ## Build plan & docs
 

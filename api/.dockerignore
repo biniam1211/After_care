@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.env.*
+*.log
+vitest.config.ts
+vitest.setup.ts
+**/*.test.ts
