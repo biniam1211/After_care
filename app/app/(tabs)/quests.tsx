@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import { api, type Quest } from '../../lib/api';
 import { colors, radius, spacing } from '../../lib/theme';
 
@@ -52,6 +53,7 @@ export default function QuestsScreen() {
 
 function QuestDetail({ quest, onClose }: { quest: Quest; onClose: () => void }) {
   const qc = useQueryClient();
+  const router = useRouter();
   const current = quest.progress?.current_step ?? 1;
   const stepData = quest.steps.find((s) => s.step === current) ?? quest.steps[0];
 
@@ -59,6 +61,19 @@ function QuestDetail({ quest, onClose }: { quest: Quest; onClose: () => void }) 
     mutationFn: () => api.advanceQuest(quest.slug, current + 1),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['quests'] }),
   });
+
+  // Starting a quest creates the user_quests row (step 1) so progress is tracked.
+  useEffect(() => {
+    if (!quest.progress) {
+      api.advanceQuest(quest.slug, 1)
+        .then(() => qc.invalidateQueries({ queryKey: ['quests'] }))
+        .catch(() => {/* non-fatal */});
+    }
+  }, [quest.progress, quest.slug, qc]);
+
+  // Deep-link the step's AI check-in into Chat so AfterCare follows up.
+  const askAboutStep = () =>
+    router.push({ pathname: '/(tabs)', params: { prefill: `Quest: ${quest.title} — Step ${stepData.step} (${stepData.title}). ${stepData.ai_check}` } });
 
   return (
     <View style={[styles.card, styles.detail]}>
@@ -91,8 +106,12 @@ function QuestDetail({ quest, onClose }: { quest: Quest; onClose: () => void }) 
             ? '🎉 Quest complete'
             : current >= quest.steps.length
               ? 'Finish quest'
-              : `Mark done → ${stepData.ai_check}`}
+              : 'Mark this step done'}
         </Text>
+      </Pressable>
+
+      <Pressable style={styles.secondaryButton} onPress={askAboutStep}>
+        <Text style={styles.secondaryButtonText}>💬 Ask AfterCare about this step</Text>
       </Pressable>
     </View>
   );
@@ -121,4 +140,6 @@ const styles = StyleSheet.create({
   body: { color: colors.text, fontSize: 15, lineHeight: 22, marginTop: spacing.xs },
   button: { backgroundColor: colors.accent, borderRadius: radius.md, padding: spacing.md, alignItems: 'center', marginTop: spacing.lg },
   buttonText: { color: colors.accentText, fontWeight: '700', fontSize: 15 },
+  secondaryButton: { borderRadius: radius.md, padding: spacing.md, alignItems: 'center', marginTop: spacing.sm, borderWidth: 1, borderColor: colors.border },
+  secondaryButtonText: { color: colors.text, fontWeight: '600', fontSize: 14 },
 });
