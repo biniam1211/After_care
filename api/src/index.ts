@@ -10,6 +10,7 @@ import { resourcesRouter } from './routes/resources.js';
 import { panicRouter } from './routes/panic.js';
 import { internalRouter } from './routes/internal.js';
 import { documentsRouter } from './routes/documents.js';
+import { devicesRouter } from './routes/devices.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(resourcesRouter);
 app.use(panicRouter);
 app.use(internalRouter);
 app.use(documentsRouter);
+app.use(devicesRouter);
 
 // Fallback 404
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));

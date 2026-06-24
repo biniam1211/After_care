@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { env } from '../lib/env.js';
 import { runPanicFollowups } from '../jobs/followups.js';
+import { runQuestReminders } from '../jobs/reminders.js';
 
 export const internalRouter = Router();
 
@@ -15,6 +16,6 @@ internalRouter.post('/internal/cron', async (req: Request, res: Response) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const followups = await runPanicFollowups();
-  res.json({ ok: true, followups });
+  const [followups, reminders] = await Promise.all([runPanicFollowups(), runQuestReminders()]);
+  res.json({ ok: true, followups, reminders });
 });

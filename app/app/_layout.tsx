@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
+import { registerForPush } from '../lib/push';
 import { colors } from '../lib/theme';
 
 const queryClient = new QueryClient();
@@ -33,6 +34,11 @@ export default function RootLayout() {
       router.replace('/(tabs)');
     }
   }, [ready, session, segments, router]);
+
+  // Register for push once signed in (best-effort).
+  useEffect(() => {
+    if (session) registerForPush();
+  }, [session]);
 
   return (
     <QueryClientProvider client={queryClient}>

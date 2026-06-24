@@ -83,6 +83,9 @@ export const api = {
       body: JSON.stringify({ scenario }),
     }),
 
+  registerDevice: (token: string, platform: 'ios' | 'android') =>
+    request<{ ok: boolean }>('/devices', { method: 'POST', body: JSON.stringify({ token, platform }) }),
+
   // --- Document Vault ---
   listDocuments: () => request<{ documents: VaultDocument[] }>('/documents'),
   createDocument: (kind: DocumentKind, filename: string) =>

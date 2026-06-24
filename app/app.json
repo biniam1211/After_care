@@ -17,7 +17,7 @@
     "android": {
       "package": "ai.aftercare.app"
     },
-    "plugins": ["expo-router"],
+    "plugins": ["expo-router", "expo-notifications"],
     "experiments": {
       "typedRoutes": true
     },
