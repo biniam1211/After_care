@@ -24,9 +24,11 @@ export const env = {
   supabaseAnonKey: required('SUPABASE_ANON_KEY'),
   supabaseServiceRoleKey: required('SUPABASE_SERVICE_ROLE_KEY'),
 
-  anthropicApiKey: required('ANTHROPIC_API_KEY'),
+  anthropicApiKey: optional('ANTHROPIC_API_KEY'),
   claudeModel: optional('CLAUDE_MODEL', 'claude-sonnet-4-6'),
 
+  embeddingProvider: optional('EMBEDDING_PROVIDER', 'openai'),
+  openaiApiKey: optional('OPENAI_API_KEY'),
   voyageApiKey: optional('VOYAGE_API_KEY'),
   embeddingDim: Number(process.env.EMBEDDING_DIM ?? 1536),
 

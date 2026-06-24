@@ -10,6 +10,9 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "seed:quests": "tsx src/scripts/seedQuests.ts",
+    "embed:resources": "tsx src/scripts/embedResources.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -25,7 +28,10 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^22.7.4",
+    "supertest": "^7.0.0",
+    "@types/supertest": "^6.0.2",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.2"
   }
 }

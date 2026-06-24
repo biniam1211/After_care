@@ -29,7 +29,7 @@ export default function QuestsScreen() {
       <Text style={styles.h1}>Quests</Text>
       <Text style={styles.muted}>Small steps. Real wins. Pick one and go.</Text>
 
-      {(data?.quests ?? []).map((quest) =>
+      {(data?.quests ?? []).map((quest: Quest) =>
         openSlug === quest.slug ? (
           <QuestDetail key={quest.id} quest={quest} onClose={() => setOpenSlug(null)} />
         ) : (
