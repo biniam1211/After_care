@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import { supabase } from '../../lib/supabase';
 import { api } from '../../lib/api';
 import { colors, radius, spacing } from '../../lib/theme';
@@ -17,6 +18,7 @@ interface Profile {
 
 export default function ProfileScreen() {
   const qc = useQueryClient();
+  const router = useRouter();
   const { data, isLoading } = useQuery({ queryKey: ['me'], queryFn: api.getMe });
   const user = data?.user as Profile | undefined;
 
@@ -83,6 +85,10 @@ export default function ProfileScreen() {
         </>
       )}
 
+      <Pressable style={styles.link} onPress={() => router.push('/resources')}>
+        <Text style={styles.linkText}>🔎 Browse all local resources</Text>
+      </Pressable>
+
       <Pressable style={styles.signOut} onPress={() => supabase.auth.signOut()}>
         <Text style={styles.signOutText}>Sign out</Text>
       </Pressable>
@@ -129,7 +135,9 @@ const styles = StyleSheet.create({
   },
   save: { backgroundColor: colors.accent, borderRadius: radius.md, padding: spacing.md, alignItems: 'center', marginTop: spacing.md },
   saveText: { color: colors.accentText, fontWeight: '700' },
-  signOut: { marginTop: spacing.xl, padding: spacing.md, alignItems: 'center', borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
+  link: { marginTop: spacing.xl, padding: spacing.md, alignItems: 'center', borderRadius: radius.md, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border },
+  linkText: { color: colors.text, fontWeight: '600' },
+  signOut: { marginTop: spacing.md, padding: spacing.md, alignItems: 'center', borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
   signOutText: { color: colors.panic, fontWeight: '700' },
   footer: { color: colors.textMuted, fontSize: 13, marginTop: spacing.xl, textAlign: 'center', lineHeight: 19 },
 });

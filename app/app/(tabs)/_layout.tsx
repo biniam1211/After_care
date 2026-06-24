@@ -1,9 +1,10 @@
-import { Tabs } from 'expo-router';
-import { Text } from 'react-native';
-import { colors } from '../../lib/theme';
+import { Tabs, useRouter } from 'expo-router';
+import { Pressable, Text } from 'react-native';
+import { colors, spacing } from '../../lib/theme';
 
 /** Bottom tabs: Chat | Quests | Panic | Profile. Panic is visually distinct. */
 export default function TabsLayout() {
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
@@ -16,7 +17,15 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={{ title: 'Chat', tabBarIcon: ({ color }) => <TabIcon glyph="💬" color={color} /> }}
+        options={{
+          title: 'Chat',
+          tabBarIcon: ({ color }) => <TabIcon glyph="💬" color={color} />,
+          headerRight: () => (
+            <Pressable onPress={() => router.push('/resources')} style={{ paddingHorizontal: spacing.md }}>
+              <Text style={{ color: colors.accent, fontWeight: '700' }}>Find help</Text>
+            </Pressable>
+          ),
+        }}
       />
       <Tabs.Screen
         name="quests"
