@@ -9,7 +9,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { supabaseAdmin } from '../lib/supabase.js';
 import { embed, usingFakeEmbeddings } from '../lib/embeddings.js';
 
@@ -17,7 +17,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const csvPath = join(__dirname, '..', '..', '..', 'supabase', 'seed', 'resources.sample.csv');
 
 /** Minimal CSV parser that handles quoted fields and {a,b} array columns. */
-function parseCsv(text: string): Record<string, string>[] {
+export function parseCsv(text: string): Record<string, string>[] {
   const rows: string[][] = [];
   let field = '';
   let row: string[] = [];
@@ -43,7 +43,7 @@ function parseCsv(text: string): Record<string, string>[] {
     .map((r) => Object.fromEntries(header.map((h, i) => [h.trim(), (r[i] ?? '').trim()])));
 }
 
-function parsePgArray(value: string): string[] {
+export function parsePgArray(value: string): string[] {
   if (!value) return [];
   return value.replace(/^\{|\}$/g, '').split(',').map((s) => s.trim()).filter(Boolean);
 }
@@ -70,7 +70,9 @@ async function main() {
         zip_codes: parsePgArray(row.zip_codes),
         states: parsePgArray(row.states),
         embedding,
-        verified_at: null, // must be human-verified before launch (no dead numbers)
+        // verified=true means the URL was confirmed to resolve to the correct
+        // org. Phone-line verification is still a human gate (see seed/README).
+        verified_at: row.verified?.toLowerCase() === 'true' ? new Date().toISOString() : null,
       },
       { onConflict: 'name' },
     );
@@ -80,7 +82,11 @@ async function main() {
   console.log(`✓ upserted ${ok}/${rows.length} resources`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Only run when invoked directly (not when imported by tests).
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

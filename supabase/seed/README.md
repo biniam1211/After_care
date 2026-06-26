@@ -15,10 +15,21 @@ Policy used when building this seed:
 - For organization-specific local numbers we were unsure of, the **phone is left
   blank and only the URL is provided** rather than risk a wrong number.
 
-**Before beta launch**, a human must verify each resource (call the number, open
-the link, confirm it serves the listed ZIP/state), then set `verified_at = now()`.
-Consider hiding `verified_at IS NULL` rows from production, or labeling them
-"unverified" in the UI.
+### The `verified` column
+Each row has a `verified` flag. `verified=true` means **the URL was confirmed to
+resolve to the correct official organization** (e.g. via an automated fetch).
+`embedResources.ts` translates that into `verified_at = now()`.
+
+**`verified=true` does NOT mean the phone line was confirmed live, or that the
+org serves the listed ZIP.** Those remain a human gate. Currently confirmed:
+988, 211 California, The Trevor Project, Covered California, iFoster, and Just in
+Time for Foster Youth. Automated checks couldn't reach several others (JS-rendered
+or bot-blocked sites) — that's not evidence they're dead, just unverified.
+
+**Before beta launch**, a human must verify each remaining resource (call the
+number, open the link, confirm it serves the listed ZIP/state), then flip
+`verified` to true. Consider hiding or labeling `verified_at IS NULL` rows in
+production.
 
 ## Import
 
