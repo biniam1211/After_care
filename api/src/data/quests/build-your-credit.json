@@ -1,0 +1,47 @@
+{
+  "slug": "build-your-credit",
+  "title": "Build Your Credit Score",
+  "description": "Go from no credit to a real score with a secured card and on-time habits. Credit is the key that unlocks apartments, cars, and lower deposits.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Check if you already have credit (and fix fraud)",
+      "what": "A lot of foster kids have credit reports opened in their name without knowing — sometimes with fraud on them.",
+      "why": "You can't build on a broken foundation. Catching identity theft now saves you years.",
+      "action": "Pull your free reports at annualcreditreport.com. If something's wrong, we'll walk you through disputing it.",
+      "ai_check": "Did you pull your credit report? See anything that wasn't you?"
+    },
+    {
+      "step": 2,
+      "title": "Get a secured credit card",
+      "what": "A secured card uses a small deposit (often $200) as your limit. It's the easiest way to start with no credit.",
+      "why": "No-fee secured cards report to all 3 bureaus, so every on-time month builds your score.",
+      "action": "Look at Discover it Secured, Capital One Platinum Secured, or your bank's option. Apply for one.",
+      "ai_check": "Did you get approved for a secured card?"
+    },
+    {
+      "step": 3,
+      "title": "Use 1 small recurring bill on it",
+      "what": "Put one thing you already pay — like your phone or a streaming app — on the card. Nothing else.",
+      "why": "Low usage + always paying it off is exactly what builds a high score fast.",
+      "action": "Set one subscription to autopay from the card.",
+      "ai_check": "Got one small bill running through the card?"
+    },
+    {
+      "step": 4,
+      "title": "Autopay the full balance every month",
+      "what": "Carrying a balance doesn't build credit faster — it just costs you interest. Pay it in full, on time, always.",
+      "why": "Payment history is 35% of your score. One autopay protects it forever.",
+      "action": "Turn on autopay for the statement balance in the card app.",
+      "ai_check": "Is autopay set to the full balance?"
+    },
+    {
+      "step": 5,
+      "title": "Keep usage under 30% and wait",
+      "what": "Try not to use more than about a third of your limit. Then just let time do the work.",
+      "why": "Credit age and low usage push your score up month after month. Patience pays here.",
+      "action": "Check your score monthly (free in most bank apps). Watch it climb.",
+      "ai_check": "Is your usage under 30% and your score moving up?"
+    }
+  ]
+}

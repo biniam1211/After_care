@@ -1,0 +1,47 @@
+{
+  "slug": "health-insurance-after-18",
+  "title": "Get Health Insurance After 18",
+  "description": "If you were in foster care, you get FREE Medicaid (Medi-Cal in CA) until you turn 26 — no income limit. Most foster youth don't know this and go uninsured.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Know your superpower: free coverage to 26",
+      "what": "Former foster youth qualify for Medicaid until age 26 with no income test, thanks to the ACA.",
+      "why": "That's free doctor visits, mental health care, dental, and prescriptions — for years. Don't leave it on the table.",
+      "action": "Just confirm you were in foster care at 18 (or aged out). That's the qualifier.",
+      "ai_check": "Were you in foster care at 18?"
+    },
+    {
+      "step": 2,
+      "title": "Find out if you're already enrolled",
+      "what": "Sometimes your Medicaid keeps going automatically after you age out — sometimes it drops. Check.",
+      "why": "If it's active, you might be able to use it today. If it dropped, we re-enroll.",
+      "action": "Call your county's Medicaid/Medi-Cal office or check your member portal. Ask me for the number.",
+      "ai_check": "Did you find out if your coverage is active?"
+    },
+    {
+      "step": 3,
+      "title": "Apply (or re-apply) as a former foster youth",
+      "what": "There's a specific 'former foster youth' category — make sure you check that box so they don't ask for income.",
+      "why": "Applying under the right category skips the income paperwork and gets you approved faster.",
+      "action": "Apply at coveredca.com or your state Medicaid site, selecting the former-foster-youth option.",
+      "ai_check": "Did you submit your application under the foster-youth category?"
+    },
+    {
+      "step": 4,
+      "title": "Pick a primary doctor and get your card",
+      "what": "Once approved, you choose a primary care provider (PCP) and get an insurance card.",
+      "why": "Having a PCP and a card means you can actually use the coverage when you need it.",
+      "action": "Choose a PCP in your plan and save a photo of your insurance card in your Document Vault.",
+      "ai_check": "Got your card saved and a doctor picked?"
+    },
+    {
+      "step": 5,
+      "title": "Book one checkup + know mental health is covered",
+      "what": "Your coverage includes therapy and counseling, not just physical health.",
+      "why": "Using it once breaks the ice — and mental health support changes outcomes for foster youth.",
+      "action": "Schedule a free annual checkup, and ask about mental health services if you want them.",
+      "ai_check": "Did you book a checkup?"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "apply-chafee-grant",
+  "title": "Apply for the Chafee Grant",
+  "description": "Get up to ~$5,000/year for college or job training — free money you don't pay back, made specifically for foster youth. Most kids never claim it.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Check that you qualify",
+      "what": "You generally qualify if you were in foster care for at least one day between ages 16 and 18 and you're not yet 26.",
+      "why": "Tons of eligible foster youth miss this purely because nobody told them they qualify.",
+      "action": "Confirm your foster dates. Not sure? Ask me or your ILP/social worker.",
+      "ai_check": "Do you think you meet the age 16-18 in-care rule?"
+    },
+    {
+      "step": 2,
+      "title": "File your FAFSA first",
+      "what": "The Chafee Grant needs your FAFSA on file. As a former foster youth you file as an 'independent' student — no parent info needed.",
+      "why": "FAFSA also unlocks Pell Grants and tuition waivers. It's the master key.",
+      "action": "Go to studentaid.gov and complete this year's FAFSA. We can do it step by step.",
+      "ai_check": "Is your FAFSA submitted for this year?"
+    },
+    {
+      "step": 3,
+      "title": "Submit the Chafee Grant application",
+      "what": "In California it's a short separate application through the Student Aid Commission (CSAC).",
+      "why": "This is the actual money request. FAFSA alone doesn't trigger it.",
+      "action": "Apply at csac.ca.gov (search 'Chafee Grant'). It takes about 15 minutes.",
+      "ai_check": "Did you submit the Chafee application at csac.ca.gov?"
+    },
+    {
+      "step": 4,
+      "title": "Pick an eligible school or training program",
+      "what": "The grant works at colleges and many vocational/training programs that take at least one year to complete.",
+      "why": "Choosing an eligible program is what lets the money actually pay out.",
+      "action": "Enroll (or confirm enrollment) at an eligible school. Ask me to check if yours qualifies.",
+      "ai_check": "Are you enrolled in an eligible school or program?"
+    },
+    {
+      "step": 5,
+      "title": "Send proof and track your award",
+      "what": "Your school's financial aid office verifies your enrollment so the grant pays out, often split across terms.",
+      "why": "A 5-minute follow-up with financial aid is the difference between approved and paid.",
+      "action": "Email or visit your financial aid office and confirm they have your Chafee award. Re-apply each year.",
+      "ai_check": "Has your financial aid office confirmed your Chafee award?"
+    }
+  ]
+}
