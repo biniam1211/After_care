@@ -1,6 +1,7 @@
--- AfterCare — combined migrations 0001–0005
--- Paste this whole file into Supabase → SQL Editor → Run.
--- Generated 2026-06-26T20:52:18Z
+-- AfterCare — combined migrations 0001–0005 (IDEMPOTENT)
+-- Safe to re-run: policies are dropped before create, constraint is guarded.
+-- Paste into Supabase → SQL Editor → Run.
+
 
 -- ============================================================
 -- supabase/migrations/0001_init.sql
@@ -123,28 +124,36 @@ alter table public.quests enable row level security;
 alter table public.resources enable row level security;
 
 -- users: self only
+drop policy if exists "users self read" on public.users;
 create policy "users self read"  on public.users for select using (auth.uid() = id);
+drop policy if exists "users self write" on public.users;
 create policy "users self write" on public.users for all    using (auth.uid() = id) with check (auth.uid() = id);
 
 -- conversations: owner only
+drop policy if exists "conversations owner" on public.conversations;
 create policy "conversations owner" on public.conversations for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 -- messages: via owned conversation
+drop policy if exists "messages owner" on public.messages;
 create policy "messages owner" on public.messages for all
   using (exists (select 1 from public.conversations c where c.id = conversation_id and c.user_id = auth.uid()))
   with check (exists (select 1 from public.conversations c where c.id = conversation_id and c.user_id = auth.uid()));
 
 -- user_quests: owner only
+drop policy if exists "user_quests owner" on public.user_quests;
 create policy "user_quests owner" on public.user_quests for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 -- panic_events: owner only (null user_id rows are insert-only, handled server-side)
+drop policy if exists "panic owner" on public.panic_events;
 create policy "panic owner" on public.panic_events for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 -- quests + resources: readable by any authenticated user, writes are service-role only
+drop policy if exists "quests public read" on public.quests;
 create policy "quests public read"    on public.quests    for select using (true);
+drop policy if exists "resources public read" on public.resources;
 create policy "resources public read" on public.resources for select using (true);
 
 -- ============================================================
@@ -157,7 +166,11 @@ create policy "resources public read" on public.resources for select using (true
 -- column dimension here AND set EMBEDDING_DIM in the API env to match.
 
 -- Unique name so the embed/import script can upsert idempotently.
-alter table public.resources add constraint resources_name_key unique (name);
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'resources_name_key') then
+    alter table public.resources add constraint resources_name_key unique (name);
+  end if;
+end $$;
 
 -- match_resources: cosine-similarity search with a HARD location filter.
 -- Correctness rule (from the docs): a kid in CA must never receive an
@@ -236,6 +249,7 @@ create table if not exists public.documents (
 create index if not exists documents_user_idx on public.documents (user_id, created_at);
 
 alter table public.documents enable row level security;
+drop policy if exists "documents owner" on public.documents;
 create policy "documents owner" on public.documents for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
@@ -245,12 +259,16 @@ values ('user-documents', 'user-documents', false)
 on conflict (id) do nothing;
 
 -- Storage RLS: a user can only touch objects under their own <user_id>/ prefix.
+drop policy if exists "user docs select" on storage.objects;
 create policy "user docs select" on storage.objects for select
   using (bucket_id = 'user-documents' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "user docs insert" on storage.objects;
 create policy "user docs insert" on storage.objects for insert
   with check (bucket_id = 'user-documents' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "user docs update" on storage.objects;
 create policy "user docs update" on storage.objects for update
   using (bucket_id = 'user-documents' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "user docs delete" on storage.objects;
 create policy "user docs delete" on storage.objects for delete
   using (bucket_id = 'user-documents' and (storage.foldername(name))[1] = auth.uid()::text);
 
@@ -275,6 +293,7 @@ alter table public.user_quests
   add column if not exists last_nudged_at timestamptz;
 
 alter table public.device_tokens enable row level security;
+drop policy if exists "device_tokens owner" on public.device_tokens;
 create policy "device_tokens owner" on public.device_tokens for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
