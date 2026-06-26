@@ -36,6 +36,9 @@ export default function Onboarding() {
     // Reopens the app at /onboarding so the user lands on the profile step once
     // the root layout establishes the session from the link's code.
     const emailRedirectTo = Linking.createURL('/onboarding');
+    // Dev aid: copy this exact URL into Supabase → Auth → URL Configuration →
+    // Redirect URLs so the magic link can reopen the app (Expo Go uses an exp:// URL).
+    if (__DEV__) console.log('[auth] magic-link redirect URL (allowlist this in Supabase):', emailRedirectTo);
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
       options: { emailRedirectTo },
