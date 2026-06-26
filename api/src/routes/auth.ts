@@ -7,9 +7,10 @@ import { zipToState } from '../lib/geo.js';
 export const authRouter = Router();
 
 /**
- * Phone-OTP itself is handled client-side via the Supabase SDK
- * (supabase.auth.signInWithOtp / verifyOtp). The backend only needs to manage
- * the AfterCare profile row once the user is authenticated.
+ * Authentication (email magic-link) is handled client-side via the Supabase SDK
+ * (supabase.auth.signInWithOtp with an email + PKCE code exchange). The backend
+ * is auth-method-agnostic — it only manages the AfterCare profile row once the
+ * user is authenticated via the verified JWT.
  */
 
 const profileSchema = z.object({
