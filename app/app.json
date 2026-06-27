@@ -22,7 +22,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "apiUrl": "http://localhost:4000"
+      "apiUrl": "https://aftercare-production-60f0.up.railway.app"
     }
   }
 }
