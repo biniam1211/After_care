@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
 import { env } from './lib/env.js';
@@ -28,6 +30,14 @@ app.use(panicRouter);
 app.use(internalRouter);
 app.use(documentsRouter);
 app.use(devicesRouter);
+
+// Static web preview (Expo web export, base path /app). Served after the API
+// routers so root API routes are untouched; the SPA fallback returns index.html
+// for client-side routes like /app/onboarding.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const webDir = path.join(__dirname, '..', 'public');
+app.use('/app', express.static(webDir));
+app.get(['/app', '/app/*'], (_req, res) => res.sendFile(path.join(webDir, 'index.html')));
 
 // Fallback 404
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));

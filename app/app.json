@@ -19,7 +19,8 @@
     },
     "plugins": ["expo-router", "expo-notifications"],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/app"
     },
     "extra": {
       "apiUrl": "https://aftercare-production-60f0.up.railway.app"
