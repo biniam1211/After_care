@@ -10,6 +10,7 @@ const HOST = process.env.EXPO_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 
 export type AnalyticsEvent =
   | 'onboard_complete'
+  | 'demo_login'
   | 'chat_sent'
   | 'quest_step_done'
   | 'panic_triggered'

@@ -16,6 +16,11 @@ const STATUS_OPTIONS: { value: FosterStatus; label: string }[] = [
   { value: 'aged_out', label: 'Aged out' },
 ];
 
+// Demo profile applied to the anonymous guest so resources/quests/panic are
+// populated immediately (California tester). Requires "Anonymous sign-ins" to be
+// enabled in the Supabase dashboard.
+const DEMO_PROFILE = { zip_code: '92805', age: 19, foster_status: 'aged_out' as const };
+
 /**
  * Onboarding flow: email magic-link (Supabase, PKCE) → ZIP → age → foster status.
  * Kept to a single screen with steps so the first run feels fast. After the user
@@ -46,6 +51,24 @@ export default function Onboarding() {
     setBusy(false);
     if (error) return Alert.alert('Hmm', error.message);
     setStep('sent');
+  }
+
+  async function demoLogin() {
+    setBusy(true);
+    const { error } = await supabase.auth.signInAnonymously();
+    if (error) {
+      setBusy(false);
+      return Alert.alert('Demo unavailable', error.message);
+    }
+    // Seed a CA profile so resources/quests/panic are populated for the guest.
+    try {
+      await api.saveProfile(DEMO_PROFILE);
+    } catch {
+      // Non-fatal: they're signed in; profile can be set later on the profile tab.
+    }
+    setBusy(false);
+    track('demo_login');
+    // Session is set → the root layout's auth guard routes into the app.
   }
 
   async function saveProfile() {
@@ -103,6 +126,17 @@ export default function Onboarding() {
               onPress={sendMagicLink}
               disabled={busy || !email.includes('@') || !consent}
             />
+
+            <View style={styles.orRow}>
+              <View style={styles.orLine} />
+              <Text style={styles.orText}>or</Text>
+              <View style={styles.orLine} />
+            </View>
+
+            <Pressable onPress={demoLogin} disabled={busy} style={[styles.demoButton, busy && styles.buttonDisabled]}>
+              <Text style={styles.demoButtonText}>Try the demo — no email needed</Text>
+            </Pressable>
+            <Text style={styles.demoHint}>Jump straight in with a sample account to look around.</Text>
           </View>
         )}
 
@@ -200,6 +234,19 @@ const styles = StyleSheet.create({
   checkboxOn: { backgroundColor: colors.accent, borderColor: colors.accent },
   checkboxMark: { color: colors.accentText, fontWeight: '800' },
   consentText: { color: colors.textMuted, fontSize: 13, lineHeight: 19, flex: 1 },
+  orRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.lg },
+  orLine: { flex: 1, height: 1, backgroundColor: colors.border },
+  orText: { color: colors.textMuted, fontSize: 13 },
+  demoButton: {
+    marginTop: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.accent,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  demoButtonText: { color: colors.accent, fontSize: 16, fontWeight: '700' },
+  demoHint: { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginTop: spacing.xs },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   chip: {
     paddingVertical: spacing.sm,
