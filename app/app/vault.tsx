@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { notify } from '../lib/notify';
 import { Stack } from 'expo-router';
 import * as DocumentPicker from 'expo-document-picker';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -45,7 +46,7 @@ export default function VaultScreen() {
       track('doc_uploaded', { kind });
       qc.invalidateQueries({ queryKey: ['documents'] });
     } catch (e) {
-      Alert.alert('Upload failed', e instanceof Error ? e.message : 'Try again');
+      notify('Upload failed', e instanceof Error ? e.message : 'Try again');
     } finally {
       setUploadingKind(null);
     }
@@ -54,7 +55,7 @@ export default function VaultScreen() {
   const share = useMutation({
     mutationFn: (id: string) => api.shareDocument(id),
     onSuccess: ({ url }) => Linking.openURL(url),
-    onError: (e) => Alert.alert('Could not create link', e instanceof Error ? e.message : 'Try again'),
+    onError: (e) => notify('Could not create link', e instanceof Error ? e.message : 'Try again'),
   });
 
   const remove = useMutation({

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { notify } from '../../lib/notify';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Linking from 'expo-linking';
 import { supabase } from '../../lib/supabase';
@@ -49,7 +50,7 @@ export default function Onboarding() {
       options: { emailRedirectTo },
     });
     setBusy(false);
-    if (error) return Alert.alert('Hmm', error.message);
+    if (error) return notify('Hmm', error.message);
     setStep('sent');
   }
 
@@ -58,7 +59,7 @@ export default function Onboarding() {
     const { error } = await supabase.auth.signInAnonymously();
     if (error) {
       setBusy(false);
-      return Alert.alert('Demo unavailable', error.message);
+      return notify('Demo unavailable', error.message);
     }
     // Seed a CA profile so resources/quests/panic are populated for the guest.
     try {
@@ -82,7 +83,7 @@ export default function Onboarding() {
       track('onboard_complete', { has_status: !!status });
       // The root layout's auth guard will route into the app.
     } catch (e) {
-      Alert.alert('Could not save', e instanceof Error ? e.message : 'Try again');
+      notify('Could not save', e instanceof Error ? e.message : 'Try again');
     } finally {
       setBusy(false);
     }

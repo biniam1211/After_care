@@ -1,29 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no" />
-    <title>AfterCare</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
-    <style id="expo-reset">
-      /* These styles make the body full-height */
-      html,
-      body {
-        height: 100%;
-      }
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      body {
-        overflow: hidden;
-      }
-      /* These styles make the root element full-height */
-      #root {
-        display: flex;
-        height: 100%;
-        flex: 1;
-      }
-    </style>
-  <link rel="shortcut icon" href="/app/favicon.ico" />
+/**
+ * Post-export step for the web build (run after `expo export --platform web`).
+ *
+ * The SPA output ("single") doesn't support app/+html.tsx customization, and the
+ * static output can't render this app in Node (supabase/gifted-chat touch
+ * `window` at module scope). So we inject the installed-app shell into
+ * dist/index.html here instead:
+ *   - Apple/PWA meta so "Add to Home Screen" opens full-screen with our icon
+ *   - manifest + apple-touch-icon links (assets come from public/)
+ *   - a branded boot splash shown while the JS bundle loads (removed by
+ *     app/_layout.tsx once the app mounts)
+ *   - app-feel CSS: dark overscroll, no tap-highlight, phone frame on desktop
+ */
+import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const file = join(dist, 'index.html');
+let html = readFileSync(file, 'utf8');
+
+if (html.includes('boot-splash')) {
+  console.log('[inject-web-shell] already injected, skipping');
+  process.exit(0);
+}
+
+const headBlock = `
     <meta name="description" content="The missing parent in your pocket. Built by a foster kid, for foster kids." />
     <meta name="theme-color" content="#0F172A" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -67,21 +68,21 @@
       }
       @keyframes buoy-spin { to { transform: rotate(360deg); } }
     </style>
-</head>
+`;
 
-  <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <!-- The root element for your Expo app. -->
-    <div id="root"></div>
-  <script src="/app/_expo/static/js/web/entry-c975c591925e5bc051a38f79c6cce388.js" defer></script>
-
+const splash = `
     <div id="boot-splash">
       <div class="buoy" aria-hidden="true"></div>
       <div class="brand">AfterCare</div>
       <div class="tag">loading…</div>
     </div>
-</body>
-</html>
+`;
+
+// Ensure safe-area insets work in standalone mode.
+html = html.replace(/<meta name="viewport"[^>]*>/,
+  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no" />');
+html = html.replace('</head>', `${headBlock}</head>`);
+html = html.replace('</body>', `${splash}</body>`);
+
+writeFileSync(file, html);
+console.log('[inject-web-shell] PWA shell injected into dist/index.html');

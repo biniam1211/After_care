@@ -44,6 +44,14 @@ export default function RootLayout() {
     return () => sub.remove();
   }, []);
 
+  // Web: dismiss the HTML boot splash (see app/+html.tsx) once we know where
+  // the user is going, so there's no flash of unstyled/empty UI.
+  useEffect(() => {
+    if (ready && typeof document !== 'undefined') {
+      document.getElementById('boot-splash')?.remove();
+    }
+  }, [ready]);
+
   // Route guard: signed-out users land in onboarding; signed-in users in the app.
   useEffect(() => {
     if (!ready) return;
@@ -70,7 +78,7 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: colors.bg },
         }}
       >
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding/index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </QueryClientProvider>
