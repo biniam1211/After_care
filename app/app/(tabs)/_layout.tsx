@@ -24,6 +24,14 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          title: 'Home',
+          headerShown: false,
+          tabBarIcon: (p) => <TabIcon {...p} on="home" off="home-outline" />,
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
           title: 'Chat',
           tabBarIcon: (p) => <TabIcon {...p} on="chatbubble-ellipses" off="chatbubble-ellipses-outline" />,
           headerRight: () => (

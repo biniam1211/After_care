@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { api, type Resource } from '../lib/api';
 import { colors, radius, spacing } from '../lib/theme';
@@ -21,7 +21,9 @@ const CATEGORIES = [
 
 /** Resource Finder — browse curated, location-aware resources by category. */
 export default function ResourcesScreen() {
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  // Home topic tiles deep-link here with an initial category pre-selected.
+  const params = useLocalSearchParams<{ category?: string }>();
+  const [category, setCategory] = useState<string | undefined>(params.category);
 
   // Profile drives the state filter so we only show in-state resources.
   const { data: me } = useQuery({ queryKey: ['me'], queryFn: api.getMe });
