@@ -4,7 +4,7 @@ import { notify } from '../../lib/notify';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Linking from 'expo-linking';
 import { supabase } from '../../lib/supabase';
-import { api } from '../../lib/api';
+import { api, API_URL } from '../../lib/api';
 import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 
@@ -17,10 +17,6 @@ const STATUS_OPTIONS: { value: FosterStatus; label: string }[] = [
   { value: 'aged_out', label: 'Aged out' },
 ];
 
-// Demo profile applied to the anonymous guest so resources/quests/panic are
-// populated immediately (California tester). Requires "Anonymous sign-ins" to be
-// enabled in the Supabase dashboard.
-const DEMO_PROFILE = { zip_code: '92805', age: 19, foster_status: 'aged_out' as const };
 
 /**
  * Onboarding flow: email magic-link (Supabase, PKCE) → ZIP → age → foster status.
@@ -56,20 +52,25 @@ export default function Onboarding() {
 
   async function demoLogin() {
     setBusy(true);
-    const { error } = await supabase.auth.signInAnonymously();
-    if (error) {
-      setBusy(false);
-      return notify('Demo unavailable', error.message);
-    }
-    // Seed a CA profile so resources/quests/panic are populated for the guest.
     try {
-      await api.saveProfile(DEMO_PROFILE);
-    } catch {
-      // Non-fatal: they're signed in; profile can be set later on the profile tab.
+      // The API mints a throwaway guest account (CA profile pre-seeded) and
+      // returns its session — no Supabase dashboard config needed. See
+      // api/src/routes/demo.ts.
+      const res = await fetch(`${API_URL}/demo/session`, { method: 'POST' });
+      const body = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(body?.error ?? `Demo endpoint returned ${res.status}`);
+      const { error } = await supabase.auth.setSession({
+        access_token: body.access_token,
+        refresh_token: body.refresh_token,
+      });
+      if (error) throw error;
+      track('demo_login');
+      // Session is set → the root layout's auth guard routes into the app.
+    } catch (e) {
+      notify('Demo unavailable', e instanceof Error ? e.message : 'Try again in a moment.');
+    } finally {
+      setBusy(false);
     }
-    setBusy(false);
-    track('demo_login');
-    // Session is set → the root layout's auth guard routes into the app.
   }
 
   async function saveProfile() {

@@ -13,6 +13,7 @@ import { panicRouter } from './routes/panic.js';
 import { internalRouter } from './routes/internal.js';
 import { documentsRouter } from './routes/documents.js';
 import { devicesRouter } from './routes/devices.js';
+import { demoRouter } from './routes/demo.js';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(panicRouter);
 app.use(internalRouter);
 app.use(documentsRouter);
 app.use(devicesRouter);
+app.use(demoRouter);
 
 // Static web preview (Expo web export, base path /app). Served after the API
 // routers so root API routes are untouched; the SPA fallback returns index.html
