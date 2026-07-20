@@ -57,6 +57,13 @@ const TOPICS: Topic[] = [
     bg: '#BE185D',
     go: () => ask('What are my rights in foster care? Explain the big ones simply.'),
   },
+  { label: 'Common Terms', emoji: '📖', bg: '#7C2D12', go: () => router.push('/glossary') },
+  {
+    label: 'LGBTQ+',
+    emoji: '🏳️‍🌈',
+    bg: '#5B21B6',
+    go: () => ask('What protections and resources exist for LGBTQ+ youth in foster care in California?'),
+  },
 ];
 
 export default function Home() {

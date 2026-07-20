@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { GiftedChat, type IMessage } from 'react-native-gifted-chat';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { api, type CitedResource } from '../../lib/api';
 import { track } from '../../lib/analytics';
@@ -18,6 +18,14 @@ const GREETING: ChatMessage = {
   createdAt: new Date(),
   user: AI_USER,
 };
+
+/** One-tap starter questions shown until the first message is sent. */
+const STARTERS: { chip: string; ask: string }[] = [
+  { chip: '💳 First bank account', ask: 'How do I open my first bank account?' },
+  { chip: '🏠 Housing help', ask: 'I need help with housing. What are my options?' },
+  { chip: '🎓 Money for college', ask: 'What money can I get for college as a foster youth?' },
+  { chip: '📄 Documents I need at 18', ask: 'What documents do I need to have before I turn 18, and how do I get them?' },
+];
 
 /** The heart of the app: a WhatsApp-style chat with the AfterCare navigator. */
 export default function ChatScreen() {
@@ -107,6 +115,17 @@ export default function ChatScreen() {
         placeholder="Ask anything…"
         alwaysShowSend
         isTyping={typing}
+        renderChatFooter={() =>
+          messages.length <= 1 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipsRow}>
+              {STARTERS.map((s) => (
+                <Pressable key={s.chip} style={styles.chip} onPress={() => send(s.ask)}>
+                  <Text style={styles.chipText}>{s.chip}</Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          ) : null
+        }
         renderCustomView={(props) => {
           const msg = props.currentMessage as ChatMessage;
           const hasExtras = (msg.resources && msg.resources.length > 0) || msg.crisis;
@@ -139,4 +158,14 @@ const styles = {
     marginTop: spacing.sm,
   },
   panicBtnText: { color: '#fff', fontWeight: '700' as const },
+  chipsRow: { gap: spacing.sm, paddingHorizontal: spacing.md, paddingVertical: spacing.sm },
+  chip: {
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderWidth: 1,
+    borderRadius: radius.pill,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  chipText: { color: colors.text, fontWeight: '600' as const },
 };
