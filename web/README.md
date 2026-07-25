@@ -27,6 +27,22 @@ State (onboarding, profile, quest progress) persists in `localStorage` under
 `aftercare_state_v1`, so the app is a self-contained interactive demo with no backend
 required.
 
+## Live AI chat (Claude API)
+
+The AI Chat is wired to the **Claude API** through a server route at `app/api/chat/route.js`:
+
+- Set `ANTHROPIC_API_KEY` (see `.env.example`) and the chat calls Claude live — the key
+  stays server-side and never reaches the browser.
+- With **no key set**, the endpoint reports `configured: false` and the client falls back
+  to the built-in scripted replies, so the demo keeps working with zero configuration.
+- Any upstream error also falls back to scripted replies — the chat never hard-fails.
+
+The model returns the exact 3-part shape the UI renders (`answer` → `steps` → `resources`
+→ optional `followup`/`quest` → `panic`) via structured outputs, and the server validates
+every `resources`/`quest` id against the known catalog before sending it to the client.
+Crisis messages set `panic: true`, which surfaces the Panic Button inline. Override the
+model with `ANTHROPIC_MODEL` (defaults to `claude-opus-5`).
+
 ## Design system
 
 Ported verbatim from the prototype's tokens (see `app/globals.css`):
@@ -60,7 +76,7 @@ architecture adds:
 | Concern        | Plan                                                         |
 | -------------- | ----------------------------------------------------------- |
 | Database       | Postgres (users, profiles, quest progress, conversations)   |
-| AI Chat        | Replace scripted `CHAT_REPLIES` with the Claude API + RAG   |
+| AI Chat        | ✅ Done — live Claude API via `app/api/chat`; RAG next       |
 | Content/CMS    | Sanity (resources directory, quests, copy)                  |
 | Email          | Resend (OTP / magic-link, caseworker drafts, reminders)     |
 | Logging        | Betterstack                                                 |

@@ -74,7 +74,7 @@ function AiMessage({ data, profile, onOpenResource, onOpenQuest, onPanic, animat
         </div>
 
         {/* resources */}
-        {data.resources && (
+        {data.resources && data.resources.length > 0 && (
           <div style={{ marginTop: 10 }}>
             <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 11.5, color: "var(--ink-faint)", letterSpacing: 0.4, textTransform: "uppercase", margin: "0 0 8px 2px" }}>Real help near you</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -114,20 +114,41 @@ export function Chat({ profile, pendingPrompt, clearPending, onOpenResource, onO
   const [typing, setTyping] = useState(false);
   const scrollRef = useRef(null);
   const lastAnim = useRef(0);
+  const msgsRef = useRef([]);
 
   const scrollDown = () => { const el = scrollRef.current; if (el) el.scrollTop = el.scrollHeight + 400; };
+  useEffect(() => { msgsRef.current = messages; }, [messages]);
   useEffect(() => { const t = setTimeout(scrollDown, 60); return () => clearTimeout(t); }, [messages, typing]);
 
-  const ask = useCallback((key, displayText) => {
-    const reply = CHAT_REPLIES[key] || CHAT_REPLIES.default;
+  // Try the live Claude endpoint; fall back to the scripted reply on no-key / error.
+  const fetchReply = useCallback(async (displayText, key) => {
+    const history = msgsRef.current
+      .map((m) => (m.role === "user"
+        ? { role: "user", content: m.text }
+        : { role: "ai", content: m.data && m.data.answer }))
+      .filter((m) => m.content);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ message: displayText, history, profile }),
+      });
+      if (res.ok) {
+        const j = await res.json();
+        if (j && j.configured && j.reply) return j.reply;
+      }
+    } catch (e) { /* fall through to scripted */ }
+    return CHAT_REPLIES[key] || CHAT_REPLIES[matchReply(displayText)] || CHAT_REPLIES.default;
+  }, [profile]);
+
+  const ask = useCallback(async (key, displayText) => {
     setMessages((m) => [...m, { role: "user", text: displayText }]);
     setTyping(true);
-    setTimeout(() => {
-      setTyping(false);
-      lastAnim.current = Date.now();
-      setMessages((m) => [...m, { role: "ai", data: reply }]);
-    }, 1100);
-  }, []);
+    const reply = await fetchReply(displayText, key);
+    setTyping(false);
+    lastAnim.current = Date.now();
+    setMessages((m) => [...m, { role: "ai", data: reply }]);
+  }, [fetchReply]);
 
   // consume a prompt sent from elsewhere (home chips / quest help)
   useEffect(() => {
