@@ -1,0 +1,171 @@
+/* ───────────────────────────────────────────────────────────
+   AfterCare — global tokens, resets, animations
+   Ported from the Claude Design prototype (AfterCare_Standalone).
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Ocean / harbor */
+  --harbor: #06283d;
+  --harbor-2: #0b3a57;
+  --harbor-3: #12496b;
+  --sky: #2e9bff;
+  --sky-press: #1b7fe0;
+  --sky-soft: #e7f4ff;
+  --mist: #dbf1ff;
+  --foam: #f1f8fd;
+  --card: #ffffff;
+  --ink: #0a2536;
+  --ink-soft: #50677a;
+  --ink-faint: #93a8b6;
+  --line: #e5eff5;
+  --line-soft: #eff5f9;
+  /* Warmth */
+  --warm: #ff9e57;
+  --warm-deep: #f2823a;
+  --warm-soft: #fff2e7;
+  /* Success */
+  --mint: #17b98a;
+  --mint-soft: #e2f7ef;
+  /* Emergency — reserved */
+  --panic: #ff3b41;
+  --panic-deep: #dd2129;
+  --panic-soft: #ffeaeb;
+
+  --r-xl: 32px;
+  --r-lg: 26px;
+  --r: 20px;
+  --r-sm: 14px;
+  --r-xs: 10px;
+
+  --shadow-card: 0 1px 2px rgba(6, 40, 61, 0.05), 0 8px 24px rgba(6, 40, 61, 0.06);
+  --shadow-pop: 0 12px 38px rgba(6, 40, 61, 0.18);
+  --shadow-fab: 0 8px 22px rgba(221, 33, 41, 0.42);
+
+  /* --font-jakarta / --font-bricolage are injected by next/font (see layout.jsx) */
+  --sans: var(--font-jakarta), -apple-system, system-ui, sans-serif;
+  --display: var(--font-bricolage), var(--font-jakarta), -apple-system, system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  background: radial-gradient(1200px 700px at 18% -8%, #103a55 0%, transparent 55%),
+    radial-gradient(1000px 800px at 110% 110%, #0a2f48 0%, transparent 60%), #061c2b;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Center + scale the phone so the whole device is visible on any viewport */
+#stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#scaler {
+  transform: scale(var(--scale, 1));
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+}
+
+/* ── Animations ── */
+@keyframes ac-rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes ac-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes ac-pop {
+  0% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes ac-dots {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+@keyframes ac-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 65, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 59, 65, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 65, 0);
+  }
+}
+@keyframes ac-sheen {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(220%);
+  }
+}
