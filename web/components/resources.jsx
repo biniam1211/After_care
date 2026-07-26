@@ -12,11 +12,11 @@ function catIconFor(r) {
     : r.cat === "Education" ? "grad" : r.cat === "Money & Jobs" ? "cash" : r.cat === "Essentials" ? "box" : "pin";
 }
 
-export function ResourcesList({ profile, onOpen }) {
+export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
   const [cat, setCat] = useState("all");
   const [q, setQ] = useState("");
-  const ids = Object.keys(RESOURCES).filter((id) => {
-    const r = RESOURCES[id];
+  const ids = Object.keys(resources).filter((id) => {
+    const r = resources[id];
     const okCat = cat === "all" || r.cat === cat;
     const okQ = !q || (r.name + " " + r.blurb + " " + r.cat).toLowerCase().includes(q.toLowerCase());
     return okCat && okQ;
@@ -62,7 +62,7 @@ export function ResourcesList({ profile, onOpen }) {
           </div>
         )}
         {ids.map((id) => {
-          const r = RESOURCES[id];
+          const r = resources[id];
           return (
             <button key={id} onClick={() => onOpen(id)} style={{ textAlign: "left", background: "#fff", borderRadius: "var(--r-lg)", padding: 16, boxShadow: "var(--shadow-card)", border: "1px solid var(--line-soft)" }}>
               <div style={{ display: "flex", gap: 13 }}>
@@ -84,8 +84,8 @@ export function ResourcesList({ profile, onOpen }) {
   );
 }
 
-export function ResourceDetail({ id, onBack, profile }) {
-  const r = RESOURCES[id];
+export function ResourceDetail({ id, onBack, profile, resources = RESOURCES }) {
+  const r = resources[id];
   const [sent, setSent] = useState(false);
   if (!r) return null;
   const t = TONE[r.catColor] || TONE.sky;

@@ -4,6 +4,7 @@
 //  you can still complete sign-in while testing.
 import { dbConfigured } from "@/lib/db";
 import { validEmail, createLoginToken, siteOrigin } from "@/lib/auth";
+import { logInfo } from "@/lib/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -41,6 +42,7 @@ export async function POST(req) {
       sent = r.ok;
     }
 
+    logInfo("signin_requested", { sent });
     const out = { configured: true, sent };
     // Dev convenience only: no email provider + not production → hand back the link.
     if (!resendKey && process.env.NODE_ENV !== "production") out.devLink = link;

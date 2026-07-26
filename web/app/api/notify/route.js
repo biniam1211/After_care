@@ -10,6 +10,8 @@
 // crisis), then this fires the real send best-effort when configured.
 // Uses Resend's REST API directly — no extra dependency.
 // ───────────────────────────────────────────────────────────
+import { logInfo, logError } from "@/lib/log";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -51,14 +53,17 @@ export async function POST(req) {
     });
     if (!r.ok) {
       const detail = await r.text().catch(() => "");
+      logError("caseworker_email_failed", { detail: detail.slice(0, 300) });
       return Response.json(
         { configured: true, sent: false, error: "send_failed", detail: detail.slice(0, 300) },
         { status: 502 }
       );
     }
     const j = await r.json().catch(() => ({}));
+    logInfo("caseworker_email_sent", {});
     return Response.json({ configured: true, sent: true, id: j.id });
   } catch (e) {
+    logError("caseworker_email_upstream", { detail: String(e?.message || e) });
     return Response.json(
       { configured: true, sent: false, error: "upstream", detail: String(e?.message || e) },
       { status: 502 }

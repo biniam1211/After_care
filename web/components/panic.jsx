@@ -86,6 +86,18 @@ function PanicPlan({ scenario, smsSent, setSmsSent, onBack, onOpenChat, profile 
   const sendText = () => {
     setSmsSent(true); // optimistic — never make a youth in crisis wait
     sendCaseworker({ to: profile && profile.caseworkerEmail, message: p.sms, subject: "Urgent: a young person needs help" });
+    // Schedule the promised 6-hour check-in (server no-ops if not signed in).
+    try {
+      fetch("/api/checkin", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          kind: "panic",
+          hours: 6,
+          message: "Hey — I said I'd check in. Are you okay? If you still need help, tap the red button any time. You matter.",
+        }),
+      }).catch(() => {});
+    } catch (e) { /* ignore */ }
   };
   return (
     <div style={{ animation: "ac-rise .35s ease both" }}>

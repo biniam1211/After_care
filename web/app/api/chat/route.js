@@ -11,6 +11,7 @@
 // ───────────────────────────────────────────────────────────
 import Anthropic from "@anthropic-ai/sdk";
 import { RESOURCES, QUESTS } from "@/components/data";
+import { logInfo, logError } from "@/lib/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -117,6 +118,7 @@ export async function POST(req) {
     });
 
     if (resp.stop_reason === "refusal") {
+      logError("chat_refusal", { model: MODEL });
       return Response.json({ configured: true, error: "refusal" }, { status: 502 });
     }
 
@@ -132,6 +134,7 @@ export async function POST(req) {
       .map((s) => String(s))
       .slice(0, 6);
 
+    logInfo("chat_reply", { model: MODEL, panic: !!data.panic, resources: resources.length });
     return Response.json({
       configured: true,
       reply: {
@@ -145,6 +148,7 @@ export async function POST(req) {
     });
   } catch (e) {
     // Any upstream failure → client falls back to scripted replies.
+    logError("chat_upstream", { detail: String(e?.message || e) });
     return Response.json(
       { configured: true, error: "upstream", detail: String(e?.message || e) },
       { status: 502 }

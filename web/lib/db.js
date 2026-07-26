@@ -62,6 +62,18 @@ export async function ensureSchema() {
       quest_progress jsonb NOT NULL DEFAULT '{}'::jsonb,
       updated_at timestamptz NOT NULL DEFAULT now()
     )`);
+    await q(`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS last_nudge_at timestamptz`);
+    await q(`CREATE TABLE IF NOT EXISTS checkins (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      email text NOT NULL,
+      kind text NOT NULL,
+      message text NOT NULL,
+      due_at timestamptz NOT NULL,
+      sent_at timestamptz,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await q(`CREATE INDEX IF NOT EXISTS checkins_due_idx ON checkins (due_at) WHERE sent_at IS NULL`);
   })().catch((e) => {
     schemaPromise = null; // allow retry on next request
     throw e;

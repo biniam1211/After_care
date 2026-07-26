@@ -60,10 +60,25 @@ Set `DATABASE_URL` (any hosted Postgres — Vercel/Neon/Supabase/Railway) to tur
 - **Server-side state** — onboarding, profile, and quest progress persist per user in
   Postgres (`/api/state`) and sync across devices; localStorage stays the offline mirror.
 
-The schema (`users`, `sessions`, `login_tokens`, `app_state`) is created automatically on
-first use. With **no** `DATABASE_URL`, all of this is inert and the app runs on
-localStorage exactly as the standalone demo — the build and demo never depend on it.
-See `.env.example` for every variable.
+The schema (`users`, `sessions`, `login_tokens`, `app_state`, `checkins`) is created
+automatically on first use. With **no** `DATABASE_URL`, all of this is inert and the app
+runs on localStorage exactly as the standalone demo — the build and demo never depend on
+it. See `.env.example` for every variable.
+
+## Content, logging & reminders
+
+- **Sanity CMS** (`SANITY_PROJECT_ID` + `SANITY_DATASET`) — the resource directory is
+  served from Sanity via `/api/resources` (GROQ, read-only) so non-devs can edit it in
+  Sanity Studio; with no config it falls back to the bundled seed. Document type
+  `resource`: `slug`, `name`, `cat`, `catColor`, `blurb`, `meta`, `phone`, `tag`.
+- **Betterstack logging** (`BETTERSTACK_SOURCE_TOKEN`) — `lib/log.js` ships structured
+  server events (chat replies/errors, caseworker sends, sign-ins, cron runs) to
+  Betterstack, fire-and-forget. Unset → errors go to the console only.
+- **Scheduled reminders** — `/api/cron/reminders` (guarded by `CRON_SECRET`) sends the
+  Panic Button's promised **6-hour check-in** (scheduled via `/api/checkin` when signed
+  in) and gentle **quest nudges** to users who left a quest partway. Triggered hourly by
+  `vercel.json` cron, or by the `.github/workflows/aftercare-web-reminders.yml` GitHub
+  Action. All email goes through Resend.
 
 ## Design system
 
@@ -100,11 +115,11 @@ architecture adds:
 | Database       | ✅ Done — Postgres (users, sessions, profiles, quest progress) via `lib/db.js` |
 | Auth           | ✅ Done — magic-link email sign-in + session cookies (`app/api/auth/*`)        |
 | AI Chat        | ✅ Done — live Claude API via `app/api/chat`; RAG next       |
-| Email          | ✅ Done — Resend (magic links + caseworker messages); reminders next          |
-| Content/CMS    | Sanity (resources directory, quests, copy) — still a static seed              |
-| Logging        | Betterstack                                                 |
-| Scheduled jobs | Vercel Cron **or** GitHub Actions (follow-ups, reminders)   |
+| Email          | ✅ Done — Resend (magic links, caseworker messages, reminders)                |
+| Content/CMS    | ✅ Done — Sanity-backed resource directory via `/api/resources` (seed fallback) |
+| Logging        | ✅ Done — Betterstack via `lib/log.js`                                         |
+| Scheduled jobs | ✅ Done — Vercel Cron + GitHub Actions → `/api/cron/reminders`                 |
 
 Everything above degrades gracefully: with no env vars set, the app runs entirely on
-localStorage + scripted content as a self-contained demo. Remaining: Sanity CMS,
-Betterstack logging, scheduled reminders, and RAG over the resource DB.
+localStorage + scripted content as a self-contained demo. Remaining napkin item: RAG
+over the resource DB for the AI chat.

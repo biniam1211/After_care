@@ -4,7 +4,7 @@
 // ───────────────────────────────────────────────────────────
 import React, { useState, useEffect, useRef } from "react";
 import { Icon, Phone } from "@/components/ui";
-import { QUESTS, CHAT_REPLIES, CHAT_SUGGESTIONS } from "@/components/data";
+import { QUESTS, CHAT_REPLIES, CHAT_SUGGESTIONS, RESOURCES } from "@/components/data";
 import { Onboarding } from "@/components/onboarding";
 import { Home } from "@/components/home";
 import { Chat } from "@/components/chat";
@@ -75,7 +75,16 @@ export default function App() {
   const [pendingPrompt, setPendingPrompt] = useState(null);
   // Optional server account: { configured, authed, email }
   const [account, setAccount] = useState({ configured: false, authed: false, email: "" });
+  const [resources, setResources] = useState(RESOURCES);
   const saveTimer = useRef(null);
+
+  // Load the resource directory (Sanity CMS when configured, else the seed).
+  useEffect(() => {
+    fetch("/api/resources")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (j && j.resources) setResources(j.resources); })
+      .catch(() => {});
+  }, []);
 
   // Rehydrate persisted state on the client after mount, then sync from the
   // server when a signed-in session exists (server state wins).
@@ -144,7 +153,7 @@ export default function App() {
     body = <Chat profile={profile} pendingPrompt={pendingPrompt} clearPending={() => setPendingPrompt(null)}
       onOpenResource={(id) => setOpenResource(id)} onOpenQuest={goQuest} onPanic={() => setPanicOpen(true)} />;
   } else if (tab === "resources") {
-    body = <ResourcesList profile={profile} onOpen={(id) => setOpenResource(id)} />;
+    body = <ResourcesList profile={profile} resources={resources} onOpen={(id) => setOpenResource(id)} />;
   }
 
   const showTabBar = onboarded && !openQuest && !openResource && !settingsOpen;
@@ -165,7 +174,7 @@ export default function App() {
           }} />
       )}
 
-      {openResource && <ResourceDetail id={openResource} profile={profile} onBack={() => setOpenResource(null)} />}
+      {openResource && <ResourceDetail id={openResource} profile={profile} resources={resources} onBack={() => setOpenResource(null)} />}
 
       {settingsOpen && <Settings profile={profile} setProfile={setProfile} onBack={() => setSettingsOpen(false)} onReset={resetAll} account={account} />}
 
