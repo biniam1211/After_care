@@ -31,6 +31,14 @@ export function Wordmark({ color = "var(--ink)", size = 22 }) {
     After<span style={{ color: "var(--sky)" }}>Care</span></span>;
 }
 
+// Format raw digits as (555) 000-0000 while the user types.
+function fmtPhone(d = "") {
+  d = d.replace(/[^\d]/g, "").slice(0, 10);
+  if (d.length <= 3) return d;
+  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+}
+
 // ── Onboarding ──────────────────────────────────────────────
 export function Onboarding({ onDone }) {
   const [step, setStep] = useState(0); // 0 welcome, 1 name, 2 phone, 3 code, 4 zip, 5 age, 6 status, 7 profile, 8 done
@@ -131,7 +139,7 @@ export function Onboarding({ onDone }) {
   if (step === 2) return shell(
     <React.Fragment>
       <Q kicker="Step 2" title="What's your number?" sub="We text you a code to sign in — and nudges if you want them. No spam, ever." />
-      {bigInput({ value: profile.phone, onChange: (e) => set("phone", e.target.value.replace(/[^\d]/g, "").slice(0,10)), placeholder: "(555) 000-0000", inputMode: "numeric", autoFocus: true })}
+      {bigInput({ value: fmtPhone(profile.phone), onChange: (e) => set("phone", e.target.value.replace(/[^\d]/g, "").slice(0,10)), placeholder: "(555) 000-0000", inputMode: "tel", autoFocus: true })}
       <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 16, color: "var(--ink-faint)", fontSize: 13 }}>
         <Icon name="lock" size={15} color="var(--ink-faint)" /> Your number is never sold or shared.
       </div>
