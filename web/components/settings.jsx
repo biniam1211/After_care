@@ -2,12 +2,22 @@
 // ───────────────────────────────────────────────────────────
 // AfterCare — Settings: revisit learning style / feeling
 // ───────────────────────────────────────────────────────────
-import React from "react";
+import React, { useState } from "react";
 import { Icon, Screen, DetailHeader, IconTile } from "@/components/ui";
+import { requestSignInLink } from "@/components/session";
 
-export function Settings({ profile, setProfile, onBack, onReset }) {
+export function Settings({ profile, setProfile, onBack, onReset, account = {} }) {
   const set = (k, v) => setProfile((p) => ({ ...p, [k]: v }));
   const label = { fontFamily: "var(--display)", fontWeight: 700, fontSize: 13.5, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", marginBottom: 10 };
+  const inputStyle = { width: "100%", height: 52, borderRadius: 16, border: "2px solid var(--line)", background: "#fff",
+    padding: "0 16px", fontSize: 16, color: "var(--ink)", outline: "none" };
+  const [signinEmail, setSigninEmail] = useState("");
+  const [signinStatus, setSigninStatus] = useState(null); // {sent, devLink?}
+  const sendLink = async () => {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signinEmail)) return;
+    const r = await requestSignInLink(signinEmail.trim());
+    setSigninStatus(r || { sent: false });
+  };
   const styles = [
     { id: "simple", label: "Short & simple", sub: "Just tell me what to do" },
     { id: "detailed", label: "Walk me through it", sub: "I like knowing the why, step by step" },
@@ -67,14 +77,56 @@ export function Settings({ profile, setProfile, onBack, onReset }) {
 
         {/* Account */}
         <div style={label}>Account</div>
+
+        {account.configured && !account.authed && (
+          <div style={{ marginBottom: 14 }}>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)", lineHeight: 1.5, margin: "0 0 10px" }}>
+              Sign in with your email to save your progress and pick up on any device.
+            </p>
+            {signinStatus ? (
+              <div style={{ background: "var(--mint-soft)", border: "1px solid #CDEEDF", borderRadius: 16, padding: "13px 15px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#0C7A5A", fontWeight: 700, fontSize: 14.5 }}>
+                  <Icon name="check" size={17} color="#0C7A5A" sw={2.6} /> {signinStatus.sent ? "Check your email for the link." : "Link ready."}
+                </div>
+                {signinStatus.devLink && (
+                  <a href={signinStatus.devLink} style={{ display: "inline-block", marginTop: 8, color: "var(--sky)", fontWeight: 700, fontSize: 13.5, wordBreak: "break-all" }}>
+                    Dev sign-in link →
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div style={{ display: "flex", gap: 8 }}>
+                <input type="email" inputMode="email" value={signinEmail} onChange={(e) => setSigninEmail(e.target.value)}
+                  placeholder="you@email.com" style={{ ...inputStyle, flex: 1 }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--sky)")} onBlur={(e) => (e.target.style.borderColor = "var(--line)")} />
+                <button onClick={sendLink} style={{ flexShrink: 0, height: 52, padding: "0 18px", borderRadius: 16, background: "var(--sky)", color: "#fff",
+                  fontFamily: "var(--display)", fontWeight: 700, fontSize: 15, boxShadow: "0 8px 18px rgba(46,155,255,.28)" }}>Send link</button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {account.configured && account.authed && (
+          <div style={{ display: "flex", alignItems: "center", gap: 12, background: "#fff", borderRadius: 16, padding: "13px 16px",
+            border: "1px solid var(--line-soft)", boxShadow: "var(--shadow-card)", marginBottom: 12 }}>
+            <IconTile name="user" tone="mint" size={36} r={11} iconSize={18} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12.5, color: "var(--ink-faint)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.3 }}>Signed in · syncing</div>
+              <div style={{ fontSize: 15, color: "var(--ink)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{account.email}</div>
+            </div>
+          </div>
+        )}
+
         <button onClick={() => { if (onReset) onReset(); }} style={{ width: "100%", height: 52, borderRadius: 16, background: "#fff",
           border: "1px solid var(--line-soft)", boxShadow: "var(--shadow-card)", display: "flex", alignItems: "center", gap: 12, padding: "0 16px", textAlign: "left" }}>
-          <IconTile name="user" tone="harbor" size={36} r={11} iconSize={18} />
-          <span style={{ flex: 1, fontFamily: "var(--display)", fontWeight: 700, fontSize: 15.5, color: "var(--ink)" }}>Sign out &amp; start over</span>
+          <IconTile name="shield" tone="harbor" size={36} r={11} iconSize={18} />
+          <span style={{ flex: 1, fontFamily: "var(--display)", fontWeight: 700, fontSize: 15.5, color: "var(--ink)" }}>
+            {account.authed ? "Sign out" : "Start over on this device"}
+          </span>
           <Icon name="chevR" size={18} color="var(--ink-faint)" sw={2.2} />
         </button>
         <p style={{ fontSize: 12.5, color: "var(--ink-faint)", lineHeight: 1.5, margin: "12px 0 0" }}>
-          Everything you tell AfterCare is private. Signing out clears this device.
+          Everything you tell AfterCare is private. {account.authed ? "Signing out ends syncing on this device." : "This clears your info from this device."}
         </p>
       </Screen>
     </div>

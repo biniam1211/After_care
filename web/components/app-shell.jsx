@@ -2,7 +2,7 @@
 // ───────────────────────────────────────────────────────────
 // AfterCare — App root: navigation, tab bar, panic FAB
 // ───────────────────────────────────────────────────────────
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Icon, Phone } from "@/components/ui";
 import { QUESTS, CHAT_REPLIES, CHAT_SUGGESTIONS } from "@/components/data";
 import { Onboarding } from "@/components/onboarding";
@@ -12,6 +12,7 @@ import { QuestsList, QuestDetail } from "@/components/quests";
 import { ResourcesList, ResourceDetail } from "@/components/resources";
 import { Panic } from "@/components/panic";
 import { Settings } from "@/components/settings";
+import { fetchServerState, saveServerState, signOutServer } from "@/components/session";
 
 const TABS = [
   { id: "home", label: "Home", icon: "home" },
@@ -72,8 +73,12 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [panicOpen, setPanicOpen] = useState(false);
   const [pendingPrompt, setPendingPrompt] = useState(null);
+  // Optional server account: { configured, authed, email }
+  const [account, setAccount] = useState({ configured: false, authed: false, email: "" });
+  const saveTimer = useRef(null);
 
-  // Rehydrate persisted state on the client after mount.
+  // Rehydrate persisted state on the client after mount, then sync from the
+  // server when a signed-in session exists (server state wins).
   useEffect(() => {
     const saved = loadState();
     if (saved) {
@@ -82,18 +87,33 @@ export default function App() {
       if (saved.questProgress) setQuestProgress(saved.questProgress);
     }
     setHydrated(true);
+    fetchServerState().then((r) => {
+      if (!r) { setAccount({ configured: false, authed: false, email: "" }); return; }
+      setAccount({ configured: true, authed: !!r.authenticated, email: r.email || "" });
+      if (r.authenticated && r.state) {
+        setOnboarded(!!r.state.onboarded);
+        if (r.state.profile) setProfile((p) => ({ ...p, ...r.state.profile }));
+        if (r.state.questProgress) setQuestProgress(r.state.questProgress);
+      }
+    });
   }, []);
 
-  // persist
+  // Persist to localStorage always; debounce-save to the server when signed in.
   useEffect(() => {
     if (!hydrated) return;
     try { localStorage.setItem(STORE_KEY, JSON.stringify({ onboarded, profile, questProgress })); } catch (e) {}
-  }, [hydrated, onboarded, profile, questProgress]);
+    if (account.authed) {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(() => saveServerState({ onboarded, profile, questProgress }), 700);
+    }
+  }, [hydrated, onboarded, profile, questProgress, account.authed]);
 
   const finishOnboard = (p) => { setProfile(p); setOnboarded(true); setTab("home"); };
 
   const resetAll = () => {
+    if (account.authed) signOutServer();
     try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    setAccount((a) => ({ ...a, authed: false, email: "" }));
     setOnboarded(false);
     setProfile({ name: "", zip: "", age: "", status: "", learningStyle: "", feeling: "", caseworkerEmail: "" });
     setQuestProgress({});
@@ -147,7 +167,7 @@ export default function App() {
 
       {openResource && <ResourceDetail id={openResource} profile={profile} onBack={() => setOpenResource(null)} />}
 
-      {settingsOpen && <Settings profile={profile} setProfile={setProfile} onBack={() => setSettingsOpen(false)} onReset={resetAll} />}
+      {settingsOpen && <Settings profile={profile} setProfile={setProfile} onBack={() => setSettingsOpen(false)} onReset={resetAll} account={account} />}
 
       {panicOpen && <Panic profile={profile} onClose={() => setPanicOpen(false)} onOpenChat={() => { setPanicOpen(false); askPrompt("kicked", "I need help right now."); }} />}
 
