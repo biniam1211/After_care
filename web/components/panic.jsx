@@ -5,8 +5,9 @@
 import React, { useState } from "react";
 import { Icon } from "@/components/ui";
 import { RESOURCES, PANIC_SCENARIOS } from "@/components/data";
+import { sendCaseworker } from "@/components/notify";
 
-export function Panic({ onClose, onOpenChat }) {
+export function Panic({ onClose, onOpenChat, profile }) {
   const [scenario, setScenario] = useState(null);
   const [smsSent, setSmsSent] = useState(false);
 
@@ -54,7 +55,7 @@ export function Panic({ onClose, onOpenChat }) {
             </div>
           </div>
         ) : (
-          <PanicPlan scenario={scenario} smsSent={smsSent} setSmsSent={setSmsSent} onBack={() => setScenario(null)} onOpenChat={onOpenChat} />
+          <PanicPlan scenario={scenario} smsSent={smsSent} setSmsSent={setSmsSent} onBack={() => setScenario(null)} onOpenChat={onOpenChat} profile={profile} />
         )}
       </div>
     </div>
@@ -80,8 +81,12 @@ function PanicCall({ id, primary }) {
   );
 }
 
-function PanicPlan({ scenario, smsSent, setSmsSent, onBack, onOpenChat }) {
+function PanicPlan({ scenario, smsSent, setSmsSent, onBack, onOpenChat, profile }) {
   const p = scenario.plan;
+  const sendText = () => {
+    setSmsSent(true); // optimistic — never make a youth in crisis wait
+    sendCaseworker({ to: profile && profile.caseworkerEmail, message: p.sms, subject: "Urgent: a young person needs help" });
+  };
   return (
     <div style={{ animation: "ac-rise .35s ease both" }}>
       <button onClick={onBack} style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(219,241,255,.8)", fontWeight: 700, fontSize: 14.5, marginBottom: 14 }}>
@@ -101,7 +106,7 @@ function PanicPlan({ scenario, smsSent, setSmsSent, onBack, onOpenChat }) {
       <div style={{ background: "#fff", borderRadius: 18, padding: 16, boxShadow: "0 8px 24px rgba(0,0,0,.18)" }}>
         <div style={{ fontSize: 12.5, color: "var(--ink-faint)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.3, marginBottom: 8 }}>Draft to your caseworker</div>
         <div style={{ background: "var(--foam)", borderRadius: 12, padding: "12px 14px", fontSize: 14.5, lineHeight: 1.5, color: "var(--ink)", fontStyle: "italic" }}>"{p.sms}"</div>
-        <button onClick={() => setSmsSent(true)} disabled={smsSent} style={{ width: "100%", marginTop: 12, height: 48, borderRadius: 99,
+        <button onClick={sendText} disabled={smsSent} style={{ width: "100%", marginTop: 12, height: 48, borderRadius: 99,
           background: smsSent ? "var(--mint-soft)" : "var(--harbor)", color: smsSent ? "#0C7A5A" : "#fff", fontFamily: "var(--display)", fontWeight: 700, fontSize: 15.5,
           display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
           {smsSent ? <React.Fragment><Icon name="check" size={18} color="#0C7A5A" sw={2.6} /> Sent — they'll get this now</React.Fragment> : <React.Fragment><Icon name="send" size={18} color="#fff" sw={2.2} /> Send this text</React.Fragment>}

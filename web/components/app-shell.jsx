@@ -64,7 +64,7 @@ export default function App() {
   // Start from a deterministic default so server + first client render match (avoids hydration mismatch).
   const [hydrated, setHydrated] = useState(false);
   const [onboarded, setOnboarded] = useState(false);
-  const [profile, setProfile] = useState({ name: "", zip: "", age: "", status: "", learningStyle: "", feeling: "" });
+  const [profile, setProfile] = useState({ name: "", zip: "", age: "", status: "", learningStyle: "", feeling: "", caseworkerEmail: "" });
   const [tab, setTab] = useState("home");
   const [questProgress, setQuestProgress] = useState({});
   const [openQuest, setOpenQuest] = useState(null);
@@ -91,6 +91,15 @@ export default function App() {
   }, [hydrated, onboarded, profile, questProgress]);
 
   const finishOnboard = (p) => { setProfile(p); setOnboarded(true); setTab("home"); };
+
+  const resetAll = () => {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    setOnboarded(false);
+    setProfile({ name: "", zip: "", age: "", status: "", learningStyle: "", feeling: "", caseworkerEmail: "" });
+    setQuestProgress({});
+    setOpenQuest(null); setOpenResource(null); setSettingsOpen(false); setPanicOpen(false);
+    setTab("home");
+  };
 
   const askPrompt = (key, text) => {
     const reply = CHAT_REPLIES[key];
@@ -136,11 +145,11 @@ export default function App() {
           }} />
       )}
 
-      {openResource && <ResourceDetail id={openResource} onBack={() => setOpenResource(null)} />}
+      {openResource && <ResourceDetail id={openResource} profile={profile} onBack={() => setOpenResource(null)} />}
 
-      {settingsOpen && <Settings profile={profile} setProfile={setProfile} onBack={() => setSettingsOpen(false)} />}
+      {settingsOpen && <Settings profile={profile} setProfile={setProfile} onBack={() => setSettingsOpen(false)} onReset={resetAll} />}
 
-      {panicOpen && <Panic onClose={() => setPanicOpen(false)} onOpenChat={() => { setPanicOpen(false); askPrompt("kicked", "I need help right now."); }} />}
+      {panicOpen && <Panic profile={profile} onClose={() => setPanicOpen(false)} onOpenChat={() => { setPanicOpen(false); askPrompt("kicked", "I need help right now."); }} />}
 
       {showTabBar && <TabBar active={tab} onTab={(t) => { setOpenResource(null); setTab(t); }} onPanic={() => setPanicOpen(true)} />}
     </Phone>

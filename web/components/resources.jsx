@@ -5,6 +5,7 @@
 import React, { useState } from "react";
 import { Icon, Screen, TONE, Button, Card, Badge, IconTile } from "@/components/ui";
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
+import { sendCaseworker } from "@/components/notify";
 
 function catIconFor(r) {
   return r.cat === "Crisis" ? "shield" : r.cat === "Housing" ? "home" : r.cat === "Health" ? "health"
@@ -83,11 +84,19 @@ export function ResourcesList({ profile, onOpen }) {
   );
 }
 
-export function ResourceDetail({ id, onBack }) {
+export function ResourceDetail({ id, onBack, profile }) {
   const r = RESOURCES[id];
   const [sent, setSent] = useState(false);
   if (!r) return null;
   const t = TONE[r.catColor] || TONE.sky;
+  const textCaseworker = () => {
+    setSent(true); // optimistic
+    sendCaseworker({
+      to: profile && profile.caseworkerEmail,
+      subject: `AfterCare: ${r.name}`,
+      message: `A young person you support is looking into ${r.name} (${r.cat}). ${r.blurb}${r.phone ? ` Phone: ${r.phone}.` : ""} ${r.meta}.`,
+    });
+  };
   return (
     <div style={{ position: "absolute", inset: 0, background: "var(--foam)", display: "flex", flexDirection: "column" }}>
       {/* tinted hero */}
@@ -123,7 +132,7 @@ export function ResourceDetail({ id, onBack }) {
               <p style={{ fontSize: 13.5, color: "var(--ink-soft)", margin: "4px 0 0", lineHeight: 1.45 }}>I can text this to your caseworker so you don't have to explain it.</p>
             </div>
           </div>
-          <button onClick={() => setSent(true)} disabled={sent} style={{ width: "100%", marginTop: 14, height: 46, borderRadius: 99,
+          <button onClick={textCaseworker} disabled={sent} style={{ width: "100%", marginTop: 14, height: 46, borderRadius: 99,
             background: sent ? "var(--mint-soft)" : "var(--harbor)", color: sent ? "#0C7A5A" : "#fff", fontFamily: "var(--display)", fontWeight: 700, fontSize: 15,
             display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
             {sent ? <React.Fragment><Icon name="check" size={18} color="#0C7A5A" sw={2.6} /> Sent to your caseworker</React.Fragment> : "Text this to my caseworker"}
