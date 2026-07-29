@@ -1,0 +1,23 @@
+{
+  "name": "aftercare-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AfterCare — the AI life navigator for foster youth. Next.js web app.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
+    "next": "^16.2.11",
+    "pg": "^8.22.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "eslint": "9.18.0",
+    "eslint-config-next": "^16.2.11"
+  }
+}

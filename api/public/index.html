@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no" />
+    <title>AfterCare</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="shortcut icon" href="/app/favicon.ico" />
+    <meta name="description" content="The missing parent in your pocket. Built by a foster kid, for foster kids." />
+    <meta name="theme-color" content="#0F172A" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AfterCare" />
+    <link rel="manifest" href="/app/manifest.json" />
+    <link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png" />
+    <style>
+      html, body { background: #0F172A; }
+      body {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overscroll-behavior-y: none;
+      }
+      @media (min-width: 560px) {
+        body { background: #020617; }
+        #root {
+          max-width: 430px;
+          margin: 0 auto;
+          border-left: 1px solid #1E293B;
+          border-right: 1px solid #1E293B;
+          box-shadow: 0 0 80px rgba(0, 0, 0, 0.55);
+        }
+      }
+      #boot-splash {
+        position: fixed; inset: 0; z-index: 9999;
+        background: #0F172A;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #boot-splash .brand { color: #F8FAFC; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+      #boot-splash .tag { color: #94A3B8; font-size: 14px; }
+      #boot-splash .buoy {
+        width: 56px; height: 56px; border-radius: 50%;
+        border: 8px solid #38BDF8;
+        border-top-color: #1E293B;
+        animation: buoy-spin 0.9s linear infinite;
+      }
+      @keyframes buoy-spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="/app/_expo/static/js/web/entry-08fa3558c5b8acc7567f824d73c485cb.js" defer></script>
+
+    <div id="boot-splash">
+      <div class="buoy" aria-hidden="true"></div>
+      <div class="brand">AfterCare</div>
+      <div class="tag">loading…</div>
+    </div>
+</body>
+</html>

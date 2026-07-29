@@ -94,12 +94,15 @@ cd app
 npx expo start            # scan QR with Expo Go
 ```
 
-Full flow: onboard (OTP → ZIP→state → consent) → chat with resource cards →
-complete a quest with AI check-in → Panic plan + caseworker SMS → browse
+Full flow: onboard (email magic-link → ZIP→state → consent) → chat with resource
+cards → complete a quest with AI check-in → Panic plan + caseworker SMS → browse
 resources → upload a doc.
 
-> Phone OTP requires SMS configured in Supabase → Auth → Providers → Phone
-> (Twilio/MessageBird). Until then, test auth with the email magic-link provider.
+> Auth is **email magic-link** (PKCE). In Supabase → Auth → Providers, enable
+> **Email**; under Auth → URL Configuration add the app deep link
+> `aftercare://onboarding` (and the Expo dev URL) to **Redirect URLs** so the
+> link reopens the app and the session is exchanged. Twilio is only for panic
+> SMS + reminders, not sign-in.
 
 ---
 

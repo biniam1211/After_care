@@ -77,7 +77,7 @@ function QuestDetail({ quest, onClose }: { quest: Quest; onClose: () => void }) 
 
   // Deep-link the step's AI check-in into Chat so AfterCare follows up.
   const askAboutStep = () =>
-    router.push({ pathname: '/(tabs)', params: { prefill: `Quest: ${quest.title} — Step ${stepData.step} (${stepData.title}). ${stepData.ai_check}` } });
+    router.push({ pathname: '/(tabs)/chat', params: { prefill: `Quest: ${quest.title} — Step ${stepData.step} (${stepData.title}). ${stepData.ai_check}` } });
 
   return (
     <View style={[styles.card, styles.detail]}>

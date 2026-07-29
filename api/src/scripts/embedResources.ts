@@ -57,8 +57,24 @@ async function main() {
   console.log(`Embedding ${rows.length} resources from ${csvPath}…`);
 
   let ok = 0;
+  let embedded = 0;
+  // Once embeddings fail (e.g. provider quota/billing), stop hammering the API
+  // and load the remaining rows with a null vector. The resource still imports;
+  // RAG falls back to the location-filtered query until embeddings are backfilled
+  // (re-run this script after fixing the provider key to fill them in).
+  let embeddingsDown = false;
   for (const row of rows) {
-    const embedding = await embed(`${row.name}. ${row.description ?? ''}`.trim());
+    let embedding: number[] | null = null;
+    if (!embeddingsDown) {
+      try {
+        embedding = await embed(`${row.name}. ${row.description ?? ''}`.trim());
+        embedded++;
+      } catch (err) {
+        embeddingsDown = true;
+        console.warn(`⚠  Embeddings unavailable (${(err as Error).message.slice(0, 120)}…)`);
+        console.warn('   Loading remaining resources with null vectors; re-run after fixing the key.');
+      }
+    }
     const { error } = await supabaseAdmin.from('resources').upsert(
       {
         name: row.name,
@@ -79,7 +95,11 @@ async function main() {
     if (error) console.error(`✗ ${row.name}: ${error.message}`);
     else ok++;
   }
-  console.log(`✓ upserted ${ok}/${rows.length} resources`);
+  console.log(`✓ upserted ${ok}/${rows.length} resources (${embedded} with embeddings, ${ok - embedded} without)`);
+  if (embedded < ok) {
+    console.log('ℹ  Some resources have no embedding — semantic RAG is degraded to the');
+    console.log('   location/keyword fallback for those until you re-run with a working key.');
+  }
 }
 
 // Only run when invoked directly (not when imported by tests).

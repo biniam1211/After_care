@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { notify } from '../../lib/notify';
 import { api, type PanicPlan, type PanicScenario } from '../../lib/api';
 import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
@@ -25,14 +26,14 @@ export default function PanicScreen() {
     setSmsBusy(true);
     try {
       const res = await api.panicSms(scenario);
-      Alert.alert(
+      notify(
         res.sent ? 'Sent' : 'Couldn’t send',
         res.sent
           ? `We texted ${res.to}.`
           : 'No contact set, or texting is unavailable. Add an emergency contact in your Profile.',
       );
     } catch (e) {
-      Alert.alert('Couldn’t send', e instanceof Error ? e.message : 'Add an emergency contact in your Profile.');
+      notify('Couldn’t send', e instanceof Error ? e.message : 'Add an emergency contact in your Profile.');
     } finally {
       setSmsBusy(false);
     }

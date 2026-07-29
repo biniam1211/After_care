@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { notify } from '../../lib/notify';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Linking from 'expo-linking';
 import { supabase } from '../../lib/supabase';
-import { api } from '../../lib/api';
+import { api, API_URL } from '../../lib/api';
 import { track } from '../../lib/analytics';
 import { colors, radius, spacing } from '../../lib/theme';
 
-type Step = 'phone' | 'otp' | 'profile';
+type Step = 'email' | 'sent' | 'profile';
 type FosterStatus = 'in_care' | 'aged_out' | 'extended_care';
 
 const STATUS_OPTIONS: { value: FosterStatus; label: string }[] = [
@@ -15,34 +17,60 @@ const STATUS_OPTIONS: { value: FosterStatus; label: string }[] = [
   { value: 'aged_out', label: 'Aged out' },
 ];
 
+
 /**
- * Onboarding flow: phone OTP (Supabase) → ZIP → age → foster status.
- * Kept to a single screen with steps so the first run feels fast.
+ * Onboarding flow: email magic-link (Supabase, PKCE) → ZIP → age → foster status.
+ * Kept to a single screen with steps so the first run feels fast. After the user
+ * taps the link in their email, the app reopens via the `aftercare://` deep link
+ * and the root layout exchanges the code for a session, which routes them in.
  */
 export default function Onboarding() {
-  const [step, setStep] = useState<Step>('phone');
-  const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState('');
+  const [step, setStep] = useState<Step>('email');
+  const [email, setEmail] = useState('');
   const [zip, setZip] = useState('');
   const [age, setAge] = useState('');
   const [status, setStatus] = useState<FosterStatus | null>(null);
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  async function sendOtp() {
+  async function sendMagicLink() {
     setBusy(true);
-    const { error } = await supabase.auth.signInWithOtp({ phone });
+    // Reopens the app at /onboarding so the user lands on the profile step once
+    // the root layout establishes the session from the link's code.
+    const emailRedirectTo = Linking.createURL('/onboarding');
+    // Dev aid: copy this exact URL into Supabase → Auth → URL Configuration →
+    // Redirect URLs so the magic link can reopen the app (Expo Go uses an exp:// URL).
+    if (__DEV__) console.log('[auth] magic-link redirect URL (allowlist this in Supabase):', emailRedirectTo);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email.trim(),
+      options: { emailRedirectTo },
+    });
     setBusy(false);
-    if (error) return Alert.alert('Hmm', error.message);
-    setStep('otp');
+    if (error) return notify('Hmm', error.message);
+    setStep('sent');
   }
 
-  async function verifyOtp() {
+  async function demoLogin() {
     setBusy(true);
-    const { error } = await supabase.auth.verifyOtp({ phone, token: otp, type: 'sms' });
-    setBusy(false);
-    if (error) return Alert.alert('That code didn’t work', error.message);
-    setStep('profile');
+    try {
+      // The API mints a throwaway guest account (CA profile pre-seeded) and
+      // returns its session — no Supabase dashboard config needed. See
+      // api/src/routes/demo.ts.
+      const res = await fetch(`${API_URL}/demo/session`, { method: 'POST' });
+      const body = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(body?.error ?? `Demo endpoint returned ${res.status}`);
+      const { error } = await supabase.auth.setSession({
+        access_token: body.access_token,
+        refresh_token: body.refresh_token,
+      });
+      if (error) throw error;
+      track('demo_login');
+      // Session is set → the root layout's auth guard routes into the app.
+    } catch (e) {
+      notify('Demo unavailable', e instanceof Error ? e.message : 'Try again in a moment.');
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function saveProfile() {
@@ -56,7 +84,7 @@ export default function Onboarding() {
       track('onboard_complete', { has_status: !!status });
       // The root layout's auth guard will route into the app.
     } catch (e) {
-      Alert.alert('Could not save', e instanceof Error ? e.message : 'Try again');
+      notify('Could not save', e instanceof Error ? e.message : 'Try again');
     } finally {
       setBusy(false);
     }
@@ -68,18 +96,20 @@ export default function Onboarding() {
         <Text style={styles.brand}>AfterCare</Text>
         <Text style={styles.tagline}>The missing parent in your pocket. Built by a foster kid, for foster kids.</Text>
 
-        {step === 'phone' && (
+        {step === 'email' && (
           <View style={styles.block}>
-            <Text style={styles.label}>What’s your number?</Text>
-            <Text style={styles.hint}>We text you a code. No spam, ever.</Text>
+            <Text style={styles.label}>What’s your email?</Text>
+            <Text style={styles.hint}>We send you a sign-in link. No password, no spam.</Text>
             <TextInput
               style={styles.input}
-              placeholder="+1 555 123 4567"
+              placeholder="you@email.com"
               placeholderTextColor={colors.textMuted}
-              keyboardType="phone-pad"
-              autoComplete="tel"
-              value={phone}
-              onChangeText={setPhone}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoComplete="email"
+              value={email}
+              onChangeText={setEmail}
             />
 
             <Pressable style={styles.consentRow} onPress={() => setConsent((c) => !c)}>
@@ -93,23 +123,33 @@ export default function Onboarding() {
               </Text>
             </Pressable>
 
-            <PrimaryButton label="Send code" onPress={sendOtp} disabled={busy || phone.length < 10 || !consent} />
+            <PrimaryButton
+              label="Send link"
+              onPress={sendMagicLink}
+              disabled={busy || !email.includes('@') || !consent}
+            />
+
+            <View style={styles.orRow}>
+              <View style={styles.orLine} />
+              <Text style={styles.orText}>or</Text>
+              <View style={styles.orLine} />
+            </View>
+
+            <Pressable onPress={demoLogin} disabled={busy} style={[styles.demoButton, busy && styles.buttonDisabled]}>
+              <Text style={styles.demoButtonText}>Try the demo — no email needed</Text>
+            </Pressable>
+            <Text style={styles.demoHint}>Jump straight in with a sample account to look around.</Text>
           </View>
         )}
 
-        {step === 'otp' && (
+        {step === 'sent' && (
           <View style={styles.block}>
-            <Text style={styles.label}>Enter the code</Text>
-            <Text style={styles.hint}>Sent to {phone}.</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="6-digit code"
-              placeholderTextColor={colors.textMuted}
-              keyboardType="number-pad"
-              value={otp}
-              onChangeText={setOtp}
-            />
-            <PrimaryButton label="Verify" onPress={verifyOtp} disabled={busy || otp.length < 4} />
+            <Text style={styles.label}>Check your email</Text>
+            <Text style={styles.hint}>
+              We sent a sign-in link to {email.trim()}. Tap it on this phone and you’ll come
+              right back here, signed in.
+            </Text>
+            <PrimaryButton label="Use a different email" onPress={() => setStep('email')} disabled={busy} />
           </View>
         )}
 
@@ -196,6 +236,19 @@ const styles = StyleSheet.create({
   checkboxOn: { backgroundColor: colors.accent, borderColor: colors.accent },
   checkboxMark: { color: colors.accentText, fontWeight: '800' },
   consentText: { color: colors.textMuted, fontSize: 13, lineHeight: 19, flex: 1 },
+  orRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginTop: spacing.lg },
+  orLine: { flex: 1, height: 1, backgroundColor: colors.border },
+  orText: { color: colors.textMuted, fontSize: 13 },
+  demoButton: {
+    marginTop: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.accent,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  demoButtonText: { color: colors.accent, fontSize: 16, fontWeight: '700' },
+  demoHint: { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginTop: spacing.xs },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   chip: {
     paddingVertical: spacing.sm,

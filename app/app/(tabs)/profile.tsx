@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { notify } from '../../lib/notify';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { supabase } from '../../lib/supabase';
@@ -38,9 +39,9 @@ export default function ProfileScreen() {
     try {
       await api.saveProfile({ emergency_contact_name: contactName, emergency_contact_phone: contactPhone });
       qc.invalidateQueries({ queryKey: ['me'] });
-      Alert.alert('Saved', 'Your emergency contact is set. The Panic button can text them in one tap.');
+      notify('Saved', 'Your emergency contact is set. The Panic button can text them in one tap.');
     } catch (e) {
-      Alert.alert('Could not save', e instanceof Error ? e.message : 'Try again');
+      notify('Could not save', e instanceof Error ? e.message : 'Try again');
     } finally {
       setSaving(false);
     }

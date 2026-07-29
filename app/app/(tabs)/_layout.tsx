@@ -1,6 +1,9 @@
 import { Tabs, useRouter } from 'expo-router';
 import { Pressable, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, spacing } from '../../lib/theme';
+
+type IoniconName = keyof typeof Ionicons.glyphMap;
 
 /** Bottom tabs: Chat | Quests | Panic | Profile. Panic is visually distinct. */
 export default function TabsLayout() {
@@ -9,17 +12,28 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerStyle: { backgroundColor: colors.bg },
+        headerShadowVisible: false,
         headerTintColor: colors.text,
+        headerTitleStyle: { fontWeight: '700' },
         tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border },
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,
+        tabBarLabelStyle: { fontWeight: '600' },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
+          title: 'Home',
+          headerShown: false,
+          tabBarIcon: (p) => <TabIcon {...p} on="home" off="home-outline" />,
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
           title: 'Chat',
-          tabBarIcon: ({ color }) => <TabIcon glyph="💬" color={color} />,
+          tabBarIcon: (p) => <TabIcon {...p} on="chatbubble-ellipses" off="chatbubble-ellipses-outline" />,
           headerRight: () => (
             <Pressable onPress={() => router.push('/resources')} style={{ paddingHorizontal: spacing.md }}>
               <Text style={{ color: colors.accent, fontWeight: '700' }}>Find help</Text>
@@ -29,24 +43,32 @@ export default function TabsLayout() {
       />
       <Tabs.Screen
         name="quests"
-        options={{ title: 'Quests', tabBarIcon: ({ color }) => <TabIcon glyph="🎯" color={color} /> }}
+        options={{
+          title: 'Quests',
+          tabBarIcon: (p) => <TabIcon {...p} on="trophy" off="trophy-outline" />,
+        }}
       />
       <Tabs.Screen
         name="panic"
         options={{
           title: 'Panic',
           tabBarActiveTintColor: colors.panic,
-          tabBarIcon: () => <TabIcon glyph="🆘" color={colors.panic} />,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons name={focused ? 'alert-circle' : 'alert-circle-outline'} size={24} color={colors.panic} />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
-        options={{ title: 'Profile', tabBarIcon: ({ color }) => <TabIcon glyph="👤" color={color} /> }}
+        options={{
+          title: 'Profile',
+          tabBarIcon: (p) => <TabIcon {...p} on="person-circle" off="person-circle-outline" />,
+        }}
       />
     </Tabs>
   );
 }
 
-function TabIcon({ glyph, color }: { glyph: string; color: string }) {
-  return <Text style={{ fontSize: 20, color }}>{glyph}</Text>;
+function TabIcon({ focused, color, on, off }: { focused: boolean; color: string; on: IoniconName; off: IoniconName }) {
+  return <Ionicons name={focused ? on : off} size={24} color={color} />;
 }

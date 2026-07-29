@@ -17,12 +17,18 @@
     "android": {
       "package": "ai.aftercare.app"
     },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./public/icons/icon-192.png"
+    },
     "plugins": ["expo-router", "expo-notifications"],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/app"
     },
     "extra": {
-      "apiUrl": "http://localhost:4000"
+      "apiUrl": "https://aftercare-production-60f0.up.railway.app"
     }
   }
 }
