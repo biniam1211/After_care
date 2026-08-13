@@ -39,12 +39,8 @@ After_care/
 │   ├── components/   # every screen: onboarding, home, chat, quests,
 │   │                 #   resources, panic, settings + the ui.jsx primitives
 │   └── lib/          # db (Postgres), auth (magic link), log (Betterstack)
-├── app/              # React Native (Expo) mobile app — iOS + Android
-│   ├── app/          # expo-router file-based routes
-│   │   ├── onboarding/   # phone → ZIP → age → status
-│   │   └── (tabs)/       # Chat | Quests | Panic | Profile
-│   ├── components/   # shared UI
-│   └── lib/          # API client, supabase, theme
+├── app/              # Expo native shell — wraps web/ in a WebView (iOS + Android)
+│   └── App.tsx       # the whole app: WebView + native dialer + offline screen
 ├── api/              # Node.js + Express backend
 │   └── src/
 │       ├── routes/   # auth, chat, conversations, quests, resources, panic,
@@ -79,19 +75,26 @@ Next.js (web/)  ──▶  /api/chat       ──▶  Claude API (structured 3-p
 Every integration **degrades gracefully**: with no env vars set, the app runs
 entirely on `localStorage` with scripted replies and still works end to end.
 
-**Mobile (build-ready):** the Expo app in `app/` talks to the standalone
-Node/Express API in `api/`.
+**Mobile (build-ready, not published):** `app/` is a thin Expo shell around the
+same live web app, so there is one product and one codebase — not two versions
+drifting apart.
 
 ```
-React Native (Expo)  ──HTTPS──▶  Node/Express API  ──▶  Supabase (Postgres + Auth + RLS)
-                                       │             ──▶  Claude API (chat + reasoning)
-                                       │             ──▶  pgvector (RAG)
-                                       └─────────────▶  Twilio (crisis SMS)
+Expo shell (app/)  ──WebView──▶  /app on the live site
+                   ──native──▶  tel: / sms: / mailto: → the real dialer
+                   ──native──▶  offline screen with 988 / Covenant House / 911
 ```
 
-**Why RAG matters:** A vanilla LLM will tell a kid in California to call a New
-York hotline. RAG over a curated, ZIP-filtered resource DB = trust. The AI can
-**never** return a resource that isn't in the verified DB.
+See [`app/README.md`](./app/README.md) for how to produce an installable build.
+
+**Why the resource list is locked:** A vanilla LLM will tell a kid in
+California to call a New York hotline. The chat endpoint constrains the model's
+`resources` field to an enum of known ids and re-validates every id server-side,
+so the AI **cannot** return a resource that isn't in the verified catalog.
+
+**`api/` is dormant.** The standalone Node/Express + Supabase backend is still
+in the tree and still has the RAG, quest and document-vault work in it, but the
+Railway service behind it is gone and nothing currently depends on it.
 
 ---
 
@@ -112,56 +115,40 @@ every variable.
 
 ---
 
-## Mobile app (Expo)
-
-### Prerequisites
-- Node 20+
-- A [Supabase](https://supabase.com) project (URL + keys)
-- An [Anthropic](https://console.anthropic.com) API key
-- (Optional for full RAG) Pinecone or pgvector, Twilio, Voyage AI embeddings
-
-### 1. Backend API
+## Mobile app (Expo shell)
 
 ```bash
-cd api
-cp .env.example .env      # fill in your keys
+cd app
 npm install
-npm run dev               # starts on http://localhost:4000
-curl http://localhost:4000/health
+npx expo start             # scan the QR code with Expo Go
 ```
 
-### 2. Database
+It loads the live web app, so there is nothing else to stand up. Point it at a
+different deploy by editing `expo.extra.appUrl` in `app/app.json`.
 
-Apply all migrations in `supabase/migrations/` (0001 → 0005) via the Supabase
-SQL editor or CLI:
+Producing an installable `.apk` (and what still stands between here and the app
+stores) is documented in [`app/README.md`](./app/README.md).
 
-```bash
-supabase link --project-ref <ref>
-supabase db push
-```
+---
 
-Then seed quests and the resource RAG index (needs the service-role key, and an
-embeddings key for real vectors):
+## The dormant backend (`api/` + `supabase/`)
+
+Nothing currently runs this — the web app carries its own API routes and the
+Railway service is gone. It is kept because the RAG pipeline, quest seeds,
+document vault and curated CA resource set are real work worth keeping. To
+bring it back you would need a Supabase project, migrations `0001` → `0005`
+applied, an Anthropic key, an embeddings key, and a host:
 
 ```bash
 cd api
-npm run seed:quests        # loads the bank-account quest
-npm run embed:resources    # embeds + upserts the curated CA resources
+cp .env.example .env       # fill in your keys
+npm install && npm run dev # http://localhost:4000
+npm run seed:quests
+npm run embed:resources
 ```
 
 See `supabase/seed/README.md` for the **resource verification gate** (no dead
 numbers before launch).
-
-### 3. Mobile app
-
-```bash
-cd app
-cp .env.example .env       # point EXPO_PUBLIC_API_URL at your API
-npm install
-npx expo start
-```
-
-Scan the QR code with Expo Go, or run on a simulator.
 
 ---
 
@@ -172,9 +159,13 @@ Scan the QR code with Expo Go, or run on a simulator.
 deploys. Set `ANTHROPIC_API_KEY` in the project's environment variables to turn
 on live Claude chat; everything else is optional.
 
-**API → Railway (Docker):** `api/Dockerfile` + `api/railway.json` are ready.
-Create a Railway service from the repo (root `api/`), set the env vars from
-`api/.env.example`, and it deploys with a `/health` check.
+**App → EAS.** `app/eas.json` has `preview` (Android `.apk`, sideloadable) and
+`production` (`.aab` for Play). Not published to any store yet — see
+[`app/README.md`](./app/README.md).
+
+**API → Railway (Docker), if ever revived:** `api/Dockerfile` + `api/railway.json`
+are ready. Create a Railway service from the repo (root `api/`), set the env vars
+from `api/.env.example`, and it deploys with a `/health` check.
 
 **Scheduled jobs:** `.github/workflows/cron.yml` hits `POST /internal/cron`
 hourly (panic follow-ups + quest reminders). Set repo secrets `API_URL` and
