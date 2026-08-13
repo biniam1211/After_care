@@ -65,7 +65,14 @@ body {
     radial-gradient(1000px 800px at 110% 110%, #0a2f48 0%, transparent 60%), #061c2b;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  /* No `overflow: hidden` here — the marketing page at / is a normal scrolling
+     document. The app at /app pins itself with #stage (position: fixed), so it
+     cannot scroll the body either way. */
+}
+
+/* The marketing page paints its own background over the app's dark gradient. */
+html:has(.mk) body {
+  background: var(--foam);
 }
 
 button {

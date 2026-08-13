@@ -2,7 +2,7 @@
 // ───────────────────────────────────────────────────────────
 // AfterCare — Logo + Onboarding flow
 // ───────────────────────────────────────────────────────────
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Button, ProgressBar } from "@/components/ui";
 
 // Brand mark: a sunrise over a calm horizon, in a rounded tile = "after" the storm.
@@ -31,23 +31,20 @@ export function Wordmark({ color = "var(--ink)", size = 22 }) {
     After<span style={{ color: "var(--sky)" }}>Care</span></span>;
 }
 
-// Format raw digits as (555) 000-0000 while the user types.
-function fmtPhone(d = "") {
-  d = d.replace(/[^\d]/g, "").slice(0, 10);
-  if (d.length <= 3) return d;
-  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
-  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
-}
-
 // ── Onboarding ──────────────────────────────────────────────
+// There is deliberately no phone/SMS step. An earlier version asked for a real
+// number and said "we text you a code", then accepted any four digits — asking
+// foster youth to hand over a phone number for something that does not happen
+// is exactly the kind of trust we cannot afford to spend. Real sign-in is the
+// magic-link email in Settings, which actually sends mail.
 export function Onboarding({ onDone }) {
-  const [step, setStep] = useState(0); // 0 welcome, 1 name, 2 phone, 3 code, 4 zip, 5 age, 6 status, 7 profile, 8 done
-  const [profile, setProfile] = useState({ name: "", phone: "", zip: "", age: "", status: "", learningStyle: "", feeling: "" });
+  const [step, setStep] = useState(0); // 0 welcome, 1 name, 2 zip, 3 age, 4 status, 5 profile, 6 done
+  const [profile, setProfile] = useState({ name: "", zip: "", age: "", status: "", learningStyle: "", feeling: "" });
   const set = (k, v) => setProfile((p) => ({ ...p, [k]: v }));
   const next = () => setStep((s) => s + 1);
 
-  const FORM_STEPS = 7; // steps 1..7
-  const progress = step >= 1 && step <= 7 ? step / FORM_STEPS : 0;
+  const FORM_STEPS = 5; // steps 1..5
+  const progress = step >= 1 && step <= FORM_STEPS ? step / FORM_STEPS : 0;
 
   // Welcome (dark)
   if (step === 0) {
@@ -89,7 +86,7 @@ export function Onboarding({ onDone }) {
     );
   }
 
-  if (step === 8) return <OnboardDone profile={profile} onDone={() => onDone({ ...profile, status: profile.status || "aged_out" })} />;
+  if (step > FORM_STEPS) return <OnboardDone profile={profile} onDone={() => onDone({ ...profile, status: profile.status || "aged_out" })} />;
 
   // Form steps shell
   const shell = (content, canNext, ctaLabel = "Continue") => (
@@ -138,24 +135,16 @@ export function Onboarding({ onDone }) {
 
   if (step === 2) return shell(
     <React.Fragment>
-      <Q kicker="Step 2" title="What's your number?" sub="We text you a code to sign in — and nudges if you want them. No spam, ever." />
-      {bigInput({ value: fmtPhone(profile.phone), onChange: (e) => set("phone", e.target.value.replace(/[^\d]/g, "").slice(0,10)), placeholder: "(555) 000-0000", inputMode: "tel", autoFocus: true })}
-      <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 16, color: "var(--ink-faint)", fontSize: 13 }}>
-        <Icon name="lock" size={15} color="var(--ink-faint)" /> Your number is never sold or shared.
-      </div>
-    </React.Fragment>, profile.phone.length >= 10);
-
-  if (step === 3) return <OtpStep phone={profile.phone} onBack={() => setStep(2)} onNext={next} progress={progress} />;
-
-  if (step === 4) return shell(
-    <React.Fragment>
-      <Q kicker="Step 4" title="Where are you?" sub="Just your ZIP. I only ever show you help that's actually near you — never a hotline three states away." />
+      <Q kicker="Step 2" title="Where are you?" sub="Just your ZIP. I only ever show you help that's actually near you — never a hotline three states away." />
       {bigInput({ value: profile.zip, onChange: (e) => set("zip", e.target.value.replace(/[^\d]/g, "").slice(0,5)), placeholder: "ZIP code", inputMode: "numeric", autoFocus: true })}
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 16, color: "var(--ink-faint)", fontSize: 13 }}>
+        <Icon name="lock" size={15} color="var(--ink-faint)" /> Never sold, never shared.
+      </div>
     </React.Fragment>, profile.zip.length === 5);
 
-  if (step === 5) return shell(
+  if (step === 3) return shell(
     <React.Fragment>
-      <Q kicker="Step 5" title="How old are you?" sub="This helps me know which programs and deadlines apply to you right now." />
+      <Q kicker="Step 3" title="How old are you?" sub="This helps me know which programs and deadlines apply to you right now." />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
         {["16","17","18","19","20","21","22","23","24+"].map((a) => (
           <button key={a} onClick={() => set("age", a)} style={{
@@ -167,7 +156,7 @@ export function Onboarding({ onDone }) {
       </div>
     </React.Fragment>, !!profile.age);
 
-  if (step === 6) {
+  if (step === 4) {
     const opts = [
       { id: "in_care", label: "I'm in foster care now", sub: "Still placed with a family or home" },
       { id: "extended", label: "I'm in extended care", sub: "18–21, still getting support (like AB 12)" },
@@ -200,7 +189,7 @@ export function Onboarding({ onDone }) {
       </React.Fragment>, !!profile.status);
   }
 
-  if (step === 7) {
+  if (step === 5) {
     const styles = [
       { id: "simple", label: "Short & simple", sub: "Just tell me what to do" },
       { id: "detailed", label: "Walk me through it", sub: "I like knowing the why, step by step" },
@@ -244,42 +233,6 @@ export function Onboarding({ onDone }) {
       </React.Fragment>, canNext, "Finish setup");
   }
   return null;
-}
-
-// OTP sub-step
-function OtpStep({ phone, onBack, onNext, progress }) {
-  const [code, setCode] = useState(["", "", "", ""]);
-  const refs = [useRef(), useRef(), useRef(), useRef()];
-  useEffect(() => { refs[0].current && refs[0].current.focus(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const handle = (i, v) => {
-    v = v.replace(/[^\d]/g, "").slice(-1);
-    const nc = [...code]; nc[i] = v; setCode(nc);
-    if (v && i < 3) refs[i + 1].current.focus();
-    if (nc.every((d) => d) && nc.join("").length === 4) setTimeout(onNext, 280);
-  };
-  const fmt = phone ? `(${phone.slice(0,3)}) ${phone.slice(3,6)}-${phone.slice(6)}` : "your phone";
-  return (
-    <div style={{ position: "absolute", inset: 0, background: "var(--foam)", display: "flex", flexDirection: "column" }}>
-      <div style={{ padding: "62px 24px 0", display: "flex", alignItems: "center", gap: 14 }}>
-        <button onClick={onBack} style={{ width: 38, height: 38, borderRadius: 99, background: "#fff", boxShadow: "var(--shadow-card)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Icon name="chevL" size={20} color="var(--ink)" sw={2.4} />
-        </button>
-        <div style={{ flex: 1 }}><ProgressBar value={progress} h={7} /></div>
-      </div>
-      <div style={{ flex: 1, padding: "30px 28px" }}>
-        <h2 style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 30, lineHeight: 1.08, letterSpacing: -0.8, color: "var(--ink)", margin: 0 }}>Enter your code</h2>
-        <p style={{ fontSize: 15.5, lineHeight: 1.5, color: "var(--ink-soft)", margin: "12px 0 30px" }}>We texted a 4-digit code to {fmt}. <span style={{ color: "var(--sky)", fontWeight: 700 }}>(Demo: type anything)</span></p>
-        <div style={{ display: "flex", gap: 12 }}>
-          {code.map((d, i) => (
-            <input key={i} ref={refs[i]} value={d} onChange={(e) => handle(i, e.target.value)} inputMode="numeric" maxLength={1}
-              style={{ width: 64, height: 76, textAlign: "center", borderRadius: 18, border: `2px solid ${d ? "var(--sky)" : "var(--line)"}`,
-                background: "#fff", fontSize: 30, fontWeight: 800, fontFamily: "var(--display)", color: "var(--ink)", outline: "none", transition: "border-color .15s" }} />
-          ))}
-        </div>
-        <button style={{ marginTop: 24, color: "var(--ink-soft)", fontWeight: 600, fontSize: 15 }}>Resend code</button>
-      </div>
-    </div>
-  );
 }
 
 function OnboardDone({ profile, onDone }) {
