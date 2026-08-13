@@ -6,7 +6,7 @@ A mobile-first AI assistant that guides foster youth aged 16–24 through every
 "I don't know how to adult" moment: opening a bank account, building credit,
 finding housing, applying for benefits, and not falling through the cracks at 18.
 
-**Founder:** Biniam · **Stack:** React Native (Expo) + Node/Express + Supabase + Claude API · **Status:** MVP scaffold
+**Founder:** Biniam · **Stack:** Next.js (web) + React Native/Expo (mobile) + Postgres + Claude API · **Status:** web app live, mobile app build-ready
 
 ---
 
@@ -27,8 +27,18 @@ The single metric of success: *does a foster kid open this app a second time wit
 
 ## Repository layout
 
+There are two shipping surfaces and one shared backend lineage. **`web/` is the
+primary product today** — it is the most complete implementation and the one
+that is deployed.
+
 ```
 After_care/
+├── web/              # ⭐ Next.js web app — THE LIVE PRODUCT (deploys to Vercel)
+│   ├── app/          # App Router pages + /api routes (chat, auth, state,
+│   │                 #   resources, notify, checkin, cron)
+│   ├── components/   # every screen: onboarding, home, chat, quests,
+│   │                 #   resources, panic, settings + the ui.jsx primitives
+│   └── lib/          # db (Postgres), auth (magic link), log (Betterstack)
 ├── app/              # React Native (Expo) mobile app — iOS + Android
 │   ├── app/          # expo-router file-based routes
 │   │   ├── onboarding/   # phone → ZIP → age → status
@@ -54,10 +64,28 @@ After_care/
 
 ## Architecture
 
+**Web (live):** a single Next.js app — the UI and the API routes ship together,
+so there is no separate backend to keep alive.
+
+```
+Next.js (web/)  ──▶  /api/chat       ──▶  Claude API (structured 3-part replies)
+                ──▶  /api/state      ──▶  Postgres (profile + quest progress)
+                ──▶  /api/auth/*     ──▶  magic link via Resend
+                ──▶  /api/resources  ──▶  Sanity CMS (falls back to bundled seed)
+                ──▶  /api/notify     ──▶  Resend (caseworker messages)
+                ──▶  /api/cron/*     ──▶  reminders + panic follow-ups
+```
+
+Every integration **degrades gracefully**: with no env vars set, the app runs
+entirely on `localStorage` with scripted replies and still works end to end.
+
+**Mobile (build-ready):** the Expo app in `app/` talks to the standalone
+Node/Express API in `api/`.
+
 ```
 React Native (Expo)  ──HTTPS──▶  Node/Express API  ──▶  Supabase (Postgres + Auth + RLS)
                                        │             ──▶  Claude API (chat + reasoning)
-                                       │             ──▶  Pinecone / pgvector (RAG)
+                                       │             ──▶  pgvector (RAG)
                                        └─────────────▶  Twilio (crisis SMS)
 ```
 
@@ -68,6 +96,23 @@ York hotline. RAG over a curated, ZIP-filtered resource DB = trust. The AI can
 ---
 
 ## Getting started
+
+### The web app (start here)
+
+```bash
+cd web
+npm install
+npm run dev               # http://localhost:3000
+```
+
+That's it — no env vars, no database, no keys required. Copy `.env.example` to
+`.env.local` and fill in `ANTHROPIC_API_KEY` when you want live Claude chat
+instead of the scripted replies. See [`web/README.md`](./web/README.md) for
+every variable.
+
+---
+
+## Mobile app (Expo)
 
 ### Prerequisites
 - Node 20+
@@ -121,6 +166,11 @@ Scan the QR code with Expo Go, or run on a simulator.
 ---
 
 ## Deploy
+
+**Web → Vercel (primary).** Vercel project `aftercare`, linked to this repo with
+**Root Directory = `web/`** and production branch `main`. Every push to `main`
+deploys. Set `ANTHROPIC_API_KEY` in the project's environment variables to turn
+on live Claude chat; everything else is optional.
 
 **API → Railway (Docker):** `api/Dockerfile` + `api/railway.json` are ready.
 Create a Railway service from the repo (root `api/`), set the env vars from
