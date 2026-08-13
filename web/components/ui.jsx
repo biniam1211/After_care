@@ -59,7 +59,7 @@ export function Icon({ name, size = 24, color = "currentColor", sw = 1.9, fill =
 export function StatusBar({ dark = false, time = "9:41" }) {
   const c = dark ? "#fff" : "#0A2536";
   return (
-    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 54, zIndex: 40,
+    <div className="ac-chrome" style={{ position: "absolute", top: 0, left: 0, right: 0, height: 54, zIndex: 40,
       display: "flex", alignItems: "center", justifyContent: "space-between",
       padding: "0 30px", pointerEvents: "none" }}>
       <span style={{ fontWeight: 700, fontSize: 16, color: c, letterSpacing: 0.2, marginTop: 4 }}>{time}</span>
@@ -75,17 +75,15 @@ export function StatusBar({ dark = false, time = "9:41" }) {
 // ── Phone frame ─────────────────────────────────────────────
 export function Phone({ children, statusDark = false, bg = "var(--foam)" }) {
   return (
-    <div style={{ width: 393, height: 852, borderRadius: 54, position: "relative",
-      background: "#0a0f14", padding: 5,
-      boxShadow: "0 50px 90px -20px rgba(2,14,24,.6), 0 0 0 1px rgba(255,255,255,.06)" }}>
-      <div style={{ position: "absolute", inset: 5, borderRadius: 49, overflow: "hidden", background: bg }}>
+    <div className="ac-phone">
+      <div className="ac-phone-inner" style={{ background: bg }}>
         {/* dynamic island */}
-        <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)",
+        <div className="ac-chrome" style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)",
           width: 120, height: 34, borderRadius: 20, background: "#000", zIndex: 50 }} />
         <StatusBar dark={statusDark} />
         {children}
         {/* home indicator */}
-        <div style={{ position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
+        <div className="ac-chrome" style={{ position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
           width: 134, height: 5, borderRadius: 99, background: statusDark ? "rgba(255,255,255,.6)" : "rgba(10,37,54,.28)", zIndex: 60, pointerEvents: "none" }} />
       </div>
     </div>

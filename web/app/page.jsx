@@ -12,6 +12,13 @@ export default function Page() {
 
   useEffect(() => {
     const fit = () => {
+      // On a real phone the mockup is dropped and the app fills the viewport
+      // (see the .ac-phone media query in globals.css), so there is nothing to
+      // scale down — scaling here would shrink the UI a second time.
+      if (window.innerWidth <= 500) {
+        setScale(1);
+        return;
+      }
       const pad = 24;
       const s = Math.min(
         (window.innerWidth - pad) / DEVICE_W,

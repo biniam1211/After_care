@@ -24,8 +24,13 @@ export const metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // Pinch-zoom stays enabled on purpose. Locking it out is a common app-like
+  // touch, but it breaks zoom for low-vision users (WCAG 1.4.4) and this app
+  // is read by youth in stressful moments who may need to enlarge a phone
+  // number or an address.
+  userScalable: true,
+  // Draw under the notch / home indicator so the app can fill the screen.
+  viewportFit: "cover",
   themeColor: "#06283d",
 };
 
