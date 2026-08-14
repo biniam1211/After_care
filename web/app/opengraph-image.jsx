@@ -24,6 +24,8 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          {/* The sunrise mark, drawn with plain boxes — satori renders a subset
+              of SVG, and this is more predictable than shipping a path. */}
           <div
             style={{
               width: 68,
@@ -31,17 +33,41 @@ export default function OpengraphImage() {
               borderRadius: 20,
               background: "linear-gradient(160deg, #41B0FF, #1B7FE0)",
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-end",
+              paddingBottom: 14,
+              overflow: "hidden",
             }}
           >
             <div
               style={{
-                width: 30,
-                height: 30,
+                width: 24,
+                height: 24,
                 borderRadius: 99,
                 background: "#FFE7C7",
                 display: "flex",
+                marginBottom: -6,
+              }}
+            />
+            <div
+              style={{
+                width: 46,
+                height: 3,
+                borderRadius: 99,
+                background: "#fff",
+                display: "flex",
+                marginTop: 4,
+              }}
+            />
+            <div
+              style={{
+                width: 32,
+                height: 3,
+                borderRadius: 99,
+                background: "rgba(255,255,255,.55)",
+                display: "flex",
+                marginTop: 4,
               }}
             />
           </div>
