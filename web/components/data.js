@@ -2,6 +2,7 @@
 // AfterCare — content / data layer
 // Ported from the Claude Design prototype. Exported as ES modules.
 // ───────────────────────────────────────────────────────────
+import { GENERATED_RESOURCES } from "@/components/resources.generated";
 
 // Suggested chat prompts (chips shown on empty chat)
 export const CHAT_SUGGESTIONS = [
@@ -87,7 +88,10 @@ export const CHAT_REPLIES = {
 };
 
 // Resource directory (Orange County / LA flavored). National hotlines are real.
-export const RESOURCES = {
+// Hand-written entries. These beat the generated row for the same organisation
+// — better copy, a real distance, a tag worth reading — so they are layered on
+// top of the CSV-derived catalog below.
+const CURATED_RESOURCES = {
   covenant: {
     name: "Covenant House California", cat: "Housing", catColor: "sky",
     blurb: "24/7 emergency shelter & crisis care for youth 18–24. Walk in any time.",
@@ -140,14 +144,37 @@ export const RESOURCES = {
   },
 };
 
+// The full catalog: the curated set above, plus the ~65 California resources
+// generated from supabase/seed/resources.sample.csv. The AI chat can only cite
+// ids from this object, so its usefulness is bounded by how big this is — ten
+// hand-written entries meant the chat kept pointing at the same few places.
+//
+// Curated copy wins field-by-field; the generated row still contributes url,
+// address and the verified flag underneath it.
+export const RESOURCES = (() => {
+  const merged = { ...GENERATED_RESOURCES };
+  for (const [id, curated] of Object.entries(CURATED_RESOURCES)) {
+    merged[id] = { ...merged[id], ...curated };
+  }
+
+  // Curated first, then everything else — the hand-written entries are the
+  // ones with distances and real tags, so they should lead the list.
+  const ordered = {};
+  for (const id of Object.keys(CURATED_RESOURCES)) ordered[id] = merged[id];
+  for (const id of Object.keys(merged)) if (!ordered[id]) ordered[id] = merged[id];
+  return ordered;
+})();
+
 export const RESOURCE_CATEGORIES = [
   { id: "all", label: "All", icon: "grid" },
   { id: "Housing", label: "Housing", icon: "home" },
   { id: "Money & Jobs", label: "Money & Jobs", icon: "cash" },
   { id: "Health", label: "Health", icon: "health" },
   { id: "Education", label: "School", icon: "grad" },
+  { id: "Legal", label: "Legal", icon: "doc" },
   { id: "Crisis", label: "Crisis", icon: "shield" },
   { id: "Essentials", label: "Essentials", icon: "box" },
+  { id: "All-in-one", label: "All-in-one", icon: "grid" },
 ];
 
 // Quests

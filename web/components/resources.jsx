@@ -7,9 +7,19 @@ import { Icon, Screen, TONE, Button, Card, Badge, IconTile } from "@/components/
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
 import { sendCaseworker } from "@/components/notify";
 
+const CAT_ICONS = {
+  Crisis: "shield",
+  Housing: "home",
+  Health: "health",
+  Education: "grad",
+  "Money & Jobs": "cash",
+  Essentials: "box",
+  Legal: "doc",
+  "All-in-one": "grid",
+};
+
 function catIconFor(r) {
-  return r.cat === "Crisis" ? "shield" : r.cat === "Housing" ? "home" : r.cat === "Health" ? "health"
-    : r.cat === "Education" ? "grad" : r.cat === "Money & Jobs" ? "cash" : r.cat === "Essentials" ? "box" : "pin";
+  return CAT_ICONS[r.cat] || "pin";
 }
 
 export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
@@ -68,9 +78,11 @@ export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
               <div style={{ display: "flex", gap: 13 }}>
                 <IconTile name={catIconFor(r)} tone={r.catColor} size={48} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                    <Badge tone={r.catColor}>{r.tag}</Badge>
-                  </div>
+                  {r.tag && (
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
+                      <Badge tone={r.catColor}>{r.tag}</Badge>
+                    </div>
+                  )}
                   <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 16.5, color: "var(--ink)", letterSpacing: -0.3, lineHeight: 1.15 }}>{r.name}</div>
                   <div style={{ fontSize: 13, color: "var(--ink-faint)", marginTop: 3, fontWeight: 600 }}>{r.meta}</div>
                 </div>
@@ -79,6 +91,19 @@ export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
             </button>
           );
         })}
+
+        {/* Honesty about the list itself. "Verified" here means the
+            organisation's official page was confirmed — not that the phone
+            line was called this week. Saying so costs less than losing a
+            youth's trust the first time a number rings out. */}
+        {ids.length > 0 && (
+          <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--ink-faint)", margin: "10px 4px 0" }}>
+            <strong style={{ color: "var(--ink-soft)" }}>Verified</strong> means we
+            confirmed the organization&rsquo;s official page. Hours and who they can
+            serve still change — it&rsquo;s worth calling ahead. If a number is dead,
+            tell me in the chat and I&rsquo;ll find you another.
+          </p>
+        )}
       </div>
     </Screen>
   );

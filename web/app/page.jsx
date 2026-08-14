@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui";
+import { Logo } from "@/components/onboarding";
 import "./marketing.css";
 
 export const metadata = {
@@ -70,9 +71,9 @@ export default function Home() {
       <nav className="mk-nav">
         <div className="mk-wrap mk-nav-inner">
           <Link href="/" className="mk-brand">
-            <span className="mk-mark">
-              <Icon name="sparkle" size={19} color="#fff" sw={2.2} />
-            </span>
+            {/* The same mark the app shows on its welcome screen, so the site
+                and the product are recognisably one thing. */}
+            <Logo size={34} r={10} />
             AfterCare
           </Link>
           <div className="mk-nav-links">
@@ -118,9 +119,7 @@ export default function Home() {
 
           <div className="mk-shot" aria-hidden="true">
             <div className="mk-shot-inner">
-              <span className="mk-mark" style={{ width: 46, height: 46, borderRadius: 14 }}>
-                <Icon name="sparkle" size={25} color="#fff" sw={2.2} />
-              </span>
+              <Logo size={46} r={14} glow />
               <h2 className="mk-shot-title">
                 The missing parent in your pocket.
               </h2>
@@ -305,8 +304,9 @@ export default function Home() {
           <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
           <span>
             <Link href="/app">Open the app</Link>
-            <a href="#problem">The problem</a>
             <a href="#story">Our story</a>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
           </span>
         </div>
       </footer>

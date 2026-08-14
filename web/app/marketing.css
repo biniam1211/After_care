@@ -558,6 +558,83 @@
   color: var(--panic-deep);
 }
 
+/* ── Legal pages (/privacy, /terms) ── */
+.mk-legal {
+  max-width: 740px;
+  padding-top: clamp(48px, 7vw, 76px);
+  padding-bottom: clamp(56px, 8vw, 90px);
+}
+
+.mk-legal h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -1.4px;
+  margin: 0;
+}
+
+.mk-legal .mk-updated {
+  font-size: 14.5px;
+  color: var(--ink-faint);
+  margin: 14px 0 0;
+  font-weight: 600;
+}
+
+.mk-legal h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 24px);
+  letter-spacing: -0.6px;
+  margin: 42px 0 0;
+}
+
+.mk-legal p,
+.mk-legal li {
+  font-size: 16.5px;
+  line-height: 1.66;
+  color: var(--ink-soft);
+}
+
+.mk-legal p {
+  margin: 14px 0 0;
+}
+
+.mk-legal ul {
+  margin: 14px 0 0;
+  padding-left: 22px;
+}
+
+.mk-legal li {
+  margin-top: 9px;
+}
+
+.mk-legal strong {
+  color: var(--ink);
+}
+
+.mk-legal a {
+  color: var(--sky-press);
+  font-weight: 600;
+}
+
+/* Draft notice — these documents have not been through a lawyer yet, and
+   saying so plainly is better than implying they have. */
+.mk-note {
+  margin-top: 26px;
+  padding: 18px 22px;
+  border-radius: var(--r);
+  background: var(--warm-soft);
+  border: 1px solid #ffdcc2;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #8a4a12;
+}
+
+.mk-note strong {
+  color: #7a3f0d;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .mk-hero-grid,

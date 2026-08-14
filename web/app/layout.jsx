@@ -15,10 +15,50 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const SITE_URL =
+  process.env.APP_URL || "https://aftercare-biniam1211s-projects.vercel.app";
+
+const DESCRIPTION =
+  "The AI life navigator built by foster kids, for foster kids. Money, housing, school, health and paperwork — figured out step by step. Free, always.";
+
 export const metadata = {
-  title: "AfterCare — The missing parent in your pocket",
-  description:
-    "The AI life navigator built by foster kids, for foster kids. Money, housing, school, health — figured out, step by step.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "AfterCare — The missing parent in your pocket",
+    template: "%s · AfterCare",
+  },
+  description: DESCRIPTION,
+  applicationName: "AfterCare",
+  keywords: [
+    "foster youth",
+    "aging out of foster care",
+    "former foster youth resources",
+    "Chafee Grant",
+    "AB 12 extended foster care",
+    "foster care California",
+  ],
+  // The link travels by text message and DM far more than by search, so the
+  // share card matters more than the keywords do.
+  openGraph: {
+    type: "website",
+    siteName: "AfterCare",
+    title: "AfterCare — The missing parent in your pocket",
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AfterCare — The missing parent in your pocket",
+    description: DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "AfterCare",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport = {
