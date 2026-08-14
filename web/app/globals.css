@@ -83,6 +83,30 @@ button {
   color: inherit;
 }
 
+/* Keyboard focus must be visible somewhere. Nothing in the app defined a
+   focus style, which left anyone navigating by keyboard or switch control
+   unable to tell where they were. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 2px;
+}
+
+/* Honour the system "reduce motion" setting. The SOS button pulses forever by
+   design, and the app is used by young people with high rates of anxiety and
+   PTSD — for anyone who has asked their device to calm down, it should. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 input {
   font-family: inherit;
 }

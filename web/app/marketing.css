@@ -19,6 +19,32 @@
   padding: 0 24px;
 }
 
+/* The nav is sticky and 68px tall, so an anchor jump would otherwise land
+   with the section heading hidden underneath it. */
+.mk [id] {
+  scroll-margin-top: 88px;
+}
+
+.mk {
+  scroll-behavior: smooth;
+}
+
+/* Keyboard focus has to be visible. The default outline is invisible against
+   the dark sections, so both variants are defined explicitly. */
+.mk a:focus-visible,
+.mk button:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.mk-hero a:focus-visible,
+.mk-nav a:focus-visible,
+.mk-final a:focus-visible,
+.mk-section-dark a:focus-visible {
+  outline-color: #9ad4ff;
+}
+
 /* ── Nav ── */
 .mk-nav {
   position: sticky;
