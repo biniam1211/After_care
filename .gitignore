@@ -46,3 +46,6 @@ yarn-error.log*
 # Supabase
 supabase/.branches/
 supabase/.temp/
+
+# Vendored Claude Code skills keep their own build/ docs
+!.claude/skills/**/build/
