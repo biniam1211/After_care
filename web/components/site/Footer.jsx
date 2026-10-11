@@ -19,16 +19,26 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4>Product</h4>
-            <Link href="/features">Features</Link>
-            <Link href="/app">Open the app</Link>
-            <Link href="/faq">FAQ</Link>
+            <h4>Organization</h4>
+            <Link href="/about">About us</Link>
+            <Link href="/what-we-do">What we do</Link>
+            <Link href="/approach">Our approach</Link>
+            <Link href="/careers">Careers</Link>
           </div>
 
           <div>
-            <h4>About</h4>
-            <Link href="/about">Our mission</Link>
-            <Link href="/partners">For partners</Link>
+            <h4>Get Involved</h4>
+            <Link href="/get-involved#donate">Donate</Link>
+            <Link href="/partners">Partners &amp; funders</Link>
+            <Link href="/get-involved">Volunteer</Link>
+            <Link href="/stories">Stories</Link>
+          </div>
+
+          <div>
+            <h4>Help</h4>
+            <Link href="/get-help">Get help</Link>
+            <Link href="/app">Open the app</Link>
+            <Link href="/faq">FAQ</Link>
             <Link href="/contact">Contact</Link>
           </div>
 
