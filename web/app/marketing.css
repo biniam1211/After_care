@@ -881,9 +881,18 @@
   .utility-bar .u-right .u-hide-sm {
     display: none;
   }
+  .brand .brand-name-sub {
+    display: none;
+  }
+  .site-header .header-cta .btn-text-hide {
+    display: none;
+  }
   .site-header .header-cta .btn {
-    padding: 11px 18px;
-    font-size: 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  .brand {
+    font-size: 19px;
   }
   .menu-btn {
     display: inline-flex;

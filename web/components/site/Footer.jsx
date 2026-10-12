@@ -37,6 +37,7 @@ export default function Footer() {
           <div>
             <h4>Help</h4>
             <Link href="/get-help">Get help</Link>
+            <Link href="/resources">Resources</Link>
             <Link href="/app">Open the app</Link>
             <Link href="/faq">FAQ</Link>
             <Link href="/contact">Contact</Link>

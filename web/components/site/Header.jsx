@@ -7,10 +7,10 @@ import Icon from "./Icon";
 
 const LINKS = [
   { href: "/what-we-do", label: "What We Do" },
+  { href: "/resources", label: "Resources" },
   { href: "/approach", label: "Our Approach" },
   { href: "/get-involved", label: "Get Involved" },
   { href: "/stories", label: "Stories" },
-  { href: "/faq", label: "FAQ" },
 ];
 
 export default function Header() {
