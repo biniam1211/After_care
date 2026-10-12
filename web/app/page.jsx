@@ -77,6 +77,7 @@ export default function Home() {
             AfterCare
           </Link>
           <div className="mk-nav-links">
+            <Link href="/services" style={{ fontWeight: 700, color: "var(--sky)" }}>Find services</Link>
             <a href="#problem">The problem</a>
             <a href="#what">What it does</a>
             <a href="#story">Our story</a>
@@ -108,9 +109,9 @@ export default function Home() {
               <Link href="/app" className="mk-btn mk-btn-primary">
                 Open the app <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
               </Link>
-              <a href="#what" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
-                See what it does
-              </a>
+              <Link href="/services" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+                Find local services
+              </Link>
             </div>
             <p className="mk-cta-note">
               Free forever · No caseworker required · Works in your browser
@@ -303,6 +304,7 @@ export default function Home() {
         <div className="mk-wrap mk-footer-inner">
           <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
           <span>
+            <Link href="/services">Find Services</Link>
             <Link href="/app">Open the app</Link>
             <a href="#story">Our story</a>
             <Link href="/privacy">Privacy</Link>
