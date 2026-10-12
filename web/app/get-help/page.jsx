@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "Get Help — AfterCare",
@@ -36,7 +37,7 @@ export default function GetHelp() {
             ))}
           </div>
           <p style={{ color: "var(--ink-soft)", textAlign: "center", marginTop: 18, fontSize: 14.5 }}>
-            Not in the U.S., or not sure who to call? Open the app and tap the 🆘 Panic button — it
+            Not in the U.S., or not sure who to call? Open the app and tap the Panic button — it
             walks you through exactly what to do.
           </p>
         </div>
@@ -48,16 +49,16 @@ export default function GetHelp() {
           <p className="eyebrow">Your help, in one place</p>
           <h2>The app gives you a plan — not just a phone number.</h2>
           <div className="grid grid-3" style={{ marginTop: 30 }}>
-            <div className="card"><div className="chip-icon bg-coral">🆘</div><h3>A plan for tonight</h3><p>Nowhere to sleep? Being kicked out? Pick what’s happening and get calm, specific steps plus a real shelter.</p></div>
-            <div className="card"><div className="chip-icon bg-sky">💬</div><h3>Ask anything</h3><p>Housing, money, court, ID — the AI navigator answers in plain language and points you to local help.</p></div>
-            <div className="card"><div className="chip-icon bg-mint">🧭</div><h3>Real resources near you</h3><p>Housing, food, legal, and mental-health help, filtered to your area, with numbers we check.</p></div>
+            <div className="card"><div className="chip-icon bg-coral"><Icon name="shield" size={26} /></div><h3>A plan for tonight</h3><p>Nowhere to sleep? Being kicked out? Pick what’s happening and get calm, specific steps plus a real shelter.</p></div>
+            <div className="card"><div className="chip-icon bg-sky"><Icon name="chat" size={26} /></div><h3>Ask anything</h3><p>Housing, money, court, ID — the AI navigator answers in plain language and points you to local help.</p></div>
+            <div className="card"><div className="chip-icon bg-mint"><Icon name="compass" size={26} /></div><h3>Real resources near you</h3><p>Housing, food, legal, and mental-health help, filtered to your area, with numbers we check.</p></div>
           </div>
           <div style={{ textAlign: "center", marginTop: 32 }}>
             <Link href="/app" className="btn btn-primary btn-lg">Open AfterCare →</Link>
           </div>
 
           <div className="disclaimer" style={{ marginTop: 30, maxWidth: 720, marginLeft: "auto", marginRight: "auto" }}>
-            <span>⚠️</span>
+            <Icon name="alert" size={18} style={{ flex: "none", marginTop: 1 }} />
             <span>AfterCare is not an emergency service and doesn’t replace 911 or a trained counselor. If you’re in danger, call <strong>911</strong>; to talk to someone now, call or text <strong>988</strong>.</span>
           </div>
         </div>

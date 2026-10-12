@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "Our Approach — AfterCare",
@@ -8,10 +9,10 @@ export const metadata = {
 };
 
 const PRINCIPLES = [
-  { icon: "🎯", title: "Accuracy over everything", text: "A dead phone number or wrong advice can cost someone a bed for the night. We’d rather say “I’m not sure” than guess, and we check the resources we surface." },
-  { icon: "🔒", title: "Privacy & dignity", text: "Their data is theirs. We don’t sell it and we store as little as possible. We talk to youth like people, not case numbers." },
-  { icon: "💚", title: "Free, and meeting youth where they are", text: "No cost, no download, answers at 2 a.m. in plain language — because the barrier should never be the help itself." },
-  { icon: "🤝", title: "Alongside, not instead of", text: "AfterCare extends caseworkers and agencies between appointments. It hands youth back better prepared, not less supported." },
+  { icon: "target", title: "Accuracy over everything", text: "A dead phone number or wrong advice can cost someone a bed for the night. We’d rather say “I’m not sure” than guess, and we check the resources we surface." },
+  { icon: "lock", title: "Privacy & dignity", text: "Their data is theirs. We don’t sell it and we store as little as possible. We talk to youth like people, not case numbers." },
+  { icon: "heart", title: "Free, and meeting youth where they are", text: "No cost, no download, answers at 2 a.m. in plain language — because the barrier should never be the help itself." },
+  { icon: "handshake", title: "Alongside, not instead of", text: "AfterCare extends caseworkers and agencies between appointments. It hands youth back better prepared, not less supported." },
 ];
 
 export default function Approach() {
@@ -30,10 +31,10 @@ export default function Approach() {
           <p className="eyebrow">The problem</p>
           <h2>Support that stops at 18.</h2>
           <div className="statrow" style={{ marginTop: 34 }}>
-            <div className="s"><div className="ic">🎒</div><div className="num">~20,000</div><div className="cap">age out of U.S. foster care each year</div></div>
-            <div className="s"><div className="ic">🏠</div><div className="num">1 in 5</div><div className="cap">experience homelessness after 18</div></div>
-            <div className="s"><div className="ic">💼</div><div className="num">Half</div><div className="cap">are not employed by age 24</div></div>
-            <div className="s"><div className="ic">🎓</div><div className="num">~3–4%</div><div className="cap">earn a college degree by their mid-20s</div></div>
+            <div className="s"><div className="ic"><Icon name="users" size={26} /></div><div className="num">~20,000</div><div className="cap">age out of U.S. foster care each year</div></div>
+            <div className="s"><div className="ic"><Icon name="home" size={26} /></div><div className="num">1 in 5</div><div className="cap">experience homelessness after 18</div></div>
+            <div className="s"><div className="ic"><Icon name="briefcase" size={26} /></div><div className="num">Half</div><div className="cap">are not employed by age 24</div></div>
+            <div className="s"><div className="ic"><Icon name="cap" size={26} /></div><div className="num">~3–4%</div><div className="cap">earn a college degree by their mid-20s</div></div>
           </div>
           <p style={{ color: "var(--ink-faint)", fontSize: 13, marginTop: 16 }}>National figures, U.S. foster care (AFCARS / NYTD and related research).</p>
         </div>
@@ -58,7 +59,7 @@ export default function Approach() {
           <div className="grid grid-2" style={{ marginTop: 34 }}>
             {PRINCIPLES.map((p) => (
               <div className="pillar" key={p.title}>
-                <div className="chip-icon bg-mint">{p.icon}</div>
+                <div className="chip-icon bg-mint"><Icon name={p.icon} size={26} /></div>
                 <div><h3>{p.title}</h3><p>{p.text}</p></div>
               </div>
             ))}

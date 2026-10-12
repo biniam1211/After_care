@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "Contact — AfterCare",
@@ -31,7 +32,7 @@ export default function Contact() {
             </p>
             <p>
               <a href={`mailto:${EMAIL}`} className="btn btn-primary" style={{ textDecoration: "none" }}>
-                ✉️ {EMAIL}
+                <Icon name="mail" size={18} /> {EMAIL}
               </a>
             </p>
             <p style={{ marginTop: 24 }}>

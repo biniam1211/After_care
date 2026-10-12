@@ -176,6 +176,11 @@
   gap: 18px;
   align-items: center;
 }
+.utility-bar .u-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
 .utility-bar .u-right {
   display: inline-flex;
   gap: 16px;
@@ -265,38 +270,37 @@
   background: var(--green-soft);
 }
 
-/* Hero (light + warm) */
+/* Hero (clean + editorial) */
 .hero {
   position: relative;
   background:
-    radial-gradient(900px 420px at 88% 0%, var(--sun-soft), transparent 60%),
-    radial-gradient(760px 420px at 0% 100%, var(--green-soft), transparent 55%),
+    radial-gradient(1100px 460px at 92% 8%, var(--sun-soft), transparent 55%),
     var(--cream);
+  border-bottom: 1px solid #efe6d6;
   overflow: hidden;
 }
 .hero .wrap {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 46px;
+  gap: 50px;
   align-items: center;
-  padding-top: 70px;
-  padding-bottom: 76px;
+  padding-top: 64px;
+  padding-bottom: 70px;
 }
 .hero h1 {
-  font-size: clamp(38px, 6vw, 66px);
+  font-size: clamp(38px, 5.6vw, 62px);
   font-weight: 800;
   color: var(--green-deep);
   letter-spacing: -0.03em;
 }
 .hero h1 .hl {
   color: var(--green);
-  position: relative;
 }
 .hero .sub {
   margin: 20px 0 30px;
-  font-size: clamp(17px, 2.2vw, 21px);
+  font-size: clamp(17px, 2.2vw, 20px);
   color: var(--ink-soft);
-  max-width: 50ch;
+  max-width: 48ch;
 }
 .hero .cta-row {
   display: flex;
@@ -304,22 +308,52 @@
   flex-wrap: wrap;
 }
 .hero .trust {
-  margin-top: 26px;
-  font-size: 14px;
+  margin-top: 28px;
+  font-size: 14.5px;
   color: var(--ink-soft);
   display: flex;
-  gap: 18px;
+  gap: 22px;
   flex-wrap: wrap;
 }
 .hero .trust span {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   font-weight: 600;
 }
-.hero .trust b {
+.hero .trust svg {
   color: var(--green);
 }
+
+/* Real app screenshot in hero / sections */
+.hero-media {
+  justify-self: center;
+  position: relative;
+}
+.hero-media img {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 26px 50px rgba(19, 58, 42, 0.26));
+}
+.hero-media .badge {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e7ddcb;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(19, 58, 42, 0.12);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--green-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-media .badge svg { color: var(--green); }
+.hero-media .badge.b1 { top: 14%; left: -10px; }
+.hero-media .badge.b2 { bottom: 16%; right: -14px; }
 
 /* Phone mockup (keeps the app's ocean look inside a warm frame) */
 .phone {
@@ -404,18 +438,18 @@
   font-size: 15.5px;
 }
 .chip-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
   display: grid;
   place-items: center;
-  font-size: 26px;
+  flex: none;
 }
-.bg-sky { background: var(--sky-soft); }
-.bg-warm { background: var(--sun-soft); }
-.bg-mint { background: var(--green-soft); }
-.bg-panic { background: var(--panic-soft); }
-.bg-coral { background: #ffe7e3; }
+.bg-sky { background: var(--sky-soft); color: var(--sky-press); }
+.bg-warm { background: var(--sun-soft); color: var(--sun-deep); }
+.bg-mint { background: var(--green-soft); color: var(--green-press); }
+.bg-panic { background: var(--panic-soft); color: var(--panic-deep); }
+.bg-coral { background: #ffe7e3; color: var(--coral); }
 
 /* Stat row (honest) */
 .statrow {
@@ -431,8 +465,8 @@
   display: grid;
   place-items: center;
   margin: 0 auto 12px;
-  font-size: 26px;
   background: var(--sun-soft);
+  color: var(--sun-deep);
 }
 .statrow .s .num {
   font-family: var(--display);
@@ -814,9 +848,15 @@
   .hero .trust {
     justify-content: center;
   }
-  .phone {
+  .phone,
+  .hero-media {
     order: -1;
-    width: 238px;
+  }
+  .hero-media img {
+    width: 244px;
+  }
+  .hero-media .badge {
+    display: none;
   }
   .grid-4,
   .grid-3,
@@ -837,8 +877,13 @@
   .nav {
     display: none;
   }
-  .utility-bar .u-left .hide-sm {
+  .utility-bar .u-left .hide-sm,
+  .utility-bar .u-right .u-hide-sm {
     display: none;
+  }
+  .site-header .header-cta .btn {
+    padding: 11px 18px;
+    font-size: 15px;
   }
   .menu-btn {
     display: inline-flex;

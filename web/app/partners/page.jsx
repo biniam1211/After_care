@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "For Partners & Funders — AfterCare",
@@ -31,17 +32,17 @@ export default function Partners() {
           <h2>Built to sit alongside the people already doing the work.</h2>
           <div className="grid grid-3" style={{ marginTop: 34 }}>
             <div className="card">
-              <div className="chip-icon bg-sky">🧑‍💼</div>
+              <div className="chip-icon bg-sky"><Icon name="users" size={26} /></div>
               <h3>Caseworkers &amp; ILP coordinators</h3>
               <p>Give youth a 24/7 first stop for the questions that flood your inbox. Spend your time on the human stuff, not re-explaining how a bank account works.</p>
             </div>
             <div className="card">
-              <div className="chip-icon bg-mint">🏫</div>
+              <div className="chip-icon bg-mint"><Icon name="cap" size={26} /></div>
               <h3>Schools &amp; campus support</h3>
               <p>Help foster and homeless youth claim the grants, waivers, and housing they’re entitled to — before the deadlines pass.</p>
             </div>
             <div className="card">
-              <div className="chip-icon bg-warm">🤝</div>
+              <div className="chip-icon bg-warm"><Icon name="handshake" size={26} /></div>
               <h3>Agencies &amp; nonprofits</h3>
               <p>Extend your reach between appointments. Your resources, surfaced to the youth who need them, exactly when they need them.</p>
             </div>

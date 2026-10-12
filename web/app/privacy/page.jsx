@@ -1,4 +1,5 @@
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "Privacy Policy — AfterCare",
@@ -73,7 +74,7 @@ export default function Privacy() {
           <p>Email us at <a href="mailto:hello@aftercare.app">hello@aftercare.app</a> and we’ll help.</p>
 
           <div className="disclaimer" style={{ marginTop: 26 }}>
-            <span>⚠️</span>
+            <Icon name="alert" size={18} style={{ flex: "none", marginTop: 1 }} />
             <span>In an emergency, call <strong>911</strong>, or <strong>988</strong> for the Suicide &amp; Crisis Lifeline.</span>
           </div>
         </div>

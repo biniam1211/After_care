@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import Icon from "./Icon";
 
 const LINKS = [
   { href: "/what-we-do", label: "What We Do" },
@@ -20,11 +21,13 @@ export default function Header() {
       <div className="utility-bar">
         <div className="wrap">
           <div className="u-left">
-            <span className="hide-sm">💙 Built by foster kids, for foster kids</span>
+            <span className="u-tag hide-sm">
+              <Icon name="heart" size={15} style={{ color: "#ff9ea8" }} /> Built by foster kids, for foster kids
+            </span>
           </div>
           <div className="u-right">
-            <Link href="/get-involved">Get Involved</Link>
-            <Link href="/get-involved#donate">Donate</Link>
+            <Link href="/get-involved" className="u-hide-sm">Get Involved</Link>
+            <Link href="/get-involved#donate" className="u-hide-sm">Donate</Link>
             <Link href="/get-help" className="pill-help">Get Help</Link>
           </div>
         </div>

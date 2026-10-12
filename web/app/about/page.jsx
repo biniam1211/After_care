@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "About AfterCare — Built by a foster kid, for foster kids",
@@ -57,7 +58,7 @@ export default function About() {
           </ul>
 
           <div className="disclaimer" style={{ marginTop: 30 }}>
-            <span>⚠️</span>
+            <Icon name="alert" size={18} style={{ flex: "none", marginTop: 1 }} />
             <span>
               AfterCare gives information and guidance, not legal, medical, or mental-health advice.
               For your specific situation, talk to a lawyer, doctor, or counselor. In an emergency,

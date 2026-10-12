@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "FAQ — AfterCare",
@@ -42,7 +43,7 @@ export default function FAQ() {
           ))}
 
           <div className="disclaimer" style={{ marginTop: 30 }}>
-            <span>⚠️</span>
+            <Icon name="alert" size={18} style={{ flex: "none", marginTop: 1 }} />
             <span>
               In an emergency, call <strong>911</strong>. To talk to someone now, call or text{" "}
               <strong>988</strong> — the Suicide &amp; Crisis Lifeline, free and confidential, 24/7.

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "What We Do — AfterCare",
@@ -8,12 +9,12 @@ export const metadata = {
 };
 
 const PILLARS = [
-  { icon: "💬", bg: "bg-sky", title: "AI navigator", text: "Ask anything — housing, money, school, a court date. Straight answers, the next steps, and real help nearby, tailored to your age and location.", learn: true },
-  { icon: "🎯", bg: "bg-mint", title: "Life-skill quests", text: "The tasks that unlock adulthood — bank account, Chafee grant, insurance, ID, taxes — broken into small steps with check-ins so they actually get done." },
-  { icon: "🆘", bg: "bg-coral", title: "Panic button", text: "For the worst nights: one tap gives a calm plan for exactly what’s happening, a real shelter, and a crisis line. 988 & 911 are always one tap away." },
-  { icon: "🧭", bg: "bg-warm", title: "Local resources", text: "Housing, food, legal, mental health — filtered to the youth’s area, with numbers we check. No dead ends when it matters most." },
-  { icon: "📄", bg: "bg-sky", title: "Document vault", text: "Birth certificate, SSN, ID, school and medical records — the paperwork you need to rent, work, and enroll, kept safe in one place." },
-  { icon: "🔔", bg: "bg-mint", title: "Reminders", text: "Grant deadlines, insurance windows, court dates — gentle nudges before they pass, plus a check-in after a tough moment." },
+  { icon: "chat", bg: "bg-sky", title: "AI navigator", text: "Ask anything — housing, money, school, a court date. Straight answers, the next steps, and real help nearby, tailored to your age and location.", learn: true },
+  { icon: "target", bg: "bg-mint", title: "Life-skill quests", text: "The tasks that unlock adulthood — bank account, Chafee grant, insurance, ID, taxes — broken into small steps with check-ins so they actually get done." },
+  { icon: "shield", bg: "bg-coral", title: "Panic button", text: "For the worst nights: one tap gives a calm plan for exactly what’s happening, a real shelter, and a crisis line. 988 & 911 are always one tap away." },
+  { icon: "compass", bg: "bg-warm", title: "Local resources", text: "Housing, food, legal, mental health — filtered to the youth’s area, with numbers we check. No dead ends when it matters most." },
+  { icon: "file", bg: "bg-sky", title: "Document vault", text: "Birth certificate, SSN, ID, school and medical records — the paperwork you need to rent, work, and enroll, kept safe in one place." },
+  { icon: "bell", bg: "bg-mint", title: "Reminders", text: "Grant deadlines, insurance windows, court dates — gentle nudges before they pass, plus a check-in after a tough moment." },
 ];
 
 export default function WhatWeDo() {
@@ -36,7 +37,7 @@ export default function WhatWeDo() {
           <div className="grid grid-2">
             {PILLARS.map((p) => (
               <div className="pillar" key={p.title}>
-                <div className={`chip-icon ${p.bg}`}>{p.icon}</div>
+                <div className={`chip-icon ${p.bg}`}><Icon name={p.icon} size={26} /></div>
                 <div>
                   <h3>{p.title}</h3>
                   <p>{p.text}</p>

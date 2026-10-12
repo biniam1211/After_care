@@ -23,7 +23,7 @@ export default function NewsletterForm() {
       });
       if (!res.ok) throw new Error();
       setState("ok");
-      setMsg("You’re on the list — thank you! 💙");
+      setMsg("You’re on the list — thank you.");
       setEmail("");
     } catch {
       setState("error");

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
 import NewsletterForm from "@/components/site/NewsletterForm";
+import Icon from "@/components/site/Icon";
 
 export const metadata = {
   title: "Stories — AfterCare",
@@ -22,7 +23,7 @@ export default function Stories() {
       <section className="section">
         <div className="wrap" style={{ textAlign: "center" }}>
           <div className="story" style={{ display: "block", textAlign: "center", padding: "48px 32px" }}>
-            <div style={{ fontSize: 40 }}>🌅</div>
+            <div className="chip-icon bg-warm" style={{ width: 64, height: 64, margin: "0 auto", borderRadius: 999 }}><Icon name="sun" size={30} /></div>
             <h2 style={{ marginTop: 12 }}>Stories are coming soon.</h2>
             <p className="lede" style={{ margin: "12px auto 0" }}>
               AfterCare is new, so we’re not going to invent testimonials. Real stories — from youth,
