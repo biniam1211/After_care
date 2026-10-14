@@ -17,3 +17,15 @@ attribution required; attribution given here anyway).
 | new-home.jpg | Vitaly Gariev | https://www.pexels.com/photo/23224973/ |
 | mentorship.jpg | Kaboompics | https://www.pexels.com/photo/8530080/ |
 | studying.jpg | Yan Krukau | https://www.pexels.com/photo/8199557/ |
+
+## Founder illustrations — stylized, from his own photos
+
+The three files below are **stylized illustrations made from the founder's own
+photos, with his approval**. Faces are intentionally not exact likenesses. No
+names. No original (non-cartoon) photos are used on the site.
+
+| File | Source |
+| --- | --- |
+| founder-grad-mom.jpg | Stylized illustration from the founder's own photo — graduation day |
+| founder-grad-dad.jpg | Stylized illustration from the founder's own photo — graduation day |
+| founder-christmas.jpg | Stylized illustration from the founder's own photo — Christmas at home |
