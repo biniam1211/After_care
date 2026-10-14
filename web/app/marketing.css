@@ -909,3 +909,42 @@ html:has(.mk) body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Photo figure: licensed stock, illustrative only ── */
+.mk-photo {
+  border: 2px solid var(--line-strong);
+  background: #fff;
+  overflow: hidden;
+  margin: 0;
+}
+
+.mk-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mk-photo figcaption {
+  border-top: 1px solid var(--line);
+  padding: 10px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+.mk-photo figcaption b {
+  color: var(--ink-soft);
+}
+
+/* ── Photo band: two illustrative photos side by side ── */
+.mk-photo-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 720px) {
+  .mk-photo-band {
+    grid-template-columns: 1fr;
+  }
+}

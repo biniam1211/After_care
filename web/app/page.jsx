@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
+import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -99,13 +100,12 @@ export default function Home() {
               <span>Works in your browser</span>
             </div>
           </div>
-          <figure className="mk-art" aria-hidden="true">
-            <OrgArt kind="door" />
-            <figcaption>
-              <b>Fig. 1 —</b> The doorway. Built by someone who went
-              through foster care, for the people coming after him.
-            </figcaption>
-          </figure>
+          <OrgPhoto
+            src="/images/community-friends.jpg"
+            alt="Three young adult friends walking together down a city street with coffee, smiling and chatting"
+            caption="Friends, out in the city. Community is the whole point."
+            photographer="Keira Burton"
+          />
         </div>
       </header>
 
@@ -225,6 +225,18 @@ export default function Home() {
               a young person needs to go.
             </figcaption>
           </figure>
+        </div>
+      </section>
+
+      {/* ── Photo divider: city life ── */}
+      <section className="mk-section" id="city-life" style={{ paddingBottom: 0 }}>
+        <div className="mk-wrap">
+          <OrgPhoto
+            src="/images/city-life.jpg"
+            alt="A young adult with a backpack standing on a sunny city sidewalk"
+            caption="In every city, every ZIP code — a young person on their way."
+            photographer="Samson Katt"
+          />
         </div>
       </section>
 
