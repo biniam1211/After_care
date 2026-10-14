@@ -198,12 +198,12 @@ export default function ServicesPage() {
             <Link href="/app" className="sv-nav-link">
               AI Navigator
             </Link>
-            <a href="/#what" className="sv-nav-link">
-              What it does
-            </a>
-            <a href="/#story" className="sv-nav-link">
+            <Link href="/programs" className="sv-nav-link">
+              Programs
+            </Link>
+            <Link href="/about" className="sv-nav-link">
               Our Story
-            </a>
+            </Link>
           </div>
 
           <div className="sv-nav-actions">
@@ -850,8 +850,8 @@ export default function ServicesPage() {
             <div className="sv-footer-col">
               <h4>About</h4>
               <ul>
-                <li><Link href="/#story">Founder Story</Link></li>
-                <li><Link href="/#problem">The Cliff at 18</Link></li>
+                <li><Link href="/about">Our Story</Link></li>
+                <li><Link href="/research">Research</Link></li>
                 <li><Link href="/privacy">Privacy Policy</Link></li>
                 <li><Link href="/terms">Terms of Service</Link></li>
               </ul>
