@@ -84,6 +84,7 @@ const NAV_LINKS = [
   { href: "/programs", label: "Programs" },
   { href: "/research", label: "Research" },
   { href: "/impact", label: "Impact" },
+  { href: "/stories", label: "Stories" },
   { href: "/get-involved", label: "Get involved" },
   { href: "/services", label: "Find services" },
   { href: "/download", label: "Download" },
@@ -144,6 +145,7 @@ const FOOTER_COLS = [
       { href: "/programs", label: "Programs" },
       { href: "/research", label: "Research" },
       { href: "/impact", label: "Impact" },
+      { href: "/stories", label: "Stories" },
     ],
   },
   {
