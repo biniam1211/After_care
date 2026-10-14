@@ -1,4 +1,4 @@
-import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -12,6 +12,16 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jakarta",
+  display: "swap",
+});
+
+// Editorial serif for the org site's headlines (marketing pages only —
+// the /app product keeps Bricolage/Jakarta). Fraunces, optical-sized.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -76,7 +86,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`${bricolage.variable} ${jakarta.variable} ${fraunces.variable}`}>
       <body>{children}</body>
     </html>
   );
