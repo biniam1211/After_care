@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/onboarding";
+import { OrgNav, CrisisStrip, OrgFooter } from "@/components/site-chrome";
 import "./marketing.css";
 
 export const metadata = { title: "Page not found" };
@@ -11,17 +11,7 @@ export const metadata = { title: "Page not found" };
 export default function NotFound() {
   return (
     <div className="mk">
-      <nav className="mk-nav">
-        <div className="mk-wrap mk-nav-inner">
-          <Link href="/" className="mk-brand">
-            <Logo size={34} r={10} />
-            AfterCare
-          </Link>
-          <Link href="/app" className="mk-btn mk-btn-ghost" style={{ marginLeft: "auto" }}>
-            Open the app
-          </Link>
-        </div>
-      </nav>
+      <OrgNav />
 
       <section className="mk-final" style={{ minHeight: "58vh", display: "flex", alignItems: "center" }}>
         <div className="mk-wrap">
@@ -44,14 +34,8 @@ export default function NotFound() {
         </div>
       </section>
 
-      <div className="mk-crisis">
-        <div className="mk-wrap">
-          <strong>In danger right now?</strong> Call or text <strong>988</strong>{" "}
-          (Suicide &amp; Crisis Lifeline, 24/7). Nowhere to sleep tonight? Covenant
-          House California is <strong>1-800-388-3888</strong>. If someone is being
-          hurt, call <strong>911</strong>.
-        </div>
-      </div>
+      <CrisisStrip />
+      <OrgFooter />
     </div>
   );
 }

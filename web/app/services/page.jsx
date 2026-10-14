@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Icon } from "@/components/ui";
 import { Logo } from "@/components/onboarding";
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
+import { VerificationBadge } from "@/components/site-chrome";
 import "./services.css";
 
 const ZIP_PRESETS = [
@@ -19,7 +20,7 @@ const ZIP_PRESETS = [
 const FAQS = [
   {
     q: "How do I find local resources for foster youth?",
-    a: "Start by entering your ZIP code in the search bar above or selecting your region. You can filter across 8 core categories like Housing, Healthcare, College Aid, and Money. Each program card shows verified phone numbers, direct website links, and an 'Ask AfterCare AI' option to get personalized application guidance.",
+    a: "Start by entering your ZIP code in the search bar above or selecting your region. You can filter across 8 core categories like Housing, Healthcare, College Aid, and Money. Each program card shows phone numbers, direct website links, and an 'Ask AfterCare AI' option to get personalized application guidance. Listings marked “Verified” had their official page confirmed; the rest say “Unverified — call to confirm.”",
   },
   {
     q: "Do I need to prove my foster care status to access these services?",
@@ -27,7 +28,7 @@ const FAQS = [
   },
   {
     q: "What is Former Foster Youth Medi-Cal to 26?",
-    a: "If you were in foster care in California on your 18th birthday, you are legally entitled to 100% free Medi-Cal coverage until age 26—with zero income limits and no complicated re-verification. Most foster youth never know they qualify, which is why we list the county office contact lines directly.",
+    a: "If you were in foster care in California on your 18th birthday, you may be entitled to free Medi-Cal coverage until age 26. Most foster youth never find out they qualify. Confirm your own eligibility with your county Medi-Cal office — AfterCare can help you figure out what to ask.",
   },
   {
     q: "What is the California Chafee Grant and how do I apply?",
@@ -35,7 +36,7 @@ const FAQS = [
   },
   {
     q: "What should I do if I am homeless or facing eviction tonight?",
-    a: "Do not wait. Tap the red 'SOS Emergency' button or call 211 / Covenant House California at 1-800-388-3888 (free, open 24/7). You have a legal right to emergency shelter. If you are under 21 in extended foster care (AB 12), your caseworker or county ILP can arrange immediate crisis placement.",
+    a: "Do not wait. Tap the red 'SOS Emergency' button or call 211 / Covenant House California at 1-800-388-3888 (free, open 24/7). Emergency shelter help is available — call now. If you are under 21 in extended foster care (AB 12), your caseworker or county ILP may be able to arrange immediate crisis placement.",
   },
   {
     q: "Is AfterCare and this directory free to use?",
@@ -55,10 +56,11 @@ export default function ServicesPage() {
   const [screenerOpen, setScreenerOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
-  // Benefits screener state
-  const [screenerAge, setScreenerAge] = useState("18-20");
-  const [screenerInCare13, setScreenerInCare13] = useState("yes");
-  const [screenerInCare18, setScreenerInCare18] = useState("yes");
+  // Benefits screener state — start unanswered ("") so the results
+  // below never assert a match before the youth has answered anything.
+  const [screenerAge, setScreenerAge] = useState("");
+  const [screenerInCare13, setScreenerInCare13] = useState("");
+  const [screenerInCare18, setScreenerInCare18] = useState("");
   const [screenerNeed, setScreenerNeed] = useState("housing");
 
   // Load saved bookmarks from localStorage
@@ -124,8 +126,10 @@ export default function ServicesPage() {
         return false;
       }
 
-      // Verified toggle
-      if (filterVerified && !item.verified && item.tag !== "Verified") {
+      // Verified toggle — the `verified` boolean is the ONLY signal.
+      // Never fall back to the tag string: tags are descriptive copy
+      // ("Open 24/7", "Free"), not verification.
+      if (filterVerified && !item.verified) {
         return false;
       }
 
@@ -195,7 +199,7 @@ export default function ServicesPage() {
               AI Navigator
             </Link>
             <a href="/#what" className="sv-nav-link">
-              Quests
+              What it does
             </a>
             <a href="/#story" className="sv-nav-link">
               Our Story
@@ -229,7 +233,7 @@ export default function ServicesPage() {
           <h1 className="sv-h1">Find Local Services Near You</h1>
 
           <p className="sv-hero-sub">
-            Search verified free and low-cost programs for food, housing, healthcare, employment, college grants, and legal rights. Your ZIP code connects you directly to help in your community.
+            Search free and low-cost programs for food, housing, healthcare, employment, college grants, and legal rights. Your ZIP code connects you directly to help in your community. Listings marked “Verified” had their official page confirmed — the rest say “Unverified — call to confirm.”
           </p>
         </div>
       </header>
@@ -368,9 +372,11 @@ export default function ServicesPage() {
         {/* ── Results Header ── */}
         <div className="sv-results-header">
           <div className="sv-results-count">
-            Showing <b>{filteredResources.length}</b> verified programs
+            Showing <b>{filteredResources.length}</b> programs
             {activeZip ? ` near ${activeZip}` : " in California & Nationwide"}
             {selectedCat !== "all" ? ` · Category: ${selectedCat}` : ""}
+            {" · "}
+            {allResources.filter((r) => r.verified).length} verified listings in the full catalog — the rest are marked “Unverified — call to confirm.”
           </div>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
@@ -424,10 +430,12 @@ export default function ServicesPage() {
                       <span className={`sv-badge-cat ${toneClass}`}>
                         {item.cat || "Resource"}
                       </span>
-                      {item.verified && (
+                      {item.verified ? (
                         <span className="sv-badge-verified">
                           ✓ Verified
                         </span>
+                      ) : (
+                        <VerificationBadge verified={false} />
                       )}
                       {item.tag && item.tag !== "Verified" && (
                         <span className="sv-badge-cat harbor">
@@ -517,7 +525,7 @@ export default function ServicesPage() {
 
             <h2 className="sv-screener-h2">Quick Benefits Screener</h2>
             <p className="sv-screener-sub">
-              Answer 3 quick questions to discover state and federal programs you qualify for right now.
+              Answer 4 quick questions to see which state and federal programs are worth checking next.
             </p>
 
             <div className="sv-screener-q">
@@ -557,7 +565,27 @@ export default function ServicesPage() {
             </div>
 
             <div className="sv-screener-q">
-              <label className="sv-screener-label">3. What is your most urgent priority right now?</label>
+              <label className="sv-screener-label">3. Were you in foster care on your 18th birthday?</label>
+              <div className="sv-screener-options">
+                <button
+                  type="button"
+                  onClick={() => setScreenerInCare18("yes")}
+                  className={`sv-screener-opt ${screenerInCare18 === "yes" ? "selected" : ""}`}
+                >
+                  Yes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setScreenerInCare18("no")}
+                  className={`sv-screener-opt ${screenerInCare18 === "no" ? "selected" : ""}`}
+                >
+                  No or Unsure
+                </button>
+              </div>
+            </div>
+
+            <div className="sv-screener-q">
+              <label className="sv-screener-label">4. What is your most urgent priority right now?</label>
               <div className="sv-screener-options">
                 {[
                   { id: "housing", label: "Housing & Shelter" },
@@ -577,35 +605,49 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {/* Calculated Benefits Result */}
+            {/* Calculated Benefits Result — gated on the answers above.
+                Nothing here is an eligibility determination: each item is
+                "worth checking" given what the youth answered, with the
+                condition stated. If an answer rules a program out, it is
+                not shown as a match. */}
             <div className="sv-screener-results">
               <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--fg-navy)", marginBottom: 12 }}>
-                Programs You Strongly Qualify For:
+                Programs worth checking, based on your answers:
               </h4>
 
-              <div className="sv-screener-benefit-item">
-                <div className="sv-screener-benefit-icon">✓</div>
-                <div>
-                  <b style={{ fontSize: 14.5, color: "var(--fg-navy)" }}>
-                    California Chafee Grant (Up to $5,000/year)
-                  </b>
-                  <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
-                    Free money for college, university, or career training that you never repay.
-                  </p>
-                </div>
-              </div>
+              {(!screenerAge || !screenerInCare13 || !screenerInCare18) && (
+                <p style={{ fontSize: 13.5, color: "var(--fg-text-muted)", lineHeight: 1.5 }}>
+                  Answer the three questions above and matches will appear here.
+                </p>
+              )}
 
-              <div className="sv-screener-benefit-item">
-                <div className="sv-screener-benefit-icon">✓</div>
-                <div>
-                  <b style={{ fontSize: 14.5, color: "var(--fg-navy)" }}>
-                    Former Foster Youth Medi-Cal to Age 26
-                  </b>
-                  <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
-                    100% free comprehensive healthcare with zero income limits.
-                  </p>
+              {screenerInCare13 === "yes" && screenerAge !== "26+" && (
+                <div className="sv-screener-benefit-item">
+                  <div className="sv-screener-benefit-icon">✓</div>
+                  <div>
+                    <b style={{ fontSize: 14.5, color: "var(--fg-navy)" }}>
+                      California Chafee Grant (Up to $5,000/year)
+                    </b>
+                    <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
+                      Free money for college, university, or career training that you never repay — for youth who were in care between 16 and 18 and are under 26. Confirm at chafee.csac.ca.gov.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {screenerInCare18 === "yes" && screenerAge !== "26+" && (
+                <div className="sv-screener-benefit-item">
+                  <div className="sv-screener-benefit-icon">✓</div>
+                  <div>
+                    <b style={{ fontSize: 14.5, color: "var(--fg-navy)" }}>
+                      Former Foster Youth Medi-Cal to Age 26
+                    </b>
+                    <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
+                      Free comprehensive healthcare with no income limit, for youth who were in foster care on their 18th birthday. Confirm your own coverage with your county Medi-Cal office.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {screenerInCare13 === "yes" && (
                 <div className="sv-screener-benefit-item">
@@ -615,13 +657,13 @@ export default function ServicesPage() {
                       FAFSA Independent Student Status ($0 Expected Family Contribution)
                     </b>
                     <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
-                      No parental tax forms needed. You unlock maximum federal Pell Grant aid.
+                      No parental tax forms needed. You may unlock maximum federal Pell Grant aid — confirm on studentaid.gov.
                     </p>
                   </div>
                 </div>
               )}
 
-              {(screenerAge === "16-17" || screenerAge === "18-20") && (
+              {(screenerAge === "16-17" || screenerAge === "18-20") && screenerInCare18 === "yes" && (
                 <div className="sv-screener-benefit-item">
                   <div className="sv-screener-benefit-icon">✓</div>
                   <div>
@@ -629,11 +671,21 @@ export default function ServicesPage() {
                       AB 12 Extended Foster Care &amp; THP-Plus Housing
                     </b>
                     <p style={{ fontSize: 13, color: "var(--fg-text-muted)", marginTop: 2 }}>
-                      Guaranteed housing placement support and monthly independent living stipends through age 21.
+                      You may be eligible for housing placement support and monthly independent living help through age 21. Ask your caseworker or county ILP office — availability varies by county.
                     </p>
                   </div>
                 </div>
               )}
+
+              {screenerAge && screenerInCare13 && screenerInCare18 && !(screenerInCare13 === "yes" || screenerInCare18 === "yes") && (
+                <p style={{ fontSize: 13.5, color: "var(--fg-text-muted)", lineHeight: 1.5 }}>
+                  Based on your answers, these foster-youth-specific programs are probably not a fit — but 211, food banks, shelters, and crisis lines in this directory serve all youth. Ask AfterCare AI or call 211 for what fits you.
+                </p>
+              )}
+
+              <p style={{ fontSize: 12.5, color: "var(--fg-text-muted)", lineHeight: 1.5, marginTop: 14 }}>
+                General information only — not an eligibility determination. Confirm with the program or your county before you rely on it.
+              </p>
             </div>
 
             <div style={{ marginTop: 24, textAlign: "center" }}>
@@ -659,7 +711,7 @@ export default function ServicesPage() {
               <div className="sv-how-num">1</div>
               <h3 className="sv-how-h3">Enter Your ZIP or Area</h3>
               <p className="sv-how-p">
-                We localize the catalog immediately to verified programs in your county and across California.
+                We localize the catalog immediately to programs in your county and across California. Verified listings had their official page confirmed; the rest say “Unverified — call to confirm.”
               </p>
             </div>
 
@@ -739,7 +791,7 @@ export default function ServicesPage() {
       <div className="sv-privacy-strip">
         <Icon name="heart" size={16} color="var(--fg-panic)" sw={2} fill="var(--fg-panic)" />
         <span>
-          Your privacy matters. Search results are never tracked or stored, and saved programs remain private on your device.
+          Your privacy matters. Browsing the directory needs no sign-in, and saved programs stay on your device. Basic server logs (whether a page worked) exist — see Privacy for what is and isn&rsquo;t collected.
         </span>
       </div>
 
@@ -758,7 +810,7 @@ export default function ServicesPage() {
               Launch AfterCare AI Navigator
             </Link>
             <Link href="/" className="sv-footer-btn-outline">
-              Read Our Story &amp; PRD
+              Read Our Story
             </Link>
           </div>
 
@@ -788,7 +840,7 @@ export default function ServicesPage() {
               <h4>Tools</h4>
               <ul>
                 <li><Link href="/services">Resource Directory</Link></li>
-                <li><Link href="/app">Claude AI Navigator</Link></li>
+                <li><Link href="/app">AI Navigator</Link></li>
                 <li><Link href="/app">Interactive Quests</Link></li>
                 <li><Link href="/app">Emergency Panic SOS</Link></li>
                 <li><button type="button" onClick={() => setScreenerOpen(true)} style={{ color: "rgba(255,255,255,.7)", fontSize: 13.5, textAlign: "left" }}>Benefits Screener</button></li>
@@ -817,8 +869,8 @@ export default function ServicesPage() {
           </div>
 
           <div className="sv-footer-bottom">
-            <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth.</span>
-            <span>Made with ❤️ for foster youth everywhere.</span>
+            <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth · A social-impact project working toward nonprofit status.</span>
+            <span>Privacy &amp; Terms are drafts, not yet reviewed by a lawyer. Listings marked “Unverified — call to confirm” have not been checked yet.</span>
           </div>
         </div>
       </footer>

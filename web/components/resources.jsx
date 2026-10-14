@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { Icon, Screen, TONE, Button, Card, Badge, IconTile } from "@/components/ui";
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
 import { sendCaseworker } from "@/components/notify";
+import { VerificationBadge, VERIFIED_MEANING } from "@/components/site-chrome";
 
 const CAT_ICONS = {
   Crisis: "shield",
@@ -78,11 +79,13 @@ export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
               <div style={{ display: "flex", gap: 13 }}>
                 <IconTile name={catIconFor(r)} tone={r.catColor} size={48} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  {r.tag && (
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                      <Badge tone={r.catColor}>{r.tag}</Badge>
-                    </div>
-                  )}
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" }}>
+                    {/* Tag is descriptive copy (e.g. "Open 24/7"), NOT
+                        verification. Verification comes only from the
+                        `verified` boolean. */}
+                    {r.tag && <Badge tone={r.catColor}>{r.tag}</Badge>}
+                    <VerificationBadge verified={!!r.verified} />
+                  </div>
                   <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 16.5, color: "var(--ink)", letterSpacing: -0.3, lineHeight: 1.15 }}>{r.name}</div>
                   <div style={{ fontSize: 13, color: "var(--ink-faint)", marginTop: 3, fontWeight: 600 }}>{r.meta}</div>
                 </div>
@@ -92,15 +95,13 @@ export function ResourcesList({ profile, onOpen, resources = RESOURCES }) {
           );
         })}
 
-        {/* Honesty about the list itself. "Verified" here means the
-            organisation's official page was confirmed — not that the phone
-            line was called this week. Saying so costs less than losing a
-            youth's trust the first time a number rings out. */}
+        {/* Honesty about the list itself. See site-chrome.jsx for the
+            single definition of "Verified": official page confirmed —
+            NOT a tested-live phone line, NOT a guarantee it serves you. */}
         {ids.length > 0 && (
           <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--ink-faint)", margin: "10px 4px 0" }}>
-            <strong style={{ color: "var(--ink-soft)" }}>Verified</strong> means we
-            confirmed the organization&rsquo;s official page. Hours and who they can
-            serve still change — it&rsquo;s worth calling ahead. If a number is dead,
+            {VERIFIED_MEANING} Listings marked “Unverified — call to
+            confirm” have not been checked yet. If a number is dead,
             tell me in the chat and I&rsquo;ll find you another.
           </p>
         )}
@@ -130,13 +131,22 @@ export function ResourceDetail({ id, onBack, profile, resources = RESOURCES }) {
           <Icon name="chevL" size={22} color="var(--ink)" sw={2.4} />
         </button>
         <IconTile name={catIconFor(r)} tone={r.catColor} size={60} r={19} />
-        <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "16px 0 8px" }}><Badge tone={r.catColor}>{r.tag}</Badge>
-          <span style={{ fontSize: 13, color: t.ink, fontWeight: 700 }}>· {r.cat}</span></div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "16px 0 8px", flexWrap: "wrap" }}>
+          {r.tag && <Badge tone={r.catColor}>{r.tag}</Badge>}
+          <VerificationBadge verified={!!r.verified} />
+          <span style={{ fontSize: 13, color: t.ink, fontWeight: 700 }}>· {r.cat}</span>
+        </div>
         <h1 style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 27, letterSpacing: -0.6, color: "var(--ink)", margin: 0, lineHeight: 1.1 }}>{r.name}</h1>
       </div>
 
       <div className="no-scrollbar" style={{ flex: 1, overflowY: "auto", padding: "20px 18px 40px" }}>
         <p style={{ fontSize: 16, lineHeight: 1.55, color: "var(--ink)", margin: "0 0 18px" }}>{r.blurb}</p>
+        {!r.verified && (
+          <p style={{ fontSize: 13.5, lineHeight: 1.5, color: "#9a5a22", background: "#fff3e0", borderRadius: 12, padding: "10px 14px", margin: "0 0 18px" }}>
+            This listing hasn&rsquo;t been checked yet — call to confirm
+            before you rely on it.
+          </p>
+        )}
 
         <Card style={{ padding: 4 }}>
           <Row icon="pin" tone={r.catColor} label="Where" value={r.meta} />

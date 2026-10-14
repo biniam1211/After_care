@@ -9,6 +9,9 @@
 //
 // Expected Sanity document (type "resource"):
 //   slug (id), name, cat, catColor, blurb, meta, phone, tag
+// Sanity rows do NOT carry `verified` — when a Sanity row overrides a seed
+// row, the seed's verified flag is preserved (see below). A listing is
+// only "verified" when the seed CSV says so.
 // ───────────────────────────────────────────────────────────
 import { RESOURCES } from "@/components/data";
 import { logError } from "@/lib/log";
@@ -42,6 +45,10 @@ export async function GET() {
     const resources = {};
     for (const row of rows) {
       if (!row || !row.id || !row.name) continue;
+      // Sanity rows have no `verified` field. Never let a Sanity row
+      // silently strip the seed's verified flag: preserve it unless the
+      // Sanity document explicitly carries one.
+      const seed = RESOURCES[row.id];
       resources[row.id] = {
         name: row.name,
         cat: row.cat || "All-in-one",
@@ -50,6 +57,12 @@ export async function GET() {
         meta: row.meta || "",
         phone: row.phone || null,
         tag: row.tag || "",
+        url: row.url || seed?.url || null,
+        address: row.address || seed?.address || null,
+        verified:
+          typeof row.verified === "boolean"
+            ? row.verified
+            : Boolean(seed?.verified),
       };
     }
     // Merge over the seed so crisis/chat resources always resolve.

@@ -65,6 +65,34 @@ automatically on first use. With **no** `DATABASE_URL`, all of this is inert and
 runs on localStorage exactly as the standalone demo — the build and demo never depend on
 it. See `.env.example` for every variable.
 
+## Org site vs product app (separated)
+
+One deploy, two surfaces — see
+`../docs/ARCHITECTURE-SEPARATION.md` for the full split.
+
+- **Org marketing:** `/` (landing), `/services` (directory),
+  `/download` (honest install page), `/privacy`, `/terms`. Shared
+  chrome in `components/site-chrome.jsx` (`OrgNav`, `OrgFooter`,
+  `CrisisStrip`, `VerificationBadge`).
+- **Product app:** `/app` only. Its own in-app shell
+  (`components/app-shell.jsx`); no org nav/footer inside the product.
+
+## Resource verification (read before you touch the catalog)
+
+- The catalog is 65 listings from
+  `../supabase/seed/resources.sample.csv`, generated into
+  `components/resources.generated.js` by `scripts/build-resources.mjs`.
+  Never hand-edit the generated file.
+- `verified: true` (6 listings) means **the official page was confirmed
+  to resolve to the correct organisation**. It does NOT mean the phone
+  line was tested live. Never write "phone-verified".
+- Every unverified listing renders "Unverified — call to confirm" in
+  the app finder, the chat cards, and `/services`. The chat system
+  prompt forbids the model from calling an unverified listing verified.
+- To verify a listing: a human confirms it (see
+  `../supabase/seed/README.md`), flip `verified` in the CSV, re-run
+  `node scripts/build-resources.mjs`, commit both files.
+
 ## Content, logging & reminders
 
 - **Sanity CMS** (`SANITY_PROJECT_ID` + `SANITY_DATASET`) — the resource directory is
@@ -77,8 +105,8 @@ it. See `.env.example` for every variable.
 - **Scheduled reminders** — `/api/cron/reminders` (guarded by `CRON_SECRET`) sends the
   Panic Button's promised **6-hour check-in** (scheduled via `/api/checkin` when signed
   in) and gentle **quest nudges** to users who left a quest partway. Triggered hourly by
-  `vercel.json` cron, or by the `.github/workflows/aftercare-web-reminders.yml` GitHub
-  Action. All email goes through Resend.
+  the `.github/workflows/aftercare-web-reminders.yml` GitHub Action. All email goes through Resend.
+  (There is no `vercel.json` cron in this project — the GitHub Action is the trigger.)
 
 ## Design system
 

@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Icon, TONE, IconTile } from "@/components/ui";
 import { Logo } from "@/components/onboarding";
 import { CHAT_SUGGESTIONS, CHAT_REPLIES, RESOURCES } from "@/components/data";
+import { VerificationBadge } from "@/components/site-chrome";
 
 function matchReply(text) {
   const t = text.toLowerCase();
@@ -27,6 +28,7 @@ function ResourceMini({ id, onOpen }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", letterSpacing: -0.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</div>
         <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 1 }}>{r.meta}</div>
+        <div style={{ marginTop: 5 }}><VerificationBadge verified={!!r.verified} /></div>
       </div>
       {r.phone && <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 99, background: t.soft }}><Icon name="phone" size={17} color={t.solid} sw={2} /></span>}
     </button>

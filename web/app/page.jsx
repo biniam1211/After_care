@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui";
 import { Logo } from "@/components/onboarding";
+import {
+  OrgNav,
+  OrgFooter,
+  CrisisStrip,
+  ORG_STATUS,
+  VERIFIED_MEANING,
+} from "@/components/site-chrome";
 import "./marketing.css";
 
 export const metadata = {
@@ -45,7 +52,7 @@ const FEATURES = [
     tint: "var(--mint)",
     bg: "var(--mint-soft)",
     title: "Help that's actually near you",
-    body: "Every resource is checked and tied to a real place. The AI is locked to that verified list — it physically cannot invent a hotline or send you to an office three states away.",
+    body: "Every listing is tied to a real place, and the AI can only recommend listings from that fixed catalog — it cannot invent a hotline or send you to an office three states away. Listings marked Verified had their official page confirmed; the rest say “Unverified — call to confirm,” so you always know what has and hasn't been checked yet.",
   },
 ];
 
@@ -68,25 +75,7 @@ export default function Home() {
   return (
     <div className="mk">
       {/* ── Nav ── */}
-      <nav className="mk-nav">
-        <div className="mk-wrap mk-nav-inner">
-          <Link href="/" className="mk-brand">
-            {/* The same mark the app shows on its welcome screen, so the site
-                and the product are recognisably one thing. */}
-            <Logo size={34} r={10} />
-            AfterCare
-          </Link>
-          <div className="mk-nav-links">
-            <Link href="/services" style={{ fontWeight: 700, color: "var(--sky)" }}>Find services</Link>
-            <a href="#problem">The problem</a>
-            <a href="#what">What it does</a>
-            <a href="#story">Our story</a>
-          </div>
-          <Link href="/app" className="mk-btn mk-btn-ghost" style={{ marginLeft: "auto" }}>
-            Open the app
-          </Link>
-        </div>
-      </nav>
+      <OrgNav />
 
       {/* ── Hero ── */}
       <header className="mk-hero">
@@ -108,6 +97,9 @@ export default function Home() {
             <div className="mk-cta-row">
               <Link href="/app" className="mk-btn mk-btn-primary">
                 Open the app <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
+              </Link>
+              <Link href="/download" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+                Get it on your phone
               </Link>
               <Link href="/services" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
                 Find local services
@@ -198,58 +190,99 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Story ── */}
+      {/* ── Story ──
+          Founder story placeholder. The detailed timeline that used to
+          live here asserted specific biographical facts (birthplace, age
+          of arrival, age of aging out) that Binyam has not confirmed in
+          his own words. Until he writes it, this section says only what
+          he has stated himself: that he went through foster care and is
+          building the thing he needed. Do not re-add biographical
+          details without Binyam's own words. */}
       <section className="mk-section" id="story" style={{ background: "#fff" }}>
         <div className="mk-wrap mk-story">
           <div>
             <p className="mk-kicker">Our story</p>
             <h2 className="mk-h2">This isn&rsquo;t charity work.</h2>
             <p className="mk-lead">
-              AfterCare was built by someone who needed it and didn&rsquo;t have
-              it. That&rsquo;s not a marketing line — it&rsquo;s the reason every
-              screen in the app looks the way it does.
+              AfterCare is being built by someone who went through foster
+              care and is building the thing he needed when he was in it.
+              The full founder story — in Binyam&rsquo;s own words — is
+              coming soon.
             </p>
-            <ul className="mk-timeline">
-              <li>
-                <b>Born in Ethiopia</b>
-                <span>Came to the United States at 16.</span>
-              </li>
-              <li>
-                <b>Placed in foster care</b>
-                <span>Learned the system from the inside, not from a training deck.</span>
-              </li>
-              <li>
-                <b>Aged out at 18</b>
-                <span>Hit the same cliff this app is built to catch people on.</span>
-              </li>
-              <li>
-                <b>Became an engineer</b>
-                <span>
-                  Taught himself to build, then went to work building AI
-                  professionally.
-                </span>
-              </li>
-              <li>
-                <b>Built the thing that should have existed</b>
-                <span>
-                  AfterCare is the answer to a question he had to figure out alone.
-                </span>
-              </li>
-            </ul>
+            <p className="mk-lead">
+              {ORG_STATUS} That is the honest status: the work is real,
+              the product is live in your browser, and the formal
+              nonprofit filing is still ahead of us.
+            </p>
           </div>
 
           <div>
             <div className="mk-pullquote">
-              A general tech founder building an app for foster youth is doing
-              charity work. This is self-rescue, at scale.
+              Youth can tell instantly when something was designed by
+              someone who&rsquo;s never been where they are. The tone, the
+              questions it asks first, what it refuses to lecture you
+              about — all of that comes from lived experience, not a focus
+              group.
             </div>
-            <p className="mk-lead" style={{ marginTop: 28 }}>
-              Youth can tell instantly when something was designed by someone
-              who&rsquo;s never been where they are. The tone, the questions it
-              asks first, what it refuses to lecture you about — all of that comes
-              from lived experience, not a focus group.
-            </p>
           </div>
+        </div>
+      </section>
+
+      {/* ── Services preview ── */}
+      <section className="mk-section" id="services-preview" style={{ paddingTop: 0 }}>
+        <div className="mk-wrap">
+          <p className="mk-kicker">Find services</p>
+          <h2 className="mk-h2">Start with the help that&rsquo;s closest.</h2>
+          <p className="mk-lead">
+            The directory lists California programs across housing, health,
+            school, money, and legal help. {VERIFIED_MEANING}
+          </p>
+
+          <div className="mk-cards">
+            <div className="mk-card">
+              <span className="mk-tile" style={{ background: "var(--sky-soft)" }}>
+                <Icon name="home" size={26} color="var(--sky)" sw={2.1} />
+              </span>
+              <h3>Housing &amp; shelter</h3>
+              <p>Emergency shelter and transitional housing for youth with nowhere to sleep tonight — plus the numbers that actually pick up.</p>
+              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse housing →</Link></p>
+            </div>
+            <div className="mk-card">
+              <span className="mk-tile" style={{ background: "var(--mint-soft)" }}>
+                <Icon name="cash" size={26} color="var(--mint)" sw={2.1} />
+              </span>
+              <h3>Chafee Grant — up to $5,000/yr</h3>
+              <p>Free money for college or job training that you never pay back, if you were in care between 16 and 18. The app walks you through claiming it.</p>
+              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse education aid →</Link></p>
+            </div>
+            <div className="mk-card">
+              <span className="mk-tile" style={{ background: "var(--warm-soft)" }}>
+                <Icon name="health" size={26} color="var(--warm-deep)" sw={2.1} />
+              </span>
+              <h3>Health coverage to 26</h3>
+              <p>Former foster youth keep free Medi-Cal to age 26 in California. Most never find out. The directory and the app make sure you do.</p>
+              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse health →</Link></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Impact ──
+          No impact metrics are claimed: we do not count users or
+          outcomes yet. Impact here is defined by the goal, not by
+          invented results. */}
+      <section className="mk-section" id="impact" style={{ paddingTop: 0 }}>
+        <div className="mk-wrap">
+          <p className="mk-kicker">What impact looks like here</p>
+          <h2 className="mk-h2">One youth, one finished thing.</h2>
+          <p className="mk-lead">
+            We don&rsquo;t publish impact numbers yet, because we
+            don&rsquo;t track youth to produce them. The goal we measure
+            ourselves against is simple: does a foster kid open this app a
+            second time within 7 days — and does one real thing get
+            finished, like a bank account opened, a grant applied for, or a
+            shelter reached?
+          </p>
         </div>
       </section>
 
@@ -283,6 +316,9 @@ export default function Home() {
             <Link href="/app" className="mk-btn mk-btn-primary">
               Open the app <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
             </Link>
+            <Link href="/download" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+              Get it on your phone
+            </Link>
           </div>
         </div>
       </section>
@@ -290,28 +326,10 @@ export default function Home() {
       {/* ── Crisis strip ──
           Surfaced on the public page too, so a youth in crisis who never opens
           the app still leaves with a number that answers. */}
-      <div className="mk-crisis">
-        <div className="mk-wrap">
-          <b>In danger right now?</b> Call or text <b>988</b> (Suicide &amp; Crisis
-          Lifeline, 24/7). If you have nowhere to sleep tonight, Covenant House
-          California is <b>1-800-388-3888</b>. If someone is being hurt, call{" "}
-          <b>911</b>.
-        </div>
-      </div>
+      <CrisisStrip />
 
       {/* ── Footer ── */}
-      <footer className="mk-footer">
-        <div className="mk-wrap mk-footer-inner">
-          <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
-          <span>
-            <Link href="/services">Find Services</Link>
-            <Link href="/app">Open the app</Link>
-            <a href="#story">Our story</a>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </span>
-        </div>
-      </footer>
+      <OrgFooter />
     </div>
   );
 }

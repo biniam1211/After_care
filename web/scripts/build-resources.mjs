@@ -2,10 +2,11 @@
 // Generates web/components/resources.generated.js from the curated resource
 // list in supabase/seed/resources.sample.csv.
 //
-// The CSV is the source of truth — it is the list that gets phone-verified
-// (see supabase/seed/README.md). This script exists so the web app ships that
-// same list instead of a hand-written handful, and so re-verifying is a matter
-// of editing the CSV and re-running:
+// The CSV is the source of truth — it is the list that gets verified
+// (see supabase/seed/README.md for the exact definition: official page
+// confirmed, NOT a tested-live phone line). This script exists so the
+// web app ships that same list instead of a hand-written handful, and so
+// re-verifying is a matter of editing the CSV and re-running:
 //
 //   node scripts/build-resources.mjs
 //
@@ -158,8 +159,11 @@ const main = () => {
       phone: phone || null,
       url: url || null,
       address: address || null,
-      // Surfaced in the UI so a youth can tell a phone-checked number from one
-      // that is merely listed.
+      // Surfaced in the UI so a youth can tell a listing whose official
+      // page was confirmed from one that is merely listed. "Verified"
+      // does NOT mean the phone line was tested live — see
+      // supabase/seed/README.md for the exact definition. Never write
+      // "phone-verified" for this flag.
       tag: verified ? "Verified" : null,
       verified,
     };
@@ -169,7 +173,9 @@ const main = () => {
 // Source: supabase/seed/resources.sample.csv
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// ${Object.keys(out).length} resources (${verifiedCount} phone-verified).
+// ${Object.keys(out).length} resources (${verifiedCount} with official page confirmed).
+// "Verified" = official page confirmed (see supabase/seed/README.md).
+// It does NOT mean the phone line was tested live.
 `;
 
   writeFileSync(

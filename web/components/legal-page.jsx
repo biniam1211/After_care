@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { Logo } from "@/components/onboarding";
+import { OrgNav, OrgFooter, CrisisStrip } from "@/components/site-chrome";
 
 // Shared chrome for /privacy and /terms so the legal pages look like the rest
-// of the site rather than a naked wall of text.
+// of the site rather than a naked wall of text. Nav/footer/crisis strip come
+// from components/site-chrome.jsx — the single shared org chrome.
 
 /**
  * Contact address shown in the legal pages. Set CONTACT_EMAIL in the
@@ -27,17 +27,7 @@ export function Contact() {
 export function LegalPage({ title, updated, children }) {
   return (
     <div className="mk">
-      <nav className="mk-nav">
-        <div className="mk-wrap mk-nav-inner">
-          <Link href="/" className="mk-brand">
-            <Logo size={34} r={10} />
-            AfterCare
-          </Link>
-          <Link href="/app" className="mk-btn mk-btn-ghost" style={{ marginLeft: "auto" }}>
-            Open the app
-          </Link>
-        </div>
-      </nav>
+      <OrgNav />
 
       <main className="mk-wrap mk-legal">
         <h1>{title}</h1>
@@ -52,25 +42,8 @@ export function LegalPage({ title, updated, children }) {
         {children}
       </main>
 
-      <div className="mk-crisis">
-        <div className="mk-wrap">
-          <strong>In danger right now?</strong> Call or text <strong>988</strong>{" "}
-          (Suicide &amp; Crisis Lifeline, 24/7). Nowhere to sleep tonight? Covenant
-          House California is <strong>1-800-388-3888</strong>. If someone is being
-          hurt, call <strong>911</strong>.
-        </div>
-      </div>
-
-      <footer className="mk-footer">
-        <div className="mk-wrap mk-footer-inner">
-          <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
-          <span>
-            <Link href="/">Home</Link>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </span>
-        </div>
-      </footer>
+      <CrisisStrip />
+      <OrgFooter />
     </div>
   );
 }
