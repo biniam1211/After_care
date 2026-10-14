@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Icon } from "@/components/ui";
 import { OrgArt } from "@/components/org-art";
 import {
   OrgNav,
@@ -28,30 +27,18 @@ const STATS = [
 
 const PILLARS = [
   {
-    icon: "home",
-    tint: "var(--sky)",
-    bg: "var(--sky-soft)",
     title: "Housing",
     body: "A safe place to sleep tonight, and a path to a stable one next month — shelter, transitional housing, and the numbers that actually pick up.",
   },
   {
-    icon: "health",
-    tint: "var(--panic-deep)",
-    bg: "var(--panic-soft)",
     title: "Health",
     body: "Coverage that follows you, care you can actually reach, and help in a crisis — including Medi-Cal to age 26 in California.",
   },
   {
-    icon: "cash",
-    tint: "var(--warm-deep)",
-    bg: "var(--warm-soft)",
     title: "Work & Money",
     body: "First bank account, first job, benefits you qualify for — including the Chafee Grant, up to $5,000 a year for school or training.",
   },
   {
-    icon: "heart",
-    tint: "var(--mint)",
-    bg: "var(--mint-soft)",
     title: "Community & Belonging",
     body: "People who get it. Guidance from lived experience, not lectures — and a community that does not end when you turn 18.",
   },
@@ -85,132 +72,136 @@ export default function Home() {
     <div className="mk">
       <OrgNav />
 
-      {/* ── Hero ── */}
+      {/* ── Front page ── */}
       <header className="mk-hero">
         <div className="mk-wrap mk-hero-grid">
           <div>
-            <span className="mk-eyebrow">
-              <span className="mk-dot" />
-              For everyone · Every ZIP code · Every day
-            </span>
+            <p className="mk-kicker">The life navigator for foster youth</p>
             <h1 className="mk-h1">
               No one should have to figure out adulthood <em>alone.</em>
             </h1>
-            <p className="mk-sub">
-              AfterCare is the life navigator for foster youth — housing,
-              health, work, money, and community, in one place, whenever you
-              need it. Built by someone who went through foster care, for the
-              people coming after him.
+            <p className="mk-deck">
+              AfterCare is the guide that should have existed at 18 —
+              housing, health, work, money, and community, in one place,
+              whenever you need it.
             </p>
             <div className="mk-cta-row">
               <Link href="/services" className="mk-btn mk-btn-primary">
-                Find services <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
+                Find services →
               </Link>
-              <Link href="/programs" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+              <Link href="/programs" className="mk-btn mk-btn-ghost">
                 Explore programs
               </Link>
-              <Link href="/app" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
-                Open the app
-              </Link>
             </div>
-            <p className="mk-cta-note">
-              Free forever · No caseworker required · Works in your browser
-            </p>
+            <div className="mk-hero-meta">
+              <span>Free forever</span>
+              <span>No caseworker required</span>
+              <span>Works in your browser</span>
+            </div>
           </div>
-
-          <div className="mk-art" aria-hidden="true">
-            <OrgArt kind="sunrise" />
-          </div>
+          <figure className="mk-art" aria-hidden="true">
+            <OrgArt kind="door" />
+            <figcaption>
+              <b>Fig. 1 —</b> The doorway. Built by someone who went
+              through foster care, for the people coming after him.
+            </figcaption>
+          </figure>
         </div>
       </header>
 
-      {/* ── Nationwide banner ── */}
-      <section className="mk-section mk-band-warm" style={{ padding: "28px 0" }}>
+      {/* ── The problem, as a ledger ── */}
+      <section className="mk-section" id="problem">
         <div className="mk-wrap">
-          <p style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 18, margin: 0 }}>
-            Built for every ZIP code in America.{" "}
-            <span style={{ fontWeight: 500, color: "var(--ink-soft)" }}>
-              Our directory covers California today — 65 listings — and the
-              road ahead is nationwide. <Link href="/programs" style={{ fontWeight: 700 }}>See the roadmap →</Link>
-            </span>
+          <p className="mk-kicker">01 — Why this exists</p>
+          <div className="mk-split">
+            <div>
+              <h2 className="mk-h2">
+                Aging out is a cliff, and almost nobody catches you.
+              </h2>
+            </div>
+            <div>
+              <p className="mk-lead" style={{ marginTop: 0 }}>
+                The help is real and it is out there. The problem is that
+                it&rsquo;s scattered across hundreds of websites, state
+                portals, PDFs and overworked caseworkers&rsquo; heads — and
+                none of it is written for a 17-year-old holding a phone.
+              </p>
+            </div>
+          </div>
+          <div className="mk-ledger">
+            {STATS.map((s, i) => (
+              <div className="mk-ledger-row" key={s.l}>
+                <div className="mk-ledger-num">0{i + 1}</div>
+                <div>
+                  <h3>{s.n} — {s.l}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mk-caption">
+            Figures are supplied estimates used for planning;
+            primary-source citations are still being verified. See{" "}
+            <Link href="/research">Research</Link>.
           </p>
         </div>
       </section>
 
-      {/* ── The problem ── */}
-      <section className="mk-section mk-section-dark" id="problem">
+      {/* ── Pull quote band ── */}
+      <section className="mk-pull">
         <div className="mk-wrap">
-          <p className="mk-kicker">Why this exists</p>
-          <h2 className="mk-h2">
-            Aging out is a cliff, and almost nobody catches you.
-          </h2>
-          <p className="mk-lead">
-            The help is real and it is out there. The problem is that it&rsquo;s
-            scattered across hundreds of websites, state portals, PDFs and
-            overworked caseworkers&rsquo; heads — and none of it is written for a
-            17-year-old holding a phone.
-          </p>
-
-          <div className="mk-stats">
-            {STATS.map((s) => (
-              <div className="mk-stat" key={s.l}>
-                <div className="mk-stat-n">{s.n}</div>
-                <div className="mk-stat-l">{s.l}</div>
-              </div>
-            ))}
-          </div>
-          <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.55)", marginTop: 16 }}>
-            Figures are supplied estimates used for planning; primary-source
-            citations are still being verified. See <Link href="/research" style={{ color: "#9ad4ff" }}>Research</Link>.
-          </p>
-
-          <blockquote className="mk-quote">
+          <blockquote>
             <p>
-              Knowledge and accessibility are the real barriers. Everything is on
-              their phone, via text, apps, and links.
+              “Knowledge and accessibility are the real barriers.
+              Everything is on their phone, via text, apps, and links.”
             </p>
             <cite>— APHSA, 2024</cite>
           </blockquote>
+          <p className="mk-pull-note">
+            The federal government&rsquo;s answer is a transition toolkit
+            written for caseworkers. Nobody under 25 reads a PDF. That gap
+            — between help existing and help reaching someone — is the
+            entire reason AfterCare exists.
+          </p>
         </div>
       </section>
 
-      {/* ── Four pillars preview ── */}
+      {/* ── Four pillars, as numbered ledger rows ── */}
       <section className="mk-section" id="pillars">
         <div className="mk-wrap">
-          <p className="mk-kicker">What we do</p>
+          <p className="mk-kicker">02 — What we do</p>
           <h2 className="mk-h2">Four pillars, one navigator.</h2>
-          <p className="mk-lead">
+          <p className="mk-deck">
             Everything a young person needs to stand on their own — held
-            together by one guide that answers, then walks with you until the
-            thing is actually done.
+            together by one guide that answers, then walks with you until
+            the thing is actually done.
           </p>
-          <div className="mk-grid3">
-            {PILLARS.map((f) => (
-              <div className="mk-card" key={f.title}>
-                <span className="mk-tile" style={{ background: f.bg }}>
-                  <Icon name={f.icon} size={26} color={f.tint} sw={2.1} />
-                </span>
-                <h3>{f.title}</h3>
-                <p>{f.body}</p>
+          <div className="mk-ledger">
+            {PILLARS.map((f, i) => (
+              <div className="mk-ledger-row" key={f.title}>
+                <div className="mk-ledger-num accent">0{i + 1}</div>
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.body}</p>
+                </div>
               </div>
             ))}
           </div>
           <p className="mk-lead">
-            <Link href="/programs" style={{ fontWeight: 700 }}>Explore all programs →</Link>
+            <Link href="/programs">Explore all programs →</Link>
           </p>
         </div>
       </section>
 
-      {/* ── Navigator preview ── */}
-      <section className="mk-section mk-band-sky" id="navigator">
+      {/* ── Navigator: split with figure ── */}
+      <section className="mk-section" id="navigator">
         <div className="mk-wrap mk-split">
           <div>
-            <p className="mk-kicker">The navigator</p>
+            <p className="mk-kicker">03 — The navigator</p>
             <h2 className="mk-h2">One place that does the whole job.</h2>
             <p className="mk-lead">
               Ask anything, judgment-free. Finish real tasks step by step.
-              Find help that&rsquo;s actually near you. And in a crisis, get a
-              real plan in seconds — not a lecture.
+              Find help that&rsquo;s actually near you. And in a crisis, get
+              a real plan in seconds — not a lecture.
             </p>
             <ul className="mk-checklist">
               <li>Ask anything — straight answers, in plain language, at 2am if that&rsquo;s when you need them.</li>
@@ -219,77 +210,97 @@ export default function Home() {
               <li>Help that&rsquo;s actually near you — recommendations only from our fixed catalog, never invented.</li>
             </ul>
             <div className="mk-cta-row">
-              <Link href="/app" className="mk-btn mk-btn-sky">
-                Open the app <Icon name="arrowR" size={19} color="#fff" sw={2.6} />
+              <Link href="/app" className="mk-btn">
+                Open the app →
               </Link>
-              <Link href="/download" className="mk-btn" style={{ background: "#fff", color: "var(--harbor)", height: 50, padding: "0 24px", fontSize: 16, boxShadow: "var(--shadow-card)" }}>
+              <Link href="/download" className="mk-btn mk-btn-ghost">
                 Get it on your phone
               </Link>
             </div>
           </div>
-          <div className="mk-art">
+          <figure className="mk-art" aria-hidden="true">
             <OrgArt kind="compass" />
-          </div>
+            <figcaption>
+              <b>Fig. 2 —</b> The navigator. One guide, every direction
+              a young person needs to go.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* ── What's happening ── */}
+      {/* ── What's happening: bulletin ledger ── */}
       <section className="mk-section" id="happening">
         <div className="mk-wrap">
-          <p className="mk-kicker">What&rsquo;s happening</p>
+          <p className="mk-kicker">04 — What&rsquo;s happening</p>
           <h2 className="mk-h2">Real things you can use today.</h2>
-          <div className="mk-grid3">
-            <div className="mk-card">
-              <span className="mk-badge mk-badge-live">Live now</span>
-              <h3>Services directory</h3>
-              <p>65 California listings across housing, health, school, money, and legal help. {VERIFIED_MEANING}</p>
-              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse services →</Link></p>
+          <div className="mk-ledger">
+            <div className="mk-ledger-row">
+              <div className="mk-ledger-num">A</div>
+              <div>
+                <span className="mk-badge mk-badge-live">Live now</span>
+                <h3>Services directory</h3>
+                <p>65 California listings across housing, health, school, money, and legal help. {VERIFIED_MEANING}</p>
+                <Link href="/services" className="mk-ledger-link">Browse services →</Link>
+              </div>
             </div>
-            <div className="mk-card">
-              <span className="mk-badge mk-badge-live">Live now</span>
-              <h3>The navigator app</h3>
-              <p>Runs in your browser today, installs to your Home Screen in under a minute. No account, no download, no cost.</p>
-              <p><Link href="/app" style={{ fontWeight: 700 }}>Open the app →</Link></p>
+            <div className="mk-ledger-row">
+              <div className="mk-ledger-num">B</div>
+              <div>
+                <span className="mk-badge mk-badge-live">Live now</span>
+                <h3>The navigator app</h3>
+                <p>Runs in your browser today, installs to your Home Screen in under a minute. No account, no download, no cost.</p>
+                <Link href="/app" className="mk-ledger-link">Open the app →</Link>
+              </div>
             </div>
-            <div className="mk-card">
-              <span className="mk-badge mk-badge-roadmap">Roadmap</span>
-              <h3>Nationwide, every ZIP</h3>
-              <p>The directory grows state by state until a young person anywhere in America can find help near them. That&rsquo;s the road ahead.</p>
-              <p><Link href="/programs" style={{ fontWeight: 700 }}>See the roadmap →</Link></p>
+            <div className="mk-ledger-row">
+              <div className="mk-ledger-num">C</div>
+              <div>
+                <span className="mk-badge mk-badge-roadmap">Roadmap</span>
+                <h3>Nationwide, every ZIP</h3>
+                <p>The directory grows state by state until a young person anywhere in America can find help near them. That&rsquo;s the road ahead.</p>
+                <Link href="/programs" className="mk-ledger-link">See the roadmap →</Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Everyday scenarios ── */}
-      <section className="mk-section mk-band-mint" id="everyday">
+      {/* ── Everyday scenarios: case notes ── */}
+      <section className="mk-section" id="everyday">
         <div className="mk-wrap">
-          <p className="mk-kicker">Every day</p>
+          <p className="mk-kicker">05 — Every day</p>
           <h2 className="mk-h2">What a day with AfterCare looks like.</h2>
-          <p className="mk-lead">
-            These are illustrative examples of how the navigator helps — not
-            stories from real people.
+          <p className="mk-deck">
+            These are illustrative examples of how the navigator helps —
+            not stories from real people.
           </p>
-          <div className="mk-grid3" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
-            {SCENARIOS.map((s) => (
-              <div className="mk-scenario" key={s.title}>
-                <span className="mk-scenario-tag">{s.tag}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
+          <div className="mk-ledger">
+            {SCENARIOS.map((s, i) => (
+              <div className="mk-ledger-row" key={s.title}>
+                <div className="mk-ledger-num">0{i + 1}</div>
+                <div>
+                  <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)", margin: 0 }}>{s.tag}</p>
+                  <h3 style={{ marginTop: 8 }}>{s.title}</h3>
+                  <p>{s.body}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Impact preview ── */}
+      {/* ── Impact preview: figure + text ── */}
       <section className="mk-section" id="impact-preview">
-        <div className="mk-wrap mk-split">
-          <div className="mk-art">
+        <div className="mk-wrap mk-split flip">
+          <figure className="mk-art" aria-hidden="true">
             <OrgArt kind="growth" />
-          </div>
+            <figcaption>
+              <b>Fig. 3 —</b> One finished thing at a time. That is the
+              whole measurement.
+            </figcaption>
+          </figure>
           <div>
-            <p className="mk-kicker">Impact</p>
+            <p className="mk-kicker">06 — Impact</p>
             <h2 className="mk-h2">One youth, one finished thing.</h2>
             <p className="mk-lead">
               We don&rsquo;t publish impact numbers yet, because we don&rsquo;t
@@ -298,49 +309,50 @@ export default function Home() {
               within 7 days — and does one real thing get finished?
             </p>
             <p className="mk-lead">
-              <Link href="/impact" style={{ fontWeight: 700 }}>How we measure impact →</Link>
+              <Link href="/impact">How we measure impact →</Link>
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── Get involved preview ── */}
-      <section className="mk-section mk-section-dark" id="involved-preview">
+      {/* ── Get involved: ink band ── */}
+      <section className="mk-section mk-section-ink" id="involved-preview">
         <div className="mk-wrap">
-          <p className="mk-kicker">Get involved</p>
+          <p className="mk-kicker">07 — Get involved</p>
           <h2 className="mk-h2">There&rsquo;s a place for you in this.</h2>
-          <p className="mk-lead">
+          <p className="mk-deck">
             Whether you&rsquo;re a young person who needs help, an adult who
             wants to show up, or an organization that serves youth — you
             belong here.
           </p>
           <div className="mk-cta-row">
             <Link href="/get-involved" className="mk-btn mk-btn-primary">
-              Get involved <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
+              Get involved →
             </Link>
-            <Link href="/about" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+            <Link href="/about" className="mk-btn mk-btn-ghost" style={{ color: "var(--paper)", borderColor: "var(--paper)" }}>
               Our story
             </Link>
           </div>
-          <p className="mk-cta-note">{ORG_STATUS}</p>
+          <p className="mk-cta-note" style={{ color: "rgba(250,246,238,.6)" }}>{ORG_STATUS}</p>
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
+      {/* ── Final ── */}
       <section className="mk-final">
         <div className="mk-wrap">
-          <h2 className="mk-h2" style={{ color: "#fff" }}>
+          <p className="mk-kicker">Start here</p>
+          <h2 className="mk-h2">
             You shouldn&rsquo;t have to figure this out alone.
           </h2>
-          <p className="mk-lead" style={{ margin: "20px auto 0", color: "rgba(255,255,255,.74)" }}>
+          <p className="mk-deck">
             No sign-up wall, no caseworker referral, no cost. Open it and ask the
             first thing that&rsquo;s been on your mind.
           </p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-primary">
-              Open the app <Icon name="arrowR" size={19} color="var(--harbor)" sw={2.6} />
+              Open the app →
             </Link>
-            <Link href="/download" className="mk-btn mk-btn-ghost" style={{ height: 50, padding: "0 24px", fontSize: 16 }}>
+            <Link href="/download" className="mk-btn mk-btn-ghost">
               Get it on your phone
             </Link>
           </div>

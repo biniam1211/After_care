@@ -3,7 +3,7 @@
 //
 // One nav / footer / crisis strip for every org page so the org
 // site and the product app can't drift apart. These components use
-// the `mk-*` classes from `web/app/marketing.css`.
+// the editorial classes from `web/app/marketing.css`.
 //
 // This is the ORG chrome. The product app (/app) has its own in-app
 // shell (components/app-shell.jsx) and deliberately does NOT use this.
@@ -14,7 +14,6 @@
 // exists. No dead links, no anchor-only nav, no placeholders.
 // ───────────────────────────────────────────────────────────
 import Link from "next/link";
-import { Logo } from "@/components/onboarding";
 
 // Honest org status. There is no 501(c)(3) / EIN / registration doc in
 // the repo, so no page may call AfterCare a registered nonprofit.
@@ -26,22 +25,22 @@ export const VERIFIED_MEANING =
 
 export const UNVERIFIED_LABEL = "Unverified — call to confirm";
 
-// Small status pill for a resource row. `verified` is a boolean from
+// Small status label for a resource row. `verified` is a boolean from
 // the resource catalog (CSV `verified` column). Unverified rows ALWAYS
 // get the explicit "Unverified — call to confirm" label — never a
-// Verified badge, never silence.
+// Verified badge, never silence. Flat bordered label, no pill, no glow.
 export function VerificationBadge({ verified }) {
   if (verified) {
     return (
       <span
         style={{
-          background: "#dff6e8",
-          color: "#0c7a5a",
+          border: "1.5px solid #1a1611",
+          color: "#1a1611",
           fontWeight: 700,
           fontSize: 12,
-          padding: "5px 11px",
-          borderRadius: 99,
-          letterSpacing: 0.1,
+          padding: "5px 10px",
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
           whiteSpace: "nowrap",
         }}
       >
@@ -52,13 +51,13 @@ export function VerificationBadge({ verified }) {
   return (
     <span
       style={{
-        background: "#fff3e0",
-        color: "#9a5a22",
+        border: "1.5px solid #b3400f",
+        color: "#b3400f",
         fontWeight: 700,
         fontSize: 12,
-        padding: "5px 11px",
-        borderRadius: 99,
-        letterSpacing: 0.1,
+        padding: "5px 10px",
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
         whiteSpace: "nowrap",
       }}
     >
@@ -93,36 +92,44 @@ const NAV_LINKS = [
 export function OrgNav() {
   return (
     <nav className="mk-nav">
-      <div className="mk-wrap mk-nav-inner">
-        <Link href="/" className="mk-brand">
-          <Logo size={34} r={10} />
-          AfterCare
-        </Link>
-        <div className="mk-nav-links">
-          {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href}>
-              {l.label}
-            </Link>
-          ))}
+      <div className="mk-wrap">
+        <div className="mk-nav-top">
+          <span>
+            AfterCare — the life navigator for <b>foster youth</b>
+          </span>
+          <span>For everyone · Every ZIP code · Every day</span>
         </div>
-        <Link href="/app" className="mk-btn mk-btn-ghost mk-nav-cta">
-          Open the app
-        </Link>
-        {/* CSS-only mobile menu: <details> needs no JS and every link
-            below is a real page. */}
-        <details className="mk-menu">
-          <summary className="mk-menu-btn" aria-label="Open menu">
-            Menu
-          </summary>
-          <div className="mk-menu-panel">
+        <div className="mk-nav-inner">
+          <Link href="/" className="mk-brand">
+            AfterCare<i>.</i>
+          </Link>
+          <span className="mk-brand-sub">Foster youth, first</span>
+          <div className="mk-nav-links">
             {NAV_LINKS.map((l) => (
               <Link key={l.href} href={l.href}>
                 {l.label}
               </Link>
             ))}
-            <Link href="/app">Open the app</Link>
           </div>
-        </details>
+          <Link href="/app" className="mk-nav-cta">
+            Open the app →
+          </Link>
+          {/* CSS-only mobile menu: <details> needs no JS and every link
+              below is a real page. */}
+          <details className="mk-menu">
+            <summary className="mk-menu-btn" aria-label="Open menu">
+              Menu
+            </summary>
+            <div className="mk-menu-panel">
+              {NAV_LINKS.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+              <Link href="/app">Open the app</Link>
+            </div>
+          </details>
+        </div>
       </div>
     </nav>
   );
@@ -172,8 +179,7 @@ export function OrgFooter() {
         <div className="mk-footer-cols">
           <div className="mk-footer-brand">
             <span className="mk-brand">
-              <Logo size={34} r={10} />
-              AfterCare
+              AfterCare<i>.</i>
             </span>
             <p>
               The life navigator for foster youth — for everyone, every ZIP
