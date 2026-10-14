@@ -15,16 +15,31 @@ export const metadata = {
     "Real stories from the AfterCare community, in people's own words — with nothing invented and nothing published without permission.",
 };
 
-// The three featured slots below are EMPTY FRAMES, not stories.
-// No names, no quotes, no photos here are real — each slot waits for a
-// real person to share their photo and words with permission. Do not
-// fill them with invented stories, stock photos, or fake testimonials.
-const FEATURED_SLOTS = [
+// The founder feature below is real: stylized illustrations made from the
+// founder's own photos, with his approval. No names, no invented narrative —
+// his story in his own words is still on its way.
+// Slots 02 and 03 are EMPTY FRAMES, not stories. No names, no quotes, no
+// photos there are real — each waits for a real person to share their photo
+// and words with permission.
+const FOUNDER_CARTOONS = [
   {
-    num: "01",
-    title: "Your story here",
-    body: "A real photo and real words from someone in the community — coming once they share it with us and give permission to publish.",
+    src: "/images/founder-grad-mom.jpg",
+    alt: "Stylized cartoon illustration of the founder in a graduation cap and blue lei holding a diploma, sitting on a couch next to his foster mom",
+    label: "Graduation day",
   },
+  {
+    src: "/images/founder-grad-dad.jpg",
+    alt: "Stylized cartoon illustration of the founder in a graduation cap and blue lei holding a diploma, standing next to his foster dad",
+    label: "Graduation day",
+  },
+  {
+    src: "/images/founder-christmas.jpg",
+    alt: "Stylized cartoon illustration of the founder with his foster parents standing together in front of a Christmas tree at home",
+    label: "Christmas at home",
+  },
+];
+
+const FEATURED_SLOTS = [
   {
     num: "02",
     title: "Your story here",
@@ -87,15 +102,37 @@ export default function Stories() {
         </div>
       </header>
 
-      {/* ── Featured stories: three EMPTY placeholder frames ── */}
+      {/* ── Featured stories: founder feature + two EMPTY placeholder frames ── */}
       <section className="mk-section" id="featured">
         <div className="mk-wrap">
           <p className="mk-kicker">01 — Featured stories</p>
-          <h2 className="mk-h2">Three frames, waiting to be filled.</h2>
+          <h2 className="mk-h2">The founder&rsquo;s story</h2>
           <p className="mk-lead">
-            Every slot below is an empty frame — not a story. No names, no
-            quotes, and no photos in these slots are real yet. The first real
-            stories will come from the community, with permission.
+            Binyam, with his foster parents — graduation day and Christmas
+            at home. His story in his own words is on its way.
+          </p>
+
+          {/* Founder feature: stylized illustrations from his own photos */}
+          <div style={{ marginTop: 28 }}>
+            {FOUNDER_CARTOONS.map((c) => (
+              <figure className="mk-photo" key={c.src} style={{ marginBottom: 24 }}>
+                <img src={c.src} alt={c.alt} loading="lazy" />
+                <figcaption>
+                  <b>{c.label}.</b> Stylized illustration from the
+                  founder&rsquo;s own photos — faces are not exact
+                  likenesses.
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <h2 className="mk-h2" style={{ marginTop: 40 }}>
+            Two frames, still waiting to be filled.
+          </h2>
+          <p className="mk-lead">
+            The slots below are empty frames — not stories. No names, no
+            quotes, and no photos in these slots are real yet. The first
+            real community stories will come from people, with permission.
           </p>
           <div className="mk-ledger">
             {FEATURED_SLOTS.map((s) => (
