@@ -151,10 +151,22 @@ const CURATED_RESOURCES = {
 //
 // Curated copy wins field-by-field; the generated row still contributes url,
 // address and the verified flag underneath it.
+//
+// Verification rule (do not change without updating site-chrome.jsx):
+// `verified` comes ONLY from the CSV `verified` column via the generated
+// catalog. A curated `tag` ("Open 24/7", "Free", ...) is descriptive copy
+// and must NEVER be read as verification. Curated entries have no
+// `verified` field of their own, so the generated value survives the merge.
 export const RESOURCES = (() => {
   const merged = { ...GENERATED_RESOURCES };
   for (const [id, curated] of Object.entries(CURATED_RESOURCES)) {
     merged[id] = { ...merged[id], ...curated };
+  }
+
+  // Normalize: every entry carries a real boolean, so UI code can rely on
+  // `!!r.verified` and never on the tag string.
+  for (const id of Object.keys(merged)) {
+    merged[id] = { ...merged[id], verified: Boolean(merged[id].verified) };
   }
 
   // Curated first, then everything else — the hand-written entries are the

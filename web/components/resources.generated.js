@@ -2,7 +2,9 @@
 // Source: supabase/seed/resources.sample.csv
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// 65 resources (6 phone-verified).
+// 65 resources (6 with official page confirmed).
+// "Verified" = official page confirmed (see supabase/seed/README.md).
+// It does NOT mean the phone line was tested live.
 
 export const GENERATED_RESOURCES = {
   "211": {
