@@ -1,124 +1,119 @@
-# AfterCare — Go-Live Runbook (N4)
+# AfterCare — Go-Live Runbook (current stack)
 
-Everything in the app runs today on mock fakes. This is the checklist to switch
-it to **live** against your Supabase project (`nbtxnkdjfsxfiwgbucbs`) + Claude.
+> Rewritten Oct 13, 2026. The previous version of this file described an
+> old architecture (standalone native app + Railway Express API + a
+> Supabase project) that no longer matches the repo. If you are reading a
+> cached copy or an old printout, throw it away — this is the current one.
+>
+> 🔐 Secrets live in Vercel project settings / a gitignored `.env.local`,
+> never in chat, commits, or screenshots.
 
-> 🔐 Put secrets in the **gitignored** `api/.env` / `app/.env` — never in chat,
-> commits, or screenshots.
+## What "live" means now
 
----
+One deploy, two surfaces:
 
-## 1. Collect keys
+| Surface | Code | Ships to |
+|---|---|---|
+| Org marketing site (`/`, `/services`, `/download`, `/privacy`, `/terms`) + product app (`/app`) | `web/` (Next.js) | Vercel |
+| iPhone / Android shell (WebView around `/app`) | `app/` (Expo SDK 57) | EAS → TestFlight / Play (not submitted yet) |
 
-Into `api/.env`:
+`api/` (Express + Supabase) is **dormant**: its Railway service is gone
+and nothing depends on it. Do not stand it up as part of go-live. The
+decision is revive-or-delete — see
+[`docs/ARCHITECTURE-SEPARATION.md`](./ARCHITECTURE-SEPARATION.md).
 
-| Key | Where to get it |
-|---|---|
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API → `service_role` (secret) |
-| `SUPABASE_DB_PASSWORD` | Supabase → Project Settings → Database → password |
-| `ANTHROPIC_API_KEY` | console.anthropic.com → API keys |
-| `OPENAI_API_KEY` *(or `VOYAGE_API_KEY`)* | platform.openai.com → API keys (embeddings) |
-| `CRON_SECRET` | make one: `openssl rand -hex 32` |
-| `TWILIO_*` *(optional)* | twilio.com console (panic SMS + reminders) |
+## 1. Deploy the web app (Vercel)
 
-`SUPABASE_URL` + `SUPABASE_ANON_KEY` are already set. Keep `EMBEDDING_PROVIDER`
-matching the key you chose (`openai` → 1536 dims, matches the schema).
+1. Import the repo into Vercel (or use the existing project). Root
+   directory: `web/`.
+2. Set the environment variables below in **Vercel → Project → Settings →
+   Environment Variables** (Production). Every one is optional — with
+   none set, the app runs end to end on `localStorage` + scripted chat
+   replies. That is the demo mode, not the live mode.
 
----
+| Variable | Effect when set | Where to get it |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | AI Chat calls Claude live (server-side only) | console.anthropic.com → API keys |
+| `ANTHROPIC_MODEL` | Override model (default `claude-opus-5`) | — |
+| `DATABASE_URL` | Postgres: magic-link sign-in + cross-device state sync | Any hosted Postgres (Neon / Supabase / Railway) |
+| `RESEND_API_KEY` | Real "text my caseworker" + magic-link emails | resend.com → API keys |
+| `RESEND_FROM` | From address for Resend (use a verified domain) | Your domain DNS |
+| `APP_URL` | Canonical site URL for sign-in links | Your deployed URL |
+| `CRON_SECRET` | Guards `/api/cron/reminders` | Generate: `openssl rand -hex 32` |
+| `SANITY_PROJECT_ID` / `SANITY_DATASET` | Resource directory served from Sanity instead of the bundled seed | sanity.io |
+| `BETTERSTACK_SOURCE_TOKEN` | Structured server logs | Better Stack |
+| `CONTACT_EMAIL` | Contact address shown on Privacy/Terms | Your inbox |
 
-## 2. Apply the database migrations (0001 → 0005)
+3. Deploy. Confirm: `/` renders the org landing, `/app` loads the
+   product, `/services` lists programs, `/api/chat` returns
+   `{ configured: false }` when no Anthropic key is set (expected) or a
+   live reply when one is.
 
-Pick **one** path. All five files live in `supabase/migrations/`.
+## 2. Turn on the live paths (in order)
 
-**A. Supabase dashboard (no tooling needed)**
-Open Supabase → SQL Editor → paste each migration file in order (0001 → 0005) →
-Run. This also creates the `user-documents` storage bucket (0004).
+1. **Chat:** set `ANTHROPIC_API_KEY` → ask "I need housing in Anaheim"
+   → the reply must cite only catalog ids, and unverified listings must
+   be presented with "call to confirm" (see §4).
+2. **Accounts:** set `DATABASE_URL` + `RESEND_API_KEY` → Settings →
+   Account → request a magic link → sign in on a second device → quest
+   progress follows you.
+3. **Caseworker messages:** set `RESEND_API_KEY` + a caseworker email in
+   Settings → Panic → "Send this text" sends a real email.
+4. **Reminders:** set `CRON_SECRET` + repo secrets `APP_URL` /
+   `CRON_SECRET` → `.github/workflows/aftercare-web-reminders.yml` hits
+   `/api/cron/reminders` hourly (panic 6-hour check-in + quest nudges).
 
-**B. Supabase CLI**
-```bash
-npm i -g supabase     # not preinstalled here
-supabase link --project-ref nbtxnkdjfsxfiwgbucbs   # prompts for DB password
-supabase db push
-```
+## 3. iPhone / Android (separate track)
 
-**C. psql / connection string**
-```bash
-psql "postgresql://postgres:<DB_PASSWORD>@db.nbtxnkdjfsxfiwgbucbs.supabase.co:5432/postgres" \
-  -f supabase/migrations/0001_init.sql \
-  -f supabase/migrations/0002_rag.sql \
-  -f supabase/migrations/0003_panic.sql \
-  -f supabase/migrations/0004_documents.sql \
-  -f supabase/migrations/0005_notifications.sql
-```
+The native shell is build-ready, not published. Owner-only steps —
+full checklist in
+[`docs/IPHONE-SHIP-CHECKLIST.md`](./IPHONE-SHIP-CHECKLIST.md):
+Apple Developer Program ($99/yr) → EAS preview build → TestFlight →
+store listing + published privacy URL → App Store review (WebView-only
+apps face Apple guideline 4.2; the review note must argue the native
+dialer handling + offline crisis screen).
 
----
+Until TestFlight ships, the real install path is **Add to Home Screen**
+(see `/download`): Safari → Share → Add to Home Screen. No store, no
+account, works today.
 
-## 3. Seed quests + embed resources
+## 4. Before real users (non-negotiable)
 
-```bash
-cd api
-npm run seed:quests       # loads all 4 quests
-npm run embed:resources   # embeds + upserts the 65 curated CA resources
-```
+- **Verify resources.** The catalog is 65 listings; only 6 have their
+  official page confirmed (`verified: true` in
+  `supabase/seed/resources.sample.csv`). "Verified" means official page
+  confirmed — NOT a tested-live phone line (see
+  `supabase/seed/README.md`). Do NOT flip a row to `verified: true`
+  without a human confirming it, and do NOT describe the directory as
+  "verified" in general. The UI already labels every unverified row
+  "Unverified — call to confirm." The remaining ~59 rows still need
+  human verification calls.
+- **Legal.** `docs/legal/PRIVACY.md` + `TERMS.md` and the `/privacy` +
+  `/terms` pages are plain-English drafts with placeholders — not
+  lawyer-reviewed. Get a review and publish the privacy policy at a real
+  URL before store submission.
+- **Nonprofit status.** There is no 501(c)(3) / EIN / registration doc in
+  the repo. Call AfterCare a "social-impact project working toward
+  nonprofit status" — never a registered nonprofit — until a filing
+  exists.
+- **Custom domain.** The deploy still lives on a `vercel.app` URL. Point
+  your domain at the Vercel project before promoting it widely, and
+  update `APP_URL` / the sitemap base URL to match.
+- **Stale duplicates.** If the old duplicate Vercel projects
+  (`after-care`, `after-care-q5b1`, `after-care-zrtw`) still exist,
+  delete them so nobody lands on a stale deploy.
 
-(Needs `SUPABASE_SERVICE_ROLE_KEY` + an embeddings key. Without an embeddings key
-it still runs with stub vectors — fine for plumbing, not real RAG.)
+## 5. Verify after deploy (smoke checklist)
 
----
-
-## 4. Run + verify the API
-
-```bash
-cd api && npm run dev      # http://localhost:4000
-curl http://localhost:4000/health
-```
-
-With a real signed-in user's access token (`Authorization: Bearer <jwt>`):
-- `POST /me` with `{ "zip_code": "92805", "age": 17, "foster_status": "extended_care" }`
-  → state derives to `CA`.
-- `POST /chat` `{ "message": "I need housing in Anaheim" }` → 3-part reply citing
-  **CA-only** resources.
-- `GET /quests` → 4 quests; advance one.
-- `POST /panic` `{ "scenario": "homeless" }` → 988 always present.
-- `POST /documents` then upload → `GET /documents` lists it.
-
-✅ **RAG correctness gate:** confirm a CA user never receives an out-of-state
-resource (enforced by the `match_resources` state filter in `0002_rag.sql`).
-
----
-
-## 5. Run the app
-
-```bash
-cd app
-npx expo start            # scan QR with Expo Go
-```
-
-Full flow: onboard (email magic-link → ZIP→state → consent) → chat with resource
-cards → complete a quest with AI check-in → Panic plan + caseworker SMS → browse
-resources → upload a doc.
-
-> Auth is **email magic-link** (PKCE). In Supabase → Auth → Providers, enable
-> **Email**; under Auth → URL Configuration add the app deep link
-> `aftercare://onboarding` (and the Expo dev URL) to **Redirect URLs** so the
-> link reopens the app and the session is exchanged. Twilio is only for panic
-> SMS + reminders, not sign-in.
-
----
-
-## 6. Schedule background jobs (optional)
-
-Set repo secrets `API_URL` + `CRON_SECRET`; `.github/workflows/cron.yml` then
-hits `POST /internal/cron` hourly (panic follow-ups + quest reminders). Railway
-cron works too.
-
----
-
-## 7. Before real users (non-negotiable)
-
-- **Verify resources** — flip `verified` to true in the CSV only after a human
-  confirms each number/link (see `supabase/seed/README.md`). Consider hiding
-  `verified_at IS NULL` rows in production.
-- **Legal** — fill + lawyer-review `docs/legal/PRIVACY.md` + `TERMS.md`.
-- **Twilio A2P** registration for SMS; Apple/Google accounts for store builds
-  (`app/eas.json`).
+- [ ] `/` — org landing renders; footer says "social-impact project
+      working toward nonprofit status" and links Privacy/Terms as drafts.
+- [ ] `/services` — programs list; Verified filter shows only the 6
+      verified listings; unverified cards say "Unverified — call to
+      confirm"; benefits screener shows matches only after all three
+      questions are answered.
+- [ ] `/app` — onboarding → chat (scripted fallback with no key, live
+      Claude with key) → quest → resources → panic. Panic plan always
+      shows 988 / Covenant House / 911.
+- [ ] `/download` — states the App Store listing is NOT live and gives
+      the Add-to-Home-Screen steps.
+- [ ] `/api/chat` with no key → `{ configured: false }`.

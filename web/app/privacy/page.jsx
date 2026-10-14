@@ -79,9 +79,11 @@ export default function Privacy() {
         professional — and in an emergency call 988 or 911 rather than typing.
       </p>
       <p>
-        The AI can only point you at resources from a checked list. It cannot
+        The AI can only point you at resources from a fixed list. It cannot
         invent a hotline or an address, because the list of what it is allowed to
         recommend is fixed and checked again on our server before it reaches you.
+        Each listing shows whether its official page was confirmed (“Verified
+        listing”) or not yet (“Unverified — call to confirm”).
       </p>
 
       <h2>Deleting your data</h2>

@@ -1,126 +1,124 @@
 # Run AfterCare locally & test on your phone
 
-The backend (Supabase DB, quests, resources, Claude) is already **live**. This
-guide gets the **API + Expo app running on your own machine** so you can test on
-your phone with Expo Go. Your phone and laptop must be on the **same Wi-Fi**.
-
-> Why local? Your phone can't reach `localhost` on another machine. You run the
-> API on your laptop and point the app at your laptop's **LAN IP**.
-
----
+> Rewritten Oct 13, 2026. The previous version of this file described an
+> old architecture (a standalone Express API on port 4000, a Supabase
+> project, `EXPO_PUBLIC_API_URL`, a `claude/...` branch) that no longer
+> matches the repo. The current stack is: `web/` (Next.js — the whole
+> product) + `app/` (Expo WebView shell around the web app). `api/` is
+> dormant and is not part of local development.
 
 ## 0. Prerequisites
-- **Node 20+** and npm.
-- **Expo Go** app on your phone (App Store / Play Store).
-- Phone + laptop on the **same Wi-Fi network**.
+
+- **Node 22** and npm (CI uses Node 22; Node 20 also works for `web/`).
+- A browser. For phone testing: Expo Go (App Store / Play Store).
+- Phone + laptop on the **same Wi-Fi network** for the Expo-shell test.
 
 ## 1. Get the code
+
 ```bash
-git clone <your repo url> aftercare    # or: git pull
+git clone https://github.com/biniam1211/After_care.git aftercare
 cd aftercare
-git checkout claude/eloquent-gates-pglr0r
+git checkout ship/separate-marketing-app   # or main, once this branch lands
 ```
 
-## 2. Configure the API (`api/.env`)
-`api/.env` is gitignored, so create it from the example and paste in the same keys
-you used to go live (Supabase service-role + DB password, Anthropic, OpenAI):
+## 2. Run the web app (the whole product)
+
+No keys, no database, no backend to start. With zero env vars the app
+runs end to end on `localStorage` + scripted chat replies.
+
 ```bash
-cd api
-cp .env.example .env
-# then edit .env and fill:
-#   SUPABASE_URL=https://nbtxnkdjfsxfiwgbucbs.supabase.co
-#   SUPABASE_ANON_KEY=sb_publishable_...           (already in .env.example header)
-#   SUPABASE_SERVICE_ROLE_KEY=sb_secret_...
-#   SUPABASE_DB_PASSWORD=...
-#   ANTHROPIC_API_KEY=sk-ant-...
-#   OPENAI_API_KEY=sk-proj-...     (optional — RAG works without it via location fallback)
+cd web
+npm ci
+npm run dev          # → http://localhost:3000
 ```
 
-## 3. Start the API
+- Org landing: http://localhost:3000/
+- Product app: http://localhost:3000/app
+- Services directory: http://localhost:3000/services
+- Download page: http://localhost:3000/download
+
+### Optional: turn on the live paths locally
+
 ```bash
-cd api
-npm install
-npm run dev          # → http://localhost:4000
-```
-Confirm in another terminal:
-```bash
-curl http://localhost:4000/health     # {"status":"ok",...}
+cd web
+cp .env.example .env.local
+# then fill in what you want to test:
+#   ANTHROPIC_API_KEY=...   live Claude chat (else scripted fallback)
+#   DATABASE_URL=...        Postgres: magic-link sign-in + cross-device sync
+#   RESEND_API_KEY=...      real caseworker + magic-link emails (else simulated)
+#   CRON_SECRET=...         guards /api/cron/reminders
 ```
 
-## 4. Point the app at your laptop's LAN IP
-Find your laptop's local IP:
-- **macOS:** `ipconfig getifaddr en0`
-- **Linux:** `ip addr | grep "inet "` (pick the `192.168.x.x` / `10.x.x.x`)
-- **Windows:** `ipconfig` → IPv4 Address
+`.env.local` is gitignored. Never commit keys.
 
-Edit `app/.env`:
-```dotenv
-EXPO_PUBLIC_API_URL=http://<YOUR-LAN-IP>:4000     # e.g. http://192.168.1.23:4000
-# Supabase public vars are already correct in app/.env
-```
-> `localhost` here will NOT work from the phone — it must be the LAN IP.
+## 3. Test the phone shell (Expo Go)
 
-## 5. Start the app
+The `app/` shell loads the web app in a WebView. By default it loads the
+**deployed** site (`app.json` → `extra.appUrl`). To point it at your
+local `web/` dev server:
+
+1. Find your laptop's LAN IP (your phone cannot reach `localhost` on
+   another machine):
+   - macOS: `ipconfig getifaddr en0`
+   - Linux: `ip addr | grep "inet "` (pick the `192.168.x.x` / `10.x.x.x`)
+   - Windows: `ipconfig` → IPv4 Address
+2. Temporarily edit `app/app.json` → `extra.appUrl` to
+   `http://<YOUR-LAN-IP>:3000/app` (do NOT commit this change).
+3. Start Expo:
+
 ```bash
 cd app
-npm install
+npm ci
 npx expo start
 ```
-Scan the QR code with **Expo Go**. The app loads on your phone.
 
----
+4. Scan the QR code with **Expo Go**. The shell loads your local web
+   app. Revert `app.json` when you are done.
 
-## 6. Make sign-in (email magic-link) work
-Auth is **email magic-link**. Two one-time Supabase settings:
+## 4. What to test
 
-1. **Supabase → Authentication → Providers → Email:** enable it.
-2. **Supabase → Authentication → URL Configuration → Redirect URLs:** add the URL
-   the app uses to reopen after you tap the email link. In **Expo Go** that looks
-   like:
-   ```
-   exp://<YOUR-LAN-IP>:8081/--/onboarding
-   ```
-   The app **prints the exact URL** to the Expo terminal/console when you tap
-   "Send link" (look for `[auth] magic-link redirect URL …`). Copy that exact
-   value into the allowlist. Also add `aftercare://onboarding` for future
-   standalone/dev builds. (A wildcard like `exp://*` also works for dev.)
+- **Landing (`/`):** mission, founder-story placeholder, services
+  preview, download CTA, footer status line ("social-impact project
+  working toward nonprofit status").
+- **Services (`/services`):** search + category + ZIP filters;
+  "Verified only" shows only the 6 verified listings; every unverified
+  card says "Unverified — call to confirm"; benefits screener shows
+  matches only after all three questions are answered and never asserts
+  eligibility ("worth checking", not "you qualify").
+- **App (`/app`):** onboarding → chat (scripted fallback with no key;
+  live Claude with key) → quest → resources (verification badges) →
+  panic. Panic plan always shows 988 / Covenant House / 911.
+- **Chat honesty:** ask for a resource — the reply must never call an
+  unverified listing "verified" and must say "call to confirm" for
+  unverified ones.
+- **Download (`/download`):** states the App Store listing is NOT live
+  and gives Add-to-Home-Screen steps.
+- **Panic in the shell:** in Expo Go, tapping a phone number must open
+  the real dialer (this is the main thing the shell adds over a browser
+  tab). Turn on airplane mode: the shell's offline screen must still
+  list 988 / Covenant House / 911.
 
-Then: enter your email → tap the link in your inbox **on the same phone** → it
-reopens Expo Go, establishes your session, and drops you into the app.
+## 5. Regenerating the resource catalog
 
-> Magic-link + Expo Go deep-linking can be finicky on some networks. If the link
-> doesn't reopen the app, see the fallback below — the rest of the app still works
-> once you have a session.
+The web catalog is generated from the CSV — never hand-edit
+`web/components/resources.generated.js`:
 
----
-
-## 7. What to test
-- **Onboarding:** email → consent (14+) → ZIP (try `92805` Anaheim) → age → status.
-- **Chat (the heart):** ask *"I need housing in Anaheim"* → real Claude reply with
-  **CA-only** resource cards (tap to call/open).
-- **Quests:** open Quests → start "Get Your First Bank Account" → mark a step →
-  "Ask AfterCare about this" deep-links into chat.
-- **Panic:** tap Panic → 988 + crisis lines always present; local CA resources.
-- **Resources:** browse/filter; tel:/url/maps deep links.
-- **Vault:** upload a photo/PDF (private, signed URLs).
-
-## 8. Fallback — test the API without the app
-If phone deep-linking is troublesome, you can hit the live API directly. Mint a
-JWT with the service-role key (server-side only), then:
 ```bash
-TOKEN=...   # a Supabase access_token for a test user
-curl -s http://localhost:4000/quests        -H "Authorization: Bearer $TOKEN"
-curl -s -X POST http://localhost:4000/chat   -H "Authorization: Bearer $TOKEN" \
-     -H 'Content-Type: application/json' -d '{"message":"I need housing in Anaheim"}'
-curl -s -X POST http://localhost:4000/panic  -H "Authorization: Bearer $TOKEN" \
-     -H 'Content-Type: application/json' -d '{"scenario":"homeless"}'
+cd web
+node scripts/build-resources.mjs
+# → "Wrote 65 resources (6 verified) to ..."
 ```
 
-## Notes
-- **Semantic search:** resources currently load **without embeddings** (the OpenAI
-  key had no quota). RAG falls back to a location-filtered query, so results are
-  still correct CA resources. Add OpenAI billing (or a Voyage key) and re-run
-  `npm run embed:resources` to turn on semantic ranking.
-- **Push notifications** are limited in Expo Go; a dev/standalone build is needed
-  for full push. The app degrades gracefully without it.
-- **Security:** never commit `api/.env`. Rotate any keys that passed through chat.
+To mark a listing verified, flip its `verified` to `true` in
+`supabase/seed/resources.sample.csv` **only after a human confirms it**
+(see `supabase/seed/README.md` for the exact definition), then
+re-run the script and commit both files.
+
+## 6. Checks before you push
+
+```bash
+cd web && npm ci && npm run build     # production build = the real gate
+cd ../app && npm ci && npm run typecheck
+```
+
+CI runs the same two jobs (plus `api/` typecheck + tests) on every push.

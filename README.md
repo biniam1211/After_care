@@ -36,8 +36,11 @@ After_care/
 ├── web/              # ⭐ Next.js web app — THE LIVE PRODUCT (deploys to Vercel)
 │   ├── app/          # App Router pages + /api routes (chat, auth, state,
 │   │                 #   resources, notify, checkin, cron)
+│   │                 #   / = org landing, /services = directory,
+│   │                 #   /download = install page, /app = PRODUCT APP ONLY
 │   ├── components/   # every screen: onboarding, home, chat, quests,
 │   │                 #   resources, panic, settings + the ui.jsx primitives
+│   │                 #   + site-chrome.jsx (shared ORG nav/footer/crisis)
 │   └── lib/          # db (Postgres), auth (magic link), log (Betterstack)
 ├── app/              # Expo native shell — wraps web/ in a WebView (iOS + Android)
 │   └── App.tsx       # the whole app: WebView + native dialer + offline screen
@@ -56,6 +59,8 @@ After_care/
 │   └── seed/         # curated CA resources (CSV) + verification policy
 ├── .github/workflows # ci.yml (typecheck+test), cron.yml (scheduled jobs)
 └── docs/             # PRD, build plan, master context, legal/ (privacy, terms)
+                      # + ARCHITECTURE-SEPARATION, IPHONE-SHIP-CHECKLIST,
+                      #   GO_LIVE + LOCAL_RUN (rewritten Oct 13, 2026)
 ```
 
 ## Architecture
@@ -90,7 +95,11 @@ See [`app/README.md`](./app/README.md) for how to produce an installable build.
 **Why the resource list is locked:** A vanilla LLM will tell a kid in
 California to call a New York hotline. The chat endpoint constrains the model's
 `resources` field to an enum of known ids and re-validates every id server-side,
-so the AI **cannot** return a resource that isn't in the verified catalog.
+so the AI **cannot** return a resource that isn't in the fixed catalog. The
+catalog is 65 listings; only 6 have their official page confirmed
+(`verified: true`). "Verified" means official page confirmed — NOT a
+tested-live phone line. Every unverified listing is labelled
+"Unverified — call to confirm" in the UI.
 
 **`api/` is dormant.** The standalone Node/Express + Supabase backend is still
 in the tree and still has the RAG, quest and document-vault work in it, but the
@@ -167,9 +176,11 @@ on live Claude chat; everything else is optional.
 are ready. Create a Railway service from the repo (root `api/`), set the env vars
 from `api/.env.example`, and it deploys with a `/health` check.
 
-**Scheduled jobs:** `.github/workflows/cron.yml` hits `POST /internal/cron`
-hourly (panic follow-ups + quest reminders). Set repo secrets `API_URL` and
-`CRON_SECRET` (the latter must match the API env). Railway cron works too.
+**Scheduled jobs:** `.github/workflows/aftercare-web-reminders.yml` hits
+`POST /api/cron/reminders` hourly (panic check-in + quest nudges). Set repo
+secrets `APP_URL` and `CRON_SECRET`. (`.github/workflows/cron.yml` targets
+the *dormant* `api/` backend's `/internal/cron` — it only matters if
+`api/` is ever revived.)
 
 **App → EAS / stores:** `app/eas.json` defines development / preview / production
 profiles.
@@ -182,6 +193,20 @@ npx eas submit --profile production                  # needs Apple/Google accoun
 
 > Store submission, Twilio A2P registration, and the resource-verification pass
 > are user-gated steps — see the build plan.
+
+## Status, honestly
+
+- **Org status:** AfterCare is a social-impact project working toward
+  nonprofit status. There is no 501(c)(3) / EIN / registration doc in this
+  repo — never call it a registered nonprofit.
+- **iPhone app:** build-ready, NOT submitted. No Apple Developer enrollment,
+  no TestFlight build, no App Store listing. See
+  [`docs/IPHONE-SHIP-CHECKLIST.md`](./docs/IPHONE-SHIP-CHECKLIST.md). The
+  real install path today is Add to Home Screen — see `/download`.
+- **Org site vs product app:** separated — see
+  [`docs/ARCHITECTURE-SEPARATION.md`](./docs/ARCHITECTURE-SEPARATION.md).
+  Org surfaces: `/`, `/services`, `/download`, `/privacy`, `/terms`.
+  Product app: `/app` only.
 
 ## Build plan & docs
 

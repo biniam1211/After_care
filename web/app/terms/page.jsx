@@ -14,8 +14,8 @@ export default function Terms() {
       <p>
         A free app that helps foster and former-foster youth work out the
         grown-up things nobody explained — money, housing, school, health,
-        benefits, paperwork — using an AI assistant and a checked list of real
-        resources.
+        benefits, paperwork — using an AI assistant and a fixed list of real
+        resources, each marked Verified or Unverified.
       </p>
       <p>
         It is <strong>free for youth, permanently</strong>. There is no trial, no
@@ -38,11 +38,13 @@ export default function Terms() {
 
       <h2>About the resources we list</h2>
       <p>
-        The organisations listed are real and independent of us. We check that
-        the organisation and its official page are genuine, but we do not run
-        them and cannot promise their hours, their funding, their eligibility
-        rules, or that they can help you specifically. Call ahead where you can.
-        If something we list is wrong or dead, tell us and we will fix it.
+        The organisations listed are real and independent of us. Listings
+        marked “Verified listing” had their official page confirmed; the
+        rest are marked “Unverified — call to confirm” and have not been
+        checked yet. We do not run these organisations and cannot promise
+        their hours, their funding, their eligibility rules, or that they
+        can help you specifically. Call ahead where you can. If something
+        we list is wrong or dead, tell us and we will fix it.
       </p>
 
       <h2>Who can use it</h2>
