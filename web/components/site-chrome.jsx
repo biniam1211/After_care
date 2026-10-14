@@ -1,23 +1,17 @@
 // ───────────────────────────────────────────────────────────
 // AfterCare — shared org-site chrome (marketing surfaces only)
 //
-// One nav / footer / crisis strip for every org page (/, /privacy,
-// /terms, /download, 404) so the org site and the product app can't
-// drift apart. These components use the `mk-*` classes from
-// `web/app/marketing.css` — every page that renders them must import
-// that stylesheet (landing, legal, download, 404 all do).
+// One nav / footer / crisis strip for every org page so the org
+// site and the product app can't drift apart. These components use
+// the `mk-*` classes from `web/app/marketing.css`.
 //
 // This is the ORG chrome. The product app (/app) has its own in-app
 // shell (components/app-shell.jsx) and deliberately does NOT use this.
 // The services directory (/services) keeps its own `sv-*` chrome in
 // services.css. See docs/ARCHITECTURE-SEPARATION.md for the split.
 //
-// Verification language (single source of truth):
-// `verified: true` on a resource means its official page was confirmed
-// to resolve to the correct organisation (see supabase/seed/README.md).
-// It does NOT mean the phone line was tested live or that the org
-// serves your ZIP. Never write "phone-verified" for it, and never
-// render a Verified badge for a row with verified === false.
+// LINK RULE: every nav/footer link must point at a real page that
+// exists. No dead links, no anchor-only nav, no placeholders.
 // ───────────────────────────────────────────────────────────
 import Link from "next/link";
 import { Logo } from "@/components/onboarding";
@@ -86,6 +80,16 @@ export function CrisisStrip() {
   );
 }
 
+const NAV_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/programs", label: "Programs" },
+  { href: "/research", label: "Research" },
+  { href: "/impact", label: "Impact" },
+  { href: "/get-involved", label: "Get involved" },
+  { href: "/services", label: "Find services" },
+  { href: "/download", label: "Download" },
+];
+
 export function OrgNav() {
   return (
     <nav className="mk-nav">
@@ -95,46 +99,107 @@ export function OrgNav() {
           AfterCare
         </Link>
         <div className="mk-nav-links">
-          <Link href="/services" style={{ fontWeight: 700, color: "var(--sky)" }}>
-            Find services
-          </Link>
-          <Link href="/#problem">The problem</Link>
-          <Link href="/#what">What it does</Link>
-          <Link href="/#story">Our story</Link>
-          <Link href="/download">Download the app</Link>
+          {NAV_LINKS.map((l) => (
+            <Link key={l.href} href={l.href}>
+              {l.label}
+            </Link>
+          ))}
         </div>
-        <Link href="/app" className="mk-btn mk-btn-ghost" style={{ marginLeft: "auto" }}>
+        <Link href="/app" className="mk-btn mk-btn-ghost mk-nav-cta">
           Open the app
         </Link>
+        {/* CSS-only mobile menu: <details> needs no JS and every link
+            below is a real page. */}
+        <details className="mk-menu">
+          <summary className="mk-menu-btn" aria-label="Open menu">
+            Menu
+          </summary>
+          <div className="mk-menu-panel">
+            {NAV_LINKS.map((l) => (
+              <Link key={l.href} href={l.href}>
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/app">Open the app</Link>
+          </div>
+        </details>
       </div>
     </nav>
   );
 }
 
+const FOOTER_COLS = [
+  {
+    heading: "Explore",
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/about", label: "About us" },
+      { href: "/programs", label: "Programs" },
+      { href: "/research", label: "Research" },
+      { href: "/impact", label: "Impact" },
+    ],
+  },
+  {
+    heading: "Get help",
+    links: [
+      { href: "/services", label: "Find services" },
+      { href: "/app", label: "Open the app" },
+      { href: "/download", label: "Download the app" },
+    ],
+  },
+  {
+    heading: "Get involved",
+    links: [
+      { href: "/get-involved", label: "Get involved" },
+      { href: "/get-involved#youth", label: "For youth" },
+      { href: "/get-involved#adults", label: "For caring adults" },
+      { href: "/get-involved#partners", label: "For orgs & partners" },
+    ],
+  },
+  {
+    heading: "About this site",
+    links: [
+      { href: "/privacy", label: "Privacy (draft)" },
+      { href: "/terms", label: "Terms (draft)" },
+    ],
+  },
+];
+
 export function OrgFooter() {
   return (
     <footer className="mk-footer">
-      <div className="mk-wrap mk-footer-inner">
-        <span>
-          © {new Date().getFullYear()} AfterCare · Free forever for foster
-          youth · {ORG_STATUS}
-        </span>
-        <span>
-          <Link href="/services">Find Services</Link>
-          <Link href="/download">Download the app</Link>
-          <Link href="/app">Open the app</Link>
-          <Link href="/#story">Our story</Link>
-          <Link href="/privacy">Privacy (draft)</Link>
-          <Link href="/terms">Terms (draft)</Link>
-        </span>
-      </div>
-      <div className="mk-wrap" style={{ paddingBottom: 18 }}>
-        <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.55, color: "rgba(255,255,255,.6)" }}>
-          Privacy &amp; Terms are plain-English drafts, not yet reviewed by a
-          lawyer. Resource listings marked “Unverified — call to confirm”
-          have not had their details confirmed yet — call ahead before you
-          rely on one.
-        </p>
+      <div className="mk-wrap">
+        <div className="mk-footer-cols">
+          <div className="mk-footer-brand">
+            <span className="mk-brand">
+              <Logo size={34} r={10} />
+              AfterCare
+            </span>
+            <p>
+              The life navigator for foster youth — for everyone, every ZIP
+              code, every day. {ORG_STATUS}
+            </p>
+          </div>
+          {FOOTER_COLS.map((col) => (
+            <div key={col.heading} className="mk-footer-col">
+              <b>{col.heading}</b>
+              {col.links.map((l) => (
+                <Link key={l.href + l.label} href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="mk-footer-base">
+          <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
+          <p>
+            Privacy &amp; Terms are plain-English drafts, not yet reviewed by a
+            lawyer. Resource listings marked “Unverified — call to confirm”
+            have not had their details confirmed yet — call ahead before you
+            rely on one.
+          </p>
+        </div>
       </div>
     </footer>
   );
