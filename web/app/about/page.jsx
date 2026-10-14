@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
+import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -101,6 +102,18 @@ export default function About() {
               </p>
             </aside>
           </div>
+        </div>
+      </section>
+
+      {/* ── Photo: graduation ── */}
+      <section className="mk-section" id="graduation-photo" style={{ paddingTop: 0, paddingBottom: 0 }}>
+        <div className="mk-wrap">
+          <OrgPhoto
+            src="/images/graduation.jpg"
+            alt="A young adult woman in graduation attire smiling with a diploma in hand"
+            caption="The milestone. A degree earned, a future opened."
+            photographer="Leeloo The First"
+          />
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
+import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -111,6 +112,26 @@ export default function Programs() {
             </div>
           </div>
         ))}
+      </section>
+
+      {/* ── Photo band: new home + first job ── */}
+      <section className="mk-section" id="photo-band" style={{ paddingTop: 0, paddingBottom: 0 }}>
+        <div className="mk-wrap">
+          <div className="mk-photo-band">
+            <OrgPhoto
+              src="/images/new-home.jpg"
+              alt="A young adult couple taking a selfie in a room with unpacked moving boxes"
+              caption="A first place of your own. Keys in hand."
+              photographer="Vitaly Gariev"
+            />
+            <OrgPhoto
+              src="/images/first-job.jpg"
+              alt="A young adult man working on a laptop at an office desk"
+              caption="A first job. Work that starts a career, not just a paycheck."
+              photographer="Alena Darmel"
+            />
+          </div>
+        </div>
       </section>
 
       {/* ── Navigator program ── */}
