@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Icon } from "@/components/ui";
 import { OrgArt } from "@/components/org-art";
 import {
   OrgNav,
@@ -14,6 +13,18 @@ export const metadata = {
     "How AfterCare measures impact — honestly, with no numbers we have not measured.",
 };
 
+const MEASURES = [
+  { m: "Return visits", how: "Does a young person come back within 7 days?", why: "A guide nobody returns to is a guide nobody trusts." },
+  { m: "Finished tasks", how: "Did one real thing get done?", why: "A bank account opened, a grant applied for, a shelter reached — that is the unit of impact." },
+  { m: "Directory health", how: "Are listings verified, or honestly labeled unverified?", why: "A directory that lies about its own accuracy is worse than no directory at all." },
+];
+
+const COUNTS = [
+  { n: "65", l: "California listings in the services directory — housing, health, school, money, and legal help.", href: "/services", link: "Browse the directory" },
+  { n: "6", l: "Listings whose official page we confirmed. The rest say “Unverified — call to confirm.”", href: "/services", link: "Browse the directory" },
+  { n: "1", l: "Navigator, live. Runs in your browser today, installs to your Home Screen in under a minute. Free forever.", href: "/app", link: "Open the app" },
+];
+
 export default function Impact() {
   return (
     <div className="mk">
@@ -21,73 +32,75 @@ export default function Impact() {
 
       <header className="mk-page-hero">
         <div className="mk-wrap">
-          <span className="mk-eyebrow">
-            <span className="mk-dot" />
-            Impact
-          </span>
+          <p className="mk-kicker">Impact</p>
           <h1 className="mk-h1">
             One youth, <em>one finished thing.</em>
           </h1>
-          <p className="mk-sub">
+          <p className="mk-deck">
             We measure what matters — and we say plainly what we have not
             measured yet.
           </p>
         </div>
       </header>
 
-      {/* ── What we measure ── */}
+      {/* ── What we measure: metric / how / why ledger ── */}
       <section className="mk-section" id="measure">
-        <div className="mk-wrap mk-split">
-          <div>
-            <p className="mk-kicker">What we measure</p>
-            <h2 className="mk-h2">Finished things, not page views.</h2>
-            <p className="mk-lead">
-              The goal we measure ourselves against is simple: does a foster
-              kid open this app a second time within 7 days — and does one
-              real thing get finished, like a bank account opened, a grant
-              applied for, or a shelter reached?
-            </p>
-            <ul className="mk-checklist">
-              <li>Return visits — does a young person come back within 7 days?</li>
-              <li>Finished tasks — did one real thing get done?</li>
-              <li>Directory health — are listings verified, or honestly labeled unverified?</li>
-            </ul>
-          </div>
-          <div className="mk-art">
-            <OrgArt kind="growth" />
+        <div className="mk-wrap">
+          <p className="mk-kicker">01 — What we measure</p>
+          <h2 className="mk-h2">Finished things, not page views.</h2>
+          <p className="mk-deck">
+            The goal we measure ourselves against is simple: does a foster
+            kid open this app a second time within 7 days — and does one
+            real thing get finished?
+          </p>
+          <div className="mk-ledger">
+            {MEASURES.map((x) => (
+              <div className="mk-ledger-row three" key={x.m}>
+                <div>
+                  <h3>{x.m}</h3>
+                </div>
+                <div>
+                  <p style={{ margin: 0 }}>{x.how}</p>
+                </div>
+                <div>
+                  <p style={{ margin: 0 }}>{x.why}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Real counts ── */}
-      <section className="mk-section mk-band-sky" id="counts">
+      {/* ── Real counts: big numbers, rules, no cards ── */}
+      <section className="mk-section" id="counts">
         <div className="mk-wrap">
-          <p className="mk-kicker">Real counts, today</p>
+          <p className="mk-kicker">02 — Real counts, today</p>
           <h2 className="mk-h2">What exists right now.</h2>
-          <div className="mk-grid3">
-            <div className="mk-card">
-              <h3>65 listings</h3>
-              <p>California programs in the services directory across housing, health, school, money, and legal help.</p>
-              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse the directory →</Link></p>
-            </div>
-            <div className="mk-card">
-              <h3>6 verified</h3>
-              <p>Listings whose official page we confirmed. The rest say “Unverified — call to confirm,” so you always know what&rsquo;s checked.</p>
-              <p><Link href="/services" style={{ fontWeight: 700 }}>Browse the directory →</Link></p>
-            </div>
-            <div className="mk-card">
-              <h3>1 navigator, live</h3>
-              <p>The app runs in your browser today and installs to your Home Screen in under a minute. Free forever.</p>
-              <p><Link href="/app" style={{ fontWeight: 700 }}>Open the app →</Link></p>
-            </div>
+          <div className="mk-ledger">
+            {COUNTS.map((c) => (
+              <div className="mk-ledger-row" key={c.n + c.l.slice(0, 12)}>
+                <div className="mk-ledger-num accent">{c.n}</div>
+                <div>
+                  <p style={{ margin: 0 }}>{c.l}</p>
+                  <Link href={c.href} className="mk-ledger-link">{c.link} →</Link>
+                </div>
+              </div>
+            ))}
           </div>
+          <figure className="mk-art" style={{ marginTop: 48 }} aria-hidden="true">
+            <OrgArt kind="growth" />
+            <figcaption>
+              <b>Fig. 1 —</b> Growth, one finished thing at a time. No
+              invented curve, no projected hockey stick.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* ── What we don't publish ── */}
-      <section className="mk-section" id="not-yet">
+      {/* ── What we don't publish: ink band ── */}
+      <section className="mk-section mk-section-ink" id="not-yet">
         <div className="mk-wrap">
-          <p className="mk-kicker">What we don&rsquo;t publish — yet</p>
+          <p className="mk-kicker">03 — What we don&rsquo;t publish, yet</p>
           <h2 className="mk-h2">No impact numbers we haven&rsquo;t measured.</h2>
           <p className="mk-lead">
             We do not publish impact numbers yet, because we don&rsquo;t track
@@ -97,10 +110,10 @@ export default function Impact() {
             method, not just the number.
           </p>
           <div className="mk-cta-row">
-            <Link href="/research" className="mk-btn mk-btn-sky">
-              See the research <Icon name="arrowR" size={19} color="#fff" sw={2.6} />
+            <Link href="/research" className="mk-btn mk-btn-primary">
+              See the research →
             </Link>
-            <Link href="/get-involved" className="mk-btn" style={{ background: "#fff", color: "var(--harbor)", height: 50, padding: "0 24px", fontSize: 16, boxShadow: "var(--shadow-card)" }}>
+            <Link href="/get-involved" className="mk-btn mk-btn-ghost" style={{ color: "var(--paper)", borderColor: "var(--paper)" }}>
               Get involved
             </Link>
           </div>
