@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
-import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -22,11 +21,7 @@ export const metadata = {
 };
 
 // The founder feature below is real: stylized illustrations made from the
-// founder's own photos, with his approval. No names, no invented narrative —
-// his story in his own words is still on its way.
-// Slots 02 and 03 are EMPTY FRAMES, not stories. No names, no quotes, no
-// photos there are real — each waits for a real person to share their photo
-// and words with permission.
+// founder's own photos, with his approval. No names, no invented narrative.
 const FOUNDER_CARTOONS = [
   {
     src: "/images/founder-grad-mom.jpg",
@@ -42,19 +37,6 @@ const FOUNDER_CARTOONS = [
     src: "/images/founder-christmas.jpg",
     alt: "Stylized cartoon illustration of the founder with his foster parents standing together in front of a Christmas tree at home",
     label: "Christmas at home",
-  },
-];
-
-const FEATURED_SLOTS = [
-  {
-    num: "02",
-    title: "Your story here",
-    body: "A real photo and real words from someone in the community — coming once they share it with us and give permission to publish.",
-  },
-  {
-    num: "03",
-    title: "Your story here",
-    body: "A real photo and real words from someone in the community — coming once they share it with us and give permission to publish.",
   },
 ];
 
@@ -93,32 +75,21 @@ export default function Stories() {
             Real stories, in real people&rsquo;s <em>own words.</em>
           </h1>
           <p className="mk-deck">
-            This page is waiting for the community&rsquo;s stories — real
-            photos, real words, with permission. Nothing here is invented,
-            and nothing goes up without the person who lived it saying so.
+            Stories from the AfterCare community, in people&rsquo;s own
+            words. Nothing here is invented, and nothing goes up without
+            the person who lived it saying so.
           </p>
-          <div style={{ marginTop: 28 }}>
-            <OrgPhoto
-              src="/images/community-friends.jpg"
-              alt="Three young adult friends walking together down a city street with coffee, smiling and chatting"
-              caption="Community. The people you walk with."
-              photographer="Keira Burton"
-              eager
-              width={1600}
-              height={1067}
-            />
-          </div>
         </div>
       </header>
 
-      {/* ── Featured stories: founder feature + two EMPTY placeholder frames ── */}
+      {/* ── Featured stories: founder feature ── */}
       <section className="mk-section" id="featured">
         <div className="mk-wrap">
           <p className="mk-kicker">01 — Featured stories</p>
           <h2 className="mk-h2">The founder&rsquo;s story</h2>
           <p className="mk-lead">
             Binyam, with his foster parents — graduation day and Christmas
-            at home. His story in his own words is on its way.
+            at home.
           </p>
 
           {/* Founder feature: stylized illustrations from his own photos */}
@@ -140,38 +111,6 @@ export default function Stories() {
               </figure>
             ))}
           </div>
-
-          <h2 className="mk-h2" style={{ marginTop: 40 }}>
-            Two frames, still waiting to be filled.
-          </h2>
-          <p className="mk-lead">
-            The slots below are empty frames — not stories. No names, no
-            quotes, and no photos in these slots are real yet. The first
-            real community stories will come from people, with permission.
-          </p>
-          <div className="mk-ledger">
-            {FEATURED_SLOTS.map((s) => (
-              <div className="mk-ledger-row" key={s.num}>
-                <div className="mk-ledger-num">{s.num}</div>
-                <div>
-                  <h3>
-                    {s.title}{" "}
-                    <span className="mk-badge mk-badge-roadmap">
-                      Placeholder
-                    </span>
-                  </h3>
-                  <p>{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="mk-caption" style={{ marginTop: 18 }}>
-            <b>Why placeholders, not stock photos?</b> Stock photos of
-            children would pretend to be real people. An honest empty frame
-            is better than a fake story. (The hero photo above is licensed
-            stock of adults, labeled illustrative — it is not an AfterCare
-            youth.)
-          </p>
         </div>
       </section>
 

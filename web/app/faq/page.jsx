@@ -61,7 +61,7 @@ const FAQS = [
   },
   {
     q: "How do I contact AfterCare?",
-    a: "There is no public email, phone, or mailing address yet. A contact address is being set up — until it is live, reach us through the app's chat and it will reach us.",
+    a: "There is no public email, phone, or mailing address. The fastest way to reach us is the app's chat, and it will reach us.",
     link: { href: "/contact", label: "Contact page →" },
   },
   {

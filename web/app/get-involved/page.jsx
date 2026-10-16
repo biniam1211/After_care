@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
-import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -67,20 +66,6 @@ export default function GetInvolved() {
         </div>
       </section>
 
-      {/* ── Photo: studying ── */}
-      <section className="mk-section" id="studying-photo" style={{ paddingTop: 0, paddingBottom: 0 }}>
-        <div className="mk-wrap">
-          <OrgPhoto
-            src="/images/studying.jpg"
-            alt="A young adult woman studying in a library with books and a laptop"
-            caption="One finished thing at a time. School, study, a step forward."
-            photographer="Yan Krukau"
-            width={1600}
-            height={1067}
-          />
-        </div>
-      </section>
-
       {/* ── For caring adults: figure + checklist ── */}
       <section className="mk-section" id="adults">
         <div className="mk-wrap mk-split flip">
@@ -105,20 +90,6 @@ export default function GetInvolved() {
               <li>When a listing looks out of date, tell us — the directory only stays honest if people flag it.</li>
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* ── Photo: mentorship ── */}
-      <section className="mk-section" id="mentorship-photo" style={{ paddingTop: 0, paddingBottom: 0 }}>
-        <div className="mk-wrap">
-          <OrgPhoto
-            src="/images/mentorship.jpg"
-            alt="Two professional women collaborating at a table in a bright office"
-            caption="Someone in your corner. Guidance from people who show up."
-            photographer="Kaboompics"
-            width={1600}
-            height={1067}
-          />
         </div>
       </section>
 

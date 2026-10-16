@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
-import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -102,26 +101,11 @@ export default function About() {
                 </figcaption>
               </figure>
               <p className="mk-caption" style={{ marginTop: 18 }}>
-                <b>Editor&rsquo;s note.</b> The full founder story — in
-                Binyam&rsquo;s own words — is coming soon. Until then, this
-                section says only what he has stated himself.
+                <b>Editor&rsquo;s note.</b> This section says only what
+                Binyam has stated himself.
               </p>
             </aside>
           </div>
-        </div>
-      </section>
-
-      {/* ── Photo: graduation ── */}
-      <section className="mk-section" id="graduation-photo" style={{ paddingTop: 0, paddingBottom: 0 }}>
-        <div className="mk-wrap">
-          <OrgPhoto
-            src="/images/graduation.jpg"
-            alt="A young adult woman in graduation attire smiling with a diploma in hand"
-            caption="The milestone. A degree earned, a future opened."
-            photographer="Leeloo The First"
-            width={1600}
-            height={2397}
-          />
         </div>
       </section>
 

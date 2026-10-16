@@ -910,7 +910,7 @@ html:has(.mk) body {
   }
 }
 
-/* ── Photo figure: licensed stock, illustrative only ── */
+/* ── Photo figure ── */
 .mk-photo {
   border: 2px solid var(--line-strong);
   background: #fff;
@@ -936,15 +936,3 @@ html:has(.mk) body {
   color: var(--ink-soft);
 }
 
-/* ── Photo band: two illustrative photos side by side ── */
-.mk-photo-band {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
-
-@media (max-width: 720px) {
-  .mk-photo-band {
-    grid-template-columns: 1fr;
-  }
-}

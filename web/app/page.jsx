@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { OrgArt } from "@/components/org-art";
-import { OrgPhoto } from "@/components/org-photo";
 import {
   OrgNav,
   OrgFooter,
@@ -22,16 +21,6 @@ export const metadata = {
   },
 };
 
-// The numbers below come from AfterCare's own planning docs. They are
-// supplied estimates used for planning — primary-source citations are
-// still being verified, so no source links are claimed for them here.
-const STATS = [
-  { n: "~20,000", l: "youth age out of US foster care every year" },
-  { n: "20%", l: "become homeless the day they turn 18" },
-  { n: "Under 3%", l: "ever earn a college degree" },
-  { n: "17%", l: "of people in US prisons spent time in foster care" },
-];
-
 const PILLARS = [
   {
     title: "Housing",
@@ -51,29 +40,6 @@ const PILLARS = [
   },
 ];
 
-const SCENARIOS = [
-  {
-    tag: "Illustrative example",
-    title: "“I have nowhere to sleep tonight.”",
-    body: "A young person opens AfterCare at 9pm. In minutes they have the nearest shelter, the number that picks up, and a message to their caseworker already written.",
-  },
-  {
-    tag: "Illustrative example",
-    title: "“Can I afford this apartment?”",
-    body: "They type the rent and their income. AfterCare walks through the real monthly math — deposit, utilities, food — before they sign anything.",
-  },
-  {
-    tag: "Illustrative example",
-    title: "“Am I still covered?”",
-    body: "They ask about health insurance after 18. AfterCare explains Medi-Cal to 26 in California and what to do to keep it active.",
-  },
-  {
-    tag: "Illustrative example",
-    title: "“What do I do first?”",
-    body: "They just aged out and feel lost. AfterCare turns one giant worry into a short list: ID, bank account, benefits, housing — one finished thing at a time.",
-  },
-];
-
 export default function Home() {
   return (
     <div className="mk">
@@ -81,7 +47,7 @@ export default function Home() {
 
       {/* ── Front page ── */}
       <header className="mk-hero">
-        <div className="mk-wrap mk-hero-grid">
+        <div className="mk-wrap">
           <div>
             <p className="mk-kicker">The life navigator for foster youth</p>
             <h1 className="mk-h1">
@@ -106,15 +72,6 @@ export default function Home() {
               <span>Works in your browser</span>
             </div>
           </div>
-          <OrgPhoto
-            src="/images/community-friends.jpg"
-            alt="Three young adult friends walking together down a city street with coffee, smiling and chatting"
-            caption="Friends, out in the city. Community is the whole point."
-            photographer="Keira Burton"
-            eager
-            width={1600}
-            height={1067}
-          />
         </div>
       </header>
 
@@ -131,46 +88,12 @@ export default function Home() {
             <div>
               <p className="mk-lead" style={{ marginTop: 0 }}>
                 The help is real and it is out there. The problem is that
-                it&rsquo;s scattered across hundreds of websites, state
-                portals, PDFs and overworked caseworkers&rsquo; heads — and
-                none of it is written for a 17-year-old holding a phone.
+                it&rsquo;s scattered across websites, state portals, PDFs
+                and overworked caseworkers&rsquo; heads — and none of it is
+                written for a 17-year-old holding a phone.
               </p>
             </div>
           </div>
-          <div className="mk-ledger">
-            {STATS.map((s, i) => (
-              <div className="mk-ledger-row" key={s.l}>
-                <div className="mk-ledger-num">0{i + 1}</div>
-                <div>
-                  <h3>{s.n} — {s.l}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="mk-caption">
-            Figures are supplied estimates used for planning;
-            primary-source citations are still being verified. See{" "}
-            <Link href="/research">Research</Link>.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Pull quote band ── */}
-      <section className="mk-pull">
-        <div className="mk-wrap">
-          <blockquote>
-            <p>
-              “Knowledge and accessibility are the real barriers.
-              Everything is on their phone, via text, apps, and links.”
-            </p>
-            <cite>— APHSA, 2024</cite>
-          </blockquote>
-          <p className="mk-pull-note">
-            The federal government&rsquo;s answer is a transition toolkit
-            written for caseworkers. Nobody under 25 reads a PDF. That gap
-            — between help existing and help reaching someone — is the
-            entire reason AfterCare exists.
-          </p>
         </div>
       </section>
 
@@ -237,20 +160,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Photo divider: city life ── */}
-      <section className="mk-section" id="city-life" style={{ paddingBottom: 0 }}>
-        <div className="mk-wrap">
-          <OrgPhoto
-            src="/images/city-life.jpg"
-            alt="A young adult with a backpack standing on a sunny city sidewalk"
-            caption="In every city, every ZIP code — a young person on their way."
-            photographer="Samson Katt"
-            width={1600}
-            height={1067}
-          />
-        </div>
-      </section>
-
       {/* ── What's happening: bulletin ledger ── */}
       <section className="mk-section" id="happening">
         <div className="mk-wrap">
@@ -288,30 +197,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Everyday scenarios: case notes ── */}
-      <section className="mk-section" id="everyday">
-        <div className="mk-wrap">
-          <p className="mk-kicker">05 — Every day</p>
-          <h2 className="mk-h2">What a day with AfterCare looks like.</h2>
-          <p className="mk-deck">
-            These are illustrative examples of how the navigator helps —
-            not stories from real people.
-          </p>
-          <div className="mk-ledger">
-            {SCENARIOS.map((s, i) => (
-              <div className="mk-ledger-row" key={s.title}>
-                <div className="mk-ledger-num">0{i + 1}</div>
-                <div>
-                  <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)", margin: 0 }}>{s.tag}</p>
-                  <h3 style={{ marginTop: 8 }}>{s.title}</h3>
-                  <p>{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Impact preview: figure + text ── */}
       <section className="mk-section" id="impact-preview">
         <div className="mk-wrap mk-split flip">
@@ -323,7 +208,7 @@ export default function Home() {
             </figcaption>
           </figure>
           <div>
-            <p className="mk-kicker">06 — Impact</p>
+            <p className="mk-kicker">05 — Impact</p>
             <h2 className="mk-h2">One youth, one finished thing.</h2>
             <p className="mk-lead">
               We don&rsquo;t publish impact numbers yet, because we don&rsquo;t
@@ -341,7 +226,7 @@ export default function Home() {
       {/* ── Get involved: ink band ── */}
       <section className="mk-section mk-section-ink" id="involved-preview">
         <div className="mk-wrap">
-          <p className="mk-kicker">07 — Get involved</p>
+          <p className="mk-kicker">06 — Get involved</p>
           <h2 className="mk-h2">There&rsquo;s a place for you in this.</h2>
           <p className="mk-deck">
             Whether you&rsquo;re a young person who needs help, an adult who

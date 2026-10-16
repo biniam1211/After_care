@@ -6,8 +6,8 @@ import { OrgNav, OrgFooter, CrisisStrip } from "@/components/site-chrome";
 
 /**
  * Contact address shown in the legal pages. Set CONTACT_EMAIL in the
- * environment before launch — until then the pages say plainly that a contact
- * route is still being set up, which is truthful, rather than printing a
+ * environment before launch — until then the pages say plainly that
+ * the app's chat is the way to reach us, rather than printing a
  * mailto: link that bounces.
  */
 export const CONTACT_EMAIL = process.env.CONTACT_EMAIL || null;
@@ -18,8 +18,7 @@ export function Contact() {
   }
   return (
     <span>
-      a contact address is being set up — until it is live, raise anything
-      through the app&rsquo;s chat and it will reach us
+      reach us through the app&rsquo;s chat and it will reach us
     </span>
   );
 }

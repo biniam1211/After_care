@@ -9,23 +9,14 @@ import "../marketing.css";
 export const metadata = {
   title: "Research",
   description:
-    "AfterCare research & evidence: the aging-out data, the accessibility gap, and what we measure.",
+    "AfterCare research & evidence: the accessibility gap, and what we measure.",
   openGraph: {
     title: "Research · AfterCare",
     description:
-      "AfterCare research & evidence: the aging-out data, the accessibility gap, and what we measure.",
+      "AfterCare research & evidence: the accessibility gap, and what we measure.",
     type: "website",
   },
 };
-
-// Figures are supplied estimates used for planning. No primary-source
-// citations or links are claimed for them — those are still being verified.
-const STATS = [
-  { n: "~20,000", what: "Youth age out of US foster care", meaning: "Every year, twenty thousand young people leave care and lose the system that — imperfectly — was their safety net." },
-  { n: "20%", what: "Become homeless the day they turn 18", meaning: "One in five has nowhere to sleep on their first night of legal adulthood." },
-  { n: "Under 3%", what: "Ever earn a college degree", meaning: "The education pipeline breaks early and stays broken without intervention." },
-  { n: "17%", what: "Of people in US prisons spent time in foster care", meaning: "The pipeline from care to incarceration is one of the most expensive failures in American public life." },
-];
 
 const PRINCIPLES = [
   { t: "Phone-first.", b: "Everything lives where young people already are — on their phone, in plain language." },
@@ -44,69 +35,28 @@ export default function Research() {
         <div className="mk-wrap">
           <p className="mk-kicker">Research &amp; evidence</p>
           <h1 className="mk-h1">
-            The gap is real. <em>So is the data.</em>
+            The gap is real. <em>Closing it is the work.</em>
           </h1>
           <p className="mk-deck">
-            AfterCare is built on what the evidence actually says about aging
-            out — and on the gap between help existing and help reaching
-            someone.
+            AfterCare exists because of the gap between help existing and
+            help reaching someone — and because everything a young person
+            needs should be on their phone, in plain language.
           </p>
         </div>
       </header>
 
-      {/* ── The data: a real table ── */}
-      <section className="mk-section" id="data">
-        <div className="mk-wrap">
-          <p className="mk-kicker">01 — The data</p>
-          <h2 className="mk-h2">What happens when the system stops calling.</h2>
-          <table className="mk-table">
-            <thead>
-              <tr>
-                <th>Figure</th>
-                <th>What it says</th>
-                <th>What it means</th>
-              </tr>
-            </thead>
-            <tbody>
-              {STATS.map((s) => (
-                <tr key={s.what}>
-                  <td>{s.n}</td>
-                  <td style={{ color: "var(--ink)", fontWeight: 600 }}>{s.what}</td>
-                  <td>{s.meaning}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mk-caption">
-            These figures are supplied estimates used for planning.
-            Primary-source citations are still being verified, so no source
-            links are claimed for them here. We will not ship a citation we
-            have not checked.
-          </p>
-        </div>
-      </section>
-
-      {/* ── The accessibility gap: pull quote + essay ── */}
+      {/* ── The accessibility gap: essay ── */}
       <section className="mk-pull" id="gap">
         <div className="mk-wrap">
-          <p className="mk-kicker">02 — The accessibility gap</p>
-          <blockquote>
-            <p>
-              “Knowledge and accessibility are the real barriers.
-              Everything is on their phone, via text, apps, and links.”
-            </p>
-            <cite>— APHSA, 2024</cite>
-          </blockquote>
+          <p className="mk-kicker">01 — The accessibility gap</p>
           <p className="mk-pull-note">
-            The help is scattered across hundreds of websites, state portals,
-            PDFs, and overworked caseworkers&rsquo; heads — and none of it is
+            Help exists — but it lives across websites, state portals, PDFs,
+            and overworked caseworkers&rsquo; heads, and almost none of it is
             written for a 17-year-old holding a phone.
           </p>
           <p className="mk-pull-note">
-            The federal government&rsquo;s answer is a transition toolkit written
-            for caseworkers. Nobody under 25 reads a PDF. That gap — between
-            help existing and help reaching someone — is the entire reason
-            AfterCare exists.
+            That gap — between help existing and help reaching someone — is
+            the entire reason AfterCare exists.
           </p>
         </div>
       </section>
@@ -114,7 +64,7 @@ export default function Research() {
       {/* ── Approach: numbered principles ── */}
       <section className="mk-section" id="approach">
         <div className="mk-wrap">
-          <p className="mk-kicker">03 — Our approach</p>
+          <p className="mk-kicker">02 — Our approach</p>
           <h2 className="mk-h2">Built for how young people actually get help.</h2>
           <div className="mk-ledger">
             {PRINCIPLES.map((p, i) => (
