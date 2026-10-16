@@ -14,6 +14,12 @@ export const metadata = {
   title: "AfterCare — For everyone, every ZIP code, every day",
   description:
     "AfterCare is the life navigator for foster youth — housing, health, work, money, and community, for everyone, every ZIP code, every day. Free, always.",
+  openGraph: {
+    title: "AfterCare — For everyone, every ZIP code, every day",
+    description:
+      "AfterCare is the life navigator for foster youth — housing, health, work, money, and community, for everyone, every ZIP code, every day. Free, always.",
+    type: "website",
+  },
 };
 
 // The numbers below come from AfterCare's own planning docs. They are
@@ -105,6 +111,9 @@ export default function Home() {
             alt="Three young adult friends walking together down a city street with coffee, smiling and chatting"
             caption="Friends, out in the city. Community is the whole point."
             photographer="Keira Burton"
+            eager
+            width={1600}
+            height={1067}
           />
         </div>
       </header>
@@ -236,6 +245,8 @@ export default function Home() {
             alt="A young adult with a backpack standing on a sunny city sidewalk"
             caption="In every city, every ZIP code — a young person on their way."
             photographer="Samson Katt"
+            width={1600}
+            height={1067}
           />
         </div>
       </section>

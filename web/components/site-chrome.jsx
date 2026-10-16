@@ -86,6 +86,8 @@ const NAV_LINKS = [
   { href: "/impact", label: "Impact" },
   { href: "/stories", label: "Stories" },
   { href: "/get-involved", label: "Get involved" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
   { href: "/services", label: "Find services" },
   { href: "/download", label: "Download" },
 ];
@@ -168,6 +170,9 @@ const FOOTER_COLS = [
   {
     heading: "About this site",
     links: [
+      { href: "/contact", label: "Contact" },
+      { href: "/faq", label: "FAQ" },
+      { href: "/sitemap.xml", label: "Sitemap" },
       { href: "/privacy", label: "Privacy (draft)" },
       { href: "/terms", label: "Terms (draft)" },
     ],

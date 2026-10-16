@@ -5,6 +5,12 @@ export const metadata = {
   title: "Privacy",
   description:
     "What AfterCare collects, what it never does with it, and how to delete it. We never sell your data and we never show ads.",
+  openGraph: {
+    title: "Privacy · AfterCare",
+    description:
+      "What AfterCare collects, what it never does with it, and how to delete it. We never sell your data and we never show ads.",
+    type: "website",
+  },
 };
 
 export default function Privacy() {

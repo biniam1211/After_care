@@ -30,6 +30,9 @@ export default function NotFound() {
             <Link href="/" className="mk-btn mk-btn-ghost">
               Back to the homepage
             </Link>
+            <Link href="/sitemap.xml" className="mk-btn mk-btn-ghost">
+              Sitemap
+            </Link>
           </div>
         </div>
       </section>

@@ -30,6 +30,7 @@ export const metadata = {
     description:
       "Search free and low-cost social services near you. Food, housing, healthcare, employment, and education support for foster youth.",
     url: `${SITE_URL}/services`,
+    type: "website",
   },
 };
 

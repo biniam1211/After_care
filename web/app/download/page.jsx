@@ -6,6 +6,12 @@ export const metadata = {
   title: "Download the app",
   description:
     "Get AfterCare on your phone today — add the web app to your Home Screen, or wait for TestFlight. The App Store listing is not live yet.",
+  openGraph: {
+    title: "Download the app · AfterCare",
+    description:
+      "Get AfterCare on your phone today — add the web app to your Home Screen, or wait for TestFlight. The App Store listing is not live yet.",
+    type: "website",
+  },
 };
 
 // ───────────────────────────────────────────────────────────

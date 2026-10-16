@@ -12,6 +12,12 @@ export const metadata = {
   title: "Get involved",
   description:
     "Get involved with AfterCare: for youth, for caring adults, and for orgs & partners.",
+  openGraph: {
+    title: "Get involved · AfterCare",
+    description:
+      "Get involved with AfterCare: for youth, for caring adults, and for orgs & partners.",
+    type: "website",
+  },
 };
 
 export default function GetInvolved() {
@@ -69,6 +75,8 @@ export default function GetInvolved() {
             alt="A young adult woman studying in a library with books and a laptop"
             caption="One finished thing at a time. School, study, a step forward."
             photographer="Yan Krukau"
+            width={1600}
+            height={1067}
           />
         </div>
       </section>
@@ -108,6 +116,8 @@ export default function GetInvolved() {
             alt="Two professional women collaborating at a table in a bright office"
             caption="Someone in your corner. Guidance from people who show up."
             photographer="Kaboompics"
+            width={1600}
+            height={1067}
           />
         </div>
       </section>
