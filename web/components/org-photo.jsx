@@ -10,10 +10,16 @@
 // who lived them, with permission. See
 // web/public/images/CREDITS.md for full attribution.
 // ───────────────────────────────────────────────────────────
-export function OrgPhoto({ src, alt, caption, photographer }) {
+export function OrgPhoto({ src, alt, caption, photographer, eager, width, height }) {
   return (
     <figure className="mk-photo">
-      <img src={src} alt={alt} loading="lazy" />
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        width={width}
+        height={height}
+      />
       <figcaption>
         <b>Illustrative photo —</b> {caption} Photo: {photographer} via
         Pexels. Not an AfterCare youth.

@@ -10,6 +10,12 @@ export const metadata = {
   title: "Research",
   description:
     "AfterCare research & evidence: the aging-out data, the accessibility gap, and what we measure.",
+  openGraph: {
+    title: "Research · AfterCare",
+    description:
+      "AfterCare research & evidence: the aging-out data, the accessibility gap, and what we measure.",
+    type: "website",
+  },
 };
 
 // Figures are supplied estimates used for planning. No primary-source

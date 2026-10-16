@@ -5,6 +5,12 @@ export const metadata = {
   title: "Terms",
   description:
     "The rules for using AfterCare, in plain language. It is free, it is informational, and it is not a substitute for a professional.",
+  openGraph: {
+    title: "Terms · AfterCare",
+    description:
+      "The rules for using AfterCare, in plain language. It is free, it is informational, and it is not a substitute for a professional.",
+    type: "website",
+  },
 };
 
 export default function Terms() {

@@ -11,6 +11,12 @@ export const metadata = {
   title: "Impact",
   description:
     "How AfterCare measures impact — honestly, with no numbers we have not measured.",
+  openGraph: {
+    title: "Impact · AfterCare",
+    description:
+      "How AfterCare measures impact — honestly, with no numbers we have not measured.",
+    type: "website",
+  },
 };
 
 const MEASURES = [

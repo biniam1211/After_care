@@ -13,6 +13,12 @@ export const metadata = {
   title: "About us",
   description:
     "AfterCare's story, organization background, goals, and honest status — a social-impact project working toward nonprofit status.",
+  openGraph: {
+    title: "About us · AfterCare",
+    description:
+      "AfterCare's story, organization background, goals, and honest status — a social-impact project working toward nonprofit status.",
+    type: "website",
+  },
 };
 
 const GOALS = [
@@ -113,6 +119,8 @@ export default function About() {
             alt="A young adult woman in graduation attire smiling with a diploma in hand"
             caption="The milestone. A degree earned, a future opened."
             photographer="Leeloo The First"
+            width={1600}
+            height={2397}
           />
         </div>
       </section>

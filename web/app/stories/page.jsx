@@ -13,6 +13,12 @@ export const metadata = {
   title: "Stories",
   description:
     "Real stories from the AfterCare community, in people's own words — with nothing invented and nothing published without permission.",
+  openGraph: {
+    title: "Stories · AfterCare",
+    description:
+      "Real stories from the AfterCare community, in people's own words — with nothing invented and nothing published without permission.",
+    type: "website",
+  },
 };
 
 // The founder feature below is real: stylized illustrations made from the
@@ -97,6 +103,9 @@ export default function Stories() {
               alt="Three young adult friends walking together down a city street with coffee, smiling and chatting"
               caption="Community. The people you walk with."
               photographer="Keira Burton"
+              eager
+              width={1600}
+              height={1067}
             />
           </div>
         </div>
@@ -116,7 +125,13 @@ export default function Stories() {
           <div style={{ marginTop: 28 }}>
             {FOUNDER_CARTOONS.map((c) => (
               <figure className="mk-photo" key={c.src} style={{ marginBottom: 24 }}>
-                <img src={c.src} alt={c.alt} loading="lazy" />
+                <img
+                  src={c.src}
+                  alt={c.alt}
+                  loading="lazy"
+                  width={1600}
+                  height={1207}
+                />
                 <figcaption>
                   <b>{c.label}.</b> Stylized illustration from the
                   founder&rsquo;s own photos — faces are not exact

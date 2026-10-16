@@ -12,6 +12,12 @@ export const metadata = {
   title: "Programs",
   description:
     "AfterCare programs: Housing, Health, Work & Money, Community & Belonging — plus the Navigator app and the Services directory.",
+  openGraph: {
+    title: "Programs · AfterCare",
+    description:
+      "AfterCare programs: Housing, Health, Work & Money, Community & Belonging — plus the Navigator app and the Services directory.",
+    type: "website",
+  },
 };
 
 const PILLARS = [
@@ -123,12 +129,16 @@ export default function Programs() {
               alt="A young adult couple taking a selfie in a room with unpacked moving boxes"
               caption="A first place of your own. Keys in hand."
               photographer="Vitaly Gariev"
+              width={1600}
+              height={900}
             />
             <OrgPhoto
               src="/images/first-job.jpg"
               alt="A young adult man working on a laptop at an office desk"
               caption="A first job. Work that starts a career, not just a paycheck."
               photographer="Alena Darmel"
+              width={1600}
+              height={2400}
             />
           </div>
         </div>
