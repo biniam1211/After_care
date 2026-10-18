@@ -5,11 +5,11 @@ import { Contact } from "@/components/legal-page";
 export const metadata = {
   title: "Contact",
   description:
-    "How to reach AfterCare. No public email, phone, or mailing address yet — a contact address is being set up, and the app's chat reaches us today.",
+    "How to reach AfterCare. The fastest way to reach us is the app's chat.",
   openGraph: {
     title: "Contact · AfterCare",
     description:
-      "How to reach AfterCare. No public email, phone, or mailing address yet — a contact address is being set up, and the app's chat reaches us today.",
+      "How to reach AfterCare. The fastest way to reach us is the app's chat.",
     type: "website",
   },
 };
@@ -18,9 +18,8 @@ export const metadata = {
 // AfterCare — /contact (org surface)
 //
 // Honest status page. There is no public email, phone number, or
-// mailing address yet — no page may invent one. The contact address
-// is being set up; until it is live, the app's chat is the way to
-// reach us (see Contact in components/legal-page.jsx).
+// mailing address — no page may invent one. The app's chat is the
+// way to reach us (see Contact in components/legal-page.jsx).
 // ───────────────────────────────────────────────────────────
 export default function ContactPage() {
   return (

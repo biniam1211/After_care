@@ -7,7 +7,7 @@
 //  → { configured: true, error: "upstream" }        (Claude call failed — client uses scripted replies)
 //
 // The key never leaves the server. With no key the app still works as a
-// self-contained demo via the scripted CHAT_REPLIES fallback on the client.
+// self-contained fallback via the scripted CHAT_REPLIES fallback on the client.
 // ───────────────────────────────────────────────────────────
 import Anthropic from "@anthropic-ai/sdk";
 import { RESOURCES, QUESTS } from "@/components/data";
