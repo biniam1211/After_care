@@ -24,9 +24,19 @@ function readCookie(req, name) {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
-// Resolve the site origin from proxy headers (works on Vercel) or APP_URL.
+/**
+ * Resolve the site origin for magic-link emails.
+ * Prefer APP_URL always. In production, never trust Host / X-Forwarded-Host
+ * alone (open redirect / phishing risk for sign-in links).
+ *
+ * @param {Request} req
+ * @returns {string}
+ */
 export function siteOrigin(req) {
   if (process.env.APP_URL) return process.env.APP_URL.replace(/\/$/, "");
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("APP_URL is required in production for magic-link emails");
+  }
   const proto = req.headers.get("x-forwarded-proto") || "https";
   const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
   if (host) return `${proto}://${host}`;

@@ -68,12 +68,12 @@ export function VerificationBadge({ verified }) {
 
 export function CrisisStrip() {
   return (
-    <div className="mk-crisis">
+    <div className="mk-crisis" role="region" aria-label="Crisis hotlines">
       <div className="mk-wrap">
         <b>In danger right now?</b> Call or text <b>988</b> (Suicide &amp;
-        Crisis Lifeline, 24/7). If you have nowhere to sleep tonight,
-        Covenant House California is <b>1-800-388-3888</b>. If someone is
-        being hurt, call <b>911</b>.
+        Crisis Lifeline, 24/7). Nowhere to sleep tonight? Covenant House is{" "}
+        <b>1-800-388-3888</b>. LGBTQ+ youth crisis support: The Trevor Project{" "}
+        <b>1-866-488-7386</b>. If someone is being hurt, call <b>911</b>.
       </div>
     </div>
   );

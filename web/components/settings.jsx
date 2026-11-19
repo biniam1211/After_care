@@ -6,37 +6,16 @@ import React, { useState } from "react";
 import { Icon, Screen, DetailHeader, IconTile } from "@/components/ui";
 import { requestSignInLink } from "@/components/session";
 
-export function Settings({ profile, setProfile, onBack, onReset, account = {} }) {
-  const set = (k, v) => setProfile((p) => ({ ...p, [k]: v }));
-  const label = { fontFamily: "var(--display)", fontWeight: 700, fontSize: 13.5, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", marginBottom: 10 };
-  const inputStyle = { width: "100%", height: 52, borderRadius: 16, border: "2px solid var(--line)", background: "#fff",
-    padding: "0 16px", fontSize: 16, color: "var(--ink)", outline: "none" };
-  const [signinEmail, setSigninEmail] = useState("");
-  const [signinStatus, setSigninStatus] = useState(null); // {sent, devLink?}
-  const sendLink = async () => {
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signinEmail)) return;
-    const r = await requestSignInLink(signinEmail.trim());
-    setSigninStatus(r || { sent: false });
-  };
-  const styles = [
-    { id: "simple", label: "Short & simple", sub: "Just tell me what to do" },
-    { id: "detailed", label: "Walk me through it", sub: "I like knowing the why, step by step" },
-    { id: "examples", label: "Show me examples", sub: "I learn best from real examples" },
-  ];
-  const feelings = [
-    { id: "overwhelmed", label: "Honestly, overwhelmed", sub: "There's a lot going on" },
-    { id: "okay", label: "Managing okay", sub: "Figuring it out as I go" },
-    { id: "confident", label: "Pretty confident", sub: "Just want the fastest path" },
-  ];
-  const Pick = ({ k, opts }) => (
+function SettingsPick({ profileKey, opts, profile, onPick }) {
+  return (
     <div style={{ display: "flex", flexDirection: "column", gap: 9, marginBottom: 22 }}>
       {opts.map((o) => {
-        const on = profile[k] === o.id;
+        const on = profile[profileKey] === o.id;
         return (
-          <button key={o.id} onClick={() => set(k, o.id)} style={{ textAlign: "left",
+          <button key={o.id} type="button" onClick={() => onPick(profileKey, o.id)} style={{ textAlign: "left",
             background: on ? "var(--sky-soft)" : "#fff", borderRadius: 16, padding: "13px 16px",
             border: `2px solid ${on ? "var(--sky)" : "transparent"}`, boxShadow: on ? "none" : "var(--shadow-card)",
-            display: "flex", alignItems: "center", gap: 12 }}>
+            display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
             <div style={{ width: 21, height: 21, borderRadius: 99, border: `2px solid ${on ? "var(--sky)" : "var(--line)"}`,
               background: on ? "var(--sky)" : "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               {on && <Icon name="check" size={13} color="#fff" sw={3} />}
@@ -50,20 +29,46 @@ export function Settings({ profile, setProfile, onBack, onReset, account = {} })
       })}
     </div>
   );
+}
+
+const LEARNING_STYLES = [
+  { id: "simple", label: "Short & simple", sub: "Just tell me what to do" },
+  { id: "detailed", label: "Walk me through it", sub: "I like knowing the why, step by step" },
+  { id: "examples", label: "Show me examples", sub: "I learn best from real examples" },
+];
+
+const FEELINGS = [
+  { id: "overwhelmed", label: "Honestly, overwhelmed", sub: "There's a lot going on" },
+  { id: "okay", label: "Managing okay", sub: "Figuring it out as I go" },
+  { id: "confident", label: "Pretty confident", sub: "Just want the fastest path" },
+];
+
+export function Settings({ profile, setProfile, onBack, onReset, account = {} }) {
+  const set = (k, v) => setProfile((p) => ({ ...p, [k]: v }));
+  const label = { fontFamily: "var(--display)", fontWeight: 700, fontSize: 13.5, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", marginBottom: 10 };
+  const inputStyle = { width: "100%", height: 52, borderRadius: 16, border: "2px solid var(--line)", background: "#fff",
+    padding: "0 16px", fontSize: 16, color: "var(--ink)", outline: "none" };
+  const [signinEmail, setSigninEmail] = useState("");
+  const [signinStatus, setSigninStatus] = useState(null); // {sent, devLink?}
+  const sendLink = async () => {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signinEmail)) return;
+    const r = await requestSignInLink(signinEmail.trim());
+    setSigninStatus(r || { sent: false });
+  };
   return (
     <div style={{ position: "absolute", inset: 0, background: "var(--foam)" }}>
       <DetailHeader title="How I help you" onBack={onBack} />
       <Screen top={108}>
         <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.5, margin: "0 0 20px" }}>Change these any time — they shape how I explain things, never what you're allowed to ask.</p>
         <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 13.5, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", marginBottom: 10 }}>When I explain something</div>
-        <Pick k="learningStyle" opts={styles} />
+        <SettingsPick profileKey="learningStyle" opts={LEARNING_STYLES} profile={profile} onPick={set} />
         <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 13.5, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", marginBottom: 10 }}>Right now, adulting feels</div>
-        <Pick k="feeling" opts={feelings} />
+        <SettingsPick profileKey="feeling" opts={FEELINGS} profile={profile} onPick={set} />
 
         {/* Caseworker contact — used by "text my caseworker" */}
         <div style={label}>Your caseworker (optional)</div>
         <p style={{ fontSize: 13.5, color: "var(--ink-soft)", lineHeight: 1.5, margin: "0 0 10px" }}>
-          Add their email and I can text them for you from the Panic Button or any resource — you never have to find the words.
+          Add their email and I can text them for you from the Panic Button or any resource — you never have to find the words. Real delivery needs you signed in below so we never send to the wrong person.
         </p>
         <input
           type="email" inputMode="email" value={profile.caseworkerEmail || ""}

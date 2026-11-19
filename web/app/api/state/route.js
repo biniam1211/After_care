@@ -4,6 +4,8 @@
 // When there's no DB or no session, the client keeps using localStorage.
 import { dbConfigured, q, ensureSchema } from "@/lib/db";
 import { getSessionUser } from "@/lib/auth";
+import { safeJsonObject } from "@/lib/safe";
+import { logError } from "@/lib/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +25,8 @@ export async function GET(req) {
       : null;
     return Response.json({ configured: true, authenticated: true, email: user.email, state });
   } catch (e) {
-    return Response.json({ configured: true, authenticated: false, error: String(e?.message || e) }, { status: 502 });
+    logError("state_get_failed", { detail: String(e?.message || e).slice(0, 200) });
+    return Response.json({ configured: true, authenticated: false, error: "upstream" }, { status: 502 });
   }
 }
 
@@ -40,8 +43,11 @@ export async function PUT(req) {
     if (!user) return Response.json({ configured: true, authenticated: false }, { status: 401 });
     await ensureSchema();
     const onboarded = !!body?.onboarded;
-    const profile = body?.profile && typeof body.profile === "object" ? body.profile : {};
-    const questProgress = body?.questProgress && typeof body.questProgress === "object" ? body.questProgress : {};
+    const profile = safeJsonObject(body?.profile);
+    const questProgress = safeJsonObject(body?.questProgress);
+    if (profile._truncated || questProgress._truncated) {
+      return Response.json({ error: "payload_too_large" }, { status: 413 });
+    }
     await q(
       `INSERT INTO app_state (user_id, onboarded, profile, quest_progress, updated_at)
          VALUES ($1, $2, $3::jsonb, $4::jsonb, now())
@@ -54,6 +60,7 @@ export async function PUT(req) {
     );
     return Response.json({ ok: true });
   } catch (e) {
-    return Response.json({ configured: true, error: "upstream", detail: String(e?.message || e) }, { status: 502 });
+    logError("state_put_failed", { detail: String(e?.message || e).slice(0, 200) });
+    return Response.json({ configured: true, error: "upstream" }, { status: 502 });
   }
 }

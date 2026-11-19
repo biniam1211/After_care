@@ -31,6 +31,6 @@ export async function POST(req) {
     );
     return Response.json({ ok: true });
   } catch (e) {
-    return Response.json({ configured: true, error: String(e?.message || e) }, { status: 502 });
+    return Response.json({ configured: true, error: "upstream" }, { status: 502 });
   }
 }
