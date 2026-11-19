@@ -63,6 +63,14 @@ These need a human with keys, legal, or operational access — not code in this 
 | Nonprofit registration / EIN if you will claim 501(c)(3) status on the site | Copy currently refuses to claim it |
 | Periodically `npm audit` / upgrade Next (production deps were clean after bumping to Next 16.4.6 in this PR; Vitest remains a devDependency with known advisories) | Ongoing patching |
 
+## Native iOS shell
+
+A follow-up PR (`cursor/ios-app-store-ready-57de`) adds App Store–oriented
+native surfaces on the Expo shell (`app/`): offline crisis screen, push,
+Face ID lock, deep links, privacy manifest, EAS `production` profile.
+Owner steps for Apple enrollment / TestFlight / listing remain in
+`docs/IPHONE-SHIP-CHECKLIST.md`.
+
 ## Deliberately left alone
 
 - **`api/` + `supabase/`** — dormant; CI still typechecks/tests `api/` only to stay green. No feature investment.

@@ -74,6 +74,17 @@ export async function ensureSchema() {
       created_at timestamptz NOT NULL DEFAULT now()
     )`);
     await q(`CREATE INDEX IF NOT EXISTS checkins_due_idx ON checkins (due_at) WHERE sent_at IS NULL`);
+    // Expo push tokens for the native shell (panic check-ins + quest nudges).
+    await q(`CREATE TABLE IF NOT EXISTS devices (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      token text UNIQUE NOT NULL,
+      platform text NOT NULL DEFAULT '',
+      kind text NOT NULL DEFAULT 'expo',
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await q(`CREATE INDEX IF NOT EXISTS devices_user_idx ON devices (user_id)`);
   })().catch((e) => {
     schemaPromise = null; // allow retry on next request
     throw e;

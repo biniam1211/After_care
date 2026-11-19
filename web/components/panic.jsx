@@ -188,6 +188,13 @@ function PanicPlan({ scenario, smsSent, setSmsSent, smsNote, setSmsNote, onBack,
         }),
       }).catch(() => {});
     } catch (e) { /* ignore */ }
+    // Native shell: also schedule a local push (works offline / without Resend).
+    try {
+      const native = typeof window !== "undefined" ? window.AfterCareNative : null;
+      if (native && typeof native.schedulePanicCheckIn === "function") {
+        native.schedulePanicCheckIn(6);
+      }
+    } catch (e) { /* ignore */ }
   };
   return (
     <div style={{ animation: "ac-rise .35s ease both" }}>
