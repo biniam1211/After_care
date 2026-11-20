@@ -26,9 +26,14 @@ function TabBar({ active, onTab, onPanic }) {
     <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 80, pointerEvents: "none" }}>
       {/* panic FAB floating above bar */}
       <div style={{ position: "absolute", right: 18, bottom: 96, pointerEvents: "auto" }}>
-        <button onClick={onPanic} style={{ width: 60, height: 60, borderRadius: 99, background: "var(--panic)",
+        <button
+          type="button"
+          onClick={onPanic}
+          aria-label="Open Panic Button — emergency help"
+          style={{ width: 60, height: 60, borderRadius: 99, background: "var(--panic)",
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 1,
-          boxShadow: "var(--shadow-fab)", animation: "ac-pulse 2.6s infinite" }}>
+          boxShadow: "var(--shadow-fab)", animation: "ac-pulse 2.6s infinite" }}
+        >
           <Icon name="shield" size={24} color="#fff" sw={2.2} fill="rgba(255,255,255,.16)" />
           <span style={{ fontSize: 8.5, fontWeight: 800, color: "#fff", fontFamily: "var(--display)", letterSpacing: 0.3 }}>SOS</span>
         </button>
@@ -40,8 +45,8 @@ function TabBar({ active, onTab, onPanic }) {
         {TABS.map((t) => {
           const on = active === t.id;
           return (
-            <button key={t.id} onClick={() => onTab(t.id)} style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center", gap: 4 }}>
+            <button key={t.id} type="button" onClick={() => onTab(t.id)} aria-label={t.label} aria-current={on ? "page" : undefined} style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center", gap: 4, minHeight: 44 }}>
               <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 44, height: 30, borderRadius: 99,
                 background: on ? "var(--sky-soft)" : "transparent", transition: "background .2s" }}>
                 <Icon name={t.icon} size={23} color={on ? "var(--sky)" : "var(--ink-faint)"} sw={on ? 2.3 : 2} fill={on ? "rgba(46,155,255,.12)" : "none"} />

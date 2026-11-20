@@ -7,7 +7,7 @@ on:
 
 jobs:
   web:
-    name: Web — build
+    name: Web — lint, test, build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -20,8 +20,10 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci
-      # The production build is the real gate here: it typechecks, compiles
-      # every route, and is exactly what Vercel runs on each push.
+      - run: npm run lint
+      - run: npm test
+      # The production build is the real gate here: it compiles every route
+      # and is exactly what Vercel runs on each push.
       - run: npm run build
 
   app:

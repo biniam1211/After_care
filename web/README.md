@@ -20,7 +20,8 @@ A faithful, fully-interactive port of every screen from the design:
 - **Resources** — ZIP-flavored finder with search + category filters, and a resource
   detail with call / directions / "text my caseworker" actions.
 - **Panic Button** — emergency triage → per-scenario action plan (shelter, hotline,
-  pre-written caseworker text). 911 / 988 always surfaced.
+  pre-written caseworker text). **988 / Covenant House / Trevor Project / 911**
+  always surface from hardcoded national fallbacks (never depend on CMS/DB).
 - **Settings** — revisit learning style / feeling.
 
 State (onboarding, profile, quest progress) persists in `localStorage` under
@@ -40,16 +41,21 @@ The AI Chat is wired to the **Claude API** through a server route at `app/api/ch
 The model returns the exact 3-part shape the UI renders (`answer` → `steps` → `resources`
 → optional `followup`/`quest` → `panic`) via structured outputs, and the server validates
 every `resources`/`quest` id against the known catalog before sending it to the client.
-Crisis messages set `panic: true`, which surfaces the Panic Button inline. Override the
-model with `ANTHROPIC_MODEL` (defaults to `claude-opus-5`).
+Crisis messages set `panic: true`, which surfaces the Panic Button inline. A
+server-side detector also forces panic + national hotline resources even if the
+model misses it; the client scripted fallback does the same when Claude is down.
+Override the model with `ANTHROPIC_MODEL` (defaults to `claude-opus-5`).
 
 ## Caseworker messaging (Resend)
 
 The Panic Button's "Send this text" and each resource's "Text my caseworker" send a real
-email via **Resend** when `RESEND_API_KEY` is set and the youth has added a caseworker
-email in Settings. The UI always shows an optimistic "Sent" first (a youth in crisis
-never waits), then the real send fires best-effort. With no key configured the send is
-simulated. Route: `app/api/notify/route.js`.
+email via **Resend** when `RESEND_API_KEY` is set, the youth is **signed in**, and a
+caseworker email is stored on their server profile. The recipient is never taken from
+the request body (closes open-relay abuse). The UI still shows an optimistic "Sent"
+first; with no session/key the send is simulated. Route: `app/api/notify/route.js`.
+
+See [`../docs/PRODUCTION-READINESS.md`](../docs/PRODUCTION-READINESS.md) for the
+production audit checklist and owner-gated remaining steps.
 
 ## Accounts & cross-device sync (Postgres + magic link)
 

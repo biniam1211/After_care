@@ -7,15 +7,51 @@ import { Icon, TONE, IconTile } from "@/components/ui";
 import { Logo } from "@/components/onboarding";
 import { CHAT_SUGGESTIONS, CHAT_REPLIES, RESOURCES } from "@/components/data";
 import { VerificationBadge } from "@/components/site-chrome";
+import {
+  detectCrisis,
+  ensureCrisisResources,
+  applyCrisisPrefix,
+  CRISIS_RESOURCE_IDS,
+} from "@/lib/crisis";
 
+/**
+ * Pick a scripted reply key. Crisis detection wins over keyword matches
+ * so self-harm phrases never fall through to the generic default.
+ * @param {string} text
+ */
 function matchReply(text) {
+  if (detectCrisis(text)) return "crisis";
   const t = text.toLowerCase();
-  if (/(kick|kicked|nowhere|homeless|sleep|abuse|hurt|evict)/.test(t)) return "kicked";
+  if (/\b(kicked out|nowhere to (sleep|go|stay)|homeless|evict|being (hurt|abused))\b/.test(t)) return "kicked";
   if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
   return "default";
+}
+
+/**
+ * Apply the same crisis hardening the server uses, so offline / no-key
+ * scripted replies still surface 988 / Covenant / Trevor + Panic.
+ * @param {object} reply
+ * @param {string} text
+ */
+function hardenScriptedReply(reply, text) {
+  const crisis = detectCrisis(text);
+  const panic = crisis || !!(reply && reply.panic);
+  const resources = ensureCrisisResources(
+    (reply && reply.resources) || [],
+    Object.keys(RESOURCES),
+    panic
+  );
+  // If catalog somehow lacks crisis ids, still keep whatever we have.
+  const finalResources = resources.length ? resources : (panic ? [...CRISIS_RESOURCE_IDS] : []);
+  return {
+    ...reply,
+    answer: applyCrisisPrefix((reply && reply.answer) || "", crisis),
+    resources: finalResources.filter((id) => RESOURCES[id]),
+    panic,
+  };
 }
 
 function ResourceMini({ id, onOpen }) {
@@ -123,24 +159,31 @@ export function Chat({ profile, pendingPrompt, clearPending, onOpenResource, onO
   useEffect(() => { const t = setTimeout(scrollDown, 60); return () => clearTimeout(t); }, [messages, typing]);
 
   // Try the live Claude endpoint; fall back to the scripted reply on no-key / error.
+  // Only learningStyle / feeling / zip leave the device — never name or caseworker email.
   const fetchReply = useCallback(async (displayText, key) => {
     const history = msgsRef.current
       .map((m) => (m.role === "user"
         ? { role: "user", content: m.text }
         : { role: "ai", content: m.data && m.data.answer }))
       .filter((m) => m.content);
+    const safeProfile = {
+      learningStyle: profile?.learningStyle || "",
+      feeling: profile?.feeling || "",
+      zip: profile?.zip || "",
+    };
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ message: displayText, history, profile }),
+        body: JSON.stringify({ message: displayText, history, profile: safeProfile }),
       });
       if (res.ok) {
         const j = await res.json();
         if (j && j.configured && j.reply) return j.reply;
       }
     } catch (e) { /* fall through to scripted */ }
-    return CHAT_REPLIES[key] || CHAT_REPLIES[matchReply(displayText)] || CHAT_REPLIES.default;
+    const scripted = CHAT_REPLIES[key] || CHAT_REPLIES[matchReply(displayText)] || CHAT_REPLIES.default;
+    return hardenScriptedReply(scripted, displayText);
   }, [profile]);
 
   const ask = useCallback(async (key, displayText) => {
@@ -229,10 +272,21 @@ export function Chat({ profile, pendingPrompt, clearPending, onOpenResource, onO
       {/* input */}
       <div style={{ padding: "10px 14px 30px", background: "rgba(241,248,253,.92)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", borderTop: "1px solid var(--line-soft)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#fff", borderRadius: 26, padding: "6px 6px 6px 18px", boxShadow: "var(--shadow-card)", border: "1px solid var(--line)" }}>
-          <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Ask AfterCare anything…" style={{ flex: 1, border: "none", outline: "none", fontSize: 16, color: "var(--ink)", background: "transparent", height: 40 }} />
-          <button onClick={send} style={{ width: 44, height: 44, borderRadius: 99, background: input.trim() ? "var(--sky)" : "var(--line)",
-            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background .15s" }}>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && send()}
+            placeholder="Ask AfterCare anything…"
+            aria-label="Message AfterCare"
+            style={{ flex: 1, border: "none", outline: "none", fontSize: 16, color: "var(--ink)", background: "transparent", height: 40 }}
+          />
+          <button
+            type="button"
+            onClick={send}
+            aria-label="Send message"
+            style={{ width: 44, height: 44, borderRadius: 99, background: input.trim() ? "var(--sky)" : "var(--line)",
+            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background .15s" }}
+          >
             <Icon name="send" size={20} color="#fff" sw={2.2} />
           </button>
         </div>

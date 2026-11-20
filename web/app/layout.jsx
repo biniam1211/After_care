@@ -25,8 +25,8 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const SITE_URL =
-  process.env.APP_URL || "https://aftercare-biniam1211s-projects.vercel.app";
+// Prefer APP_URL in every deploy. Fallback keeps metadataBase valid when unset.
+const SITE_URL = process.env.APP_URL || "http://localhost:3000";
 
 const DESCRIPTION =
   "The AI life navigator built by foster kids, for foster kids. Money, housing, school, health and paperwork — figured out step by step. Free, always.";

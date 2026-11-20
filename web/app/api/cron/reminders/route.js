@@ -5,45 +5,62 @@
 //   Sends: (1) due panic check-ins scheduled via /api/checkin, and
 //          (2) gentle nudges to users with a quest left in progress.
 //
-// Protected by CRON_SECRET (Bearer header or ?secret=). Vercel Cron injects
-// `Authorization: Bearer $CRON_SECRET` automatically when CRON_SECRET is set.
-// No DB → { configured: false }. No RESEND key → it still marks work done but
-// sends nothing. Everything is bounded so the endpoint can't run away.
+// Protected by CRON_SECRET via Authorization: Bearer only.
+// In production (or whenever DATABASE_URL is set), a missing secret
+// fails closed. Query-string ?secret= is rejected (leaks via logs/Referer).
 // ───────────────────────────────────────────────────────────
 import { dbConfigured, q, ensureSchema } from "@/lib/db";
 import { QUESTS } from "@/components/data";
 import { logInfo } from "@/lib/log";
+import { isProduction } from "@/lib/env";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const RESEND_TIMEOUT_MS = 10_000;
 
 async function sendEmail(to, subject, text) {
   const key = process.env.RESEND_API_KEY;
   if (!key) return false;
   const from = process.env.RESEND_FROM || "AfterCare <onboarding@resend.dev>";
   try {
-    const r = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "content-type": "application/json" },
-      body: JSON.stringify({ from, to, subject, text }),
-    });
-    return r.ok;
+    const ac = new AbortController();
+    const timer = setTimeout(() => ac.abort(), RESEND_TIMEOUT_MS);
+    try {
+      const r = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "content-type": "application/json" },
+        body: JSON.stringify({ from, to, subject, text }),
+        signal: ac.signal,
+      });
+      return r.ok;
+    } finally {
+      clearTimeout(timer);
+    }
   } catch {
     return false;
   }
 }
 
+/**
+ * @param {Request} req
+ * @returns {boolean}
+ */
 function authorized(req) {
   const secret = process.env.CRON_SECRET;
-  if (!secret) return true; // no secret configured → allow (dev / self-hosted)
+  // Fail closed when a database exists or we are in production — an open
+  // cron with Resend configured could spam every signed-in youth.
+  if (!secret) {
+    if (isProduction() || dbConfigured()) return false;
+    return true; // local demo with no DB and no secret
+  }
   const auth = req.headers.get("authorization") || "";
-  const qs = new URL(req.url).searchParams.get("secret");
-  return auth === `Bearer ${secret}` || qs === secret;
+  return auth === `Bearer ${secret}`;
 }
 
 async function run(req) {
-  if (!dbConfigured()) return Response.json({ configured: false, checkins: 0, nudges: 0 });
   if (!authorized(req)) return new Response("unauthorized", { status: 401 });
+  if (!dbConfigured()) return Response.json({ configured: false, checkins: 0, nudges: 0 });
   await ensureSchema();
 
   let checkins = 0;

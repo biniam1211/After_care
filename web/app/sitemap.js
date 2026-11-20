@@ -1,5 +1,4 @@
-const SITE_URL =
-  process.env.APP_URL || "https://aftercare-biniam1211s-projects.vercel.app";
+const SITE_URL = process.env.APP_URL || "http://localhost:3000";
 
 export default function sitemap() {
   const now = new Date();

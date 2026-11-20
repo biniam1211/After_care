@@ -72,7 +72,20 @@ export const CHAT_REPLIES = {
       "You have a right to emergency housing. Covenant House (1-800-388-3888) takes youth 24/7, no questions.",
       "Text your caseworker now — I can draft the message for you so you don't have to find the words.",
     ],
-    resources: ["covenant", "211"],
+    resources: ["covenant", "988", "trevor"],
+    panic: true,
+  },
+  // Self-harm / suicide / acute crisis — used when detectCrisis fires and
+  // Claude is unavailable. Always pairs with panic:true + national lines.
+  crisis: {
+    answer:
+      "I'm really glad you told me. You are not alone, and you deserve help right now — not later. Call or text 988 (Suicide & Crisis Lifeline, free 24/7). If you are in immediate danger, call 911. The red Panic Button below also has Covenant House and The Trevor Project in one tap.",
+    steps: [
+      "Call or text 988 — someone is there 24/7, free and confidential.",
+      "If you are in immediate danger, call 911.",
+      "Tap the red Panic Button for shelter and a caseworker message drafted for you.",
+    ],
+    resources: ["988", "covenant", "trevor"],
     panic: true,
   },
   default: {
