@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  AppState,
+  type AppStateStatus,
   BackHandler,
   Linking,
   Platform,
@@ -9,51 +11,135 @@ import {
   Text,
   View,
 } from "react-native";
-import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
-import { WebView, type WebViewNavigation } from "react-native-webview";
+import * as SplashScreen from "expo-splash-screen";
+import * as WebBrowser from "expo-web-browser";
+import * as ExpoLinking from "expo-linking";
+import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
+import { WebView, type WebViewNavigation, type WebViewMessageEvent } from "react-native-webview";
+import { CrisisScreen } from "./src/CrisisScreen";
+import { LockScreen } from "./src/LockScreen";
+import { PrivacySettings } from "./src/PrivacySettings";
+import {
+  authenticatePrivacyLock,
+  isPrivacyLockEnabled,
+} from "./src/appLock";
+import {
+  APP_HOST,
+  APP_ORIGIN,
+  APP_URL,
+  EXTERNAL_SCHEMES,
+  HARBOR,
+} from "./src/config";
+import { isAppHost, resolveDeepLink } from "./src/linking";
+import {
+  registerForPushAsync,
+  schedulePanicCheckIn,
+  syncPushTokenToServer,
+} from "./src/notifications";
 
-// ───────────────────────────────────────────────────────────
-// AfterCare — native shell
-//
-// The product itself is the web app at APP_URL. This shell exists to give it
-// a home-screen icon, a full screen with no browser chrome, an Android back
-// button that behaves, and — the part a plain browser tab gets wrong — real
-// handling for tel:, sms: and mailto: links. Those matter here: the Panic
-// Button's whole promise is that tapping a shelter's number actually dials it.
-// ───────────────────────────────────────────────────────────
+// Keep splash up until lock preference + first paint are ready.
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
-const APP_URL =
-  (Constants.expoConfig?.extra?.appUrl as string | undefined) ??
-  "https://aftercare-biniam1211s-projects.vercel.app/app";
+type Screen = "loading" | "lock" | "crisis" | "privacy" | "web" | "failed";
 
-const APP_HOST = (() => {
-  try {
-    return new URL(APP_URL).host;
-  } catch {
-    return "";
-  }
-})();
-
-// Ocean navy — matches the app's own welcome screen, so the launch moment has
-// no white flash between the splash and the first paint.
-const HARBOR = "#06283d";
-
-/** Schemes the OS should handle, not the WebView. */
-const EXTERNAL_SCHEMES = ["tel:", "sms:", "mailto:", "maps:", "geo:", "intent:"];
-
-export default function App() {
+function Shell() {
   const webRef = useRef<WebView>(null);
   const canGoBack = useRef(false);
+  const appState = useRef<AppStateStatus>(AppState.currentState);
+  const insets = useSafeAreaInsets();
 
-  const [loading, setLoading] = useState(true);
-  const [failed, setFailed] = useState(false);
+  const [screen, setScreen] = useState<Screen>("loading");
+  const [webLoading, setWebLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
+  const [webUri, setWebUri] = useState(APP_URL);
+  const [unlocking, setUnlocking] = useState(false);
+  const [lockEnabled, setLockEnabled] = useState(false);
+  /** Crisis opened from lock screen — return to lock on close. */
+  const [crisisFromLock, setCrisisFromLock] = useState(false);
 
-  // Android hardware back should walk the web history before leaving the app.
+  const unlock = useCallback(async () => {
+    setUnlocking(true);
+    const ok = await authenticatePrivacyLock();
+    setUnlocking(false);
+    if (ok) setScreen("web");
+  }, []);
+
+  const gateOnLock = useCallback(async () => {
+    const enabled = await isPrivacyLockEnabled();
+    setLockEnabled(enabled);
+    if (enabled) {
+      setScreen("lock");
+      // Auto-prompt once; user can also tap Unlock / crisis.
+      const ok = await authenticatePrivacyLock();
+      if (ok) setScreen("web");
+    } else {
+      setScreen("web");
+    }
+  }, []);
+
+  // Boot: hide splash, check privacy lock, register push best-effort.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        await gateOnLock();
+      } finally {
+        if (!cancelled) {
+          SplashScreen.hideAsync().catch(() => {});
+        }
+      }
+      const token = await registerForPushAsync();
+      if (token) {
+        await syncPushTokenToServer(APP_ORIGIN, token);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [gateOnLock]);
+
+  // Re-lock when returning from background if privacy lock is on.
+  useEffect(() => {
+    const sub = AppState.addEventListener("change", (next) => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        next === "active" &&
+        lockEnabled &&
+        screen === "web"
+      ) {
+        setScreen("lock");
+      }
+      appState.current = next;
+    });
+    return () => sub.remove();
+  }, [lockEnabled, screen]);
+
+  // Deep / universal links (magic-link sign-in).
+  useEffect(() => {
+    const handle = (url: string | null) => {
+      if (!url) return;
+      const resolved = resolveDeepLink(url);
+      if (!resolved) return;
+      setWebUri(resolved);
+      setReloadKey((k) => k + 1);
+      setWebLoading(true);
+      if (screen === "failed" || screen === "crisis") setScreen("web");
+    };
+
+    ExpoLinking.getInitialURL().then(handle).catch(() => {});
+    const sub = ExpoLinking.addEventListener("url", ({ url }) => handle(url));
+    return () => sub.remove();
+  }, [screen]);
+
+  // Android hardware back walks web history first.
   useEffect(() => {
     if (Platform.OS !== "android") return;
     const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (screen === "crisis") {
+        setScreen(crisisFromLock ? "lock" : "web");
+        return true;
+      }
       if (canGoBack.current && webRef.current) {
         webRef.current.goBack();
         return true;
@@ -61,118 +147,222 @@ export default function App() {
       return false;
     });
     return () => sub.remove();
-  }, []);
+  }, [screen, crisisFromLock]);
 
   const onNavStateChange = useCallback((nav: WebViewNavigation) => {
     canGoBack.current = nav.canGoBack;
   }, []);
 
-  // Keep our own pages in the WebView; hand everything else to the OS so a
-  // phone number dials and an address opens in the maps app.
-  const onShouldStartLoad = useCallback((req: { url: string }) => {
-    const { url } = req;
-
-    if (EXTERNAL_SCHEMES.some((s) => url.startsWith(s))) {
-      Linking.openURL(url).catch(() => {});
-      return false;
-    }
-
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-      let host = "";
-      try {
-        host = new URL(url).host;
-      } catch {
-        return true;
+  const openExternal = useCallback(async (url: string) => {
+    try {
+      // In-app browser for https — address bar visible, stays in-app.
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        await WebBrowser.openBrowserAsync(url, {
+          presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
+          controlsColor: "#2e9bff",
+        });
+        return;
       }
-      if (host && APP_HOST && host !== APP_HOST) {
-        // An outside link (a shelter's own site, a benefits portal) opens in
-        // the real browser, where the address bar tells you where you are.
+      await Linking.openURL(url);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  // Keep AfterCare pages in the WebView; dialer / SMS / outside sites leave it.
+  const onShouldStartLoad = useCallback(
+    (req: { url: string }) => {
+      const { url } = req;
+
+      if (EXTERNAL_SCHEMES.some((s) => url.startsWith(s))) {
         Linking.openURL(url).catch(() => {});
         return false;
       }
-    }
 
-    return true;
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        if (!isAppHost(url)) {
+          openExternal(url);
+          return false;
+        }
+      }
+
+      return true;
+    },
+    [openExternal]
+  );
+
+  const onMessage = useCallback((event: WebViewMessageEvent) => {
+    // Optional bridge: web can post { type: "panic_checkin", hours: 6 }
+    try {
+      const data = JSON.parse(event.nativeEvent.data) as {
+        type?: string;
+        hours?: number;
+        enabled?: boolean;
+      };
+      if (data?.type === "panic_checkin") {
+        schedulePanicCheckIn(typeof data.hours === "number" ? data.hours : 6);
+      }
+      if (data?.type === "privacy_lock" && typeof data.enabled === "boolean") {
+        // Web settings can request lock toggle via bridge in a future pass;
+        // preference is owned natively today.
+      }
+    } catch {
+      /* ignore non-JSON */
+    }
   }, []);
 
   const retry = useCallback(() => {
-    setFailed(false);
-    setLoading(true);
+    setWebLoading(true);
     setReloadKey((k) => k + 1);
+    setScreen("web");
   }, []);
 
-  return (
-    <View style={styles.root}>
-      {/* SDK 57 draws Android edge-to-edge, so the bar has no background of
-          its own — the root View's colour shows through. */}
-      <StatusBar style="light" />
+  const openCrisis = useCallback((fromLock = false) => {
+    setCrisisFromLock(fromLock);
+    setScreen("crisis");
+  }, []);
 
-      {failed ? (
-        <View style={styles.fallback}>
-          <Text style={styles.fallbackTitle}>Can&rsquo;t reach AfterCare</Text>
+  if (screen === "loading") {
+    return (
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <ActivityIndicator size="large" color="#2e9bff" />
+      </View>
+    );
+  }
+
+  if (screen === "lock") {
+    return (
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <LockScreen
+          unlocking={unlocking}
+          onUnlock={unlock}
+          onOpenCrisis={() => openCrisis(true)}
+        />
+      </View>
+    );
+  }
+
+  if (screen === "privacy") {
+    return (
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <PrivacySettings
+          onClose={async () => {
+            const enabled = await isPrivacyLockEnabled();
+            setLockEnabled(enabled);
+            setScreen("web");
+          }}
+        />
+      </View>
+    );
+  }
+
+  if (screen === "crisis") {
+    return (
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <CrisisScreen
+          dismissible
+          onClose={() => setScreen(crisisFromLock ? "lock" : "web")}
+          onOpenPrivacy={() => setScreen("privacy")}
+        />
+      </View>
+    );
+  }
+
+  if (screen === "failed") {
+    return (
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <View style={[styles.fallback, { paddingTop: insets.top + 24, paddingBottom: insets.bottom + 16 }]}>
+          <Text style={styles.fallbackTitle}>Can&apos;t reach AfterCare</Text>
           <Text style={styles.fallbackBody}>
-            Check your connection and try again.
+            Check your connection and try again. Crisis help below still works offline.
           </Text>
-
           <Pressable
+            accessibilityRole="button"
             onPress={retry}
             style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
           >
             <Text style={styles.buttonLabel}>Try again</Text>
           </Pressable>
-
-          {/* Crisis numbers stay reachable even with the network down — this is
-              the one screen where "try again later" is not an acceptable
-              answer on its own. */}
-          <View style={styles.crisis}>
-            <Text style={styles.crisisTitle}>Need help right now?</Text>
-            <Pressable onPress={() => Linking.openURL("tel:988")}>
-              <Text style={styles.crisisLink}>Call or text 988 — Suicide &amp; Crisis Lifeline</Text>
-            </Pressable>
-            <Pressable onPress={() => Linking.openURL("tel:18003883888")}>
-              <Text style={styles.crisisLink}>Covenant House CA — 1-800-388-3888</Text>
-            </Pressable>
-            <Pressable onPress={() => Linking.openURL("tel:911")}>
-              <Text style={styles.crisisLink}>Emergency — 911</Text>
-            </Pressable>
-          </View>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => openCrisis(false)}
+            style={({ pressed }) => [styles.crisisCta, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.crisisCtaLabel}>Open crisis help</Text>
+          </Pressable>
         </View>
-      ) : (
-        <WebView
-          key={reloadKey}
-          ref={webRef}
-          source={{ uri: APP_URL }}
-          style={styles.web}
-          // The app persists onboarding + quest progress in localStorage, so
-          // storage must survive across launches.
-          domStorageEnabled
-          javaScriptEnabled
-          sharedCookiesEnabled
-          thirdPartyCookiesEnabled
-          // Let the page own its layout; it is already built phone-first.
-          scalesPageToFit={false}
-          contentInsetAdjustmentBehavior="never"
-          allowsBackForwardNavigationGestures
-          pullToRefreshEnabled
-          overScrollMode="never"
-          setSupportMultipleWindows={false}
-          onNavigationStateChange={onNavStateChange}
-          onShouldStartLoadWithRequest={onShouldStartLoad}
-          onLoadEnd={() => setLoading(false)}
-          onError={() => {
-            setLoading(false);
-            setFailed(true);
-          }}
-          onHttpError={({ nativeEvent }) => {
-            if (nativeEvent.statusCode >= 500) {
-              setLoading(false);
-              setFailed(true);
-            }
-          }}
-        />
-      )}
+      </View>
+    );
+  }
 
-      {loading && !failed && (
+  // screen === "web"
+  return (
+    <View style={[styles.root, { paddingTop: insets.top }]}>
+      <StatusBar style="light" />
+
+      <WebView
+        key={reloadKey}
+        ref={webRef}
+        source={{ uri: webUri }}
+        style={styles.web}
+        domStorageEnabled
+        javaScriptEnabled
+        sharedCookiesEnabled
+        thirdPartyCookiesEnabled
+        scalesPageToFit={false}
+        contentInsetAdjustmentBehavior="never"
+        allowsBackForwardNavigationGestures
+        pullToRefreshEnabled
+        overScrollMode="never"
+        setSupportMultipleWindows={false}
+        onNavigationStateChange={onNavStateChange}
+        onShouldStartLoadWithRequest={onShouldStartLoad}
+        onMessage={onMessage}
+        onLoadEnd={() => setWebLoading(false)}
+        onError={() => {
+          setWebLoading(false);
+          setScreen("failed");
+        }}
+        onHttpError={({ nativeEvent }) => {
+          if (nativeEvent.statusCode >= 500) {
+            setWebLoading(false);
+            setScreen("failed");
+          }
+        }}
+        // Inject a tiny bridge so the web Panic Button can schedule a native
+        // local notification check-in (works even if cron email is unset).
+        injectedJavaScriptBeforeContentLoaded={`
+          window.AfterCareNative = {
+            schedulePanicCheckIn: function(hours) {
+              window.ReactNativeWebView && window.ReactNativeWebView.postMessage(
+                JSON.stringify({ type: 'panic_checkin', hours: hours || 6 })
+              );
+            }
+          };
+          true;
+        `}
+      />
+
+      {/* Always-reachable SOS — native crisis screen, not the web Panic UI */}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Open offline crisis help"
+        onPress={() => openCrisis(false)}
+        style={({ pressed }) => [
+          styles.sos,
+          { bottom: Math.max(insets.bottom, 12) + 88 },
+          pressed && styles.buttonPressed,
+        ]}
+      >
+        <Text style={styles.sosLabel}>SOS</Text>
+      </Pressable>
+
+      {webLoading && (
         <View style={styles.loading} pointerEvents="none">
           <ActivityIndicator size="large" color="#2e9bff" />
         </View>
@@ -181,8 +371,19 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <Shell />
+    </SafeAreaProvider>
+  );
+}
+
+// Silence unused in case host is needed for future associated-domains checks.
+void APP_HOST;
+
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: HARBOR },
+  root: { flex: 1, backgroundColor: HARBOR, alignItems: "stretch", justifyContent: "center" },
   web: { flex: 1, backgroundColor: HARBOR },
   loading: {
     position: "absolute",
@@ -198,7 +399,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 32,
+    paddingHorizontal: 32,
     backgroundColor: HARBOR,
   },
   fallbackTitle: {
@@ -225,23 +426,31 @@ const styles = StyleSheet.create({
   },
   buttonPressed: { opacity: 0.75 },
   buttonLabel: { color: HARBOR, fontSize: 16, fontWeight: "800" },
-  crisis: {
-    marginTop: 44,
+  crisisCta: {
+    marginTop: 14,
+    minHeight: 48,
+    paddingHorizontal: 24,
+    borderRadius: 99,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,.25)",
     alignItems: "center",
-    gap: 10,
+    justifyContent: "center",
   },
-  crisisTitle: {
-    color: "rgba(255,255,255,.5)",
-    fontSize: 13,
-    fontWeight: "700",
-    letterSpacing: 1,
-    textTransform: "uppercase",
-    marginBottom: 4,
+  crisisCtaLabel: { color: "#ff8a8e", fontSize: 15.5, fontWeight: "800" },
+  sos: {
+    position: "absolute",
+    right: 18,
+    width: 56,
+    height: 56,
+    borderRadius: 99,
+    backgroundColor: "#ff3b41",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#ff3b41",
+    shadowOpacity: 0.45,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
   },
-  crisisLink: {
-    color: "#7ec8ff",
-    fontSize: 15.5,
-    fontWeight: "700",
-    textAlign: "center",
-  },
+  sosLabel: { color: "#fff", fontWeight: "900", fontSize: 13, letterSpacing: 0.6 },
 });

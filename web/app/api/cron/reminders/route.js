@@ -4,6 +4,8 @@
 // GET/POST /api/cron/reminders
 //   Sends: (1) due panic check-ins scheduled via /api/checkin, and
 //          (2) gentle nudges to users with a quest left in progress.
+//   Delivery: Resend email when configured, plus Expo push to any
+//   registered native-shell devices for that user.
 //
 // Protected by CRON_SECRET via Authorization: Bearer only.
 // In production (or whenever DATABASE_URL is set), a missing secret
@@ -18,6 +20,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const RESEND_TIMEOUT_MS = 10_000;
+const EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send";
 
 async function sendEmail(to, subject, text) {
   const key = process.env.RESEND_API_KEY;
@@ -43,16 +46,71 @@ async function sendEmail(to, subject, text) {
 }
 
 /**
+ * Send Expo push notifications to the given tokens (best-effort).
+ * @param {string[]} tokens
+ * @param {{ title: string, body: string }} content
+ * @returns {Promise<number>} number of messages accepted by Expo
+ */
+async function sendExpoPush(tokens, content) {
+  const unique = [...new Set(tokens.filter(Boolean))];
+  if (!unique.length) return 0;
+  try {
+    const messages = unique.map((to) => ({
+      to,
+      sound: "default",
+      title: content.title,
+      body: content.body,
+      data: { source: "aftercare-cron" },
+    }));
+    // Expo accepts batches up to 100.
+    let sent = 0;
+    for (let i = 0; i < messages.length; i += 100) {
+      const chunk = messages.slice(i, i + 100);
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), 10_000);
+      try {
+        const r = await fetch(EXPO_PUSH_URL, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(chunk),
+          signal: ac.signal,
+        });
+        if (r.ok) sent += chunk.length;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+    return sent;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * @param {string} userId
+ * @returns {Promise<string[]>}
+ */
+async function tokensForUser(userId) {
+  try {
+    const { rows } = await q(`SELECT token FROM devices WHERE user_id = $1`, [userId]);
+    return rows.map((r) => r.token);
+  } catch {
+    return [];
+  }
+}
+
+/**
  * @param {Request} req
  * @returns {boolean}
  */
 function authorized(req) {
   const secret = process.env.CRON_SECRET;
-  // Fail closed when a database exists or we are in production — an open
-  // cron with Resend configured could spam every signed-in youth.
   if (!secret) {
     if (isProduction() || dbConfigured()) return false;
-    return true; // local demo with no DB and no secret
+    return true;
   }
   const auth = req.headers.get("authorization") || "";
   return auth === `Bearer ${secret}`;
@@ -60,21 +118,26 @@ function authorized(req) {
 
 async function run(req) {
   if (!authorized(req)) return new Response("unauthorized", { status: 401 });
-  if (!dbConfigured()) return Response.json({ configured: false, checkins: 0, nudges: 0 });
+  if (!dbConfigured()) return Response.json({ configured: false, checkins: 0, nudges: 0, pushes: 0 });
   await ensureSchema();
 
   let checkins = 0;
   let nudges = 0;
+  let pushes = 0;
 
   // 1) Due panic check-ins.
   const due = await q(
-    `SELECT id, email, message FROM checkins
+    `SELECT id, user_id, email, message FROM checkins
        WHERE sent_at IS NULL AND due_at <= now()
        ORDER BY due_at LIMIT 200`
   );
   for (const row of due.rows) {
     const ok = await sendEmail(row.email, "AfterCare — checking in on you", row.message);
-    // Mark processed either way so a failing address can't loop forever.
+    const tokens = await tokensForUser(row.user_id);
+    pushes += await sendExpoPush(tokens, {
+      title: "AfterCare is checking in",
+      body: row.message.slice(0, 180),
+    });
     await q(`UPDATE checkins SET sent_at = now() WHERE id = $1`, [row.id]);
     if (ok) checkins++;
   }
@@ -99,17 +162,19 @@ async function run(req) {
     if (!entry) continue;
     const quest = QUESTS.find((x) => x.slug === entry[0]);
     const name = row.profile && row.profile.name ? String(row.profile.name).split(" ")[0] : "friend";
-    const ok = await sendEmail(
-      row.email,
-      "Pick up where you left off",
-      `Hey ${name}, you're partway through "${quest.title}" on AfterCare. Whenever you're ready, I'll walk you through the next step — no rush, one step at a time.`
-    );
+    const body = `Hey ${name}, you're partway through "${quest.title}" on AfterCare. Whenever you're ready, I'll walk you through the next step — no rush, one step at a time.`;
+    const ok = await sendEmail(row.email, "Pick up where you left off", body);
+    const tokens = await tokensForUser(row.user_id);
+    pushes += await sendExpoPush(tokens, {
+      title: "Pick up where you left off",
+      body: body.slice(0, 180),
+    });
     await q(`UPDATE app_state SET last_nudge_at = now() WHERE user_id = $1`, [row.user_id]);
     if (ok) nudges++;
   }
 
-  logInfo("cron_reminders", { checkins, nudges });
-  return Response.json({ configured: true, checkins, nudges });
+  logInfo("cron_reminders", { checkins, nudges, pushes });
+  return Response.json({ configured: true, checkins, nudges, pushes });
 }
 
 export async function GET(req) {

@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAMID.ai.aftercare.app",
+        "paths": [
+          "/app",
+          "/app/*",
+          "/api/auth/verify",
+          "/api/auth/verify*"
+        ]
+      }
+    ]
+  }
+}

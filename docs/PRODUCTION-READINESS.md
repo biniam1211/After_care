@@ -62,6 +62,15 @@ These need a human with keys, legal, or operational access — not code in this 
 | Betterstack (or similar) source token for structured logs | Ops visibility |
 | Nonprofit registration / EIN if you will claim 501(c)(3) status on the site | Copy currently refuses to claim it |
 | Periodically `npm audit` / upgrade Next (production deps were clean after bumping to Next 16.4.6 in this PR; Vitest remains a devDependency with known advisories) | Ongoing patching |
+| Unlink or delete duplicate Vercel projects (`after-care`, `after-care-q5b1`, `after-care-zrtw`) — they deploy repo root with no Root Directory and fail on `main` already; the live product is **`aftercare`** with Root Directory `web/` | Keeps PR status meaningful |
+
+## Native iOS shell
+
+A follow-up PR (`cursor/ios-app-store-ready-57de`) adds App Store–oriented
+native surfaces on the Expo shell (`app/`): offline crisis screen, push,
+Face ID lock, deep links, privacy manifest, EAS `production` profile.
+Owner steps for Apple enrollment / TestFlight / listing remain in
+`docs/IPHONE-SHIP-CHECKLIST.md`.
 
 ## Deliberately left alone
 
