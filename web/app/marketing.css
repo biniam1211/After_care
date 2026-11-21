@@ -1038,6 +1038,73 @@ a.mk-tile:hover {
   }
 }
 
+/* ── Legal pages (/privacy, /terms) ── */
+.mk-legal {
+  max-width: var(--maxw-narrow);
+  padding-top: clamp(48px, 7vw, 76px);
+  padding-bottom: clamp(56px, 8vw, 90px);
+}
+
+.mk-legal h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(34px, 5vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.mk-legal .mk-updated,
+.mk-updated {
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin: 16px 0 0;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mk-legal h2 {
+  font-family: var(--display);
+  font-weight: 750;
+  font-size: clamp(21px, 2.6vw, 27px);
+  letter-spacing: -0.3px;
+  margin: 44px 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.mk-legal p,
+.mk-legal li {
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: var(--ink-soft);
+}
+
+.mk-legal p {
+  margin: 16px 0 0;
+}
+
+.mk-legal ul {
+  margin: 16px 0 0;
+  padding-left: 22px;
+}
+
+.mk-legal li {
+  margin-top: 10px;
+}
+
+.mk-legal strong {
+  color: var(--ink);
+}
+
+.mk-legal a {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
 /* ── Compat for remaining org pages (impact, research, download, stories, 404) ── */
 .mk-ledger {
   margin-top: 28px;

@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Icon, Phone } from "@/components/ui";
 import { QUESTS, CHAT_REPLIES, CHAT_SUGGESTIONS, RESOURCES } from "@/components/data";
+import { migrateQuestProgress } from "@/lib/quest-progress";
 import { Onboarding } from "@/components/onboarding";
 import { Home } from "@/components/home";
 import { Chat } from "@/components/chat";
@@ -61,6 +62,7 @@ function TabBar({ active, onTab, onPanic }) {
 }
 
 const STORE_KEY = "aftercare_state_v1";
+
 function loadState() {
   if (typeof window === "undefined") return null;
   try { return JSON.parse(localStorage.getItem(STORE_KEY)) || null; } catch (e) { return null; }
@@ -98,7 +100,7 @@ export default function App() {
     if (saved) {
       setOnboarded(!!saved.onboarded);
       if (saved.profile) setProfile(saved.profile);
-      if (saved.questProgress) setQuestProgress(saved.questProgress);
+      if (saved.questProgress) setQuestProgress(migrateQuestProgress(saved.questProgress));
     }
     setHydrated(true);
     fetchServerState().then((r) => {
@@ -107,7 +109,7 @@ export default function App() {
       if (r.authenticated && r.state) {
         setOnboarded(!!r.state.onboarded);
         if (r.state.profile) setProfile((p) => ({ ...p, ...r.state.profile }));
-        if (r.state.questProgress) setQuestProgress(r.state.questProgress);
+        if (r.state.questProgress) setQuestProgress(migrateQuestProgress(r.state.questProgress));
       }
     });
   }, []);
