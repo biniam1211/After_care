@@ -21,4 +21,21 @@ describe("matchChatReply", () => {
     expect(matchChatReply("I'm aging out — what do I do?", noCrisis)).toBe("transition");
     expect(matchChatReply("I'm ageing out next month", noCrisis)).toBe("transition");
   });
+
+  it("routes seal / AB 12 / court before broad school keywords", () => {
+    expect(matchChatReply("Can I seal my juvenile record for school?", noCrisis)).toBe("seal");
+    expect(matchChatReply("Can I stay in care under AB 12 while in school?", noCrisis)).toBe(
+      "ab12"
+    );
+    expect(matchChatReply("How do I talk to my lawyer at my court hearing?", noCrisis)).toBe(
+      "court"
+    );
+  });
+
+  it("routes credit-check questions to credit, not bank", () => {
+    expect(matchChatReply("How do I do a credit check at 16?", noCrisis)).toBe("credit");
+    expect(matchChatReply("I think I have identity theft on my credit report", noCrisis)).toBe(
+      "credit"
+    );
+  });
 });

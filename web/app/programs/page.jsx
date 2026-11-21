@@ -18,14 +18,12 @@ const CATEGORY_LABELS = {
   rights: "Rights & grievances",
   "documents-money": "Documents & money",
   housing: "Housing",
-  benefits: "Benefits & health coverage",
+  benefits: "Benefits & coverage",
   health: "Health & mental health",
   education: "Education",
-  work: "Work & career",
+  jobs: "Work & career",
   "legal-transition": "Legal & transition",
-  relationships: "Relationships & permanency",
-  alumni: "After 21 / alumni",
-  parenting: "Parenting",
+  community: "Community, alumni & giving back",
 };
 
 function groupByCategory(programs) {

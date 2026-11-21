@@ -13,13 +13,15 @@ export function matchChatReply(text, detectCrisis) {
   if (/\b(kicked out|nowhere to (sleep|go|stay)|homeless|evict|being (hurt|abused))\b/.test(t)) {
     return "kicked";
   }
-  if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
-  if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
-  if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
+  // Specific legal / housing / ID intents before broad school|college.
   if (/(seal|sealing|expunge|juvenile record)/.test(t)) return "seal";
   if (/(ab\s*12|extended foster|stay in care|efc)/.test(t)) return "ab12";
   if (/(attorney|court hearing|judge|dependency court|my lawyer)/.test(t)) return "court";
   if (/(bill of rights|ombudsperson|grievance|my rights)/.test(t)) return "rights";
+  if (/(credit (check|report|score)|identity theft|annualcreditreport)/.test(t)) return "credit";
+  if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
+  if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
+  if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
   if (
     /(transition plan|tilp|independent living plan|\baging out\b|\bageing out\b|\bage.?out\b)/.test(

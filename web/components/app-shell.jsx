@@ -185,11 +185,9 @@ export default function App() {
               "ab12-extended-care": "ab12",
               "court-rights": "court",
               "seal-records": "seal",
-              credit: "bank",
+              credit: "credit",
               "health-26": "health",
               "chafee-grant": "chafee",
-              "chafee-grant": "chafee",
-              "health-26": "health",
             };
             askPrompt(map[slug] || "default", q ? `Can you help me with "${q.title}"?` : "I need help with this quest.");
           }} />

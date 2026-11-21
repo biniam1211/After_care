@@ -90,7 +90,8 @@ export const viewport = {
   userScalable: true,
   // Draw under the notch / home indicator so the app can fill the screen.
   viewportFit: "cover",
-  themeColor: "#1a120c",
+  // Product /app + PWA still use harbor navy; org pages set ink via CSS.
+  themeColor: "#06283d",
 };
 
 export default function RootLayout({ children }) {

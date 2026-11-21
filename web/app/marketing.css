@@ -1193,6 +1193,50 @@ html:has(.mk) body {
   color: var(--ink-faint);
 }
 
+/* ── Legacy surfaces still used on About / Stories / Download ── */
+.mk-journey-step {
+  display: grid;
+  gap: 10px;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.mk-step-num {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.mk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 18px 0;
+}
+
+.mk-table th,
+.mk-table td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.mk-table th {
+  font-family: var(--display);
+  font-weight: 800;
+  border-bottom: 2px solid var(--ink);
+}
+
+.mk-cta-note {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+
 /* Motion flourishes */
 @keyframes mk-rise {
   from {

@@ -32,6 +32,18 @@ export const CHAT_REPLIES = {
     followup: "Want me to turn this into a step-by-step Quest so I can check in with you after each part?",
     quest: "first-bank-account",
   },
+  credit: {
+    answer:
+      "Foster youth should get free credit checks at 14, 16, and 17 so someone else's debt isn't sitting on your Social Security number. If you find accounts that aren't yours, dispute them — don't ignore them.",
+    steps: [
+      "Pull all three reports at AnnualCreditReport.com (free weekly in the U.S.) or ask your worker for the age-14/16/17 check.",
+      "Circle anything you don't recognize — then dispute online or by mail with Equifax, Experian, and TransUnion.",
+      "If fraud is real, place a freeze/fraud alert and tell your social worker, attorney, or ILP so the case file backs you up.",
+    ],
+    resources: ["211", "rightway"],
+    followup: "Want the Credit Check & Fix Quest so we knock this out step by step?",
+    quest: "credit",
+  },
   college: {
     answer:
       "Here's the part nobody tells you: because you were in foster care after age 13, the FAFSA counts you as an \"independent student.\" That means you don't need a parent's income or signature — and you likely qualify for the most aid available.",
