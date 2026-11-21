@@ -2,7 +2,7 @@
 // Source: supabase/seed/resources.sample.csv
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// 65 resources (6 with official page confirmed).
+// 68 resources (10 with official page confirmed).
 // "Verified" = official page confirmed (see supabase/seed/README.md).
 // It does NOT mean the phone line was tested live.
 
@@ -132,7 +132,7 @@ export const GENERATED_RESOURCES = {
     "cat": "Health",
     "catColor": "mint",
     "blurb": "Pairs current and former foster youth with a Medi-Cal Certified Peer Support Specialist who has lived experience. Free for eligible CA youth ages 16–26 enrolled in a Medi-Cal Managed Care Plan.",
-    "meta": "Call/text 530-550-8001 · California",
+    "meta": "Call · Statewide",
     "phone": "530-550-8001",
     "url": "https://www.ifoster.org/peers-paving-the-path/",
     "address": null,
@@ -719,8 +719,8 @@ export const GENERATED_RESOURCES = {
     "name": "FosterClub",
     "cat": "Essentials",
     "catColor": "mint",
-    "blurb": "National peer network for young people with foster care experience — community, leadership, and transition tools. Separate organization; AfterCare is not affiliated.",
-    "meta": "Online · National",
+    "blurb": "National peer network for young people with foster care experience — community, leadership, and transition tools.",
+    "meta": "Online · Statewide",
     "phone": null,
     "url": "https://www.fosterclub.com",
     "address": null,
@@ -731,8 +731,8 @@ export const GENERATED_RESOURCES = {
     "name": "FosterClub — Who's in Foster Care?",
     "cat": "Essentials",
     "catColor": "mint",
-    "blurb": "FosterClub page summarizing national foster care numbers with AFCARS and NYTD source links. Cite their page — AfterCare does not republish those figures as our own.",
-    "meta": "Online · National stats primer",
+    "blurb": "FosterClub primer on national foster care numbers with AFCARS and NYTD source links. Cite their page; do not treat figures as AfterCare stats.",
+    "meta": "Online · Statewide",
     "phone": null,
     "url": "https://www.fosterclub.com/whos-foster-care",
     "address": null,
@@ -742,9 +742,9 @@ export const GENERATED_RESOURCES = {
   "ed-transition-toolkit": {
     "name": "ED Foster Care Transition Toolkit",
     "cat": "Education",
-    "catColor": "sky",
-    "blurb": "U.S. Department of Education public-domain guide (May 2016) covering transition planning, school, jobs, money, documents, housing, health, and transportation. Confirm current local rules — some links are dated.",
-    "meta": "PDF · Public domain · May 2016",
+    "catColor": "harbor",
+    "blurb": "U.S. Department of Education public-domain Foster Care Transition Toolkit (May 2016) covering planning, school, jobs, money, documents, housing, health, and transportation.",
+    "meta": "Online · Statewide",
     "phone": null,
     "url": "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf",
     "address": null,

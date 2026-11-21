@@ -13,22 +13,11 @@ import {
   applyCrisisPrefix,
   CRISIS_RESOURCE_IDS,
 } from "@/lib/crisis";
+import { matchChatReply } from "@/lib/match-chat-reply";
 
-/**
- * Pick a scripted reply key. Crisis detection wins over keyword matches
- * so self-harm phrases never fall through to the generic default.
- * @param {string} text
- */
+/** @param {string} text */
 function matchReply(text) {
-  if (detectCrisis(text)) return "crisis";
-  const t = text.toLowerCase();
-  if (/\b(kicked out|nowhere to (sleep|go|stay)|homeless|evict|being (hurt|abused))\b/.test(t)) return "kicked";
-  if (/(transition plan|age.?out|tilp|independent living plan)/.test(t)) return "transition";
-  if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
-  if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
-  if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
-  if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
-  return "default";
+  return matchChatReply(text, detectCrisis);
 }
 
 /**

@@ -96,6 +96,9 @@ const ID_OVERRIDES = {
   "988 Suicide & Crisis Lifeline": "988",
   "The Trevor Project": "trevor",
   iFoster: "ifoster-bank",
+  "iFoster — Peers Paving the Path": "ifoster-peers",
+  "FosterClub — Who's in Foster Care?": "fosterclub-whos",
+  "ED Foster Care Transition Toolkit": "ed-transition-toolkit",
   "California Student Aid Commission (Chafee Grant)": "chafee-grant",
   "California Department of Health Care Services (Medi-Cal)": "medical-ffy",
 };
