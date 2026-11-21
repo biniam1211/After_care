@@ -22,9 +22,16 @@ export function matchChatReply(text, detectCrisis) {
   // youth also mentions a credit union (fraud still wins over “open account”).
   const academicCredit =
     /\b(credit hours?|course credits?|college credits?|partial credits?|my credits)\b/.test(t);
+  // Never treat “credit union” as a credit-report cue unless fraud/freeze intent is present.
+  const creditUnionOnly =
+    /\bcredit union\b/.test(t) &&
+    !/\b(identity theft|annualcreditreport|equifax|experian|transunion|fraud alert|credit freeze|credit report|credit score|credit file|credit history)\b/.test(
+      t
+    );
   const creditReportIntent =
     !academicCredit &&
-    (/\bcheck (?:my )?credit\b/.test(t) ||
+    !creditUnionOnly &&
+    (/\bcheck (?:my )?credit\b(?!\s+union)/.test(t) ||
       /\bmy credit\b(?!\s+union)/.test(t) ||
       /\bcredit (?:check|report|score|file|history|freeze)\b/.test(t) ||
       /\bbad credit\b/.test(t) ||

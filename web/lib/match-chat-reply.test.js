@@ -56,4 +56,9 @@ describe("matchChatReply", () => {
       matchChatReply("I need a credit freeze but I bank at a credit union", noCrisis)
     ).toBe("credit");
   });
+
+  it("keeps ordinary credit-union banking questions on bank", () => {
+    expect(matchChatReply("Can I check my credit union hours?", noCrisis)).toBe("bank");
+    expect(matchChatReply("How do I join a credit union?", noCrisis)).toBe("bank");
+  });
 });
