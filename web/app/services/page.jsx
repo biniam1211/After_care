@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui";
 import { Logo } from "@/components/onboarding";
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
 import { VerificationBadge } from "@/components/site-chrome";
+import { contactHref } from "@/lib/contact-href";
 import "./services.css";
 
 const ZIP_PRESETS = [
@@ -470,10 +471,18 @@ export default function ServicesPage() {
 
                   <div className="sv-card-actions">
                     {item.phone ? (
-                      <a href={`tel:${item.phone}`} className="sv-card-btn sv-card-btn-call">
-                        <Icon name="phone" size={16} color="currentColor" sw={2} />
-                        Call {item.phone.length <= 4 ? item.phone : "Now"}
-                      </a>
+                      (() => {
+                        const c = contactHref(item);
+                        if (!c) return null;
+                        return (
+                          <a href={c.href} className="sv-card-btn sv-card-btn-call">
+                            <Icon name="phone" size={16} color="currentColor" sw={2} />
+                            {c.kind === "sms"
+                              ? `Text ${item.phone}`
+                              : `Call ${item.phone.length <= 4 ? item.phone : "Now"}`}
+                          </a>
+                        );
+                      })()
                     ) : (
                       <span className="sv-card-btn sv-card-btn-call" style={{ opacity: 0.6 }}>
                         Online Only

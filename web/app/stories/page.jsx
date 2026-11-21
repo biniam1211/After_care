@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { OrgArt } from "@/components/org-art";
 import {
   OrgNav,
   OrgFooter,
   CrisisStrip,
 } from "@/components/site-chrome";
 import { Contact } from "@/components/legal-page";
+import {
+  FounderFigure,
+  FounderStoryPlaceholder,
+  FOUNDER_JOURNEY,
+} from "@/components/founder-photos";
 import "../marketing.css";
 
 export const metadata = {
@@ -19,26 +23,6 @@ export const metadata = {
     type: "website",
   },
 };
-
-// The founder feature below is real: stylized illustrations made from the
-// founder's own photos, with his approval. No names, no invented narrative.
-const FOUNDER_CARTOONS = [
-  {
-    src: "/images/founder-grad-mom.jpg",
-    alt: "Stylized cartoon illustration of the founder in a graduation cap and blue lei holding a diploma, sitting on a couch next to his foster mom",
-    label: "Graduation day",
-  },
-  {
-    src: "/images/founder-grad-dad.jpg",
-    alt: "Stylized cartoon illustration of the founder in a graduation cap and blue lei holding a diploma, standing next to his foster dad",
-    label: "Graduation day",
-  },
-  {
-    src: "/images/founder-christmas.jpg",
-    alt: "Stylized cartoon illustration of the founder with his foster parents standing together in front of a Christmas tree at home",
-    label: "Christmas at home",
-  },
-];
 
 const SHARE_STEPS = [
   {
@@ -75,88 +59,52 @@ export default function Stories() {
             Real stories, in real people&rsquo;s <em>own words.</em>
           </h1>
           <p className="mk-deck">
-            Stories from the AfterCare community, in people&rsquo;s own
-            words. Nothing here is invented, and nothing goes up without
-            the person who lived it saying so.
+            Stories from the AfterCare community, in people&rsquo;s own words.
+            Nothing here is invented, and nothing goes up without the person who
+            lived it saying so.
           </p>
         </div>
       </header>
 
-      {/* ── Featured stories: founder feature ── */}
       <section className="mk-section" id="featured">
         <div className="mk-wrap">
-          <p className="mk-kicker">01 — Featured stories</p>
-          <h2 className="mk-h2">The founder&rsquo;s story</h2>
+          <p className="mk-kicker">Featured</p>
+          <h2 className="mk-h2">The founder&rsquo;s journey</h2>
           <p className="mk-lead">
-            Binyam, with his foster parents — graduation day and Christmas
-            at home.
+            Real photos from Biniam Efrem&rsquo;s life as a foster youth —
+            graduation, family, first job, first car. Captions are simple; the
+            long-form story is reserved for him to write.
           </p>
-
-          {/* Founder feature: stylized illustrations from his own photos */}
-          <div style={{ marginTop: 28 }}>
-            {FOUNDER_CARTOONS.map((c) => (
-              <figure className="mk-photo" key={c.src} style={{ marginBottom: 24 }}>
-                <img
-                  src={c.src}
-                  alt={c.alt}
-                  loading="lazy"
-                  width={1600}
-                  height={1207}
-                />
-                <figcaption>
-                  <b>{c.label}.</b> Stylized illustration from the
-                  founder&rsquo;s own photos — faces are not exact
-                  likenesses.
-                </figcaption>
-              </figure>
+          <FounderStoryPlaceholder />
+          <div className="mk-journey" style={{ marginTop: 28 }}>
+            {FOUNDER_JOURNEY.map((j) => (
+              <div className="mk-journey-step" key={j.step}>
+                <span className="mk-step-num">{j.step} — {j.title}</span>
+                <FounderFigure photoId={j.photoId} sizes="(max-width: 800px) 100vw, 25vw" />
+              </div>
             ))}
           </div>
+          <p className="mk-lead">
+            <Link href="/about#story">More on the About page →</Link>
+          </p>
         </div>
       </section>
 
-      {/* ── What a story is: letter figure + plain explanation ── */}
-      <section className="mk-section" id="what">
+      <section className="mk-section mk-section-alt" id="what">
         <div className="mk-wrap">
-          <p className="mk-kicker">02 — What a story is</p>
-          <div className="mk-split">
-            <div>
-              <h2 className="mk-h2">Your experience, told your way.</h2>
-              <p className="mk-lead">
-                A story here is one person&rsquo;s own experience — what
-                happened, what helped, what they want someone coming after
-                them to know. It is not a testimonial we wrote, and it is
-                not a case study with the names changed. The person owns
-                their story, start to finish.
-              </p>
-              <p className="mk-lead">
-                We do not publish last names, locations, or contact details
-                without explicit agreement — and we never publish anyone
-                else&rsquo;s private details as part of your story.
-              </p>
-            </div>
-            <aside>
-              <figure className="mk-art" aria-hidden="true">
-                <OrgArt kind="letter" />
-                <figcaption>
-                  <b>Fig. 1 —</b> A story is a letter, not an ad. Written
-                  by the person who lived it.
-                </figcaption>
-              </figure>
-            </aside>
-          </div>
+          <p className="mk-kicker">What a story is</p>
+          <h2 className="mk-h2">Your experience, told your way.</h2>
+          <p className="mk-lead">
+            A story here is a photo and a few sentences in your own voice. We do
+            not invent testimonials, and we do not publish without permission.
+          </p>
         </div>
       </section>
 
-      {/* ── Share your story: what we need ── */}
       <section className="mk-section" id="share">
         <div className="mk-wrap">
-          <p className="mk-kicker">03 — Share your story</p>
+          <p className="mk-kicker">Share your story</p>
           <h2 className="mk-h2">Here is what we need from you.</h2>
-          <p className="mk-lead">
-            Three things, plus one rule for anyone under 18. Send them when
-            you are ready — there is no deadline, and you can change your
-            mind at any point.
-          </p>
           <div className="mk-ledger">
             {SHARE_STEPS.map((s) => (
               <div className="mk-ledger-row" key={s.num}>
@@ -169,14 +117,12 @@ export default function Stories() {
             ))}
           </div>
           <div className="mk-note" style={{ marginTop: 28 }}>
-            <strong>To share your story,</strong> reach out to{" "}
-            <Contact /> with your photo, your words, and your permission —
-            and, if you are under 18, your parent or guardian&rsquo;s
-            permission too.
+            <strong>How to reach us.</strong> To share a story, <Contact />.
+            Read the consent rules above first.
           </div>
           <div className="mk-cta-row">
             <Link href="/get-involved" className="mk-btn mk-btn-primary">
-              Other ways to get involved →
+              Get involved
             </Link>
             <Link href="/about" className="mk-btn mk-btn-ghost">
               About AfterCare

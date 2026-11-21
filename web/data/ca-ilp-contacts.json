@@ -1,0 +1,466 @@
+[
+  {
+    "county": "Alameda",
+    "contactName": "Shante Spears",
+    "title": "ILP Coordinator",
+    "phone": "(510) 667-7610",
+    "address": "675 Hegenberger Road, Suite 100 Oakland, CA 94621",
+    "email": "spears@acgov.org"
+  },
+  {
+    "county": "Alpine",
+    "contactName": "Scott Kent",
+    "title": "Social Worker III",
+    "phone": "(530) 694-2235",
+    "address": "75-A Diamond Valley Rd. Markleeville, CA 96120",
+    "email": "skent@alpinecountyca.gov"
+  },
+  {
+    "county": "Amador",
+    "contactName": "Gianna Dillon",
+    "title": "ILP Coordinator",
+    "phone": "(209) 257-1980",
+    "address": "Nexus Youth & Family Services 601 Court St., Suite 210 Jackson, CA 95642",
+    "email": "gdillon@nexusyfs.org"
+  },
+  {
+    "county": "Butte",
+    "contactName": "Michelle Dahlgren",
+    "title": "Coordinator",
+    "phone": "(530) 518-8313",
+    "address": "Youth and Family Programs Office 2577 California Park Dr Chico, CA 95928",
+    "email": "madahlgren@youthandfamily.info"
+  },
+  {
+    "county": "Calaveras",
+    "contactName": "Melissa Harvey",
+    "title": "Foster Youth Services Manager",
+    "phone": "(209) 736-6059",
+    "address": "185 S Main St. Angels Camp, CA 95222",
+    "email": "mharvey@ccoe.k12.ca.us"
+  },
+  {
+    "county": "Colusa",
+    "contactName": "Jaynae Grass",
+    "title": "Program Manager II",
+    "phone": "(530) 458-0293",
+    "address": "251 E. Webster St Colusa, CA 95932",
+    "email": "jaynae.grass@countyofcolusa.com"
+  },
+  {
+    "county": "Contra Costa",
+    "contactName": "Timothy Hamp",
+    "title": "Assistant ILSP Coordinator",
+    "phone": "(925) 655-0253",
+    "address": "1875 Arnold Drive Suite 200 Martinez, CA 94553",
+    "email": "hampt@ehsd.cccounty.us"
+  },
+  {
+    "county": "Del Norte",
+    "contactName": "Lila Honahni",
+    "title": "Social Worker Supervisor",
+    "phone": "(707) 464-3191",
+    "address": "880 Northcrest Dr. Crescent City, CA 95531",
+    "email": "lila.honahni@co.del-norte.ca.us"
+  },
+  {
+    "county": "El Dorado",
+    "contactName": "Andrea Hunt",
+    "title": "Social Worker Program Supervisor II",
+    "phone": "(530) 295-6924",
+    "address": "3057 Briw Road, Suite A Placerville, CA 95667",
+    "email": "andrea.hunt@edcgov.us"
+  },
+  {
+    "county": "Fresno",
+    "contactName": "Katie Wettlaufer",
+    "title": "ILP / AB 12 Social Worker/ Out of County Coordinator",
+    "phone": "(559) 600-1769",
+    "address": "380 W Ashlan Ave. Clovis, CA 93612",
+    "email": "wettlk@fresnocountyca.gov"
+  },
+  {
+    "county": "Glenn",
+    "contactName": "T.J. Grundy",
+    "title": "At Risk Youth Coordinator-Foster Youth Services",
+    "phone": "(530) 934-6575",
+    "address": "Glenn County Office of Education 418 Walker Street Orland, CA 95963",
+    "email": "tjgrundy@glenncoe.org"
+  },
+  {
+    "county": "Humboldt",
+    "contactName": "Erica Carrillo",
+    "title": "Independent Living Skills Coordinator",
+    "phone": "(707) 382-4520",
+    "address": "433 M Street, Eureka, CA 95501",
+    "email": "CWSILS@Co.Humboldt.CA.US"
+  },
+  {
+    "county": "Imperial",
+    "contactName": "Maria Lopez Pantoja",
+    "title": "Coordinator- Family Development and Stabilization Services",
+    "phone": "(760) 482-3109",
+    "address": "687 State Street El Centro, CA 92243",
+    "email": "Mpantoja@ivrop.org"
+  },
+  {
+    "county": "Inyo",
+    "contactName": "Holly De Vincent",
+    "title": "Program Manager of Adult and Children Services",
+    "phone": "(760) 872-1727",
+    "address": "1360 N. Main Street, Suite 203 B Bishop, California 93514",
+    "email": "hdevincent@inyocounty.us"
+  },
+  {
+    "county": "Kern",
+    "contactName": "Robin Chambers",
+    "title": "ILP Supervisor",
+    "phone": "(661) 636-4971",
+    "address": "100 E California Ave Bakersfield, CA 93307",
+    "email": "chamber@kerndhs.com"
+  },
+  {
+    "county": "Kings",
+    "contactName": "Ambar Castillo",
+    "title": "Program Manager",
+    "phone": "(559) 852-2185",
+    "address": "1400 W. Lacey Blvd #8 Hanford, CA 93230",
+    "email": "ambar.castillo@co.kings.ca.us"
+  },
+  {
+    "county": "Lake",
+    "contactName": "Nick Gancayco",
+    "title": "Social Worker Supervisor",
+    "phone": "(707) 262-0235",
+    "address": "926 South Forbes Street Lakeport, CA 95453",
+    "email": "nickolas.gancayco@lakecountyca.gov"
+  },
+  {
+    "county": "Lassen",
+    "contactName": "Katherine Nielson",
+    "title": "Social Worker Supervisor",
+    "phone": "(530) 251-8415",
+    "address": "1600 Chestnut St. Susanville, CA 96130",
+    "email": "KNielson@co.lassen.ca.us"
+  },
+  {
+    "county": "Los Angeles",
+    "contactName": "Zaneta Smith",
+    "title": "Division Chief, Supportive Housing Division",
+    "phone": "(213) 763-4512",
+    "address": "1933 S. Broadway Los Angeles, CA 90007",
+    "email": "SmithZ2@dcfs.lacounty.gov"
+  },
+  {
+    "county": "Madera",
+    "contactName": "Danine Saff",
+    "title": "Social Worker Supervisor",
+    "phone": "(559) 395-0253",
+    "address": "1610 Sunrise Ave Madera, CA 93638",
+    "email": "danine.saff@maderacounty.com"
+  },
+  {
+    "county": "Marin",
+    "contactName": "Sophie Eckert",
+    "title": "Program Director / ILP Coordinator",
+    "phone": "(510) 407-9800",
+    "address": "Alternative Family Services 361 Third Street, Suite G San Rafael, CA 94901",
+    "email": "seckert@afs4kids.org"
+  },
+  {
+    "county": "Mariposa",
+    "contactName": "Kaitlin Pasma",
+    "title": "Social Worker Supervisor, ILP & THP Plus Coordinator",
+    "phone": "(209) 742-0905",
+    "address": "Physical address: 5362 Lemee Lane Mariposa, CA 95338 Mailing address: PO Box 99 Mariposa, CA 95338",
+    "email": "kpasma@mariposacounty.gov"
+  },
+  {
+    "county": "Mendocino",
+    "contactName": "Lindsey Coke",
+    "title": "Social Work Supervisor",
+    "phone": "(707) 467-5893",
+    "address": "727 S. State Street Ukiah, CA 95482",
+    "email": "CokeL@mendocinocounty.gov"
+  },
+  {
+    "county": "Merced",
+    "contactName": "Jasmine Bungcayo",
+    "title": "Supervisor ILP",
+    "phone": "(209) 385-3000",
+    "address": "Main Street Youth Center 1577 W. Main Street Merced, CA 95340",
+    "email": "jasmine.bungcayao@countyofmerced.com"
+  },
+  {
+    "county": "Modoc",
+    "contactName": "Debbie Bagwell",
+    "title": "County ILP Coordinator",
+    "phone": "(530) 233-6501",
+    "address": "120 N Main St Alturas, CA 96101",
+    "email": "debbiebagwell@co.modoc.ca.us"
+  },
+  {
+    "county": "Mono",
+    "contactName": "Kyla Griffin",
+    "title": "Fiscal and Administrative Officer",
+    "phone": "(530) 495-1262",
+    "address": "Mailing Address: PO Box 2969 Mammoth Lakes, CA 93546 Physical Address: 1290 Tavern Rd. Mammoth Lakes, CA 93546",
+    "email": "kgriffin@mono.ca.gov"
+  },
+  {
+    "county": "Monterey",
+    "contactName": "Primary contact - email or phone",
+    "title": "ILP contact",
+    "phone": "(831) 755-4475",
+    "address": "",
+    "email": "501-fcs-ilp@countyofmonterey.gov"
+  },
+  {
+    "county": "Napa",
+    "contactName": "Rebecca Vega",
+    "title": "ILP Case Manager",
+    "phone": "(707) 307-9322",
+    "address": "Voices Youth Center 780 Lincoln Ave. Napa, CA 94558",
+    "email": "rebecca@voicesyouthcenter.org"
+  },
+  {
+    "county": "Nevada",
+    "contactName": "Melissa Balderston",
+    "title": "Independent Living Program Coordinator",
+    "phone": "(530) 470-8510",
+    "address": "380 Crown Point Circle Grass Valley, CA 95945",
+    "email": "mbalderston@nevco.org"
+  },
+  {
+    "county": "Orange",
+    "contactName": "Shannon Hickman",
+    "title": "Senior Social Services Supervisor",
+    "phone": "(714) 342-3791",
+    "address": "800 N. Eckhoff Street Orange, CA 92868",
+    "email": "Shannon.Hickman@ssa.ocgov.com"
+  },
+  {
+    "county": "Placer",
+    "contactName": "Michelle Graf",
+    "title": "Contracted ILP Coordinator (Placer County Office of Education)",
+    "phone": "(279) 262-2349",
+    "address": "Placer County Office of Education (PCOE) 1400 W. Stanford Ranch Road Rocklin, CA 95765",
+    "email": "mgraf@placercoe.org"
+  },
+  {
+    "county": "Plumas",
+    "contactName": "Heidi Hysmith (primary contact)",
+    "title": "Senior Social Worker",
+    "phone": "(530) 283-6469",
+    "address": "270 County Hospital Road,. Suite 207 Quincy, CA 95971",
+    "email": "heidihysmith@countyofplumas.com"
+  },
+  {
+    "county": "Riverside",
+    "contactName": "Lydia Brown",
+    "title": "ILP Coordinator Program Specialist",
+    "phone": "(951) 445-7923",
+    "address": "10281 Kidd Street, 2nd Floor Riverside, CA 92503",
+    "email": "LyBrown@rivco.org"
+  },
+  {
+    "county": "Sacramento",
+    "contactName": "Stephanie Sandmeier",
+    "title": "Program Planner",
+    "phone": "(916) 875-6993",
+    "address": "P.O. Box 269057 Sacramento, CA 95826",
+    "email": "sandms@saccounty.gov"
+  },
+  {
+    "county": "San Benito",
+    "contactName": "Joshua Mercier",
+    "title": "Deputy Director",
+    "phone": "(831) 902-2563",
+    "address": "Health and Human Services 1111 San Felipe Rd, Suite 205 Hollister, CA 95023",
+    "email": "JMercier@sanbenitocountyca.gov"
+  },
+  {
+    "county": "San Bernardino",
+    "contactName": "Monique Ware",
+    "title": "ILP Coordinator",
+    "phone": "(909) 677-9640",
+    "address": "1495 S. E Street San Bernardino Ca 92408",
+    "email": "monique.ware@hss.sbcounty.gov"
+  },
+  {
+    "county": "San Diego",
+    "contactName": "Daniel Bernal",
+    "title": "Program Manager - EFC/ILP",
+    "phone": "(858) 944-6019",
+    "address": "8965 Balboa Ave San Diego Ca 92123",
+    "email": "Daniel.Bernal@sdcounty.ca.gov"
+  },
+  {
+    "county": "San Francisco",
+    "contactName": "Erica Waterford",
+    "title": "Vice President Program",
+    "phone": "(510) 648-3543",
+    "address": "First Place for Youth 426 17th Street, Suite 100 Oakland, CA 94612",
+    "email": "ewaterford@firstplaceforyouth.org"
+  },
+  {
+    "county": "San Joaquin",
+    "contactName": "Cynthia Lederle",
+    "title": "ILP Coordinator",
+    "phone": "(209) 468-1028",
+    "address": "Physical address: 102 S. San Joaquin St. Stockton CA 95202 Mailing address: PO Box 201056 Stockton, CA 95201",
+    "email": "clederle@sjgov.org"
+  },
+  {
+    "county": "San Luis Obispo",
+    "contactName": "Sandra Jiminez",
+    "title": "County Contact for EFC, ILP, THP",
+    "phone": "(805) 781-1841",
+    "address": "3433 S Higuera St San Luis Obispo, CA 93401",
+    "email": "sjiminez@co.slo.ca.us"
+  },
+  {
+    "county": "San Mateo",
+    "contactName": "Sandy Barba",
+    "title": "ILP Coordinator / Social Worker",
+    "phone": "(650) 599-5944",
+    "address": "2415 University Ave, 3rd Floor E. Palo Alto, CA 94303",
+    "email": "sbarba@smcgov.org"
+  },
+  {
+    "county": "Santa Barbara",
+    "contactName": "Melissa Rodriguez",
+    "title": "Social Services Supervisor",
+    "phone": "(805) 681-4558",
+    "address": "234 Camino del Remedio Santa Barbara, CA 93110",
+    "email": "mrodr3@countyofsb.org"
+  },
+  {
+    "county": "Santa Clara",
+    "contactName": "ilpinfo@ssa.sccgov.org",
+    "title": "Phone: (408) 501-6866",
+    "phone": "(408) 501-6866",
+    "address": "",
+    "email": ""
+  },
+  {
+    "county": "Santa Cruz",
+    "contactName": "Rene Fuentes",
+    "title": "Program Coordinator, Encompass Community Services",
+    "phone": "(831) 889-0561",
+    "address": "120 Dubois St, Suite A Santa Cruz, CA 95060",
+    "email": "Rene.Fuentes@encompasscs.org"
+  },
+  {
+    "county": "Shasta",
+    "contactName": "Valerie Hartley",
+    "title": "ILP Coordinator",
+    "phone": "(530) 365-9197",
+    "address": "2770 Pioneer Drive Redding, CA 96001",
+    "email": "vhartley@youthandfamily.info"
+  },
+  {
+    "county": "Sierra",
+    "contactName": "Jamie Shiltz",
+    "title": "Social Worker Supervisor/ ILP Coordinator",
+    "phone": "(530) 993-6732",
+    "address": "P.O. Box 1019 Loyalton, CA 96118",
+    "email": "jshiltz@sierracounty.ca.gov"
+  },
+  {
+    "county": "Siskiyou",
+    "contactName": "Michael Werder",
+    "title": "ILP Coordinator",
+    "phone": "(530) 841-4779",
+    "address": "2060 Campus Dr. Yreka, CA 96097",
+    "email": "mwerder@co.siskiyou.ca.us"
+  },
+  {
+    "county": "Solano",
+    "contactName": "Angel Reese-Galloway",
+    "title": "Social Services Supervisor",
+    "phone": "(707) 784-8446",
+    "address": "275 Beck Ave. Fairfield, CA 94533",
+    "email": "AMReeseGalloway@solanocounty.gov"
+  },
+  {
+    "county": "Sonoma",
+    "contactName": "Andres Cantera",
+    "title": "ILP Coordinator",
+    "phone": "(707) 251-9432",
+    "address": "718 Lincoln Ave. Napa CA 94558",
+    "email": "andres@voicesyouthcenter.org"
+  },
+  {
+    "county": "Stanislaus",
+    "contactName": "Erica Verduzco",
+    "title": "Social Worker Supervisor II",
+    "phone": "(209) 558-2722",
+    "address": "PO Box 42 Modesto CA 95353",
+    "email": "VerdEr@stancounty.com"
+  },
+  {
+    "county": "Sutter",
+    "contactName": "Angela Castillon",
+    "title": "Social Worker",
+    "phone": "(530) 682-4597",
+    "address": "1531-A Butte House Road Yuba City, CA 95993",
+    "email": "acastillon@sutter.gov"
+  },
+  {
+    "county": "Tehama",
+    "contactName": "Steven Dickerson",
+    "title": "Child Welfare Program Manager",
+    "phone": "(530) 528-4020",
+    "address": "220 Sycamore Street #101 Red Bluff, CA 96080",
+    "email": "SDickerson@tcdss.org"
+  },
+  {
+    "county": "Trinity",
+    "contactName": "Angela Berglund",
+    "title": "Program Manager",
+    "phone": "(530) 623-8280",
+    "address": "Physical Address: 51 Industrial Parkway Weaverville, CA 96093 Mailing address: PO Box 1378 Weaverville, CA 96093",
+    "email": "aberglund@trinitycounty.org"
+  },
+  {
+    "county": "Tulare",
+    "contactName": "Kimberly Weeks",
+    "title": "AB12 & ILP Supervisor",
+    "phone": "(559) 623-0405",
+    "address": "6520 S Mooney Blvd Visalia, California 93277",
+    "email": "KWeeks@tularecounty.ca.gov"
+  },
+  {
+    "county": "Tuolumne",
+    "contactName": "Cely Hess",
+    "title": "ILP Coordinator",
+    "phone": "(209) 533-6858",
+    "address": "20075 Cedar Road North Sonora, CA 95370",
+    "email": "chess@co.tuolumne.ca.us"
+  },
+  {
+    "county": "Ventura",
+    "contactName": "HSA-ILP@Ventura.org",
+    "title": "(805) 654-3409, ask for the Officer of the Day",
+    "phone": "(805) 654-3409",
+    "address": "4561 Telephone Rd, #300 Ventura, CA 93003",
+    "email": "HSA-ILP@venturacounty.gov"
+  },
+  {
+    "county": "Yolo",
+    "contactName": "Ramiz Ali",
+    "title": "Social Worker Practitioner/ILP Coordinator",
+    "phone": "(530) 681-9219",
+    "address": "137 N. Cottonwood St. Woodland, CA 95695",
+    "email": "Ramiz.Ali@yolocounty.org"
+  },
+  {
+    "county": "Yuba",
+    "contactName": "Twyla Williams",
+    "title": "Program Manager - Child and Adult Protective Services (CAPS)",
+    "phone": "(530) 749-6266",
+    "address": "Mailing Address: PO Box 2320 Marysville, CA 95901 Physical Address: 5730 Packard Ave, Suite 100 Marysville, CA 95901",
+    "email": "twilliams@yuba.gov"
+  }
+]

@@ -1,78 +1,99 @@
 import Link from "next/link";
 import { OrgNav, OrgFooter, CrisisStrip } from "@/components/site-chrome";
+import "../marketing.css";
 
 export const metadata = {
   title: "FAQ",
   description:
-    "Frequently asked questions about AfterCare — what it is, nonprofit status, cost, directory coverage, sharing a story, and getting involved. Answered only from what is true today.",
+    "Frequently asked questions about AfterCare — what it is, nonprofit status, cost, driver's license help, directory coverage, and getting involved.",
   openGraph: {
     title: "FAQ · AfterCare",
     description:
-      "Frequently asked questions about AfterCare — what it is, nonprofit status, cost, directory coverage, sharing a story, and getting involved. Answered only from what is true today.",
+      "Honest answers about AfterCare — only from what is true today.",
     type: "website",
   },
 };
 
-// ───────────────────────────────────────────────────────────
-// AfterCare — /faq (org surface)
-//
-// Every answer below is drawn ONLY from copy already on the site:
-// the About transparency table, the Services directory (65 listings,
-// 6 verified), the Get Involved doors, the Stories consent rules,
-// and the Download page. Nothing here is new information — if a
-// question cannot be answered from existing honest copy, it does
-// not get an invented answer.
-// ───────────────────────────────────────────────────────────
 const FAQS = [
   {
     q: "What is AfterCare?",
-    a: "AfterCare is the life navigator for foster youth — one place for housing, health, work, money, and community. It has three parts: the Navigator app, which walks you through real tasks step by step; the Services directory, which lists free and low-cost programs; and the programs that tie them together.",
+    a: "AfterCare is the AI life navigator built by foster kids, for foster kids — one place for driver's license help, documents, housing, money, benefits, school, jobs, health, legal rights, AB 12, and parenting support. It includes the navigator app, Quests, a Panic Button, and a California services directory.",
     link: { href: "/programs", label: "See the programs →" },
   },
   {
+    q: "Who founded AfterCare?",
+    a: "Biniam Efrem, a former foster youth. The founder story section on About has a clearly marked placeholder for his personal story in his own words, plus real photos from his journey.",
+    link: { href: "/about#story", label: "About the founder →" },
+  },
+  {
     q: "Is AfterCare a registered nonprofit?",
-    a: "No — not yet. AfterCare is a social-impact project working toward nonprofit status. The work is real and the product is live in your browser, but the formal nonprofit filing is still ahead of us. That also means we do not collect tax-deductible donations, and there is no Donate button until the filing is real.",
+    a: "No — not yet. AfterCare is a social-impact project working toward nonprofit status. We do not collect tax-deductible donations, and the donate section is a placeholder until filing and a real processor are ready.",
     link: { href: "/about#transparency", label: "See the honest status →" },
   },
   {
     q: "Is the app free?",
-    a: "Yes. Free forever for foster youth. There is no sign-up wall — it works in your browser, and you do not need a referral, a caseworker, or an account to start.",
-    link: { href: "/app", label: "Open the app →" },
+    a: "Yes. Free forever for foster youth. It works in your browser, and you do not need a referral or caseworker to start.",
+    link: { href: "/app", label: "Get help now →" },
+  },
+  {
+    q: "Can AfterCare help me get a driver's license?",
+    a: "Yes — driver's license and learner's permit help is a flagship program, with California DMV steps cited to official sources and a matching Quest in the app. Always confirm current rules on dmv.ca.gov.",
+    link: { href: "/programs/drivers-license", label: "Driver's license program →" },
+  },
+  {
+    q: "What Quests are available in the app?",
+    a: "Quests include First Bank Account, Driver's License, Vital Documents, Housing Plan, First Job, Credit Check & Fix, Medi-Cal to 26, FAFSA/CADAA & Chafee, AB 12 Extended Care, Know Your Rights in Court, Sealing Records, and taxes. Use /find or /start-here if you're unsure where to begin.",
+    link: { href: "/find", label: "Needs finder →" },
+  },
+  {
+    q: "How many topics does AfterCare cover?",
+    a: "The org site has 50+ California-first guides — rights in care, documents, money, housing, school, health, court, immigration, parenting, alumni, and more — each with steps, scripts, and official sources. Guidance only; not legal or clinical advice.",
+    link: { href: "/programs", label: "Browse all needs →" },
+  },
+  {
+    q: "Is AfterCare the White House “Fostering the Future” platform?",
+    a: "No. Executive Order 14359 (Nov 13, 2025) directs HHS to plan tools for youth leaving foster care. AfterCare independently serves that same gap. We cite the order for context and do not claim to be a federal deliverable or government partner.",
+    link: { href: "/research#policy", label: "Research note →" },
+  },
+  {
+    q: "What is iFoster Peers Paving the Path?",
+    a: "A free iFoster program (separate organization) pairing eligible California foster youth 16–26 on Medi-Cal Managed Care with Certified Peer Support Specialists who have lived experience. Listed in our directory with the official page confirmed. Call/text 530-550-8001.",
+    link: { href: "/resources#peers", label: "Resources hub →" },
+  },
+  {
+    q: "What is the ED Foster Care Transition Toolkit?",
+    a: "A public-domain U.S. Department of Education guide (May 2016) covering transition planning, school, jobs, money, documents, housing, health, and transportation. AfterCare cites it for context and maps the same domains into Quests — we are not an official ED product. Confirm current California rules on each program page.",
+    link: { href: "/research#toolkit", label: "Research note →" },
+  },
+  {
+    q: "What is FosterClub?",
+    a: "A national peer network for young people with foster care experience — a separate organization. We list fosterclub.com and their Who’s in Foster Care? page (with AFCARS/NYTD links) as Verified listings. We do not republish their statistics as AfterCare’s own.",
+    link: { href: "/research#fosterclub", label: "Research note →" },
   },
   {
     q: "What areas does the Services directory cover?",
-    a: "Today the directory is California-focused: 65 listings, 6 with their official page confirmed. The rest are labeled “Unverified — call to confirm,” which means their details have not been confirmed yet — call ahead before you rely on one.",
+    a: "Today the directory is California-focused: 65 listings, a subset with their official page confirmed. The rest are labeled “Unverified — call to confirm.”",
     link: { href: "/services", label: "Find services →" },
   },
   {
-    q: "Does AfterCare work nationwide?",
-    a: "Not yet — nationwide is the road ahead, not live coverage. The destination is every ZIP code in America, where a young person anywhere can find help near them. California is where the directory starts.",
-    link: { href: "/programs#roadmap", label: "See the roadmap →" },
-  },
-  {
-    q: "How do I share my story?",
-    a: "Four things: your photo (never someone else's without their permission), your words in your own voice (we don't rewrite them), your permission to publish (which you can take back), and — if you are under 18 — a parent or guardian's permission, no exceptions. Nothing goes up without the person who lived it saying so.",
-    link: { href: "/stories#share", label: "How sharing works →" },
+    q: "Does AfterCare give legal or clinical advice?",
+    a: "No. AfterCare navigates and connects you to resources. For clinical care, see a professional. For legal questions, talk to your attorney or legal aid. In a crisis, use 988, 211, Covenant House, Trevor Project, or 911.",
+    link: { href: "/resources#crisis", label: "Crisis resources →" },
   },
   {
     q: "How can I get involved?",
-    a: "Three doors. If you are the young person: open the app and finish one real task today. If you are a caring adult: show up consistently and point the way. If you run an organization that serves foster youth: get your program listed accurately in the directory — and help build the nationwide map with us.",
+    a: "Youth can open the app today. Caring adults can share it and help finish one task. Organizations can partner on the directory. Donations are not live yet — see the placeholder on Get involved.",
     link: { href: "/get-involved", label: "Get involved →" },
   },
   {
     q: "How do I contact AfterCare?",
-    a: "There is no public email, phone, or mailing address. The fastest way to reach us is the app's chat, and it will reach us.",
+    a: "There is no public email, phone, or mailing address yet. The fastest way to reach us is the app's chat.",
     link: { href: "/contact", label: "Contact page →" },
   },
   {
     q: "What if I am in danger right now?",
-    a: "We are not a crisis line and we do not monitor messages around the clock. Call or text 988 (Suicide & Crisis Lifeline, 24/7). If you have nowhere to sleep tonight, Covenant House California is 1-800-388-3888. If someone is being hurt, call 911.",
+    a: "We are not a crisis line. Call or text 988. Nowhere to sleep: Covenant House 1-800-388-3888. LGBTQ+ youth: Trevor Project 1-866-488-7386. Dial 211 for local resources. If someone is being hurt, call 911.",
     link: null,
-  },
-  {
-    q: "Does AfterCare sell my data or show ads?",
-    a: "No. We never sell your data, not to anyone, not ever — and we never show ads.",
-    link: { href: "/privacy", label: "Read the Privacy draft →" },
   },
 ];
 
@@ -88,44 +109,38 @@ export default function Faq() {
             Questions, answered <em>honestly.</em>
           </h1>
           <p className="mk-deck">
-            Every answer here comes from what is already true on this site.
-            Where something is not live yet, we say so instead of dressing
-            it up.
+            Every answer comes from what is already true on this site. Where
+            something is not live yet, we say so.
           </p>
         </div>
       </header>
 
       <section className="mk-section">
-        <div className="mk-wrap">
-          {FAQS.map((f, i) => (
-            <div key={f.q} className="mk-ledger-row" style={{ marginBottom: 8 }}>
-              <div className="mk-ledger-num">{String(i + 1).padStart(2, "0")}</div>
-              <div>
-                <h2 className="mk-h2" style={{ fontSize: 24, marginBottom: 8 }}>
-                  {f.q}
-                </h2>
-                <p className="mk-lead" style={{ marginBottom: 8 }}>{f.a}</p>
-                {f.link && <Link href={f.link.href}>{f.link.label}</Link>}
-              </div>
-            </div>
+        <div className="mk-wrap mk-faq">
+          {FAQS.map((f) => (
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+              {f.link && (
+                <p>
+                  <Link href={f.link.href}>{f.link.label}</Link>
+                </p>
+              )}
+            </details>
           ))}
         </div>
       </section>
 
-      <section className="mk-section">
+      <section className="mk-section mk-section-alt">
         <div className="mk-wrap">
           <p className="mk-kicker">Still stuck?</p>
           <h2 className="mk-h2">Ask in the app.</h2>
-          <p className="mk-lead">
-            The app&rsquo;s chat is the fastest way to reach us — and the
-            fastest way to get an answer about your own situation.
-          </p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-primary">
-              Open the app →
+              Get help now
             </Link>
             <Link href="/contact" className="mk-btn mk-btn-ghost">
-              Contact page
+              Contact
             </Link>
           </div>
         </div>

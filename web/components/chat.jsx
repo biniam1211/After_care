@@ -13,21 +13,11 @@ import {
   applyCrisisPrefix,
   CRISIS_RESOURCE_IDS,
 } from "@/lib/crisis";
+import { matchChatReply } from "@/lib/match-chat-reply";
 
-/**
- * Pick a scripted reply key. Crisis detection wins over keyword matches
- * so self-harm phrases never fall through to the generic default.
- * @param {string} text
- */
+/** @param {string} text */
 function matchReply(text) {
-  if (detectCrisis(text)) return "crisis";
-  const t = text.toLowerCase();
-  if (/\b(kicked out|nowhere to (sleep|go|stay)|homeless|evict|being (hurt|abused))\b/.test(t)) return "kicked";
-  if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
-  if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
-  if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
-  if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
-  return "default";
+  return matchChatReply(text, detectCrisis);
 }
 
 /**
@@ -63,8 +53,15 @@ function ResourceMini({ id, onOpen }) {
       <IconTile name={r.cat === "Crisis" ? "shield" : r.cat === "Housing" ? "home" : r.cat === "Health" ? "health" : r.cat === "Education" ? "grad" : "pin"} tone={r.catColor} size={38} r={11} iconSize={19} />
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", letterSpacing: -0.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</div>
-        <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 1 }}>{r.meta}</div>
-        <div style={{ marginTop: 5 }}><VerificationBadge verified={!!r.verified} /></div>
+        <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 1 }}>{r.meta}{r.phone ? ` · ${r.phone}` : ""}</div>
+        <div style={{ marginTop: 5, display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+          <VerificationBadge verified={!!r.verified} />
+          {r.sourceUrl && (
+            <span style={{ fontSize: 11, color: "var(--ink-faint)", fontWeight: 600 }}>
+              Source on file{r.verifiedDate ? ` · ${r.verifiedDate}` : ""}
+            </span>
+          )}
+        </div>
       </div>
       {r.phone && <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 99, background: t.soft }}><Icon name="phone" size={17} color={t.solid} sw={2} /></span>}
     </button>
