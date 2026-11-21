@@ -18,5 +18,7 @@ describe("matchChatReply", () => {
 
   it("still matches bare age-out when no domain keyword is present", () => {
     expect(matchChatReply("I am about to age out — what do I do?", noCrisis)).toBe("transition");
+    expect(matchChatReply("I'm aging out — what do I do?", noCrisis)).toBe("transition");
+    expect(matchChatReply("I'm ageing out next month", noCrisis)).toBe("transition");
   });
 });

@@ -17,7 +17,11 @@ export function matchChatReply(text, detectCrisis) {
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
-  if (/(transition plan|tilp|independent living plan|\bage.?ing out\b|\bage.?out\b)/.test(t)) {
+  if (
+    /(transition plan|tilp|independent living plan|\baging out\b|\bageing out\b|\bage.?out\b)/.test(
+      t
+    )
+  ) {
     return "transition";
   }
   return "default";
