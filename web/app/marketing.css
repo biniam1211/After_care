@@ -395,6 +395,23 @@ html:has(.mk) body {
 .mk-hero-media img {
   object-fit: cover;
   object-position: center 30%;
+  animation: mk-ken 18s ease-in-out alternate infinite;
+  transform-origin: center 30%;
+}
+
+@keyframes mk-ken {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-hero-media img {
+    animation: none;
+  }
 }
 
 .mk-hero-scrim {
@@ -1314,8 +1331,80 @@ html:has(.mk) body {
   border-bottom: 1px solid var(--line);
 }
 
-.mk-search-results a:hover {
+.mk-search-results a:hover,
+.mk-search-results a.is-active {
   background: var(--mustard-soft);
+}
+
+/* ── County stamp mosaic ── */
+.mk-mosaic-head {
+  max-width: 40rem;
+  margin-bottom: 22px;
+}
+
+.mk-mosaic-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 8px;
+}
+
+.mk-mosaic-grid li {
+  animation: mk-rise 0.4s ease both;
+}
+
+.mk-mosaic-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 6px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  background: #fffdf6;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--paper-deep);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.mk-mosaic-grid a:hover,
+.mk-mosaic-grid a:focus-visible {
+  background: var(--mustard-soft);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.mk-mosaic-grid a.is-on {
+  background: var(--accent-soft);
+  border-color: var(--accent-deep);
+  box-shadow: 3px 3px 0 var(--accent);
+}
+
+.mk-mosaic-note {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+@media print {
+  .mk-nav,
+  .mk-quick-exit,
+  .mk-search,
+  .mk-cta-row,
+  .mk-hero-stamp {
+    display: none !important;
+  }
+
+  .mk-dir-card {
+    break-inside: avoid;
+    box-shadow: none;
+  }
 }
 
 .mk-search-type {

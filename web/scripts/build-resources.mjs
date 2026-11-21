@@ -270,6 +270,48 @@ const main = () => {
       open247: true,
       keywords: ["runaway", "safeline"],
     },
+    {
+      id: "cdss-efc",
+      name: "CDSS Extended Foster Care (AB 12)",
+      cat: "Legal",
+      catColor: "harbor",
+      blurb:
+        "Official California Department of Social Services page on Extended Foster Care: eligibility to age 21, re-entry, participation criteria, and THP-Plus pointers. Confirm your own case with your county.",
+      meta: "Official · Statewide CA",
+      phone: "916-651-7465",
+      url: "https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12",
+      sourceUrl: "https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12",
+      open247: false,
+      keywords: ["ab12", "efc", "extended", "re-entry", "nmd"],
+    },
+    {
+      id: "cdss-ilp",
+      name: "CDSS Independent Living Program (ILP)",
+      cat: "Education",
+      catColor: "harbor",
+      blurb:
+        "Official CDSS overview of ILP eligibility (generally ages 16–21) and how to reach your county ILP coordinator. Pair with the county contacts in this directory.",
+      meta: "Official · Statewide CA",
+      phone: "916-651-7465",
+      url: "https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program",
+      sourceUrl: "https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program",
+      open247: false,
+      keywords: ["ilp", "independent living", "tilp"],
+    },
+    {
+      id: "trafficking-text",
+      name: "National Human Trafficking Hotline (text)",
+      cat: "Crisis",
+      catColor: "panic",
+      blurb: "Text 233733 for confidential trafficking help 24/7 (same hotline as the voice line).",
+      meta: "Text · Nationwide",
+      phone: "233733",
+      contactMethod: "sms",
+      url: "https://humantraffickinghotline.org/",
+      sourceUrl: "https://humantraffickinghotline.org/",
+      open247: true,
+      keywords: ["trafficking", "text", "233733"],
+    },
   ];
 
   for (const e of extras) {

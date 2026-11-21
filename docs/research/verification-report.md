@@ -1,9 +1,9 @@
 # Resource verification report
 
 **Generated:** 2026-11-21  
-**Catalog size:** 129  
-**Verified flag:** 78  
-**Link check OK (verified with URL):** 78  
+**Catalog size:** 132  
+**Verified flag:** 81  
+**Link check OK (verified with URL):** 81  
 **Verified but link failed:** 0  
 **Needs review (unverified):** 51
 
@@ -23,6 +23,7 @@
 | The Trevor Project | 1-866-488-7386 | https://www.thetrevorproject.org | OK | 2026-11-21 |
 | Crisis Text Line | 741741 | https://www.crisistextline.org/ | OK | 2026-11-21 |
 | National Human Trafficking Hotline | 1-888-373-7888 | https://humantraffickinghotline.org/ | OK | 2026-11-21 |
+| National Human Trafficking Hotline (text) | 233733 | https://humantraffickinghotline.org/ | OK | 2026-11-21 |
 | Family Urgent Response System (FURS) | 1-833-939-3877 | https://fosteryouthhelp.ca.gov/ | OK | 2026-11-21 |
 | Covenant House California | 1-800-388-3888 | https://www.covenanthouse.org/california | OK | 2026-11-21 |
 | iFoster | — | https://www.ifoster.org | OK | 2026-11-21 |
@@ -95,6 +96,8 @@
 | Ventura County ILP (CDSS roster) (Ventura) | (805) 654-3409 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Yolo County ILP (CDSS roster) (Yolo) | (530) 681-9219 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Yuba County ILP (CDSS roster) (Yuba) | (530) 749-6266 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
+| CDSS Extended Foster Care (AB 12) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12 | OK | 2026-11-21 |
+| CDSS Independent Living Program (ILP) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program | OK | 2026-11-21 |
 
 ## Needs review
 

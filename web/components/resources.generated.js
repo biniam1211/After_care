@@ -2,7 +2,7 @@
 // Sources: supabase/seed/resources.sample.csv + web/data/ca-ilp-contacts.json
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// 129 resources (78 verified against official pages / CDSS roster).
+// 132 resources (81 verified against official pages / CDSS roster).
 // "Verified" = official page or CDSS roster confirmed — NOT a live phone test.
 
 export const GENERATED_RESOURCES = {
@@ -4217,5 +4217,110 @@ export const GENERATED_RESOURCES = {
       "yuba"
     ],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20ILP%3A%20Yuba"
+  },
+  "cdss-efc": {
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CDSS%20Extended%20Foster%20Care%20(AB%2012)",
+    "id": "cdss-efc",
+    "name": "CDSS Extended Foster Care (AB 12)",
+    "cat": "Legal",
+    "catColor": "harbor",
+    "blurb": "Official California Department of Social Services page on Extended Foster Care: eligibility to age 21, re-entry, participation criteria, and THP-Plus pointers. Confirm your own case with your county.",
+    "meta": "Official · Statewide CA",
+    "phone": "916-651-7465",
+    "url": "https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12",
+    "sourceUrl": "https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12",
+    "open247": false,
+    "keywords": [
+      "ab12",
+      "efc",
+      "extended",
+      "re-entry",
+      "nmd"
+    ]
+  },
+  "cdss-ilp": {
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CDSS%20Independent%20Living%20Program%20(ILP)",
+    "id": "cdss-ilp",
+    "name": "CDSS Independent Living Program (ILP)",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "Official CDSS overview of ILP eligibility (generally ages 16–21) and how to reach your county ILP coordinator. Pair with the county contacts in this directory.",
+    "meta": "Official · Statewide CA",
+    "phone": "916-651-7465",
+    "url": "https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program",
+    "sourceUrl": "https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program",
+    "open247": false,
+    "keywords": [
+      "ilp",
+      "independent living",
+      "tilp"
+    ]
+  },
+  "trafficking-text": {
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20National%20Human%20Trafficking%20Hotline%20(text)",
+    "id": "trafficking-text",
+    "name": "National Human Trafficking Hotline (text)",
+    "cat": "Crisis",
+    "catColor": "panic",
+    "blurb": "Text 233733 for confidential trafficking help 24/7 (same hotline as the voice line).",
+    "meta": "Text · Nationwide",
+    "phone": "233733",
+    "contactMethod": "sms",
+    "url": "https://humantraffickinghotline.org/",
+    "sourceUrl": "https://humantraffickinghotline.org/",
+    "open247": true,
+    "keywords": [
+      "trafficking",
+      "text",
+      "233733"
+    ]
   }
 };

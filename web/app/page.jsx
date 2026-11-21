@@ -18,6 +18,7 @@ import { NeedsFinder } from "@/components/needs-finder";
 import { AgeTimeline } from "@/components/age-timeline";
 import { SiteSearch } from "@/components/site-search";
 import { TaskPaths } from "@/components/task-paths";
+import { CountyMosaic } from "@/components/county-mosaic";
 import "./marketing.css";
 
 export const metadata = {
@@ -114,34 +115,26 @@ export default function HomePage() {
       </section>
 
       <section className="mk-section" id="directory-cta">
-        <div className="mk-wrap mk-split">
-          <div>
-            <p className="mk-kicker">All 58 counties</p>
-            <h2 className="mk-h2">
-              County ILP contacts from <em>CDSS.</em>
-            </h2>
-            <p className="mk-lead">
-              Every California county Independent Living Program contact we could
-              pull from the official CDSS roster — plus statewide crisis lines,
-              Chafee, Medi-Cal, shelters, and legal aid. Filter by county or ZIP.
-            </p>
-            <div className="mk-cta-row">
-              <Link href="/directory?need=ilp" className="mk-btn mk-btn-primary">
-                My county ILP
-              </Link>
-              <Link href="/directory?need=crisis" className="mk-btn mk-btn-ghost">
+        <div className="mk-wrap">
+          <CountyMosaic />
+          <div className="mk-split" style={{ marginTop: 36 }}>
+            <div className="mk-panel practical">
+              <h3>{verifiedCount} verified · {totalResources} total</h3>
+              <p>
+                Verified means we confirmed an official page or the CDSS county
+                roster. It does <strong>not</strong> mean we tested the phone line
+                live. Always call ahead.{" "}
+                <Link href="/directory">Browse full directory →</Link>
+              </p>
+            </div>
+            <div className="mk-cta-row" style={{ alignItems: "center" }}>
+              <Link href="/directory?need=crisis" className="mk-btn mk-btn-primary">
                 Crisis lines
               </Link>
+              <Link href="/directory?need=food" className="mk-btn mk-btn-ghost">
+                Food help
+              </Link>
             </div>
-          </div>
-          <div className="mk-panel practical">
-            <h3>{verifiedCount} verified · {totalResources} total</h3>
-            <p>
-              Verified means we confirmed an official page or the CDSS county
-              roster. It does <strong>not</strong> mean we tested the phone line
-              live. Always call ahead.{" "}
-              <Link href="/directory">Browse directory →</Link>
-            </p>
           </div>
         </div>
       </section>
