@@ -382,7 +382,8 @@ html:has(.mk) body {
   min-height: min(92vh, 820px);
   display: grid;
   align-items: end;
-  overflow: hidden;
+  /* visible so search dropdown is not clipped */
+  overflow: visible;
   border-bottom: 3px solid var(--ink);
 }
 
@@ -390,6 +391,7 @@ html:has(.mk) body {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
 .mk-hero-media img {
@@ -1307,12 +1309,17 @@ html:has(.mk) body {
   border: 2px solid var(--ink);
 }
 
+.mk-search {
+  position: relative;
+  z-index: 30;
+}
+
 .mk-search-results {
   list-style: none;
   margin: 8px 0 0;
   padding: 0;
   position: absolute;
-  z-index: 40;
+  z-index: 50;
   left: 0;
   right: 0;
   background: #fff;
