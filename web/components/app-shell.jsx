@@ -182,6 +182,12 @@ export default function App() {
               "vital-documents": "docs",
               "housing-plan": "housing",
               "first-job": "job",
+              "ab12-extended-care": "ab12",
+              "court-rights": "court",
+              "seal-records": "seal",
+              credit: "bank",
+              "health-26": "health",
+              "chafee-grant": "chafee",
               "chafee-grant": "chafee",
               "health-26": "health",
             };

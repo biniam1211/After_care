@@ -42,8 +42,13 @@ const FAQS = [
   },
   {
     q: "What Quests are available in the app?",
-    a: "Interactive Quests today include First Bank Account, Learner's Permit & Driver's License, Vital Documents, Housing Plan, First Job, Chafee Grant, Health Coverage to 26, credit, and taxes. Start with /start-here if you're unsure of the order.",
-    link: { href: "/start-here", label: "Start here path →" },
+    a: "Quests include First Bank Account, Driver's License, Vital Documents, Housing Plan, First Job, Credit Check & Fix, Medi-Cal to 26, FAFSA/CADAA & Chafee, AB 12 Extended Care, Know Your Rights in Court, Sealing Records, and taxes. Use /find or /start-here if you're unsure where to begin.",
+    link: { href: "/find", label: "Needs finder →" },
+  },
+  {
+    q: "How many topics does AfterCare cover?",
+    a: "The org site has 50+ California-first guides — rights in care, documents, money, housing, school, health, court, immigration, parenting, alumni, and more — each with steps, scripts, and official sources. Guidance only; not legal or clinical advice.",
+    link: { href: "/programs", label: "Browse all needs →" },
   },
   {
     q: "Is AfterCare the White House “Fostering the Future” platform?",

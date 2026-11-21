@@ -25,9 +25,10 @@ export function VerificationBadge({ verified }) {
     return (
       <span
         style={{
-          border: "1.5px solid #06283d",
-          color: "#06283d",
-          fontWeight: 700,
+          border: "2px solid #1a120c",
+          color: "#1a120c",
+          background: "#f7e7b8",
+          fontWeight: 800,
           fontSize: 12,
           padding: "5px 10px",
           letterSpacing: "0.06em",
@@ -42,9 +43,9 @@ export function VerificationBadge({ verified }) {
   return (
     <span
       style={{
-        border: "1.5px solid #b42318",
-        color: "#b42318",
-        fontWeight: 700,
+        border: "2px solid #9b1d1d",
+        color: "#9b1d1d",
+        fontWeight: 800,
         fontSize: 12,
         padding: "5px 10px",
         letterSpacing: "0.06em",
@@ -62,26 +63,30 @@ export function CrisisStrip() {
   return (
     <div className="mk-crisis" role="region" aria-label="Crisis hotlines">
       <div className="mk-wrap">
-        <b>In danger right now?</b> Call or text <b>988</b> (Suicide &amp;
-        Crisis Lifeline, 24/7). Nowhere to sleep tonight? Covenant House is{" "}
-        <b>1-800-388-3888</b>. LGBTQ+ youth crisis support: The Trevor Project{" "}
-        <b>1-866-488-7386</b>. Community resources: dial <b>211</b>. If someone
-        is being hurt, call <b>911</b>.
+        <b>In danger right now?</b> Call or text <a href="tel:988">988</a>{" "}
+        (Suicide &amp; Crisis Lifeline). Nowhere to sleep? Covenant House{" "}
+        <a href="tel:18003883888">1-800-388-3888</a>. LGBTQ+ youth: Trevor
+        Project <a href="tel:18664887386">1-866-488-7386</a>. Crisis Text Line:{" "}
+        text HOME to <a href="sms:741741">741741</a>. Runaway / leaving: National
+        Runaway Safeline <a href="tel:18007862929">1-800-RUNAWAY</a>. Trafficking:
+        National Human Trafficking Hotline{" "}
+        <a href="tel:18883737888">1-888-373-7888</a>. Local help:{" "}
+        <a href="tel:211">211</a>. If someone is being hurt, call{" "}
+        <a href="tel:911">911</a>.
       </div>
     </div>
   );
 }
 
 const NAV_LINKS = [
+  { href: "/find", label: "Find help" },
   { href: "/start-here", label: "Start here" },
+  { href: "/programs", label: "All needs" },
+  { href: "/for-supporters", label: "Supporters" },
   { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
-  { href: "/how-it-works", label: "How it works" },
   { href: "/resources", label: "Resources" },
-  { href: "/research", label: "Research" },
   { href: "/get-involved", label: "Get involved" },
   { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
 ];
 
 /** Sticky org navigation with Get help CTA. */
@@ -91,9 +96,15 @@ export function OrgNav() {
       <div className="mk-nav-crisis">
         Crisis? <a href="tel:988">988</a>
         {" · "}
-        <a href="tel:18003883888">Covenant House 1-800-388-3888</a>
+        <a href="tel:18003883888">Covenant House</a>
         {" · "}
-        <a href="tel:18664887386">Trevor Project</a>
+        <a href="tel:18664887386">Trevor</a>
+        {" · "}
+        <a href="sms:741741">Crisis Text 741741</a>
+        {" · "}
+        <a href="tel:18007862929">1-800-RUNAWAY</a>
+        {" · "}
+        <a href="tel:18883737888">Trafficking hotline</a>
         {" · "}
         <a href="tel:211">211</a>
       </div>
@@ -102,29 +113,28 @@ export function OrgNav() {
           <Link href="/" className="mk-brand">
             AfterCare<i>.</i>
           </Link>
-          <span className="mk-brand-sub">Built by foster kids, for foster kids</span>
-          <div className="mk-nav-links">
+          <span className="mk-brand-tag">Built by foster kids, for foster kids</span>
+          <ul className="mk-nav-links">
             {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}>
-                {l.label}
-              </Link>
+              <li key={l.href}>
+                <Link href={l.href}>{l.label}</Link>
+              </li>
             ))}
-          </div>
-          <Link href="/app" className="mk-nav-cta">
+          </ul>
+          <Link href="/app" className="mk-btn mk-btn-primary mk-nav-cta">
             Get help now
           </Link>
-          <details className="mk-menu">
-            <summary className="mk-menu-btn" aria-label="Open menu">
-              Menu
-            </summary>
-            <div className="mk-menu-panel">
+          <details className="mk-nav-menu">
+            <summary aria-label="Open menu">Menu</summary>
+            <div className="mk-nav-menu-panel">
               {NAV_LINKS.map((l) => (
                 <Link key={l.href} href={l.href}>
                   {l.label}
                 </Link>
               ))}
               <Link href="/services">Find services</Link>
-              <Link href="/download">Download</Link>
+              <Link href="/research">Research</Link>
+              <Link href="/contact">Contact</Link>
               <Link href="/app">Get help now</Link>
             </div>
           </details>
@@ -139,12 +149,11 @@ const FOOTER_COLS = [
     heading: "Explore",
     links: [
       { href: "/", label: "Home" },
+      { href: "/find", label: "What do you need?" },
       { href: "/start-here", label: "Start here" },
+      { href: "/programs", label: "All needs" },
       { href: "/about", label: "About" },
-      { href: "/programs", label: "Programs" },
-      { href: "/how-it-works", label: "How it works" },
-      { href: "/research", label: "Research" },
-      { href: "/impact", label: "Impact" },
+      { href: "/for-supporters", label: "For supporters" },
     ],
   },
   {
@@ -153,9 +162,9 @@ const FOOTER_COLS = [
       { href: "/app", label: "Open the app" },
       { href: "/resources", label: "Resources hub" },
       { href: "/services", label: "Find services" },
-      { href: "/programs/drivers-license", label: "Driver's license help" },
-      { href: "/programs/vital-documents", label: "Vital documents" },
-      { href: "/download", label: "Download" },
+      { href: "/programs/drivers-license", label: "Driver's license" },
+      { href: "/programs/foster-youth-bill-of-rights", label: "Bill of Rights" },
+      { href: "/programs/extended-foster-care", label: "AB 12" },
     ],
   },
   {
@@ -176,29 +185,31 @@ export function OrgFooter() {
   return (
     <footer className="mk-footer">
       <div className="mk-wrap">
-        <div className="mk-footer-cols">
-          <div className="mk-footer-brand">
-            <span className="mk-brand">
+        <div className="mk-footer-grid">
+          <div>
+            <span className="mk-brand" style={{ color: "#f3e6cc" }}>
               AfterCare<i>.</i>
             </span>
-            <p>
-              The AI life navigator built by foster kids, for foster youth —
-              every &ldquo;how do I adult&rdquo; step in one place. {ORG_STATUS}{" "}
-              Free forever for foster youth.
+            <p style={{ marginTop: 12 }}>
+              The life navigator built by foster kids, for foster youth — every
+              &ldquo;how do I adult&rdquo; step in one place. {ORG_STATUS} Free
+              forever for foster youth.
             </p>
           </div>
           {FOOTER_COLS.map((col) => (
-            <div key={col.heading} className="mk-footer-col">
-              <b>{col.heading}</b>
-              {col.links.map((l) => (
-                <Link key={l.href + l.label} href={l.href}>
-                  {l.label}
-                </Link>
-              ))}
+            <div key={col.heading}>
+              <h4>{col.heading}</h4>
+              <ul>
+                {col.links.map((l) => (
+                  <li key={l.href + l.label}>
+                    <Link href={l.href}>{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
-        <div className="mk-footer-base">
+        <div className="mk-footer-meta">
           <span>
             © {new Date().getFullYear()} AfterCare · Founded by Biniam Efrem ·
             Free forever for foster youth

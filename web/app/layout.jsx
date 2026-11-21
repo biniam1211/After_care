@@ -1,4 +1,4 @@
-import { Bricolage_Grotesque, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Archivo, Bricolage_Grotesque, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -15,13 +15,20 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-// Editorial serif for the org site's headlines (marketing pages only —
-// the /app product keeps Bricolage/Jakarta). Fraunces, optical-sized.
+// Org site: Fraunces (soft editorial serif) + Archivo (strong grotesk).
+// Product /app keeps Bricolage + Jakarta via its own CSS variables.
 const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "900"],
   style: ["normal", "italic"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -83,12 +90,15 @@ export const viewport = {
   userScalable: true,
   // Draw under the notch / home indicator so the app can fill the screen.
   viewportFit: "cover",
-  themeColor: "#06283d",
+  themeColor: "#1a120c",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${jakarta.variable} ${fraunces.variable}`}>
+    <html
+      lang="en"
+      className={`${bricolage.variable} ${jakarta.variable} ${fraunces.variable} ${archivo.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

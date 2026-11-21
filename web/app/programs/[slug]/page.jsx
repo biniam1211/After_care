@@ -39,7 +39,7 @@ export async function generateMetadata({ params }) {
 }
 
 /**
- * Individual program / service-area page.
+ * Individual program page — layout varies by topic (flagship / rights / practical / crisis).
  * @param {{ params: Promise<{ slug: string }> }} props
  */
 export default async function ProgramPage({ params }) {
@@ -47,6 +47,7 @@ export default async function ProgramPage({ params }) {
   const program = getProgram(slug);
   if (!program) notFound();
 
+  const layout = program.layout || "practical";
   const related = (program.related || [])
     .map((s) => getProgram(s))
     .filter(Boolean);
@@ -54,16 +55,36 @@ export default async function ProgramPage({ params }) {
     related.length > 0
       ? related
       : PROGRAMS.filter((p) => p.slug !== program.slug)
-  ).slice(0, 6);
+  ).slice(0, 8);
+
+  const panelClass =
+    layout === "rights"
+      ? "mk-panel rights"
+      : layout === "crisis"
+        ? "mk-panel crisis"
+        : layout === "flagship"
+          ? "mk-panel practical"
+          : "mk-panel";
 
   return (
     <div className="mk">
       <OrgNav />
 
-      <header className="mk-page-hero">
+      <header
+        className="mk-page-hero"
+        style={
+          layout === "flagship"
+            ? { background: "linear-gradient(180deg, #f8d5ce 0%, transparent 70%)" }
+            : layout === "rights"
+              ? { background: "linear-gradient(180deg, #d5ebe3 0%, transparent 70%)" }
+              : layout === "crisis"
+                ? { background: "linear-gradient(180deg, #f8d5ce 0%, transparent 70%)" }
+                : undefined
+        }
+      >
         <div className="mk-wrap">
           <p className="mk-kicker">
-            <Link href="/programs">Programs</Link>
+            <Link href="/programs">All needs</Link>
             {" / "}
             {program.shortTitle}
           </p>
@@ -73,16 +94,20 @@ export default async function ProgramPage({ params }) {
           {program.questSlug && !program.flagship && (
             <span className="mk-badge mk-badge-live">Quest in the app</span>
           )}
-          <h1 className="mk-h1" style={{ marginTop: (program.flagship || program.questSlug) ? 12 : 0 }}>
+          <h1
+            className="mk-h1"
+            style={{ marginTop: program.flagship || program.questSlug ? 12 : 0 }}
+          >
             {program.title}
           </h1>
           <p className="mk-deck">{program.tagline}</p>
+          {program.voice && <p className="mk-voice">{program.voice}</p>}
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-primary">
               {program.questSlug ? "Start the Quest" : "Ask AfterCare"}
             </Link>
-            <Link href="/start-here" className="mk-btn mk-btn-ghost">
-              Not sure where to start?
+            <Link href="/find" className="mk-btn mk-btn-ghost">
+              Needs finder
             </Link>
           </div>
         </div>
@@ -92,21 +117,17 @@ export default async function ProgramPage({ params }) {
         <div className="mk-wrap mk-split">
           <div>
             <p className="mk-kicker">Overview</p>
-            <h2 className="mk-h2">What this program covers</h2>
+            <h2 className="mk-h2">What this covers</h2>
             <p className="mk-lead">{program.summary}</p>
             <p className="mk-lead">
               <strong>Who it&rsquo;s for:</strong> {program.whoFor}
             </p>
-            <ul className="mk-checklist">
-              {program.highlights.map((h) => (
-                <li key={h}>{h}</li>
-              ))}
-            </ul>
-            {program.questSlug && (
-              <div className="mk-note">
-                <strong>Quest available.</strong> Open the app and start
-                &ldquo;{program.title}&rdquo; to walk through this step by step.
-              </div>
+            {program.highlights?.length > 0 && (
+              <ul className="mk-checklist">
+                {program.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
             )}
           </div>
           {program.photoId ? (
@@ -115,12 +136,11 @@ export default async function ProgramPage({ params }) {
               sizes="(max-width: 860px) 100vw, 480px"
             />
           ) : (
-            <div className="mk-tile" style={{ alignSelf: "start" }}>
-              <span className="mk-badge mk-badge-live">In the navigator</span>
+            <div className={panelClass}>
               <h3>Get help on this now</h3>
               <p>
                 Ask the AfterCare chat about {program.shortTitle.toLowerCase()},
-                or browse the California services directory for local programs.
+                or open the needs finder if you&rsquo;re not sure where to start.
               </p>
               <Link href="/app" className="mk-tile-link">
                 Open the app →
@@ -130,8 +150,51 @@ export default async function ProgramPage({ params }) {
         </div>
       </section>
 
+      {(program.sayThis?.length || program.documents?.length || program.whoToCall?.length) && (
+        <section className="mk-section mk-section-alt" id="toolkit">
+          <div className="mk-wrap">
+            <p className="mk-kicker">What to say · what to bring · who to call</p>
+            <h2 className="mk-h2">Your pocket script</h2>
+            <div className="mk-grid-3">
+              {program.sayThis?.length > 0 && (
+                <div className={panelClass}>
+                  <h3>Say / ask this</h3>
+                  <ul className="mk-checklist">
+                    {program.sayThis.map((s) => (
+                      <li key={s}>&ldquo;{s}&rdquo;</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {program.documents?.length > 0 && (
+                <div className="mk-panel">
+                  <h3>Documents</h3>
+                  <ul className="mk-checklist">
+                    {program.documents.map((d) => (
+                      <li key={d}>{d}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {program.whoToCall?.length > 0 && (
+                <div className="mk-panel">
+                  <h3>Who to call</h3>
+                  <ul className="mk-checklist">
+                    {program.whoToCall.map((w) => (
+                      <li key={w.name}>
+                        <strong>{w.name}</strong> — {w.detail}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {program.steps?.length > 0 && (
-        <section className="mk-section mk-section-alt" id="steps">
+        <section className="mk-section" id="steps">
           <div className="mk-wrap mk-wrap-narrow" style={{ maxWidth: 760, margin: "0 auto" }}>
             <p className="mk-kicker">Step by step</p>
             <h2 className="mk-h2">How to move forward</h2>
@@ -170,7 +233,7 @@ export default async function ProgramPage({ params }) {
       )}
 
       {program.faqs?.length > 0 && (
-        <section className="mk-section" id="faq">
+        <section className="mk-section mk-section-alt" id="faq">
           <div className="mk-wrap mk-wrap-narrow" style={{ maxWidth: 760, margin: "0 auto" }}>
             <p className="mk-kicker">FAQ</p>
             <h2 className="mk-h2">Common questions</h2>
@@ -186,7 +249,7 @@ export default async function ProgramPage({ params }) {
         </section>
       )}
 
-      <section className="mk-section mk-section-harbor" id="quest-cta">
+      <section className="mk-section mk-section-ink" id="quest-cta">
         <div className="mk-wrap">
           <p className="mk-kicker">In the app</p>
           <h2 className="mk-h2">
@@ -196,15 +259,15 @@ export default async function ProgramPage({ params }) {
           </h2>
           <p className="mk-deck">
             {program.questSlug
-              ? "Open the navigator, start the matching Quest, and check off each win. Crisis help stays one tap away."
-              : "The chat can still walk you through this live while we build a dedicated Quest."}
+              ? "Open the navigator, start the matching Quest, and check off each win."
+              : "The chat can still walk you through this while we expand Quests."}
           </p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-on-dark">
               Open the app
             </Link>
-            <Link href="/resources" className="mk-btn mk-btn-ghost-on-dark">
-              Resources hub
+            <Link href="/programs" className="mk-btn mk-btn-ghost-on-dark">
+              All needs
             </Link>
           </div>
         </div>
@@ -212,18 +275,12 @@ export default async function ProgramPage({ params }) {
 
       <section className="mk-section">
         <div className="mk-wrap">
-          <p className="mk-kicker">{related.length ? "Related programs" : "More programs"}</p>
-          <h2 className="mk-h2">Keep going</h2>
-          <div className="mk-grid-3">
+          <p className="mk-kicker">{related.length ? "Related" : "Keep going"}</p>
+          <div className="mk-topic-rail">
             {others.map((p) => (
-              <Link key={p.slug} href={`/programs/${p.slug}`} className="mk-tile">
-                {p.flagship && <span className="mk-badge mk-badge-flagship">Flagship</span>}
-                {p.questSlug && !p.flagship && (
-                  <span className="mk-badge mk-badge-live">Quest</span>
-                )}
-                <h3>{p.shortTitle}</h3>
-                <p>{p.tagline}</p>
-                <span className="mk-tile-link">View →</span>
+              <Link key={p.slug} href={`/programs/${p.slug}`}>
+                <strong>{p.shortTitle}</strong>
+                <span>Open →</span>
               </Link>
             ))}
           </div>

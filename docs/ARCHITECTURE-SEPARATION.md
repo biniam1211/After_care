@@ -34,11 +34,14 @@ together in one Next.js app with shared copy. Now they are explicit:
 ## Route map
 
 ```
-/                  org landing (mission, founder journey photos,
-                   programs preview, Get help now CTA)
+ /                  org landing (journal brand, needs finder, age timeline,
+                   founder journey, flagship license CTA)
+ /find             client-side “What do you need right now?” checklist
+                   (age × situation × need — no PII stored)
  /about            founder story (placeholder + real photos), transparency
  /start-here       guided path: crisis → docs → bank → license → benefits
- /programs         all service areas; /programs/drivers-license is flagship
+ /programs         50+ CA foster-need guides; /programs/drivers-license flagship
+ /for-supporters   foster parents, kin, mentors, workers, teachers, donors
  /how-it-works     how the navigator, Quests, and Panic Button work
  /resources        crisis lines + directory + program guides hub
  /research         accessibility gap + EO 14359 + ED transition toolkit +

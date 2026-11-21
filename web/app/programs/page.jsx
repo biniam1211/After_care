@@ -4,43 +4,62 @@ import {
   OrgFooter,
   CrisisStrip,
 } from "@/components/site-chrome";
-import { FounderFigure } from "@/components/founder-photos";
 import { PROGRAMS } from "@/components/programs-data";
 import "../marketing.css";
 
 export const metadata = {
-  title: "Programs",
+  title: "All needs",
   description:
-    "AfterCare programs for foster youth: driver's license help, vital documents, housing, money, benefits, education, jobs, health, legal rights, AB 12, and parenting youth.",
-  openGraph: {
-    title: "Programs · AfterCare",
-    description:
-      "All-in-one life navigator programs — from learner's permit to benefits and housing.",
-    type: "website",
-  },
+    "California foster youth guides — rights, documents, money, housing, school, health, court, AB 12, and more. Plain-language steps with official sources.",
 };
 
+const CATEGORY_LABELS = {
+  "in-care": "While in care",
+  rights: "Rights & grievances",
+  "documents-money": "Documents & money",
+  housing: "Housing",
+  benefits: "Benefits & health coverage",
+  health: "Health & mental health",
+  education: "Education",
+  work: "Work & career",
+  "legal-transition": "Legal & transition",
+  relationships: "Relationships & permanency",
+  alumni: "After 21 / alumni",
+  parenting: "Parenting",
+};
+
+function groupByCategory(programs) {
+  /** @type {Record<string, typeof PROGRAMS>} */
+  const map = {};
+  for (const p of programs) {
+    const key = p.category || "in-care";
+    if (!map[key]) map[key] = [];
+    map[key].push(p);
+  }
+  return map;
+}
+
 export default function ProgramsPage() {
-  const flagship = PROGRAMS.find((p) => p.flagship);
-  const rest = PROGRAMS.filter((p) => !p.flagship);
+  const grouped = groupByCategory(PROGRAMS);
+  const cats = Object.keys(grouped);
 
   return (
     <div className="mk">
       <OrgNav />
-
       <header className="mk-page-hero">
         <div className="mk-wrap">
-          <p className="mk-kicker">Programs</p>
+          <p className="mk-kicker">{PROGRAMS.length} guides</p>
           <h1 className="mk-h1">
-            Every how-do-I-adult step, <em>in one navigator.</em>
+            Every foster need. <em>Mapped.</em>
           </h1>
           <p className="mk-deck">
-            Service areas with clear next steps — and Quests in the app when you
-            are ready to finish the job. Free forever for foster youth.
+            Not a three-card homepage pitch — a full California stack: rights in
+            care, papers, money, housing, school, health, court, immigration,
+            and life after 21. Guidance only; confirm with official sources.
           </p>
           <div className="mk-cta-row">
-            <Link href="/app" className="mk-btn mk-btn-primary">
-              Get help now
+            <Link href="/find" className="mk-btn mk-btn-primary">
+              What do you need right now?
             </Link>
             <Link href="/programs/drivers-license" className="mk-btn mk-btn-ghost">
               Driver&rsquo;s license flagship
@@ -49,64 +68,32 @@ export default function ProgramsPage() {
         </div>
       </header>
 
-      {flagship && (
-        <section className="mk-section" id="flagship">
-          <div className="mk-wrap mk-split">
-            <FounderFigure photoId="first-car" sizes="(max-width: 860px) 100vw, 480px" />
-            <div>
-              <span className="mk-badge mk-badge-flagship">Flagship program</span>
-              <h2 className="mk-h2" style={{ marginTop: 12 }}>{flagship.title}</h2>
-              <p className="mk-lead">{flagship.summary}</p>
-              <ul className="mk-checklist">
-                {flagship.highlights.map((h) => (
-                  <li key={h}>{h}</li>
+      <section className="mk-section">
+        <div className="mk-wrap">
+          <nav className="mk-cat-nav" aria-label="Program categories">
+            {cats.map((c) => (
+              <a key={c} href={`#cat-${c}`}>
+                {CATEGORY_LABELS[c] || c}
+              </a>
+            ))}
+          </nav>
+
+          {cats.map((c) => (
+            <div key={c} id={`cat-${c}`} style={{ marginBottom: 48 }}>
+              <p className="mk-kicker">{CATEGORY_LABELS[c] || c}</p>
+              <div className="mk-topic-rail">
+                {grouped[c].map((p) => (
+                  <Link key={p.slug} href={`/programs/${p.slug}`}>
+                    <strong>
+                      {p.flagship ? "★ " : ""}
+                      {p.shortTitle}
+                    </strong>
+                    <span>{p.questSlug ? "Quest →" : "Open →"}</span>
+                  </Link>
                 ))}
-              </ul>
-              <div className="mk-cta-row">
-                <Link href={`/programs/${flagship.slug}`} className="mk-btn mk-btn-primary">
-                  Open driver&rsquo;s license program
-                </Link>
               </div>
             </div>
-          </div>
-        </section>
-      )}
-
-      <section className="mk-section mk-section-alt" id="all">
-        <div className="mk-wrap">
-          <p className="mk-kicker">All programs</p>
-          <h2 className="mk-h2">Pick the step you need next.</h2>
-          <div className="mk-grid-3">
-            {rest.map((p) => (
-              <Link key={p.slug} href={`/programs/${p.slug}`} className="mk-tile">
-                <h3>{p.shortTitle}</h3>
-                <p>{p.tagline}</p>
-                <span className="mk-tile-link">
-                  {p.questSlug ? "Program + Quest →" : "View program →"}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mk-section mk-section-harbor">
-        <div className="mk-wrap">
-          <p className="mk-kicker">In the app</p>
-          <h2 className="mk-h2">Quests that finish the job.</h2>
-          <p className="mk-deck">
-            Driver&rsquo;s license, first bank account, Chafee Grant, and health
-            coverage to 26 are interactive Quests today. More programs get Quests
-            as we build them — until then, ask the chat.
-          </p>
-          <div className="mk-cta-row">
-            <Link href="/app" className="mk-btn mk-btn-on-dark">
-              Open the app
-            </Link>
-            <Link href="/how-it-works" className="mk-btn mk-btn-ghost-on-dark">
-              How it works
-            </Link>
-          </div>
+          ))}
         </div>
       </section>
 
