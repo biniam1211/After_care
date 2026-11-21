@@ -719,13 +719,37 @@ export const GENERATED_RESOURCES = {
     "name": "FosterClub",
     "cat": "Essentials",
     "catColor": "mint",
-    "blurb": "National peer network and transition resources for foster youth.",
-    "meta": "Online · Statewide",
+    "blurb": "National peer network for young people with foster care experience — community, leadership, and transition tools. Separate organization; AfterCare is not affiliated.",
+    "meta": "Online · National",
     "phone": null,
     "url": "https://www.fosterclub.com",
     "address": null,
-    "tag": null,
-    "verified": false
+    "tag": "Verified",
+    "verified": true
+  },
+  "fosterclub-whos": {
+    "name": "FosterClub — Who's in Foster Care?",
+    "cat": "Essentials",
+    "catColor": "mint",
+    "blurb": "FosterClub page summarizing national foster care numbers with AFCARS and NYTD source links. Cite their page — AfterCare does not republish those figures as our own.",
+    "meta": "Online · National stats primer",
+    "phone": null,
+    "url": "https://www.fosterclub.com/whos-foster-care",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
+  },
+  "ed-transition-toolkit": {
+    "name": "ED Foster Care Transition Toolkit",
+    "cat": "Education",
+    "catColor": "sky",
+    "blurb": "U.S. Department of Education public-domain guide (May 2016) covering transition planning, school, jobs, money, documents, housing, health, and transportation. Confirm current local rules — some links are dated.",
+    "meta": "PDF · Public domain · May 2016",
+    "phone": null,
+    "url": "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
   },
   "think-of-us": {
     "name": "Think of Us",

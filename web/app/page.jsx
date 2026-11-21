@@ -234,13 +234,15 @@ export default function Home() {
             <p className="mk-lead">
               Executive Order 14359 (Nov 13, 2025) directs work toward tools that
               help youth leaving foster care find housing, education, employment,
-              healthcare, and mentoring — with customized plans. AfterCare is
-              independently building for that need. We are not the federal
-              platform and do not claim government partnership.
+              healthcare, and mentoring — with customized plans. The U.S.
+              Department of Education&rsquo;s 2016 Foster Care Transition Toolkit
+              already mapped those same domains for youth and supportive adults.
+              AfterCare is independently building for that need. We are not a
+              federal platform or partner.
             </p>
             <div className="mk-cta-row">
-              <Link href="/research#policy" className="mk-btn mk-btn-ghost">
-                Policy &amp; research note
+              <Link href="/research#toolkit" className="mk-btn mk-btn-ghost">
+                Policy &amp; research notes
               </Link>
               <a
                 className="mk-btn mk-btn-ghost"
@@ -252,22 +254,40 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="mk-tile" style={{ alignSelf: "start" }}>
-            <span className="mk-badge mk-badge-live">Verified listing</span>
-            <h3>iFoster Peers Paving the Path</h3>
-            <p>
-              Free peer support for eligible CA foster youth 16–26 with Medi-Cal
-              Managed Care — specialists with lived experience. Separate org;
-              official page confirmed.
-            </p>
-            <a
-              className="mk-tile-link"
-              href="https://www.ifoster.org/peers-paving-the-path/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              ifoster.org →
-            </a>
+          <div style={{ display: "grid", gap: 16, alignSelf: "start" }}>
+            <div className="mk-tile">
+              <span className="mk-badge mk-badge-live">Verified listing</span>
+              <h3>iFoster Peers Paving the Path</h3>
+              <p>
+                Free peer support for eligible CA foster youth 16–26 with Medi-Cal
+                Managed Care — specialists with lived experience. Separate org;
+                official page confirmed.
+              </p>
+              <a
+                className="mk-tile-link"
+                href="https://www.ifoster.org/peers-paving-the-path/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                ifoster.org →
+              </a>
+            </div>
+            <div className="mk-tile">
+              <span className="mk-badge mk-badge-live">Verified listing</span>
+              <h3>FosterClub — Who&rsquo;s in Foster Care?</h3>
+              <p>
+                National peer network primer with AFCARS/NYTD links. We cite their
+                page; we do not republish those figures as AfterCare stats.
+              </p>
+              <a
+                className="mk-tile-link"
+                href="https://www.fosterclub.com/whos-foster-care"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                fosterclub.com →
+              </a>
+            </div>
           </div>
         </div>
       </section>

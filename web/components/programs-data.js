@@ -158,10 +158,14 @@ export const PROGRAMS = [
         body: "Photograph or scan certified copies and store them somewhere you control. Never give away your only certified original if you can avoid it.",
       },
     ],
-    notes: ["AfterCare does not issue documents. Official agencies set fees and identity rules."],
+    notes: [
+      "AfterCare does not issue documents. Official agencies set fees and identity rules.",
+      "Federal guidance (ED Foster Care Transition Toolkit, 2016) also stresses birth certificate, SSN card, and photo ID before leaving care — confirm current California process with your worker.",
+    ],
     sources: [
       { label: "California DMV — ID cards", href: "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/identification-id-cards/" },
       { label: "Social Security Administration — replacement card", href: "https://www.ssa.gov/ssnumber/" },
+      { label: "ED Foster Care Transition Toolkit (PDF)", href: "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf" },
     ],
     faqs: [
       {
@@ -285,6 +289,10 @@ export const PROGRAMS = [
     sources: [
       { label: "California Chafee Grant", href: "https://chafee.csac.ca.gov/" },
       { label: "Federal Student Aid (FAFSA)", href: "https://studentaid.gov/" },
+      { label: "ED Foster Care Transition Toolkit (PDF)", href: "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf" },
+    ],
+    notes: [
+      "The ED toolkit (2016) covers FAFSA independence for foster youth and Chafee/ETV — always confirm current award rules on chafee.csac.ca.gov and studentaid.gov.",
     ],
   },
   {
@@ -398,9 +406,12 @@ export const PROGRAMS = [
     ],
     notes: [
       "Eligibility and re-entry rules are legal determinations. Confirm with your attorney and county.",
+      "Federal transition-plan rules expect housing, health insurance, education, mentoring, and workforce options in your plan — ask your worker what California requires for you.",
     ],
     sources: [
       { label: "CDSS — Extended Foster Care (AB 12)", href: "https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12" },
+      { label: "ED Foster Care Transition Toolkit (PDF)", href: "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf" },
+      { label: "FosterClub", href: "https://www.fosterclub.com" },
     ],
   },
   {

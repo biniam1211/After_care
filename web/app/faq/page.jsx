@@ -56,6 +56,16 @@ const FAQS = [
     link: { href: "/resources#peers", label: "Resources hub →" },
   },
   {
+    q: "What is the ED Foster Care Transition Toolkit?",
+    a: "A public-domain U.S. Department of Education guide (May 2016) covering transition planning, school, jobs, money, documents, housing, health, and transportation. AfterCare cites it for context and maps the same domains into Quests — we are not an official ED product. Confirm current California rules on each program page.",
+    link: { href: "/research#toolkit", label: "Research note →" },
+  },
+  {
+    q: "What is FosterClub?",
+    a: "A national peer network for young people with foster care experience — a separate organization. We list fosterclub.com and their Who’s in Foster Care? page (with AFCARS/NYTD links) as Verified listings. We do not republish their statistics as AfterCare’s own.",
+    link: { href: "/research#fosterclub", label: "Research note →" },
+  },
+  {
     q: "What areas does the Services directory cover?",
     a: "Today the directory is California-focused: 65 listings, a subset with their official page confirmed. The rest are labeled “Unverified — call to confirm.”",
     link: { href: "/services", label: "Find services →" },

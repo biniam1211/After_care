@@ -14,6 +14,7 @@ export const CHAT_SUGGESTIONS = [
   { id: "chafee", text: "What's the Chafee Grant and do I qualify?", icon: "cash" },
   { id: "health", text: "How do I keep my health insurance after 18?", icon: "health" },
   { id: "kicked", text: "My foster mom is kicking me out. What do I do?", icon: "alert" },
+  { id: "transition", text: "What should be in my transition plan?", icon: "doc" },
 ];
 
 // Scripted AI answers — every reply has: answer / steps / resources (3-part format)
@@ -39,9 +40,20 @@ export const CHAT_REPLIES = {
       "Apply for the California Chafee Grant (up to $5,000/yr, just for foster youth) before the May deadline.",
       "Ask each college about their foster-youth tuition waiver — 40+ states waive tuition at public colleges.",
     ],
-    resources: ["jbay", "chafee-grant"],
+    resources: ["jbay", "chafee-grant", "ed-transition-toolkit"],
     followup: "The Chafee Grant alone is up to $5k a year. Want me to walk you through claiming it?",
     quest: "chafee-grant",
+  },
+  transition: {
+    answer:
+      "A good transition plan is youth-led and covers housing, health insurance, education, mentoring/support, and work — federal law expects your agency to help you build one before you age out. AfterCare turns those domains into Quests; your caseworker/ILP still owns the official plan.",
+    steps: [
+      "Ask your caseworker or ILP for your current TILP / transition plan and what California requires for you.",
+      "Use AfterCare’s Start here path for the day-to-day sequence: documents → bank → license → benefits → school/work/housing.",
+      "Read the public-domain ED Foster Care Transition Toolkit for the federal framing — then confirm every current rule with CA sources linked in each program.",
+    ],
+    resources: ["ed-transition-toolkit", "fosterclub", "211"],
+    followup: "Want the Start here path so you can knock out the first Quest today?",
   },
   chafee: {
     answer:
@@ -187,6 +199,24 @@ const CURATED_RESOURCES = {
     blurb: "Free Medi-Cal Certified Peer Support Specialists with lived foster-care experience for CA youth 16–26.",
     meta: "CA · Ages 16–26 · Medi-Cal", phone: "530-550-8001", tag: "Peer support",
     url: "https://www.ifoster.org/peers-paving-the-path/",
+  },
+  fosterclub: {
+    name: "FosterClub", cat: "Essentials", catColor: "mint",
+    blurb: "National peer network for young people with foster care experience — community, leadership, and transition tools.",
+    meta: "Online · National", phone: null, tag: "Peer network",
+    url: "https://www.fosterclub.com",
+  },
+  "fosterclub-whos": {
+    name: "FosterClub — Who's in Foster Care?", cat: "Essentials", catColor: "mint",
+    blurb: "National foster care primer with AFCARS and NYTD source links — cite their page; AfterCare does not republish those figures as ours.",
+    meta: "Online · Stats primer", phone: null, tag: "Context",
+    url: "https://www.fosterclub.com/whos-foster-care",
+  },
+  "ed-transition-toolkit": {
+    name: "ED Foster Care Transition Toolkit", cat: "Education", catColor: "sky",
+    blurb: "Public-domain U.S. Department of Education guide (May 2016) on transition planning, school, jobs, money, documents, housing, health, and transportation.",
+    meta: "PDF · Public domain", phone: null, tag: "Federal guide",
+    url: "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf",
   },
   jbay: {
     name: "John Burton Advocates for Youth", cat: "Education", catColor: "sky",

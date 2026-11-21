@@ -23,6 +23,7 @@ function matchReply(text) {
   if (detectCrisis(text)) return "crisis";
   const t = text.toLowerCase();
   if (/\b(kicked out|nowhere to (sleep|go|stay)|homeless|evict|being (hurt|abused))\b/.test(t)) return "kicked";
+  if (/(transition plan|age.?out|tilp|independent living plan)/.test(t)) return "transition";
   if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";

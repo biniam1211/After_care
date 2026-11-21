@@ -10,11 +10,11 @@ import "../marketing.css";
 export const metadata = {
   title: "Research",
   description:
-    "AfterCare research & policy context: the accessibility gap, Executive Order 14359, and what we measure — without invented statistics.",
+    "AfterCare research & policy context: the accessibility gap, Executive Order 14359, the ED Foster Care Transition Toolkit, FosterClub context, and what we measure — without invented statistics.",
   openGraph: {
     title: "Research · AfterCare",
     description:
-      "The accessibility gap, federal policy context, and how AfterCare approaches the problem.",
+      "The accessibility gap, federal policy and transition guides, and how AfterCare approaches the problem.",
     type: "website",
   },
 };
@@ -106,9 +106,112 @@ export default function Research() {
         </div>
       </section>
 
+      <section className="mk-section mk-section-alt" id="toolkit">
+        <div className="mk-wrap">
+          <p className="mk-kicker">03 — Federal transition guide</p>
+          <h2 className="mk-h2">The ED Foster Care Transition Toolkit.</h2>
+          <p className="mk-lead">
+            In May 2016 the U.S. Department of Education published the{" "}
+            <strong>Foster Care Transition Toolkit</strong> (public domain) with
+            HHS, HUD, DOT, DOL, and youth/practitioner partners. It walks
+            current and former foster youth — and supportive adults — through
+            transition planning, education, jobs, money, essential documents,
+            support networks, housing, health, and transportation.
+          </p>
+          <p className="mk-lead">
+            AfterCare&rsquo;s program map and Start here path cover the same
+            life domains in phone-first Quests.{" "}
+            <strong>
+              We are not an official ED product, contractor, or successor to
+              the toolkit.
+            </strong>{" "}
+            We cite it because it is a clear federal framing of the work —
+            and because some of its linked state pages are dated, so we always
+            point people to current California sources (DMV, CDSS, Chafee)
+            inside each program.
+          </p>
+          <ul className="mk-checklist">
+            <li>Citation: U.S. Department of Education, Foster Youth Transition Toolkit, Washington, D.C. 2016</li>
+            <li>Audience: youth in/after care + kinship caregivers, foster parents, CASA, social workers, school staff</li>
+            <li>Also lists FosterClub&rsquo;s own transition toolkit as a complementary planning tool</li>
+          </ul>
+          <div className="mk-sources">
+            <h3>Primary sources</h3>
+            <ul>
+              <li>
+                <a
+                  href="https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  ED — Foster Care Transition Toolkit (PDF, May 2016)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.ed.gov/teaching-and-administration/supporting-students/special-populations/students-foster-care/students-in-foster-care"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  ED — Students in Foster Care hub
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="mk-cta-row">
+            <Link href="/start-here" className="mk-btn mk-btn-primary">
+              AfterCare Start here path
+            </Link>
+            <Link href="/programs" className="mk-btn mk-btn-ghost">
+              Program guides
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section" id="fosterclub">
+        <div className="mk-wrap">
+          <p className="mk-kicker">04 — National peer context</p>
+          <h2 className="mk-h2">FosterClub — who&rsquo;s in care, and why it matters.</h2>
+          <p className="mk-lead">
+            <strong>FosterClub</strong> is a national network for young people
+            with foster care experience (separate organization; AfterCare is
+            not affiliated). Their{" "}
+            <em>Who&rsquo;s in Foster Care?</em> page summarizes national
+            figures and links to primary data systems — AFCARS and NYTD —
+            so readers can dig deeper.
+          </p>
+          <p className="mk-lead">
+            <strong>We do not republish FosterClub&rsquo;s numbers as
+            AfterCare statistics.</strong>{" "}
+            When we reference national scale, we point to their page (or the
+            federal data systems they cite) rather than inventing or freezing
+            a headline number here.
+          </p>
+          <div className="mk-cta-row">
+            <a
+              className="mk-btn mk-btn-primary"
+              href="https://www.fosterclub.com/whos-foster-care"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              FosterClub — Who&rsquo;s in Foster Care?
+            </a>
+            <a
+              className="mk-btn mk-btn-ghost"
+              href="https://www.fosterclub.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              fosterclub.com
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="mk-section mk-section-alt" id="peers">
         <div className="mk-wrap">
-          <p className="mk-kicker">03 — Peer support in the field</p>
+          <p className="mk-kicker">05 — Peer support in the field</p>
           <h2 className="mk-h2">Lived-experience specialists matter.</h2>
           <p className="mk-lead">
             iFoster&rsquo;s <strong>Peers Paving the Path</strong> program pairs
@@ -141,7 +244,7 @@ export default function Research() {
 
       <section className="mk-section" id="approach">
         <div className="mk-wrap">
-          <p className="mk-kicker">04 — Our approach</p>
+          <p className="mk-kicker">06 — Our approach</p>
           <h2 className="mk-h2">Built for how young people actually get help.</h2>
           <div className="mk-ledger">
             {PRINCIPLES.map((p, i) => (

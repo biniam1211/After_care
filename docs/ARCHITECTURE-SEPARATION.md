@@ -41,7 +41,8 @@ together in one Next.js app with shared copy. Now they are explicit:
  /programs         all service areas; /programs/drivers-license is flagship
  /how-it-works     how the navigator, Quests, and Panic Button work
  /resources        crisis lines + directory + program guides hub
- /research         accessibility gap + EO 14359 context + peer support note
+ /research         accessibility gap + EO 14359 + ED transition toolkit +
+                   FosterClub context + peer support note
  /services         resource directory (org surface, same catalog)
  /get-involved     youth / adults / partners + donate placeholder
  /faq /contact     honest FAQ and contact (app chat)

@@ -57,7 +57,9 @@ Health Consumer Alliance,health,"Free help understanding and using Medi-Cal and 
 California Department of Health Care Services (Medi-Cal),health,"State Medi-Cal program. Former foster youth qualify for free coverage to age 26.",,https://www.dhcs.ca.gov,,,{CA},false
 Year Up,employment,"Free year-long job training and internships for young adults 18-29.",,https://www.yearup.org,,,{CA},false
 Job Corps,employment,"Free federal education and job-training program for young people 16-24.",,https://www.jobcorps.gov,,,{CA},false
-FosterClub,community,"National peer network and transition resources for foster youth.",,https://www.fosterclub.com,,,{CA},false
+FosterClub,community,"National peer network for young people with foster care experience — community, leadership, and transition tools.",,https://www.fosterclub.com,,,{CA},true
+FosterClub — Who's in Foster Care?,community,"FosterClub primer on national foster care numbers with AFCARS and NYTD source links. Cite their page; do not treat figures as AfterCare stats.",,https://www.fosterclub.com/whos-foster-care,,,{CA},true
+ED Foster Care Transition Toolkit,education,"U.S. Department of Education public-domain Foster Care Transition Toolkit (May 2016) covering planning, school, jobs, money, documents, housing, health, and transportation.",,https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf,,,{CA},true
 Think of Us,community,"Research and a digital resource hub built with and for people with foster care experience.",,https://www.thinkof.us,,,{CA},false
 Foster Care Counts,education,"Scholarships, laptops, and support for foster youth pursuing higher education in LA.",,https://www.fostercarecounts.org,,,{CA},false
 Peace4Kids,community,"Community, mentoring, and belonging for youth in foster care in LA.",,https://www.peace4kids.org,,,{CA},false

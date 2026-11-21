@@ -136,6 +136,57 @@ export default function ResourcesHubPage() {
         </div>
       </section>
 
+      <section className="mk-section mk-section-alt" id="guides-federal">
+        <div className="mk-wrap">
+          <p className="mk-kicker">Guides &amp; context</p>
+          <h2 className="mk-h2">Federal toolkit + national peer network</h2>
+          <p className="mk-lead">
+            Two more Verified listings (official pages confirmed). Separate
+            orgs / agencies — AfterCare is not affiliated with either.
+          </p>
+          <div className="mk-grid-2">
+            <a
+              className="mk-tile"
+              href="https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className="mk-badge mk-badge-live">Verified listing</span>
+              <h3>ED Foster Care Transition Toolkit</h3>
+              <p>
+                Public-domain U.S. Department of Education guide (May 2016) on
+                planning, school, jobs, money, documents, housing, health, and
+                transportation. Confirm current local rules — some links age.
+              </p>
+              <span className="mk-tile-link">Open PDF →</span>
+            </a>
+            <a
+              className="mk-tile"
+              href="https://www.fosterclub.com/whos-foster-care"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className="mk-badge mk-badge-live">Verified listing</span>
+              <h3>FosterClub — Who&rsquo;s in Foster Care?</h3>
+              <p>
+                National primer with links to AFCARS and NYTD. We cite their
+                page for context and do not republish those figures as
+                AfterCare stats.
+              </p>
+              <span className="mk-tile-link">Open FosterClub →</span>
+            </a>
+          </div>
+          <div className="mk-cta-row" style={{ marginTop: 22 }}>
+            <Link href="/research#toolkit" className="mk-btn mk-btn-ghost">
+              Research notes
+            </Link>
+            <Link href="/services" className="mk-btn mk-btn-ghost">
+              Full directory
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="mk-section" id="guides">
         <div className="mk-wrap">
           <p className="mk-kicker">Program guides</p>

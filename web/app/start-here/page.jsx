@@ -67,6 +67,13 @@ const PATH = [
     href: "/programs",
     cta: "All programs",
   },
+  {
+    n: "06",
+    title: "Build your transition plan with people who know you",
+    body: "Federal guidance expects a youth-led plan covering housing, health insurance, education, mentoring, and work supports. Bring questions to your caseworker/ILP — and use AfterCare Quests for the day-to-day steps.",
+    href: "/research#toolkit",
+    cta: "ED transition toolkit note",
+  },
 ];
 
 export default function StartHerePage() {
@@ -131,7 +138,7 @@ export default function StartHerePage() {
       <section className="mk-section mk-section-alt">
         <div className="mk-wrap">
           <p className="mk-kicker">Also worth knowing</p>
-          <div className="mk-grid-2">
+          <div className="mk-grid-3">
             <Link href="/programs/health" className="mk-tile">
               <span className="mk-badge mk-badge-live">Partner resource</span>
               <h3>Peer support (iFoster)</h3>
@@ -142,15 +149,30 @@ export default function StartHerePage() {
               </p>
               <span className="mk-tile-link">Health program →</span>
             </Link>
-            <Link href="/research#policy" className="mk-tile">
-              <span className="mk-badge mk-badge-flagship">Policy context</span>
-              <h3>Why this moment matters</h3>
+            <a
+              className="mk-tile"
+              href="https://www.fosterclub.com/whos-foster-care"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className="mk-badge mk-badge-live">Verified listing</span>
+              <h3>FosterClub context</h3>
               <p>
-                A November 2025 White House executive order calls for tools that
-                help youth transitioning from foster care find housing, school,
-                work, and health supports — the same gap AfterCare was built to close.
+                National peer network&rsquo;s Who&rsquo;s in Foster Care? page —
+                with AFCARS/NYTD links. Separate org; we cite, we don&rsquo;t
+                republish their figures as ours.
               </p>
-              <span className="mk-tile-link">Read the research note →</span>
+              <span className="mk-tile-link">Open FosterClub →</span>
+            </a>
+            <Link href="/research#toolkit" className="mk-tile">
+              <span className="mk-badge mk-badge-flagship">Policy context</span>
+              <h3>ED toolkit + EO 14359</h3>
+              <p>
+                Federal transition domains (2016 toolkit) and the 2025 White House
+                order on tools for youth leaving care — cited for context, not as
+                affiliation.
+              </p>
+              <span className="mk-tile-link">Research notes →</span>
             </Link>
           </div>
         </div>
