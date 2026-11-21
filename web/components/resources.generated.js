@@ -181,7 +181,9 @@ export const GENERATED_RESOURCES = {
       "741741"
     ],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Crisis%20Text%20Line",
-    "id": "crisis-text"
+    "id": "crisis-text",
+    "contactMethod": "sms",
+    "smsBody": "HOME"
   },
   "trafficking": {
     "name": "National Human Trafficking Hotline",

@@ -1506,6 +1506,11 @@ html:has(.mk) body {
   box-shadow: 4px 4px 0 var(--paper-deep);
 }
 
+.mk-dir-card.is-focus {
+  border-color: var(--accent);
+  box-shadow: 6px 6px 0 var(--accent);
+}
+
 .mk-dir-card h2 {
   font-family: var(--display);
   font-size: 1.35rem;

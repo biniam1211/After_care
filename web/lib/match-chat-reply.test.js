@@ -47,4 +47,13 @@ describe("matchChatReply", () => {
     expect(matchChatReply("Do I get partial credits under AB 490?", noCrisis)).toBe("college");
     expect(matchChatReply("Can I open an account at a credit union?", noCrisis)).toBe("bank");
   });
+
+  it("routes credit-union fraud questions to credit, not bank", () => {
+    expect(
+      matchChatReply("There's fraud on my Equifax report from a credit union account", noCrisis)
+    ).toBe("credit");
+    expect(
+      matchChatReply("I need a credit freeze but I bank at a credit union", noCrisis)
+    ).toBe("credit");
+  });
 });

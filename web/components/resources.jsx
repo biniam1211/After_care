@@ -7,6 +7,7 @@ import { Icon, Screen, TONE, Button, Card, Badge, IconTile } from "@/components/
 import { RESOURCES, RESOURCE_CATEGORIES } from "@/components/data";
 import { sendCaseworker } from "@/components/notify";
 import { VerificationBadge, VERIFIED_MEANING } from "@/components/site-chrome";
+import { contactHref } from "@/lib/contact-href";
 
 const CAT_ICONS = {
   Crisis: "shield",
@@ -150,11 +151,29 @@ export function ResourceDetail({ id, onBack, profile, resources = RESOURCES }) {
 
         <Card style={{ padding: 4 }}>
           <Row icon="pin" tone={r.catColor} label="Where" value={r.meta} />
-          {r.phone && <Row icon="phone" tone={r.catColor} label="Call" value={r.phone} last />}
+          {r.phone && (
+            <Row
+              icon="phone"
+              tone={r.catColor}
+              label={contactHref(r)?.kind === "sms" ? "Text" : "Call"}
+              value={r.phone}
+              last
+            />
+          )}
         </Card>
 
         <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 11 }}>
-          {r.phone && <a href={`tel:${r.phone.replace(/[^\d+]/g, "")}`} style={{ textDecoration: "none" }}><Button full variant="primary" icon="phone">Call {r.phone}</Button></a>}
+          {r.phone && (() => {
+            const c = contactHref(r);
+            if (!c) return null;
+            return (
+              <a href={c.href} style={{ textDecoration: "none" }}>
+                <Button full variant="primary" icon="phone">
+                  {c.label}
+                </Button>
+              </a>
+            );
+          })()}
           <Button full variant="ghost" icon="pin">Get directions</Button>
         </div>
 

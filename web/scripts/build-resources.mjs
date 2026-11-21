@@ -224,6 +224,8 @@ const main = () => {
       blurb: "Text HOME to 741741 for free 24/7 crisis support in the U.S.",
       meta: "Text · Nationwide",
       phone: "741741",
+      contactMethod: "sms",
+      smsBody: "HOME",
       url: "https://www.crisistextline.org/",
       sourceUrl: "https://www.crisistextline.org/",
       open247: true,

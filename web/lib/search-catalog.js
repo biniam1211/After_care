@@ -102,7 +102,7 @@ export function buildSearchDocs() {
       type: "resource",
       title: r.name,
       blurb: r.blurb,
-      href: `/directory#${id}`,
+      href: `/directory?focus=${encodeURIComponent(id)}`,
       haystack: [r.name, r.blurb, r.cat, r.meta, r.phone, r.county, ...(r.keywords || [])]
         .filter(Boolean)
         .join(" ")

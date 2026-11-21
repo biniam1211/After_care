@@ -235,9 +235,10 @@ const CURATED_RESOURCES = {
     meta: "Open now · 1.2 mi · Hollywood", phone: "1-800-388-3888", tag: "Open 24/7",
   },
   "211": {
-    name: "211 LA / OC", cat: "All-in-one", catColor: "harbor",
-    blurb: "Free helpline that connects you to housing, food, and health resources near you.",
+    name: "211 LA / OC", cat: "Crisis", catColor: "panic",
+    blurb: "Free helpline that connects you to housing, food, health, and crisis support near you.",
     meta: "Call or text · Countywide", phone: "211", tag: "Free",
+    open247: true,
   },
   rightway: {
     name: "RightWay Foundation", cat: "Money & Jobs", catColor: "warm",
