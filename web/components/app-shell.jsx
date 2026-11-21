@@ -174,7 +174,12 @@ export default function App() {
         <QuestDetail slug={openQuest} profile={profile} questProgress={questProgress} setQuestProgress={setQuestProgress}
           onBack={() => setOpenQuest(null)} onAskHelp={(slug) => {
             const q = QUESTS.find((x) => x.slug === slug);
-            const map = { "first-bank-account": "bank", "chafee-grant": "chafee", "health-26": "health" };
+            const map = {
+              "first-bank-account": "bank",
+              "drivers-license": "license",
+              "chafee-grant": "chafee",
+              "health-26": "health",
+            };
             askPrompt(map[slug] || "default", q ? `Can you help me with "${q.title}"?` : "I need help with this quest.");
           }} />
       )}

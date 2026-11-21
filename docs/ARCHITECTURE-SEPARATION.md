@@ -12,7 +12,7 @@ together in one Next.js app with shared copy. Now they are explicit:
 | | Org marketing site | Product app |
 |---|---|---|
 | **What it is** | The public face of the organisation: mission, founder story, services preview, download page | The tool itself: onboarding, AI chat, quests, resources, panic button |
-| **Routes** | `/`, `/services`, `/download`, `/privacy`, `/terms`, 404 | `/app` (and only `/app`) |
+| **Routes** | `/`, `/about`, `/programs`, `/programs/[slug]`, `/how-it-works`, `/resources`, `/services`, `/get-involved`, `/faq`, `/contact`, `/download`, `/impact`, `/stories`, `/research`, `/privacy`, `/terms`, 404 | `/app` (and only `/app`) |
 | **Chrome** | Shared org chrome: `web/components/site-chrome.jsx` (`OrgNav`, `OrgFooter`, `CrisisStrip`) + `mk-*` classes from `web/app/marketing.css` | In-app shell: `web/components/app-shell.jsx` + `globals.css`. No org nav/footer inside the product. |
 | **Copy rules** | May talk about the mission, the problem, and the org's status. Must say "social-impact project working toward nonprofit status" — never "registered nonprofit". Legal pages must keep their DRAFT notice. | May talk about what the app does. Must show verification status on every resource (Verified badge vs "Unverified — call to confirm"). Must never claim a listing is verified unless `verified === true`. |
 | **Crisis numbers** | Crisis strip on every org page (a youth in crisis who never opens the app still leaves with a number) | Panic Button + 988 / Covenant House / 911 in every panic plan + offline screen in the native shell |
@@ -34,9 +34,15 @@ together in one Next.js app with shared copy. Now they are explicit:
 ## Route map
 
 ```
-/                  org landing (mission, story placeholder, services
-                   preview, impact goals, download CTA)
+/                  org landing (mission, founder journey photos,
+                   programs preview, Get help now CTA)
+ /about            founder story (placeholder + real photos), transparency
+ /programs         all service areas; /programs/drivers-license is flagship
+ /how-it-works     how the navigator, Quests, and Panic Button work
+ /resources        crisis lines + directory + program guides hub
  /services         resource directory (org surface, same catalog)
+ /get-involved     youth / adults / partners + donate placeholder
+ /faq /contact     honest FAQ and contact (app chat)
  /download         honest install page: Add to Home Screen now,
                    TestFlight / App Store as "not yet"
  /privacy          legal draft (DRAFT notice, CONTACT_EMAIL placeholder)

@@ -1,22 +1,13 @@
-// ───────────────────────────────────────────────────────────
-// AfterCare — shared org-site chrome (marketing surfaces only)
-//
-// One nav / footer / crisis strip for every org page so the org
-// site and the product app can't drift apart. These components use
-// the editorial classes from `web/app/marketing.css`.
-//
-// This is the ORG chrome. The product app (/app) has its own in-app
-// shell (components/app-shell.jsx) and deliberately does NOT use this.
-// The services directory (/services) keeps its own `sv-*` chrome in
-// services.css. See docs/ARCHITECTURE-SEPARATION.md for the split.
-//
-// LINK RULE: every nav/footer link must point at a real page that
-// exists. No dead links, no anchor-only nav, no placeholders.
-// ───────────────────────────────────────────────────────────
+/**
+ * AfterCare — shared org-site chrome (marketing surfaces only).
+ *
+ * One nav / footer / crisis strip for every org page. The product app
+ * (/app) uses components/app-shell.jsx and deliberately does NOT use this.
+ * See docs/ARCHITECTURE-SEPARATION.md.
+ */
 import Link from "next/link";
 
-// Honest org status. There is no 501(c)(3) / EIN / registration doc in
-// the repo, so no page may call AfterCare a registered nonprofit.
+/** Honest org status — never claim registered nonprofit / 501(c)(3). */
 export const ORG_STATUS =
   "A social-impact project working toward nonprofit status.";
 
@@ -25,17 +16,17 @@ export const VERIFIED_MEANING =
 
 export const UNVERIFIED_LABEL = "Unverified — call to confirm";
 
-// Small status label for a resource row. `verified` is a boolean from
-// the resource catalog (CSV `verified` column). Unverified rows ALWAYS
-// get the explicit "Unverified — call to confirm" label — never a
-// Verified badge, never silence. Flat bordered label, no pill, no glow.
+/**
+ * Resource verification label.
+ * @param {{ verified: boolean }} props
+ */
 export function VerificationBadge({ verified }) {
   if (verified) {
     return (
       <span
         style={{
-          border: "1.5px solid #1a1611",
-          color: "#1a1611",
+          border: "1.5px solid #06283d",
+          color: "#06283d",
           fontWeight: 700,
           fontSize: 12,
           padding: "5px 10px",
@@ -51,8 +42,8 @@ export function VerificationBadge({ verified }) {
   return (
     <span
       style={{
-        border: "1.5px solid #b3400f",
-        color: "#b3400f",
+        border: "1.5px solid #b42318",
+        color: "#b42318",
         fontWeight: 700,
         fontSize: 12,
         padding: "5px 10px",
@@ -66,6 +57,7 @@ export function VerificationBadge({ verified }) {
   );
 }
 
+/** Persistent crisis numbers on every org page. */
 export function CrisisStrip() {
   return (
     <div className="mk-crisis" role="region" aria-label="Crisis hotlines">
@@ -73,7 +65,8 @@ export function CrisisStrip() {
         <b>In danger right now?</b> Call or text <b>988</b> (Suicide &amp;
         Crisis Lifeline, 24/7). Nowhere to sleep tonight? Covenant House is{" "}
         <b>1-800-388-3888</b>. LGBTQ+ youth crisis support: The Trevor Project{" "}
-        <b>1-866-488-7386</b>. If someone is being hurt, call <b>911</b>.
+        <b>1-866-488-7386</b>. Community resources: dial <b>211</b>. If someone
+        is being hurt, call <b>911</b>.
       </div>
     </div>
   );
@@ -82,31 +75,32 @@ export function CrisisStrip() {
 const NAV_LINKS = [
   { href: "/about", label: "About" },
   { href: "/programs", label: "Programs" },
-  { href: "/research", label: "Research" },
-  { href: "/impact", label: "Impact" },
-  { href: "/stories", label: "Stories" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/resources", label: "Resources" },
   { href: "/get-involved", label: "Get involved" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
-  { href: "/services", label: "Find services" },
-  { href: "/download", label: "Download" },
 ];
 
+/** Sticky org navigation with Get help CTA. */
 export function OrgNav() {
   return (
-    <nav className="mk-nav">
+    <nav className="mk-nav" aria-label="Primary">
+      <div className="mk-nav-crisis">
+        Crisis? <a href="tel:988">988</a>
+        {" · "}
+        <a href="tel:18003883888">Covenant House 1-800-388-3888</a>
+        {" · "}
+        <a href="tel:18664887386">Trevor Project</a>
+        {" · "}
+        <a href="tel:211">211</a>
+      </div>
       <div className="mk-wrap">
-        <div className="mk-nav-top">
-          <span>
-            AfterCare — the life navigator for <b>foster youth</b>
-          </span>
-          <span>For everyone · Every ZIP code · Every day</span>
-        </div>
         <div className="mk-nav-inner">
           <Link href="/" className="mk-brand">
             AfterCare<i>.</i>
           </Link>
-          <span className="mk-brand-sub">Foster youth, first</span>
+          <span className="mk-brand-sub">Built by foster kids, for foster kids</span>
           <div className="mk-nav-links">
             {NAV_LINKS.map((l) => (
               <Link key={l.href} href={l.href}>
@@ -115,10 +109,8 @@ export function OrgNav() {
             ))}
           </div>
           <Link href="/app" className="mk-nav-cta">
-            Open the app →
+            Get help now
           </Link>
-          {/* CSS-only mobile menu: <details> needs no JS and every link
-              below is a real page. */}
           <details className="mk-menu">
             <summary className="mk-menu-btn" aria-label="Open menu">
               Menu
@@ -129,7 +121,9 @@ export function OrgNav() {
                   {l.label}
                 </Link>
               ))}
-              <Link href="/app">Open the app</Link>
+              <Link href="/services">Find services</Link>
+              <Link href="/download">Download</Link>
+              <Link href="/app">Get help now</Link>
             </div>
           </details>
         </div>
@@ -143,42 +137,36 @@ const FOOTER_COLS = [
     heading: "Explore",
     links: [
       { href: "/", label: "Home" },
-      { href: "/about", label: "About us" },
+      { href: "/about", label: "About" },
       { href: "/programs", label: "Programs" },
-      { href: "/research", label: "Research" },
+      { href: "/how-it-works", label: "How it works" },
       { href: "/impact", label: "Impact" },
-      { href: "/stories", label: "Stories" },
     ],
   },
   {
     heading: "Get help",
     links: [
-      { href: "/services", label: "Find services" },
       { href: "/app", label: "Open the app" },
-      { href: "/download", label: "Download the app" },
+      { href: "/resources", label: "Resources hub" },
+      { href: "/services", label: "Find services" },
+      { href: "/programs/drivers-license", label: "Driver's license help" },
+      { href: "/download", label: "Download" },
     ],
   },
   {
     heading: "Get involved",
     links: [
-      { href: "/get-involved", label: "Get involved" },
-      { href: "/get-involved#youth", label: "For youth" },
-      { href: "/get-involved#adults", label: "For caring adults" },
-      { href: "/get-involved#partners", label: "For orgs & partners" },
-    ],
-  },
-  {
-    heading: "About this site",
-    links: [
+      { href: "/get-involved", label: "Volunteer & partner" },
+      { href: "/get-involved#donate", label: "Donate (placeholder)" },
       { href: "/contact", label: "Contact" },
       { href: "/faq", label: "FAQ" },
-      { href: "/sitemap.xml", label: "Sitemap" },
       { href: "/privacy", label: "Privacy (draft)" },
       { href: "/terms", label: "Terms (draft)" },
     ],
   },
 ];
 
+/** Site footer for org pages. */
 export function OrgFooter() {
   return (
     <footer className="mk-footer">
@@ -189,8 +177,9 @@ export function OrgFooter() {
               AfterCare<i>.</i>
             </span>
             <p>
-              The life navigator for foster youth — for everyone, every ZIP
-              code, every day. {ORG_STATUS}
+              The AI life navigator built by foster kids, for foster youth —
+              every &ldquo;how do I adult&rdquo; step in one place. {ORG_STATUS}{" "}
+              Free forever for foster youth.
             </p>
           </div>
           {FOOTER_COLS.map((col) => (
@@ -205,12 +194,16 @@ export function OrgFooter() {
           ))}
         </div>
         <div className="mk-footer-base">
-          <span>© {new Date().getFullYear()} AfterCare · Free forever for foster youth</span>
+          <span>
+            © {new Date().getFullYear()} AfterCare · Founded by Biniam Efrem ·
+            Free forever for foster youth
+          </span>
           <p>
             Privacy &amp; Terms are plain-English drafts, not yet reviewed by a
-            lawyer. Resource listings marked “Unverified — call to confirm”
-            have not had their details confirmed yet — call ahead before you
-            rely on one.
+            lawyer. Resource listings marked &ldquo;Unverified — call to
+            confirm&rdquo; have not had their details confirmed yet — call ahead
+            before you rely on one. AfterCare does not provide clinical or legal
+            advice.
           </p>
         </div>
       </div>

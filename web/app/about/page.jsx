@@ -1,21 +1,26 @@
 import Link from "next/link";
-import { OrgArt } from "@/components/org-art";
 import {
   OrgNav,
   OrgFooter,
   CrisisStrip,
   ORG_STATUS,
 } from "@/components/site-chrome";
+import {
+  FounderFigure,
+  FounderStoryPlaceholder,
+  FOUNDER_JOURNEY,
+  FOUNDER_PHOTOS,
+} from "@/components/founder-photos";
 import "../marketing.css";
 
 export const metadata = {
-  title: "About us",
+  title: "About",
   description:
-    "AfterCare's story, organization background, goals, and honest status — a social-impact project working toward nonprofit status.",
+    "About AfterCare and founder Biniam Efrem — a former foster youth building the AI life navigator he needed. Social-impact project working toward nonprofit status.",
   openGraph: {
-    title: "About us · AfterCare",
+    title: "About · AfterCare",
     description:
-      "AfterCare's story, organization background, goals, and honest status — a social-impact project working toward nonprofit status.",
+      "Built by Biniam Efrem, a former foster youth, for the young people coming after him.",
     type: "website",
   },
 };
@@ -26,16 +31,16 @@ const GOALS = [
     body: "Every young person leaving care has a guide in their pocket — answers, steps, and a plan, any hour of the day.",
   },
   {
-    title: "Help that reaches every ZIP code",
-    body: "A directory that starts in California and grows state by state until help near home is findable anywhere in America.",
+    title: "Every how-do-I-adult step",
+    body: "Driver's license, documents, housing, money, benefits, school, jobs, health, legal rights, AB 12, parenting — one navigator.",
   },
   {
     title: "Finished things, not just information",
-    body: "Success is a bank account opened, a grant applied for, a shelter reached — not another page read.",
+    body: "Success is a permit passed, a bank account opened, a grant applied for — not another page read.",
   },
   {
-    title: "Built with lived experience, not about it",
-    body: "Designed by someone who went through foster care, shaped by the people it serves — never a lecture from the outside.",
+    title: "Built with lived experience",
+    body: "Designed by someone who went through foster care, shaped by the people it serves.",
   },
 ];
 
@@ -67,126 +72,130 @@ export default function About() {
         <div className="mk-wrap">
           <p className="mk-kicker">About AfterCare</p>
           <h1 className="mk-h1">
-            Built by someone who went through it, <em>for the people coming after him.</em>
+            Built by someone who went through it,{" "}
+            <em>for the people coming after him.</em>
           </h1>
           <p className="mk-deck">
-            AfterCare is a social-impact project for foster youth ages 16–24 —
-            and for the adults and organizations who show up for them.
+            AfterCare is founded by Biniam Efrem, a former foster youth. It is
+            a social-impact project for foster youth ages 16–24 — free forever.
           </p>
         </div>
       </header>
 
-      {/* ── Our story: long-form with drop cap ── */}
       <section className="mk-section" id="story">
         <div className="mk-wrap">
-          <p className="mk-kicker">01 — Our story</p>
+          <p className="mk-kicker">Founder</p>
           <div className="mk-split">
             <div>
-              <h2 className="mk-h2">This isn&rsquo;t charity work.</h2>
-              <p className="mk-lead mk-dropcap">
-                AfterCare is being built by someone who went through foster
-                care and is building the thing he needed when he was in it.
-                Youth can tell instantly when something was designed by
-                someone who&rsquo;s never been where they are. The tone, the
-                questions it asks first, what it refuses to lecture you about —
-                all of that comes from lived experience, not a focus group.
+              <h2 className="mk-h2">Biniam Efrem</h2>
+              <p className="mk-lead">
+                Biniam is a former foster youth and the founder of AfterCare.
+                The photos on this page are real moments from his life —
+                graduation, family, first job, first car — the same milestones
+                AfterCare now helps other young people reach.
               </p>
+              <FounderStoryPlaceholder />
             </div>
-            <aside>
-              <figure className="mk-art" aria-hidden="true">
-                <OrgArt kind="table" />
-                <figcaption>
-                  <b>Fig. 1 —</b> Help that happens at a table, not in a
-                  portal. A cup, a key, a page of paperwork, made plain.
-                </figcaption>
-              </figure>
-              <p className="mk-caption" style={{ marginTop: 18 }}>
-                <b>Editor&rsquo;s note.</b> This section says only what
-                Binyam has stated himself.
-              </p>
-            </aside>
+            <FounderFigure
+              photoId="grad-mom"
+              priority
+              sizes="(max-width: 860px) 100vw, 480px"
+            />
           </div>
         </div>
       </section>
 
-      {/* ── Organization background: essay with margin ── */}
+      <section className="mk-section mk-section-alt" id="journey">
+        <div className="mk-wrap">
+          <p className="mk-kicker">The journey</p>
+          <h2 className="mk-h2">Foster care → graduation → first job → first car.</h2>
+          <p className="mk-deck">
+            Simple captions only. No invented quotes. These are Biniam&rsquo;s
+            photos; the story text above is reserved for him to write.
+          </p>
+          <div className="mk-journey">
+            {FOUNDER_JOURNEY.map((j) => (
+              <div className="mk-journey-step" key={j.step}>
+                <span className="mk-step-num">{j.step} — {j.title}</span>
+                <FounderFigure photoId={j.photoId} sizes="(max-width: 800px) 100vw, 25vw" />
+                <p>{j.blurb}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mk-grid-2" style={{ marginTop: 36 }}>
+            {FOUNDER_PHOTOS.filter((p) => p.id === "grad-dad").map((p) => (
+              <FounderFigure key={p.id} photoId={p.id} sizes="(max-width: 700px) 100vw, 50vw" />
+            ))}
+            <FounderFigure photoId="first-car" sizes="(max-width: 700px) 100vw, 50vw" />
+          </div>
+        </div>
+      </section>
+
       <section className="mk-section" id="background">
         <div className="mk-wrap">
-          <p className="mk-kicker">02 — Organization background</p>
+          <p className="mk-kicker">What AfterCare is</p>
           <div className="mk-split">
             <div>
-              <h2 className="mk-h2">What AfterCare is.</h2>
+              <h2 className="mk-h2">An AI life navigator plus a services directory.</h2>
               <p className="mk-lead">
-                AfterCare is an AI life navigator plus a services directory for
-                foster youth. The navigator answers questions and walks a young
-                person through real tasks — housing, health, work, money, and
-                paperwork — one finished thing at a time. The directory lists
-                real programs near them, with honest labels about what has and
-                hasn&rsquo;t been verified yet.
-              </p>
-              <p className="mk-lead">
-                The work is built for everyone, every ZIP code, every day. The
-                directory covers California today and grows from there — the
-                goal is a young person anywhere in America finding help near
-                home.
+                The navigator answers questions and walks a young person through
+                real tasks — one finished thing at a time. The directory lists
+                real California programs with honest verification labels. Quests
+                turn big adult tasks into steps you can complete.
               </p>
               <div className="mk-cta-row">
                 <Link href="/programs" className="mk-btn mk-btn-primary">
-                  Explore programs →
+                  Explore programs
                 </Link>
-                <Link href="/research" className="mk-btn mk-btn-ghost">
-                  See the research
+                <Link href="/how-it-works" className="mk-btn mk-btn-ghost">
+                  How it works
                 </Link>
               </div>
             </div>
             <aside>
               <p className="mk-kicker">At a glance</p>
               <p className="mk-lead" style={{ marginTop: 0 }}>
-                <b style={{ color: "var(--ink)" }}>Who it serves:</b> foster
-                youth ages 16–24, and the adults and organizations who show
-                up for them.
+                <strong>Who:</strong> foster youth ages 16–24, and the adults
+                and organizations who show up for them.
               </p>
               <p className="mk-lead">
-                <b style={{ color: "var(--ink)" }}>What it is:</b> a
-                navigator app plus a services directory. One guide, one map.
+                <strong>What:</strong> navigator app, Quests, Panic Button,
+                services directory.
               </p>
               <p className="mk-lead">
-                <b style={{ color: "var(--ink)" }}>What it costs:</b> nothing.
-                Free forever for foster youth.
+                <strong>Cost:</strong> free forever for foster youth.
+              </p>
+              <p className="mk-lead">
+                <strong>Status:</strong> {ORG_STATUS}
               </p>
             </aside>
           </div>
         </div>
       </section>
 
-      {/* ── Our goals: numbered ledger ── */}
-      <section className="mk-section" id="goals">
+      <section className="mk-section mk-section-alt" id="goals">
         <div className="mk-wrap">
-          <p className="mk-kicker">03 — Our goals</p>
+          <p className="mk-kicker">Goals</p>
           <h2 className="mk-h2">What we&rsquo;re working toward.</h2>
-          <div className="mk-ledger">
+          <div className="mk-grid-2">
             {GOALS.map((g, i) => (
-              <div className="mk-ledger-row" key={g.title}>
-                <div className="mk-ledger-num">0{i + 1}</div>
-                <div>
-                  <h3>{g.title}</h3>
-                  <p>{g.body}</p>
-                </div>
+              <div className="mk-tile" key={g.title}>
+                <span className="mk-step-num">0{i + 1}</span>
+                <h3>{g.title}</h3>
+                <p>{g.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Transparency: claim / status table ── */}
       <section className="mk-section" id="transparency">
         <div className="mk-wrap">
-          <p className="mk-kicker">04 — Transparency</p>
+          <p className="mk-kicker">Transparency</p>
           <h2 className="mk-h2">The honest status.</h2>
           <p className="mk-deck">
-            {ORG_STATUS} That is the honest status: the work is real, the
-            product is live in your browser, and the formal nonprofit filing
-            is still ahead of us.
+            {ORG_STATUS} The work is real, the product is live in your browser,
+            and the formal nonprofit filing is still ahead.
           </p>
           <table className="mk-table">
             <thead>
@@ -198,17 +207,14 @@ export default function About() {
             <tbody>
               {TRANSPARENCY.map((t) => (
                 <tr key={t.claim}>
-                  <td style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: "var(--ink)" }}>{t.claim}</td>
+                  <td>
+                    <strong>{t.claim}</strong>
+                  </td>
                   <td>{t.status}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="mk-cta-row">
-            <Link href="/impact" className="mk-btn">
-              How we measure impact →
-            </Link>
-          </div>
         </div>
       </section>
 
