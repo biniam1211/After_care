@@ -127,6 +127,18 @@ export const GENERATED_RESOURCES = {
     "tag": "Verified",
     "verified": true
   },
+  "ifoster-peers": {
+    "name": "iFoster — Peers Paving the Path",
+    "cat": "Health",
+    "catColor": "mint",
+    "blurb": "Pairs current and former foster youth with a Medi-Cal Certified Peer Support Specialist who has lived experience. Free for eligible CA youth ages 16–26 enrolled in a Medi-Cal Managed Care Plan.",
+    "meta": "Call/text 530-550-8001 · California",
+    "phone": "530-550-8001",
+    "url": "https://www.ifoster.org/peers-paving-the-path/",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
+  },
   "jbay": {
     "name": "John Burton Advocates for Youth",
     "cat": "Legal",

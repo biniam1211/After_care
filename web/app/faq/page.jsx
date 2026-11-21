@@ -41,6 +41,21 @@ const FAQS = [
     link: { href: "/programs/drivers-license", label: "Driver's license program →" },
   },
   {
+    q: "What Quests are available in the app?",
+    a: "Interactive Quests today include First Bank Account, Learner's Permit & Driver's License, Vital Documents, Housing Plan, First Job, Chafee Grant, Health Coverage to 26, credit, and taxes. Start with /start-here if you're unsure of the order.",
+    link: { href: "/start-here", label: "Start here path →" },
+  },
+  {
+    q: "Is AfterCare the White House “Fostering the Future” platform?",
+    a: "No. Executive Order 14359 (Nov 13, 2025) directs HHS to plan tools for youth leaving foster care. AfterCare independently serves that same gap. We cite the order for context and do not claim to be a federal deliverable or government partner.",
+    link: { href: "/research#policy", label: "Research note →" },
+  },
+  {
+    q: "What is iFoster Peers Paving the Path?",
+    a: "A free iFoster program (separate organization) pairing eligible California foster youth 16–26 on Medi-Cal Managed Care with Certified Peer Support Specialists who have lived experience. Listed in our directory with the official page confirmed. Call/text 530-550-8001.",
+    link: { href: "/resources#peers", label: "Resources hub →" },
+  },
+  {
     q: "What areas does the Services directory cover?",
     a: "Today the directory is California-focused: 65 listings, a subset with their official page confirmed. The rest are labeled “Unverified — call to confirm.”",
     link: { href: "/services", label: "Find services →" },

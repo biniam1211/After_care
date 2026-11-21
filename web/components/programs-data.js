@@ -19,6 +19,12 @@
  */
 
 /**
+ * @typedef {object} ProgramFaq
+ * @property {string} q
+ * @property {string} a
+ */
+
+/**
  * @typedef {object} Program
  * @property {string} slug
  * @property {string} title
@@ -30,6 +36,8 @@
  * @property {ProgramStep[]} [steps]
  * @property {string[]} [notes]
  * @property {ProgramSource[]} [sources]
+ * @property {ProgramFaq[]} [faqs]
+ * @property {string[]} [related]
  * @property {string | null} [questSlug]
  * @property {string | null} [photoId]
  * @property {boolean} [flagship]
@@ -106,6 +114,21 @@ export const PROGRAMS = [
         href: "https://www.mylowcostauto.com/",
       },
     ],
+    faqs: [
+      {
+        q: "Can my social worker sign for my permit?",
+        a: "Yes — per CDSS guidance, a child protective services worker or probation officer may sign if you file proof of financial responsibility (insurance). Relatives and a foster parent you live with may also sign (with liability implications).",
+      },
+      {
+        q: "Do I need driver's ed if I'm 18?",
+        a: "Adults 18+ still start with an instruction permit before a first California license, but the under-18 driver's ed certificate rules do not apply the same way. Confirm on dmv.ca.gov for your situation.",
+      },
+      {
+        q: "What if I can't afford insurance?",
+        a: "Ask about the California Low Cost Automobile Insurance Program and whether your county ILP can help with training or insurance costs — help varies by county.",
+      },
+    ],
+    related: ["vital-documents", "jobs", "money"],
   },
   {
     slug: "vital-documents",
@@ -115,7 +138,7 @@ export const PROGRAMS = [
     summary:
       "Without a birth certificate, SSN card, or state ID, almost every adult task stalls. AfterCare helps you figure out which documents you need, where to request them in California, and how to store copies safely.",
     whoFor: "Youth who need identity documents to open accounts, work, drive, or apply for benefits.",
-    questSlug: null,
+    questSlug: "vital-documents",
     highlights: [
       "Birth certificate and Social Security card requests",
       "California state ID vs. driver's license",
@@ -140,6 +163,17 @@ export const PROGRAMS = [
       { label: "California DMV — ID cards", href: "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/identification-id-cards/" },
       { label: "Social Security Administration — replacement card", href: "https://www.ssa.gov/ssnumber/" },
     ],
+    faqs: [
+      {
+        q: "Can I get a state ID without a driver's license?",
+        a: "Yes. The California DMV issues identification cards separately from driver's licenses.",
+      },
+      {
+        q: "Who can help me pay for certified copies?",
+        a: "Ask your social worker or ILP — many counties help youth get vital records. Fees and processes are set by the issuing agency.",
+      },
+    ],
+    related: ["drivers-license", "money", "jobs", "benefits"],
   },
   {
     slug: "housing",
@@ -149,7 +183,7 @@ export const PROGRAMS = [
     summary:
       "Emergency shelter, transitional housing, and the practical steps to keep a roof over your head. The Panic Button and Services directory surface numbers that pick up; this program explains the path.",
     whoFor: "Youth facing homelessness, placement ending, or looking for independent housing.",
-    questSlug: null,
+    questSlug: "housing-plan",
     highlights: [
       "Crisis shelter pathways (including Covenant House)",
       "Transitional and supportive housing pointers",
@@ -161,6 +195,17 @@ export const PROGRAMS = [
       { title: "Plan the next roof", body: "Shared housing, roommate agreements, and tenant rights — go step by step so you are not rushed into a bad lease." },
     ],
     notes: ["AfterCare is not a shelter provider. Always call ahead to confirm beds and eligibility."],
+    faqs: [
+      {
+        q: "What if I have nowhere to sleep tonight?",
+        a: "Use the Panic Button in the app, call 211, or Covenant House at 1-800-388-3888. Do that before paperwork.",
+      },
+      {
+        q: "Is AfterCare a shelter?",
+        a: "No. We navigate and connect you to real programs. Always call ahead to confirm beds and who they serve.",
+      },
+    ],
+    related: ["benefits", "legal-rights", "extended-foster-care", "money"],
   },
   {
     slug: "money",
@@ -181,6 +226,17 @@ export const PROGRAMS = [
       { title: "Check your credit reports", body: "Pull free reports at AnnualCreditReport.com. Dispute anything that is not yours." },
       { title: "Build credit slowly", body: "A secured card or credit-builder product, used tiny and paid in full, is safer than a big limit you do not need." },
     ],
+    faqs: [
+      {
+        q: "Do I need a parent to open a bank account?",
+        a: "At 18, no. Some banks also serve 16–17-year-olds — the First Bank Account Quest walks you through fee-free options.",
+      },
+      {
+        q: "What if someone used my SSN?",
+        a: "Pull free credit reports and dispute anything that is not yours. A JBAY advocate or caseworker can help with identity theft cleanup.",
+      },
+    ],
+    related: ["vital-documents", "jobs", "benefits", "education"],
   },
   {
     slug: "benefits",
@@ -239,7 +295,7 @@ export const PROGRAMS = [
     summary:
       "From your first shift to a steadier role: work authorization, how to apply, what to wear, and how to keep a paycheck flowing into a real bank account.",
     whoFor: "Youth looking for work or stabilizing employment.",
-    questSlug: null,
+    questSlug: "first-job",
     photoId: "first-job",
     highlights: [
       "First-job basics and interview prep",
@@ -251,6 +307,17 @@ export const PROGRAMS = [
       { title: "Apply and practice", body: "Start local — retail, warehouse, food service, campus jobs. Practice answers out loud once." },
       { title: "Protect your paycheck", body: "Direct deposit into your own account beats check-cashing fees every time." },
     ],
+    faqs: [
+      {
+        q: "I have no work history. Can I still get hired?",
+        a: "Yes. Many first jobs hire for reliability and availability. Start local and be honest about your schedule.",
+      },
+      {
+        q: "Where should my paycheck go?",
+        a: "Into an account in your name. Use the First Bank Account Quest so check-cashing places do not take a cut.",
+      },
+    ],
+    related: ["vital-documents", "money", "education", "drivers-license"],
   },
   {
     slug: "health",
@@ -271,7 +338,23 @@ export const PROGRAMS = [
       { title: "Find care", body: "Use your plan directory or county clinic list. Ask about transportation help through Medi-Cal if you qualify." },
       { title: "In a crisis", body: "Call or text 988. LGBTQ+ youth: The Trevor Project 1-866-488-7386. If someone is being hurt, call 911." },
     ],
-    notes: ["AfterCare does not provide therapy, diagnosis, or medical treatment."],
+    notes: [
+      "AfterCare does not provide therapy, diagnosis, or medical treatment.",
+      "iFoster’s Peers Paving the Path is a separate organization’s program — AfterCare is not affiliated; we list it because the official page is confirmed.",
+    ],
+    sources: [
+      {
+        label: "iFoster — Peers Paving the Path",
+        href: "https://www.ifoster.org/peers-paving-the-path/",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is Peers Paving the Path?",
+        a: "iFoster’s free California program pairs eligible current/former foster youth (16–26, Medi-Cal Managed Care) with a Certified Peer Support Specialist who has lived foster-care experience. Confirm enrollment details on iFoster’s site or at 530-550-8001.",
+      },
+    ],
+    related: ["benefits", "housing", "parenting-youth"],
   },
   {
     slug: "legal-rights",

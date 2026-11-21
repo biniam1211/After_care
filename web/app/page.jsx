@@ -176,21 +176,98 @@ export default function Home() {
             <div className="mk-tile">
               <span className="mk-step-num">02</span>
               <h3>Follow a Quest</h3>
-              <p>Break big adult tasks into small wins. Driver&rsquo;s license and first bank account are ready today.</p>
+              <p>Driver&rsquo;s license, documents, bank account, housing plan, first job, Chafee, health to 26 — small wins that finish.</p>
             </div>
             <div className="mk-tile">
               <span className="mk-step-num">03</span>
               <h3>Find real services</h3>
-              <p>65 California listings from a fixed catalog — never invented numbers. {VERIFIED_MEANING}</p>
+              <p>California listings from a fixed catalog — never invented numbers. {VERIFIED_MEANING}</p>
             </div>
           </div>
           <div className="mk-cta-row">
+            <Link href="/start-here" className="mk-btn mk-btn-primary">
+              Start here path
+            </Link>
             <Link href="/how-it-works" className="mk-btn mk-btn-ghost">
               How AfterCare works
             </Link>
             <Link href="/resources" className="mk-btn mk-btn-ghost">
               Resources hub
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-alt" id="quests">
+        <div className="mk-wrap">
+          <p className="mk-kicker">Quests in the app</p>
+          <h2 className="mk-h2">More ways to finish the job.</h2>
+          <p className="mk-deck">
+            Interactive step-by-step Quests — including the driver&rsquo;s license
+            flagship — without breaking the original First Bank Account path.
+          </p>
+          <div className="mk-grid-3">
+            {[
+              { href: "/programs/drivers-license", title: "Learner’s permit & license", body: "California DMV steps with official sources." },
+              { href: "/programs/vital-documents", title: "Vital documents", body: "Birth certificate, SSN card, state ID." },
+              { href: "/programs/money", title: "First bank account", body: "No parent. No co-signer. No fees." },
+              { href: "/programs/housing", title: "Housing plan", body: "Safe tonight, stable next month." },
+              { href: "/programs/jobs", title: "First job", body: "Apply, interview, protect your paycheck." },
+              { href: "/programs/education", title: "Chafee Grant", body: "Up to $5,000/year for school or training." },
+            ].map((q) => (
+              <Link key={q.href} href={q.href} className="mk-tile">
+                <span className="mk-badge mk-badge-live">Quest</span>
+                <h3>{q.title}</h3>
+                <p>{q.body}</p>
+                <span className="mk-tile-link">Open →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section" id="policy">
+        <div className="mk-wrap mk-split">
+          <div>
+            <p className="mk-kicker">Why now</p>
+            <h2 className="mk-h2">The country is naming the same gap.</h2>
+            <p className="mk-lead">
+              Executive Order 14359 (Nov 13, 2025) directs work toward tools that
+              help youth leaving foster care find housing, education, employment,
+              healthcare, and mentoring — with customized plans. AfterCare is
+              independently building for that need. We are not the federal
+              platform and do not claim government partnership.
+            </p>
+            <div className="mk-cta-row">
+              <Link href="/research#policy" className="mk-btn mk-btn-ghost">
+                Policy &amp; research note
+              </Link>
+              <a
+                className="mk-btn mk-btn-ghost"
+                href="https://www.whitehouse.gov/presidential-actions/2025/11/fostering-the-future-for-american-children-and-families/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Read EO 14359
+              </a>
+            </div>
+          </div>
+          <div className="mk-tile" style={{ alignSelf: "start" }}>
+            <span className="mk-badge mk-badge-live">Verified listing</span>
+            <h3>iFoster Peers Paving the Path</h3>
+            <p>
+              Free peer support for eligible CA foster youth 16–26 with Medi-Cal
+              Managed Care — specialists with lived experience. Separate org;
+              official page confirmed.
+            </p>
+            <a
+              className="mk-tile-link"
+              href="https://www.ifoster.org/peers-paving-the-path/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              ifoster.org →
+            </a>
           </div>
         </div>
       </section>

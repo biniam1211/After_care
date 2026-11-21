@@ -73,10 +73,12 @@ export function CrisisStrip() {
 }
 
 const NAV_LINKS = [
+  { href: "/start-here", label: "Start here" },
   { href: "/about", label: "About" },
   { href: "/programs", label: "Programs" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/resources", label: "Resources" },
+  { href: "/research", label: "Research" },
   { href: "/get-involved", label: "Get involved" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
@@ -137,9 +139,11 @@ const FOOTER_COLS = [
     heading: "Explore",
     links: [
       { href: "/", label: "Home" },
+      { href: "/start-here", label: "Start here" },
       { href: "/about", label: "About" },
       { href: "/programs", label: "Programs" },
       { href: "/how-it-works", label: "How it works" },
+      { href: "/research", label: "Research" },
       { href: "/impact", label: "Impact" },
     ],
   },
@@ -150,6 +154,7 @@ const FOOTER_COLS = [
       { href: "/resources", label: "Resources hub" },
       { href: "/services", label: "Find services" },
       { href: "/programs/drivers-license", label: "Driver's license help" },
+      { href: "/programs/vital-documents", label: "Vital documents" },
       { href: "/download", label: "Download" },
     ],
   },

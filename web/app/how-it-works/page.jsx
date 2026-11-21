@@ -92,6 +92,11 @@ export default function HowItWorksPage() {
         <div className="mk-wrap">
           <p className="mk-kicker">What you can do today</p>
           <div className="mk-grid-3">
+            <Link href="/start-here" className="mk-tile">
+              <h3>Start here path</h3>
+              <p>Crisis first, then documents → bank → license → benefits → school/work.</p>
+              <span className="mk-tile-link">Open →</span>
+            </Link>
             <Link href="/programs/drivers-license" className="mk-tile">
               <h3>Driver&rsquo;s license</h3>
               <p>Flagship program + Quest for California permit and license steps.</p>
@@ -99,13 +104,8 @@ export default function HowItWorksPage() {
             </Link>
             <Link href="/services" className="mk-tile">
               <h3>Services directory</h3>
-              <p>65 California listings with honest verification labels.</p>
+              <p>California listings with honest verification labels — including iFoster peers.</p>
               <span className="mk-tile-link">Browse →</span>
-            </Link>
-            <Link href="/download" className="mk-tile">
-              <h3>Put it on your phone</h3>
-              <p>Add to Home Screen now. App Store / TestFlight are not live yet.</p>
-              <span className="mk-tile-link">Download →</span>
             </Link>
           </div>
         </div>

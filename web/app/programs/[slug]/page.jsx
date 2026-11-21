@@ -47,7 +47,14 @@ export default async function ProgramPage({ params }) {
   const program = getProgram(slug);
   if (!program) notFound();
 
-  const others = PROGRAMS.filter((p) => p.slug !== program.slug).slice(0, 6);
+  const related = (program.related || [])
+    .map((s) => getProgram(s))
+    .filter(Boolean);
+  const others = (
+    related.length > 0
+      ? related
+      : PROGRAMS.filter((p) => p.slug !== program.slug)
+  ).slice(0, 6);
 
   return (
     <div className="mk">
@@ -63,16 +70,19 @@ export default async function ProgramPage({ params }) {
           {program.flagship && (
             <span className="mk-badge mk-badge-flagship">Flagship</span>
           )}
-          <h1 className="mk-h1" style={{ marginTop: program.flagship ? 12 : 0 }}>
+          {program.questSlug && !program.flagship && (
+            <span className="mk-badge mk-badge-live">Quest in the app</span>
+          )}
+          <h1 className="mk-h1" style={{ marginTop: (program.flagship || program.questSlug) ? 12 : 0 }}>
             {program.title}
           </h1>
           <p className="mk-deck">{program.tagline}</p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-primary">
-              {program.questSlug ? "Start in the app" : "Ask AfterCare"}
+              {program.questSlug ? "Start the Quest" : "Ask AfterCare"}
             </Link>
-            <Link href="/resources" className="mk-btn mk-btn-ghost">
-              Resources hub
+            <Link href="/start-here" className="mk-btn mk-btn-ghost">
+              Not sure where to start?
             </Link>
           </div>
         </div>
@@ -159,13 +169,58 @@ export default async function ProgramPage({ params }) {
         </section>
       )}
 
+      {program.faqs?.length > 0 && (
+        <section className="mk-section" id="faq">
+          <div className="mk-wrap mk-wrap-narrow" style={{ maxWidth: 760, margin: "0 auto" }}>
+            <p className="mk-kicker">FAQ</p>
+            <h2 className="mk-h2">Common questions</h2>
+            <div className="mk-faq">
+              {program.faqs.map((f) => (
+                <details key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="mk-section mk-section-harbor" id="quest-cta">
+        <div className="mk-wrap">
+          <p className="mk-kicker">In the app</p>
+          <h2 className="mk-h2">
+            {program.questSlug
+              ? "Ready to finish this step by step?"
+              : "Ask AfterCare about this"}
+          </h2>
+          <p className="mk-deck">
+            {program.questSlug
+              ? "Open the navigator, start the matching Quest, and check off each win. Crisis help stays one tap away."
+              : "The chat can still walk you through this live while we build a dedicated Quest."}
+          </p>
+          <div className="mk-cta-row">
+            <Link href="/app" className="mk-btn mk-btn-on-dark">
+              Open the app
+            </Link>
+            <Link href="/resources" className="mk-btn mk-btn-ghost-on-dark">
+              Resources hub
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="mk-section">
         <div className="mk-wrap">
-          <p className="mk-kicker">More programs</p>
+          <p className="mk-kicker">{related.length ? "Related programs" : "More programs"}</p>
           <h2 className="mk-h2">Keep going</h2>
           <div className="mk-grid-3">
             {others.map((p) => (
               <Link key={p.slug} href={`/programs/${p.slug}`} className="mk-tile">
+                {p.flagship && <span className="mk-badge mk-badge-flagship">Flagship</span>}
+                {p.questSlug && !p.flagship && (
+                  <span className="mk-badge mk-badge-live">Quest</span>
+                )}
                 <h3>{p.shortTitle}</h3>
                 <p>{p.tagline}</p>
                 <span className="mk-tile-link">View →</span>

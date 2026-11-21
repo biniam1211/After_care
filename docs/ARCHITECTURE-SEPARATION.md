@@ -37,9 +37,11 @@ together in one Next.js app with shared copy. Now they are explicit:
 /                  org landing (mission, founder journey photos,
                    programs preview, Get help now CTA)
  /about            founder story (placeholder + real photos), transparency
+ /start-here       guided path: crisis → docs → bank → license → benefits
  /programs         all service areas; /programs/drivers-license is flagship
  /how-it-works     how the navigator, Quests, and Panic Button work
  /resources        crisis lines + directory + program guides hub
+ /research         accessibility gap + EO 14359 context + peer support note
  /services         resource directory (org surface, same catalog)
  /get-involved     youth / adults / partners + donate placeholder
  /faq /contact     honest FAQ and contact (app chat)

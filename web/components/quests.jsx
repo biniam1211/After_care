@@ -10,17 +10,16 @@ import { Logo } from "@/components/onboarding";
 import { QUESTS } from "@/components/data";
 
 const PRIMARY_SLUG = "first-bank-account";
-const FEATURED_SLUG = "drivers-license";
+const FEATURED_SLUGS = ["drivers-license", "vital-documents", "first-job", "housing-plan"];
 
 /**
  * @param {{ questProgress: Record<string, number>, onOpenQuest: (slug: string) => void }} props
  */
 export function QuestsList({ questProgress, onOpenQuest }) {
   const primary = QUESTS.find((q) => q.slug === PRIMARY_SLUG) || QUESTS[0];
-  const featured = QUESTS.find((q) => q.slug === FEATURED_SLUG);
-  const rest = QUESTS.filter(
-    (q) => q.slug !== primary.slug && (!featured || q.slug !== featured.slug)
-  );
+  const featured = FEATURED_SLUGS.map((s) => QUESTS.find((q) => q.slug === s)).filter(Boolean);
+  const featuredIds = new Set([primary.slug, ...featured.map((q) => q.slug)]);
+  const rest = QUESTS.filter((q) => !featuredIds.has(q.slug));
 
   const primaryCur = questProgress[primary.slug] || 0;
   const primaryTotal = primary.steps.length;
@@ -61,35 +60,40 @@ export function QuestsList({ questProgress, onOpenQuest }) {
         </div>
       </div>
 
-      {featured && featured.steps && (
-        <div
-          onClick={() => onOpenQuest(featured.slug)}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onOpenQuest(featured.slug); }}
-          role="button"
-          tabIndex={0}
-          style={{
-            marginTop: 12, borderRadius: "var(--r-xl)", padding: 18, cursor: "pointer",
-            background: "#fff", border: "2px solid var(--sky)", boxShadow: "var(--shadow-card)",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <IconTile name={featured.icon} tone="sky" size={46} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ color: "var(--sky)", fontWeight: 700, fontSize: 11.5, letterSpacing: 0.4, textTransform: "uppercase" }}>
-                Flagship · {(questProgress[featured.slug] || 0) > 0 ? "In progress" : "New"}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+        {featured.filter((q) => q.steps).map((q, idx) => (
+          <div
+            key={q.slug}
+            onClick={() => onOpenQuest(q.slug)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onOpenQuest(q.slug); }}
+            role="button"
+            tabIndex={0}
+            style={{
+              borderRadius: "var(--r-xl)", padding: 18, cursor: "pointer",
+              background: "#fff",
+              border: idx === 0 ? "2px solid var(--sky)" : "1px solid var(--line-soft)",
+              boxShadow: "var(--shadow-card)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <IconTile name={q.icon} tone={q.color === "harbor" ? "sky" : q.color} size={46} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ color: "var(--sky)", fontWeight: 700, fontSize: 11.5, letterSpacing: 0.4, textTransform: "uppercase" }}>
+                  {idx === 0 ? "Flagship" : "Featured"} · {(questProgress[q.slug] || 0) > 0 ? "In progress" : "New"}
+                </div>
+                <div style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 17, color: "var(--ink)", letterSpacing: -0.3, marginTop: 2 }}>{q.title}</div>
+                <div style={{ fontSize: 13.5, color: "var(--ink-soft)", marginTop: 2 }}>{q.tagline}</div>
               </div>
-              <div style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 17, color: "var(--ink)", letterSpacing: -0.3, marginTop: 2 }}>{featured.title}</div>
-              <div style={{ fontSize: 13.5, color: "var(--ink-soft)", marginTop: 2 }}>{featured.tagline}</div>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 14, color: "var(--ink)" }}>
-                {questProgress[featured.slug] || 0}/{featured.steps.length}
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: 14, color: "var(--ink)" }}>
+                  {questProgress[q.slug] || 0}/{q.steps.length}
+                </div>
+                <Icon name="chevR" size={18} color="var(--ink-faint)" sw={2.2} />
               </div>
-              <Icon name="chevR" size={18} color="var(--ink-faint)" sw={2.2} />
             </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
 
       <div style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: 14, color: "var(--ink-faint)", letterSpacing: 0.3, textTransform: "uppercase", margin: "26px 0 12px" }}>More quests</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>

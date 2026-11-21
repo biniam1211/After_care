@@ -177,6 +177,9 @@ export default function App() {
             const map = {
               "first-bank-account": "bank",
               "drivers-license": "license",
+              "vital-documents": "docs",
+              "housing-plan": "housing",
+              "first-job": "job",
               "chafee-grant": "chafee",
               "health-26": "health",
             };

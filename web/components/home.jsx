@@ -19,11 +19,12 @@ export function Home({ profile, questProgress, onOpenQuest, onTab, onPanic, onAs
   const done = cur >= total;
   const activeStep = bank.steps[Math.min(cur, total - 1)];
 
-  // Keep bank as the home hero quest; surface driver's license next.
+  // Keep bank as the home hero quest; surface new featured Quests next.
   const recommended = [
     QUESTS.find((q) => q.slug === "drivers-license"),
-    ...QUESTS.filter((q) => q.slug !== "first-bank-account" && q.slug !== "drivers-license"),
-  ].filter(Boolean).slice(0, 3);
+    QUESTS.find((q) => q.slug === "vital-documents"),
+    QUESTS.find((q) => q.slug === "first-job"),
+  ].filter(Boolean);
 
   return (
     <Screen top={62}>

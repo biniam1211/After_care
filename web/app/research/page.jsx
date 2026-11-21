@@ -3,17 +3,18 @@ import {
   OrgNav,
   OrgFooter,
   CrisisStrip,
+  ORG_STATUS,
 } from "@/components/site-chrome";
 import "../marketing.css";
 
 export const metadata = {
   title: "Research",
   description:
-    "AfterCare research & evidence: the accessibility gap, and what we measure.",
+    "AfterCare research & policy context: the accessibility gap, Executive Order 14359, and what we measure — without invented statistics.",
   openGraph: {
     title: "Research · AfterCare",
     description:
-      "AfterCare research & evidence: the accessibility gap, and what we measure.",
+      "The accessibility gap, federal policy context, and how AfterCare approaches the problem.",
     type: "website",
   },
 };
@@ -38,14 +39,13 @@ export default function Research() {
             The gap is real. <em>Closing it is the work.</em>
           </h1>
           <p className="mk-deck">
-            AfterCare exists because of the gap between help existing and
-            help reaching someone — and because everything a young person
-            needs should be on their phone, in plain language.
+            AfterCare exists because of the gap between help existing and help
+            reaching someone — and because everything a young person needs
+            should be on their phone, in plain language.
           </p>
         </div>
       </header>
 
-      {/* ── The accessibility gap: essay ── */}
       <section className="mk-pull" id="gap">
         <div className="mk-wrap">
           <p className="mk-kicker">01 — The accessibility gap</p>
@@ -61,10 +61,87 @@ export default function Research() {
         </div>
       </section>
 
-      {/* ── Approach: numbered principles ── */}
+      <section className="mk-section" id="policy">
+        <div className="mk-wrap">
+          <p className="mk-kicker">02 — Policy context</p>
+          <h2 className="mk-h2">Federal recognition of the same gap.</h2>
+          <p className="mk-lead">
+            On November 13, 2025, the White House issued{" "}
+            <strong>Executive Order 14359</strong>,{" "}
+            <em>Fostering the Future for American Children and Families</em>.
+            Among other directives, it instructs HHS to develop a
+            &ldquo;Fostering the Future&rdquo; initiative and plan an online
+            platform that helps people who have been in foster care assess
+            needs, find Federal/State/local programs (housing, education,
+            employment, healthcare, mentoring), search available resources, and
+            generate customized plans for self-sufficiency.
+          </p>
+          <p className="mk-lead">
+            AfterCare was already building toward that same need — an AI life
+            navigator with Quests, a fixed resource catalog, and crisis routing.
+            <strong> We are not claiming to be the federal platform, a
+            government partner, or an official EO deliverable.</strong>{" "}
+            {ORG_STATUS} We cite the order because it confirms the problem is
+            real at the national level.
+          </p>
+          <div className="mk-sources">
+            <h3>Primary source</h3>
+            <ul>
+              <li>
+                <a
+                  href="https://www.whitehouse.gov/presidential-actions/2025/11/fostering-the-future-for-american-children-and-families/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  White House — Executive Order 14359 (Nov 13, 2025)
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="mk-note" style={{ marginTop: 22 }}>
+            <strong>No invented impact claims.</strong> We do not publish
+            statistics we have not measured. When we quote another
+            organization&rsquo;s outcomes, we attribute them and link out.
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-alt" id="peers">
+        <div className="mk-wrap">
+          <p className="mk-kicker">03 — Peer support in the field</p>
+          <h2 className="mk-h2">Lived-experience specialists matter.</h2>
+          <p className="mk-lead">
+            iFoster&rsquo;s <strong>Peers Paving the Path</strong> program pairs
+            eligible California current and former foster youth (ages 16–26,
+            Medi-Cal Managed Care) with Medi-Cal Certified Peer Support
+            Specialists who have lived foster-care experience. It is a free
+            service from iFoster — a separate organization. AfterCare lists it
+            because the official page is confirmed; we are not affiliated.
+          </p>
+          <ul className="mk-checklist">
+            <li>Official page: ifoster.org/peers-paving-the-path</li>
+            <li>Phone / text: 530-550-8001 · support@ifoster.org</li>
+            <li>Also listed in the AfterCare services directory (Verified listing = official page confirmed)</li>
+          </ul>
+          <div className="mk-cta-row">
+            <a
+              className="mk-btn mk-btn-primary"
+              href="https://www.ifoster.org/peers-paving-the-path/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              iFoster Peers page
+            </a>
+            <Link href="/programs/health" className="mk-btn mk-btn-ghost">
+              AfterCare health program
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="mk-section" id="approach">
         <div className="mk-wrap">
-          <p className="mk-kicker">02 — Our approach</p>
+          <p className="mk-kicker">04 — Our approach</p>
           <h2 className="mk-h2">Built for how young people actually get help.</h2>
           <div className="mk-ledger">
             {PRINCIPLES.map((p, i) => (
@@ -78,11 +155,11 @@ export default function Research() {
             ))}
           </div>
           <div className="mk-cta-row">
-            <Link href="/impact" className="mk-btn mk-btn-primary">
-              How we measure impact →
+            <Link href="/start-here" className="mk-btn mk-btn-primary">
+              Start here path
             </Link>
-            <Link href="/programs" className="mk-btn mk-btn-ghost">
-              See the programs
+            <Link href="/impact" className="mk-btn mk-btn-ghost">
+              How we measure impact
             </Link>
           </div>
         </div>

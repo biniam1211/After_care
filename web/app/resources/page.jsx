@@ -72,9 +72,10 @@ export default function ResourcesHubPage() {
           <p className="mk-kicker">Directory</p>
           <h2 className="mk-h2">California services directory</h2>
           <p className="mk-lead">
-            65 listings across housing, health, school, money, and legal help.
-            Only a subset are verified. {VERIFIED_MEANING} Everything else is
-            labeled <strong>{UNVERIFIED_LABEL}</strong>.
+            Dozens of listings across housing, health, school, money, and legal
+            help — including iFoster&rsquo;s Peers Paving the Path (official page
+            confirmed). Only a subset are verified. {VERIFIED_MEANING} Everything
+            else is labeled <strong>{UNVERIFIED_LABEL}</strong>.
           </p>
           <div className="mk-cta-row">
             <Link href="/services" className="mk-btn mk-btn-primary">
@@ -82,6 +83,54 @@ export default function ResourcesHubPage() {
             </Link>
             <Link href="/app" className="mk-btn mk-btn-ghost">
               Find help in the app
+            </Link>
+            <Link href="/start-here" className="mk-btn mk-btn-ghost">
+              Start here path
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section" id="peers">
+        <div className="mk-wrap mk-split">
+          <div>
+            <p className="mk-kicker">Featured listing</p>
+            <h2 className="mk-h2">iFoster — Peers Paving the Path</h2>
+            <p className="mk-lead">
+              Free Medi-Cal Certified Peer Support Specialists with lived
+              foster-care experience for eligible California youth ages 16–26
+              enrolled in a Medi-Cal Managed Care Plan. Separate organization —
+              AfterCare is not affiliated.
+            </p>
+            <ul className="mk-checklist">
+              <li>Call or text 530-550-8001</li>
+              <li>support@ifoster.org</li>
+              <li>Official page confirmed (Verified listing)</li>
+            </ul>
+            <div className="mk-cta-row">
+              <a
+                className="mk-btn mk-btn-primary"
+                href="https://www.ifoster.org/peers-paving-the-path/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Open iFoster page
+              </a>
+              <Link href="/programs/health" className="mk-btn mk-btn-ghost">
+                Health program
+              </Link>
+            </div>
+          </div>
+          <div className="mk-tile" style={{ alignSelf: "start" }}>
+            <span className="mk-badge mk-badge-flagship">Policy</span>
+            <h3>Fostering the Future (EO 14359)</h3>
+            <p>
+              November 2025 White House order on tools for youth transitioning
+              from foster care. Cited for context only — AfterCare is not a
+              federal deliverable.
+            </p>
+            <Link href="/research#policy" className="mk-tile-link">
+              Research note →
             </Link>
           </div>
         </div>
