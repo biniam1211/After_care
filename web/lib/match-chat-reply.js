@@ -18,8 +18,17 @@ export function matchChatReply(text, detectCrisis) {
   if (/(ab\s*12|extended foster|stay in care|efc)/.test(t)) return "ab12";
   if (/(attorney|court hearing|judge|dependency court|my lawyer)/.test(t)) return "court";
   if (/(bill of rights|ombudsperson|grievance|my rights)/.test(t)) return "rights";
-  if (/(credit (check|report|score)|identity theft|annualcreditreport)/.test(t)) return "credit";
-  if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
+  // Natural credit phrasing before bank — bare "account" must not win over fraud.
+  // Exclude college "credit hours" / "course credit" so school intents stay college.
+  if (
+    !/(credit hours?|course credit|college credit|partial credits?)/.test(t) &&
+    /(check (my )?credit|my credit|credit (check|report|score|file|history|freeze)|bad credit|identity theft|annualcreditreport|equifax|experian|transunion|fraud alert)/.test(
+      t
+    )
+  ) {
+    return "credit";
+  }
+  if (/(bank|debit|checking|direct deposit|open an account|bank account)/.test(t)) return "bank";
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";

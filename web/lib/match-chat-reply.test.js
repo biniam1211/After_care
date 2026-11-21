@@ -37,5 +37,8 @@ describe("matchChatReply", () => {
     expect(matchChatReply("I think I have identity theft on my credit report", noCrisis)).toBe(
       "credit"
     );
+    expect(matchChatReply("check my credit", noCrisis)).toBe("credit");
+    expect(matchChatReply("there's a fake account on my credit file", noCrisis)).toBe("credit");
+    expect(matchChatReply("I need to open a bank account", noCrisis)).toBe("bank");
   });
 });
