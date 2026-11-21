@@ -130,6 +130,15 @@ ${
     ? "_None this run._"
     : failedVerified.map((r) => `- **${r.name}**: ${r.url} → ${r.status}`).join("\n")
 }
+
+## Removed
+
+| Former name / ID | Reason |
+| --- | --- |
+| Foster Care Counts (\`foster-care-counts\`) | Official URL \`https://www.fostercarecounts.org\` redirects to an unrelated pharmacy site (domain no longer hosts the foster org). |
+| Pursue Possibility (\`pursue-possibility\`) | Official URL dead (DNS/TLS failure); no primary-source page found confirming a current foster/youth program under that name. |
+| California Foster Youth Tuition Waiver (\`california-foster-youth-tuition-waiver\`) | URL was only the generic CCCCO homepage with no matching statewide tuition-waiver page; replaced by verified CCC NextUp listing. |
+| THP-Plus / Extended Foster Care (AB 12) (generic \`cdss.ca.gov\` root) | Replaced by \`CDSS THP-Plus / Transitional Housing Programs\` pointing at the official transitional-housing programs page (AB 12 EFC remains as \`cdss-efc\`). |
 `;
 
 writeFileSync(REPORT, md);

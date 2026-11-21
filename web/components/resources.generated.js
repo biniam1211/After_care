@@ -2,7 +2,7 @@
 // Sources: supabase/seed/resources.sample.csv + web/data/ca-ilp-contacts.json
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// 131 resources (131 verified against official pages / CDSS roster).
+// 139 resources (139 verified against official pages / CDSS roster).
 // "Verified" = official page or CDSS roster confirmed — NOT a live phone test.
 
 export const GENERATED_RESOURCES = {
@@ -66,7 +66,7 @@ export const GENERATED_RESOURCES = {
     "name": "California Youth Crisis Line",
     "cat": "Crisis",
     "catColor": "panic",
-    "blurb": "24/7 statewide crisis line and referrals for youth ages 12-24 and their families.",
+    "blurb": "24/7 statewide crisis line and referrals for youth ages 12-24 and their families. Run by the California Coalition for Youth.",
     "meta": "Call · Statewide",
     "phone": "1-800-843-5200",
     "url": "https://calyouth.org",
@@ -453,7 +453,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Employment, mental health, and financial literacy for transition-age foster youth in LA.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://rightwayfoundation.org",
+    "url": "https://therightwayfoundation.org",
     "address": null,
     "county": null,
     "counties": [
@@ -466,7 +466,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://rightwayfoundation.org",
+    "sourceUrl": "https://therightwayfoundation.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -481,7 +481,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Wraparound essentials and support for foster youth and families in Ventura County.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://jamesstorehouse.org",
+    "url": "https://www.jamesstorehouse.org",
     "address": null,
     "county": null,
     "counties": [
@@ -494,7 +494,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://jamesstorehouse.org",
+    "sourceUrl": "https://www.jamesstorehouse.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -509,7 +509,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Drop-in center, housing, and support for current and former foster youth in Orange County.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.orangewoodfoundation.org/",
+    "url": "https://orangewoodfoundation.org",
     "address": null,
     "county": null,
     "counties": [
@@ -522,7 +522,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.orangewoodfoundation.org/",
+    "sourceUrl": "https://orangewoodfoundation.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -593,7 +593,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Policy and data on improving outcomes for California's children and foster youth.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.childrennow.org/",
+    "url": "https://www.childrennow.org",
     "address": null,
     "county": null,
     "counties": [
@@ -606,7 +606,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.childrennow.org/",
+    "sourceUrl": "https://www.childrennow.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -621,7 +621,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Free legal help for foster youth on benefits, education, and stability in LA County.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://allianceforchildrensrights.org/",
+    "url": "https://allianceforchildrensrights.org",
     "address": null,
     "county": null,
     "counties": [
@@ -634,7 +634,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://allianceforchildrensrights.org/",
+    "sourceUrl": "https://allianceforchildrensrights.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -730,10 +730,10 @@ export const GENERATED_RESOURCES = {
     "name": "California Student Aid Commission (Chafee Grant)",
     "cat": "Money & Jobs",
     "catColor": "warm",
-    "blurb": "Administers the Chafee Grant (up to ~$5,000/yr) for current and former foster youth in college.",
+    "blurb": "Administers the California Chafee Grant for Foster Youth for college or career training. Apply through CSAC WebGrants.",
     "meta": "Call · Statewide",
     "phone": "1-888-224-7268",
-    "url": "https://www.csac.ca.gov/foster-youth",
+    "url": "https://chafee.csac.ca.gov",
     "address": null,
     "county": null,
     "counties": [
@@ -746,7 +746,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.csac.ca.gov/foster-youth",
+    "sourceUrl": "https://chafee.csac.ca.gov",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -810,14 +810,14 @@ export const GENERATED_RESOURCES = {
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20GetCalFresh"
   },
-  "first-place-for-youth": {
-    "name": "First Place for Youth",
-    "cat": "Housing",
-    "catColor": "sky",
-    "blurb": "Housing, education, and employment support for foster youth aging out across CA.",
+  "cdss-calfresh": {
+    "name": "CDSS CalFresh",
+    "cat": "Essentials",
+    "catColor": "mint",
+    "blurb": "Official California Department of Social Services CalFresh overview — eligibility, how to apply, and county contacts.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.firstplaceforyouth.org/",
+    "url": "https://www.cdss.ca.gov/inforesources/calfresh",
     "address": null,
     "county": null,
     "counties": [
@@ -830,7 +830,35 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.firstplaceforyouth.org/",
+    "sourceUrl": "https://www.cdss.ca.gov/inforesources/calfresh",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CDSS%20CalFresh"
+  },
+  "first-place-for-youth": {
+    "name": "First Place for Youth",
+    "cat": "Housing",
+    "catColor": "sky",
+    "blurb": "Housing, education, and employment support for foster youth aging out across CA.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://firstplaceforyouth.org",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://firstplaceforyouth.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -873,7 +901,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Drop-in, housing, and support for youth experiencing homelessness on the Westside of LA.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://safeplaceforyouth.org",
+    "url": "https://www.safeplaceforyouth.org",
     "address": null,
     "county": null,
     "counties": [
@@ -886,7 +914,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://safeplaceforyouth.org",
+    "sourceUrl": "https://www.safeplaceforyouth.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -957,7 +985,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Support for transition-age foster and probation youth in Alameda County.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://beyondemancipation.org/",
+    "url": "https://beyondemancipation.org",
     "address": null,
     "county": null,
     "counties": [
@@ -970,7 +998,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://beyondemancipation.org/",
+    "sourceUrl": "https://beyondemancipation.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1005,6 +1033,34 @@ export const GENERATED_RESOURCES = {
     "verified": true,
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Just%20in%20Time%20for%20Foster%20Youth"
+  },
+  "promises2kids": {
+    "name": "Promises2Kids",
+    "cat": "Housing",
+    "catColor": "sky",
+    "blurb": "Support, camps, and guidance for current and former foster youth in San Diego County.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://promises2kids.org",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://promises2kids.org",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Promises2Kids"
   },
   "unity-care": {
     "name": "Unity Care",
@@ -1069,7 +1125,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Community and connection for adults who experienced foster care.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.fostercarealumni.org",
+    "url": "https://fostercarealumni.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1082,7 +1138,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.fostercarealumni.org",
+    "sourceUrl": "https://fostercarealumni.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1118,14 +1174,14 @@ export const GENERATED_RESOURCES = {
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Foster%20Youth%20to%20Independence%20(FYI)%20Vouchers"
   },
-  "thp-plus-extended-foster-care-ab-12": {
-    "name": "THP-Plus / Extended Foster Care (AB 12)",
+  "cdss-thp-plus": {
+    "name": "CDSS THP-Plus / Transitional Housing Programs",
     "cat": "Housing",
     "catColor": "sky",
-    "blurb": "Transitional housing and extended foster care to age 21 in California. Ask your county ILP.",
+    "blurb": "Official CDSS page on THP, THP+FC, and THP-Plus transitional housing for current and former foster youth. Ask your county ILP or housing coordinator.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.cdss.ca.gov",
+    "url": "https://cdss.ca.gov/inforesources/foster-care/transitional-housing-programs",
     "address": null,
     "county": null,
     "counties": [
@@ -1138,13 +1194,13 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.cdss.ca.gov",
+    "sourceUrl": "https://cdss.ca.gov/inforesources/foster-care/transitional-housing-programs",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
     "verified": true,
     "keywords": [],
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20THP-Plus%20%2F%20Extended%20Foster%20Care%20(AB%2012)"
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CDSS%20THP-Plus%20%2F%20Transitional%20Housing%20Programs"
   },
   "foster-ombuds": {
     "name": "California Foster Care Ombudsperson",
@@ -1178,10 +1234,10 @@ export const GENERATED_RESOURCES = {
     "name": "National Foster Care & Adoption Directory",
     "cat": "Crisis",
     "catColor": "panic",
-    "blurb": "Search for foster care and adoption resources by state.",
+    "blurb": "Child Welfare Information Gateway directory of state, territory, and tribal child welfare resources.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.childwelfare.gov",
+    "url": "https://www.childwelfare.gov/resources/states-territories-tribes/",
     "address": null,
     "county": null,
     "counties": [
@@ -1194,7 +1250,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.childwelfare.gov",
+    "sourceUrl": "https://www.childwelfare.gov/resources/states-territories-tribes/",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1209,7 +1265,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "College and career support, housing, and mentoring for foster youth in LA County.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://unitedfriends.org",
+    "url": "https://www.unitedfriends.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1222,7 +1278,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://unitedfriends.org",
+    "sourceUrl": "https://www.unitedfriends.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1237,7 +1293,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Helps former foster youth create their first stable home with free furniture and essentials.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.asenseofhome.org",
+    "url": "https://asenseofhome.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1250,7 +1306,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.asenseofhome.org",
+    "sourceUrl": "https://asenseofhome.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1286,14 +1342,14 @@ export const GENERATED_RESOURCES = {
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Children's%20Law%20Center%20of%20California"
   },
-  "hathaway-sycamores": {
-    "name": "Hathaway-Sycamores",
+  "sycamores": {
+    "name": "Sycamores (formerly Hathaway-Sycamores)",
     "cat": "Health",
     "catColor": "mint",
     "blurb": "Mental health and welfare services for children, youth, and families in the LA area.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.hathaway-sycamores.org",
+    "url": "https://www.sycamores.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1306,13 +1362,13 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.hathaway-sycamores.org",
+    "sourceUrl": "https://www.sycamores.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
     "verified": true,
     "keywords": [],
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Hathaway-Sycamores"
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Sycamores%20(formerly%20Hathaway-Sycamores)"
   },
   "hillsides": {
     "name": "Hillsides",
@@ -1377,7 +1433,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Shelter, housing, and support for youth experiencing homelessness in San Diego.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.sdyouthservices.org",
+    "url": "https://sdyouthservices.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1390,7 +1446,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.sdyouthservices.org",
+    "sourceUrl": "https://sdyouthservices.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1405,7 +1461,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "School and support for children and youth impacted by homelessness in San Diego.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.monarchschools.org",
+    "url": "https://monarchschools.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1418,13 +1474,69 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.monarchschools.org",
+    "sourceUrl": "https://monarchschools.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
     "verified": true,
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Monarch%20School"
+  },
+  "walden-family-services": {
+    "name": "Walden Family Services",
+    "cat": "Housing",
+    "catColor": "sky",
+    "blurb": "Foster care and transition support for youth, including LGBTQ+ youth, in Southern CA.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://waldenfamily.org",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://waldenfamily.org",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Walden%20Family%20Services"
+  },
+  "wind-youth-services": {
+    "name": "Wind Youth Services",
+    "cat": "Housing",
+    "catColor": "sky",
+    "blurb": "Shelter and services for youth experiencing homelessness in Sacramento.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://www.windyouthservices.org",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://www.windyouthservices.org",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Wind%20Youth%20Services"
   },
   "sacramento-children-s-home": {
     "name": "Sacramento Children's Home",
@@ -1570,10 +1682,10 @@ export const GENERATED_RESOURCES = {
     "name": "California Department of Health Care Services (Medi-Cal)",
     "cat": "Health",
     "catColor": "mint",
-    "blurb": "State Medi-Cal program. Former foster youth qualify for free coverage to age 26.",
+    "blurb": "State Medi-Cal program. Former foster youth may qualify for free coverage to age 26. Start at DHCS Medi-Cal or ask Covered California.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.dhcs.ca.gov",
+    "url": "https://www.dhcs.ca.gov/services/medi-cal",
     "address": null,
     "county": null,
     "counties": [
@@ -1586,7 +1698,7 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.dhcs.ca.gov",
+    "sourceUrl": "https://www.dhcs.ca.gov/services/medi-cal",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
@@ -1741,7 +1853,7 @@ export const GENERATED_RESOURCES = {
     "blurb": "Research and a digital resource hub built with and for people with foster care experience.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.thinkofus.org/",
+    "url": "https://www.thinkofus.org",
     "address": null,
     "county": null,
     "counties": [
@@ -1754,41 +1866,13 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.thinkofus.org/",
+    "sourceUrl": "https://www.thinkofus.org",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
     "verified": true,
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Think%20of%20Us"
-  },
-  "foster-care-counts": {
-    "name": "Foster Care Counts",
-    "cat": "Education",
-    "catColor": "harbor",
-    "blurb": "Scholarships, laptops, and support for foster youth pursuing higher education in LA.",
-    "meta": "Online · Statewide",
-    "phone": null,
-    "url": "https://www.fostercarecounts.org",
-    "address": null,
-    "county": null,
-    "counties": [
-      "Statewide"
-    ],
-    "cost": "free",
-    "open247": false,
-    "languages": [
-      "en"
-    ],
-    "ages": "14-26",
-    "situations": [],
-    "sourceUrl": "https://www.fostercarecounts.org",
-    "verifiedDate": "2026-11-21",
-    "status": "verified",
-    "tag": "Verified",
-    "verified": true,
-    "keywords": [],
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Foster%20Care%20Counts"
   },
   "peace4kids": {
     "name": "Peace4Kids",
@@ -1818,6 +1902,34 @@ export const GENERATED_RESOURCES = {
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Peace4Kids"
   },
+  "stanford-sierra-youth-and-families": {
+    "name": "Stanford Sierra Youth & Families",
+    "cat": "Health",
+    "catColor": "mint",
+    "blurb": "Mental health, foster care, and family support in the Sacramento region.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://www.ssyaf.org",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://www.ssyaf.org",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Stanford%20Sierra%20Youth%20%26%20Families"
+  },
   "fresno-eoc-sanctuary": {
     "name": "Fresno EOC Sanctuary",
     "cat": "Housing",
@@ -1846,14 +1958,14 @@ export const GENERATED_RESOURCES = {
     "keywords": [],
     "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Fresno%20EOC%20Sanctuary"
   },
-  "california-foster-youth-tuition-waiver": {
-    "name": "California Foster Youth Tuition Waiver",
+  "ccc-nextup": {
+    "name": "CCC NextUp (Chancellor's Office)",
     "cat": "Education",
     "catColor": "harbor",
-    "blurb": "Fee waiver covering tuition at California community colleges, CSU, and UC for eligible foster youth.",
+    "blurb": "California Community Colleges NextUp program — academic, financial, and basic-needs support for current and former foster youth at community colleges statewide.",
     "meta": "Online · Statewide",
     "phone": null,
-    "url": "https://www.cccco.edu",
+    "url": "https://icangotocollege.com/financial-aid/foster-youth-support",
     "address": null,
     "county": null,
     "counties": [
@@ -1866,13 +1978,237 @@ export const GENERATED_RESOURCES = {
     ],
     "ages": "14-26",
     "situations": [],
-    "sourceUrl": "https://www.cccco.edu",
+    "sourceUrl": "https://icangotocollege.com/financial-aid/foster-youth-support",
     "verifiedDate": "2026-11-21",
     "status": "verified",
     "tag": "Verified",
     "verified": true,
     "keywords": [],
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20California%20Foster%20Youth%20Tuition%20Waiver"
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CCC%20NextUp%20(Chancellor's%20Office)"
+  },
+  "uc-foster-youth": {
+    "name": "UC Current and Former Foster Youth Programs",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "University of California Admissions overview of campus Guardian/Hope Scholars programs for current and former foster youth — advising, housing, aid, and priority registration.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://admission.universityofcalifornia.edu/campuses-majors/campus-programs-and-support-services/current-and-former-foster-youth.html",
+    "address": null,
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://admission.universityofcalifornia.edu/campuses-majors/campus-programs-and-support-services/current-and-former-foster-youth.html",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20UC%20Current%20and%20Former%20Foster%20Youth%20Programs"
+  },
+  "csuf-guardian-scholars": {
+    "name": "CSUF Guardian Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "Cal State Fullerton Guardian Scholars — campus support for current and former foster youth (priority registration, advising, basic needs).",
+    "meta": "Fullerton",
+    "phone": null,
+    "url": "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
+    "address": "Fullerton, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CSUF%20Guardian%20Scholars"
+  },
+  "csulb-guardian-scholars": {
+    "name": "CSULB Guardian Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "Cal State Long Beach Guardian Scholars — academic and basic-needs support for students with foster care experience.",
+    "meta": "Long Beach",
+    "phone": null,
+    "url": "https://www.csulb.edu/student-affairs/guardian-scholars",
+    "address": "Long Beach, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://www.csulb.edu/student-affairs/guardian-scholars",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CSULB%20Guardian%20Scholars"
+  },
+  "sac-state-guardian-scholars": {
+    "name": "Sacramento State Guardian Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "Sacramento State Guardian Scholars Program — wraparound support for students with lived experience in foster care.",
+    "meta": "Sacramento",
+    "phone": null,
+    "url": "https://www.csus.edu/student-affairs/centers-programs/guardian-scholars/",
+    "address": "Sacramento, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://www.csus.edu/student-affairs/centers-programs/guardian-scholars/",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20Sacramento%20State%20Guardian%20Scholars"
+  },
+  "ucla-bruin-guardian-scholars": {
+    "name": "UCLA Bruin Guardian Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "UCLA Bruin Guardian Scholars — campus community and support for current and former foster youth.",
+    "meta": "Los Angeles",
+    "phone": null,
+    "url": "https://guardianscholars.ucla.edu/",
+    "address": "Los Angeles, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://guardianscholars.ucla.edu/",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20UCLA%20Bruin%20Guardian%20Scholars"
+  },
+  "ucr-foster-youth": {
+    "name": "UC Riverside Foster Youth Support Services",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "UC Riverside Office of Foster Youth Support Services and Guardian Scholars — housing, advising, and basic needs for foster youth students.",
+    "meta": "Riverside",
+    "phone": null,
+    "url": "https://fosteryouth.ucr.edu/",
+    "address": "Riverside, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://fosteryouth.ucr.edu/",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20UC%20Riverside%20Foster%20Youth%20Support%20Services"
+  },
+  "berkeley-hope-scholars": {
+    "name": "UC Berkeley Hope Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "Berkeley Hope Scholars — campus program supporting students with experience in foster care.",
+    "meta": "Berkeley",
+    "phone": null,
+    "url": "https://hope.berkeley.edu/",
+    "address": "Berkeley, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://hope.berkeley.edu/",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20UC%20Berkeley%20Hope%20Scholars"
+  },
+  "ucsd-hope-scholars": {
+    "name": "UC San Diego Hope Scholars",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "UC San Diego Hope Scholars (OASIS) — academic and personal support for students with foster care experience.",
+    "meta": "San Diego",
+    "phone": null,
+    "url": "https://oasis.ucsd.edu/programs/hope-scholars/index.html",
+    "address": "San Diego, CA",
+    "county": null,
+    "counties": [
+      "Statewide"
+    ],
+    "cost": "free",
+    "open247": false,
+    "languages": [
+      "en"
+    ],
+    "ages": "14-26",
+    "situations": [],
+    "sourceUrl": "https://oasis.ucsd.edu/programs/hope-scholars/index.html",
+    "verifiedDate": "2026-11-21",
+    "status": "verified",
+    "tag": "Verified",
+    "verified": true,
+    "keywords": [],
+    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20UC%20San%20Diego%20Hope%20Scholars"
   },
   "ilp-alameda": {
     "name": "Alameda County ILP (CDSS roster)",
@@ -4181,145 +4517,6 @@ export const GENERATED_RESOURCES = {
       "trafficking",
       "text",
       "233733"
-    ]
-  },
-  "ccc-nextup": {
-    "address": null,
-    "county": null,
-    "counties": [
-      "Statewide"
-    ],
-    "cost": "free",
-    "languages": [
-      "en",
-      "es"
-    ],
-    "ages": "14-26",
-    "situations": [],
-    "verifiedDate": "2026-11-21",
-    "status": "verified",
-    "tag": "Verified",
-    "verified": true,
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20California%20Community%20Colleges%20%E2%80%94%20NextUp",
-    "id": "ccc-nextup",
-    "name": "California Community Colleges — NextUp",
-    "cat": "Education",
-    "catColor": "harbor",
-    "blurb": "Official NextUp overview for current and former foster youth at California community colleges: books, transportation, tutoring, food, emergency housing, and counseling. Confirm eligibility with your campus EOPS/NextUp office.",
-    "meta": "Official · Statewide CA",
-    "phone": null,
-    "url": "https://icangotocollege.com/financial-aid/foster-youth-support",
-    "sourceUrl": "https://icangotocollege.com/financial-aid/foster-youth-support",
-    "open247": false,
-    "keywords": [
-      "nextup",
-      "cafyes",
-      "community college",
-      "foster"
-    ]
-  },
-  "csac-foster-youth": {
-    "address": null,
-    "county": null,
-    "counties": [
-      "Statewide"
-    ],
-    "cost": "free",
-    "languages": [
-      "en",
-      "es"
-    ],
-    "ages": "14-26",
-    "situations": [],
-    "verifiedDate": "2026-11-21",
-    "status": "verified",
-    "tag": "Verified",
-    "verified": true,
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CSAC%20%E2%80%94%20Foster%20Youth%20Students%20hub",
-    "id": "csac-foster-youth",
-    "name": "CSAC — Foster Youth Students hub",
-    "cat": "Education",
-    "catColor": "harbor",
-    "blurb": "California Student Aid Commission page for foster youth: Chafee, campus support programs (NextUp / Guardian Scholars), and how to find a Foster Youth Liaison. Confirm deadlines on CSAC.",
-    "meta": "Official · Statewide CA",
-    "phone": "1-888-224-7268",
-    "url": "https://www.csac.ca.gov/foster-youth",
-    "sourceUrl": "https://www.csac.ca.gov/foster-youth",
-    "open247": false,
-    "keywords": [
-      "chafee",
-      "csac",
-      "guardian scholars",
-      "nextup"
-    ]
-  },
-  "csuf-guardian-scholars": {
-    "address": null,
-    "county": "Orange",
-    "counties": [
-      "Orange"
-    ],
-    "cost": "free",
-    "languages": [
-      "en",
-      "es"
-    ],
-    "ages": "14-26",
-    "situations": [],
-    "verifiedDate": "2026-11-21",
-    "status": "verified",
-    "tag": "Verified",
-    "verified": true,
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CSU%20Fullerton%20%E2%80%94%20Guardian%20Scholars",
-    "id": "csuf-guardian-scholars",
-    "name": "CSU Fullerton — Guardian Scholars",
-    "cat": "Education",
-    "catColor": "harbor",
-    "blurb": "Official Cal State Fullerton Guardian Scholars program for current and former foster youth: priority registration, advising, and campus supports. Apply with a foster youth verification letter.",
-    "meta": "Orange County · CSUF",
-    "phone": null,
-    "url": "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
-    "sourceUrl": "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
-    "open247": false,
-    "keywords": [
-      "guardian scholars",
-      "csu",
-      "fullerton",
-      "college"
-    ]
-  },
-  "csu-guardian-scholars-news": {
-    "address": null,
-    "county": null,
-    "counties": [
-      "Statewide"
-    ],
-    "cost": "free",
-    "languages": [
-      "en",
-      "es"
-    ],
-    "ages": "14-26",
-    "situations": [],
-    "verifiedDate": "2026-11-21",
-    "status": "verified",
-    "tag": "Verified",
-    "verified": true,
-    "reportMailto": "mailto:hello@aftercare.app?subject=Outdated%20listing%3A%20CSU%20Guardian%20Scholars%20(system%20overview)",
-    "id": "csu-guardian-scholars-news",
-    "name": "CSU Guardian Scholars (system overview)",
-    "cat": "Education",
-    "catColor": "harbor",
-    "blurb": "California State University overview of Guardian Scholars and similar foster youth support programs across CSU campuses. Contact your campus office for current services.",
-    "meta": "Official · Statewide CSU",
-    "phone": null,
-    "url": "https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx",
-    "sourceUrl": "https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx",
-    "open247": false,
-    "keywords": [
-      "guardian scholars",
-      "csu",
-      "foster"
     ]
   }
 };

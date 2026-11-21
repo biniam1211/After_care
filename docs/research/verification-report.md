@@ -1,9 +1,9 @@
 # Resource verification report
 
 **Generated:** 2026-11-21  
-**Catalog size:** 131  
-**Verified flag:** 131  
-**Link check OK (verified with URL):** 131  
+**Catalog size:** 139  
+**Verified flag:** 139  
+**Link check OK (verified with URL):** 139  
 **Verified but link failed:** 0  
 **Needs review (unverified):** 0
 
@@ -33,58 +33,69 @@
 | iFoster | — | https://www.ifoster.org | OK | 2026-11-21 |
 | iFoster — Peers Paving the Path | 530-550-8001 | https://www.ifoster.org/peers-paving-the-path/ | OK | 2026-11-21 |
 | John Burton Advocates for Youth | — | https://jbay.org | OK | 2026-11-21 |
-| RightWay Foundation | — | https://rightwayfoundation.org | OK | 2026-11-21 |
-| James Storehouse | — | https://jamesstorehouse.org | OK | 2026-11-21 |
-| Orangewood Foundation | — | https://www.orangewoodfoundation.org/ | OK | 2026-11-21 |
+| RightWay Foundation | — | https://therightwayfoundation.org | OK | 2026-11-21 |
+| James Storehouse | — | https://www.jamesstorehouse.org | OK | 2026-11-21 |
+| Orangewood Foundation | — | https://orangewoodfoundation.org | OK | 2026-11-21 |
 | First Star | — | https://www.firststar.org | OK | 2026-11-21 |
 | California Youth Connection | — | https://calyouthconn.org | OK | 2026-11-21 |
-| Children Now | — | https://www.childrennow.org/ | OK | 2026-11-21 |
-| Alliance for Children's Rights | — | https://allianceforchildrensrights.org/ | OK | 2026-11-21 |
+| Children Now | — | https://www.childrennow.org | OK | 2026-11-21 |
+| Alliance for Children's Rights | — | https://allianceforchildrensrights.org | OK | 2026-11-21 |
 | Public Counsel | — | https://publiccounsel.org | OK | 2026-11-21 |
 | Legal Aid Foundation of Los Angeles | — | https://lafla.org | OK | 2026-11-21 |
 | National Foster Youth Institute | — | https://nfyi.org | OK | 2026-11-21 |
-| California Student Aid Commission (Chafee Grant) | 1-888-224-7268 | https://www.csac.ca.gov/foster-youth | OK | 2026-11-21 |
-| CSAC — Foster Youth Students hub | 1-888-224-7268 | https://www.csac.ca.gov/foster-youth | OK | 2026-11-21 |
+| California Student Aid Commission (Chafee Grant) | 1-888-224-7268 | https://chafee.csac.ca.gov | OK | 2026-11-21 |
 | Covered California | 1-800-300-1506 | https://www.coveredca.com | OK | 2026-11-21 |
 | GetCalFresh | — | https://www.getcalfresh.org | OK | 2026-11-21 |
-| First Place for Youth | — | https://www.firstplaceforyouth.org/ | OK | 2026-11-21 |
+| CDSS CalFresh | — | https://www.cdss.ca.gov/inforesources/calfresh | OK | 2026-11-21 |
+| First Place for Youth | — | https://firstplaceforyouth.org | OK | 2026-11-21 |
 | Larkin Street Youth Services | — | https://larkinstreetyouth.org | OK | 2026-11-21 |
-| Safe Place for Youth | — | https://safeplaceforyouth.org | OK | 2026-11-21 |
+| Safe Place for Youth | — | https://www.safeplaceforyouth.org | OK | 2026-11-21 |
 | Jovenes Inc | — | https://jovenesinc.org | OK | 2026-11-21 |
 | Bill Wilson Center | — | https://www.billwilsoncenter.org | OK | 2026-11-21 |
-| Beyond Emancipation | — | https://beyondemancipation.org/ | OK | 2026-11-21 |
+| Beyond Emancipation | — | https://beyondemancipation.org | OK | 2026-11-21 |
 | Just in Time for Foster Youth | — | https://jitfosteryouth.org | OK | 2026-11-21 |
+| Promises2Kids | — | https://promises2kids.org | OK | 2026-11-21 |
 | Unity Care | — | https://www.unitycare.org | OK | 2026-11-21 |
 | Aspiranet | — | https://www.aspiranet.org | OK | 2026-11-21 |
-| Foster Care Alumni of America | — | https://www.fostercarealumni.org | OK | 2026-11-21 |
+| Foster Care Alumni of America | — | https://fostercarealumni.org | OK | 2026-11-21 |
 | Foster Youth to Independence (FYI) Vouchers | — | https://www.hud.gov/program_offices/public_indian_housing/programs/hcv/fyi | OK | 2026-11-21 |
-| THP-Plus / Extended Foster Care (AB 12) | — | https://www.cdss.ca.gov | OK | 2026-11-21 |
+| CDSS THP-Plus / Transitional Housing Programs | — | https://cdss.ca.gov/inforesources/foster-care/transitional-housing-programs | OK | 2026-11-21 |
 | California Foster Care Ombudsperson | 1-877-846-1602 | https://fosteryouthhelp.ca.gov | OK | 2026-11-21 |
-| National Foster Care & Adoption Directory | — | https://www.childwelfare.gov | OK | 2026-11-21 |
-| United Friends of the Children | — | https://unitedfriends.org | OK | 2026-11-21 |
-| A Sense of Home | — | https://www.asenseofhome.org | OK | 2026-11-21 |
+| National Foster Care & Adoption Directory | — | https://www.childwelfare.gov/resources/states-territories-tribes/ | OK | 2026-11-21 |
+| United Friends of the Children | — | https://www.unitedfriends.org | OK | 2026-11-21 |
+| A Sense of Home | — | https://asenseofhome.org | OK | 2026-11-21 |
 | Children's Law Center of California | — | https://www.clccal.org | OK | 2026-11-21 |
-| Hathaway-Sycamores | — | https://www.hathaway-sycamores.org | OK | 2026-11-21 |
+| Sycamores (formerly Hathaway-Sycamores) | — | https://www.sycamores.org | OK | 2026-11-21 |
 | Hillsides | — | https://hillsides.org | OK | 2026-11-21 |
 | Olive Crest | — | https://www.olivecrest.org | OK | 2026-11-21 |
-| San Diego Youth Services | — | https://www.sdyouthservices.org | OK | 2026-11-21 |
-| Monarch School | — | https://www.monarchschools.org | OK | 2026-11-21 |
+| San Diego Youth Services | — | https://sdyouthservices.org | OK | 2026-11-21 |
+| Monarch School | — | https://monarchschools.org | OK | 2026-11-21 |
+| Walden Family Services | — | https://waldenfamily.org | OK | 2026-11-21 |
+| Wind Youth Services | — | https://www.windyouthservices.org | OK | 2026-11-21 |
 | Sacramento Children's Home | — | https://www.kidshome.org | OK | 2026-11-21 |
 | Fresh Lifelines for Youth (FLY) | — | https://flyprogram.org | OK | 2026-11-21 |
 | Bay Area Legal Aid | — | https://baylegal.org | OK | 2026-11-21 |
 | Disability Rights California | — | https://www.disabilityrightsca.org | OK | 2026-11-21 |
 | Health Consumer Alliance | — | https://healthconsumer.org | OK | 2026-11-21 |
-| California Department of Health Care Services (Medi-Cal) | — | https://www.dhcs.ca.gov | OK | 2026-11-21 |
+| California Department of Health Care Services (Medi-Cal) | — | https://www.dhcs.ca.gov/services/medi-cal | OK | 2026-11-21 |
 | Year Up | — | https://www.yearup.org | OK | 2026-11-21 |
 | Job Corps | — | https://www.jobcorps.gov | OK | 2026-11-21 |
 | FosterClub | — | https://www.fosterclub.com | OK | 2026-11-21 |
 | FosterClub — Who's in Foster Care? | — | https://www.fosterclub.com/whos-foster-care | OK | 2026-11-21 |
 | ED Foster Care Transition Toolkit | — | https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf | OK | 2026-11-21 |
-| Think of Us | — | https://www.thinkofus.org/ | OK | 2026-11-21 |
-| Foster Care Counts | — | https://www.fostercarecounts.org | OK | 2026-11-21 |
+| Think of Us | — | https://www.thinkofus.org | OK | 2026-11-21 |
 | Peace4Kids | — | https://www.peace4kids.org | OK | 2026-11-21 |
+| Stanford Sierra Youth & Families | — | https://www.ssyaf.org | OK | 2026-11-21 |
 | Fresno EOC Sanctuary | — | https://fresnoeoc.org/sanctuary | OK | 2026-11-21 |
-| California Foster Youth Tuition Waiver | — | https://www.cccco.edu | OK | 2026-11-21 |
+| CCC NextUp (Chancellor's Office) | — | https://icangotocollege.com/financial-aid/foster-youth-support | OK | 2026-11-21 |
+| UC Current and Former Foster Youth Programs | — | https://admission.universityofcalifornia.edu/campuses-majors/campus-programs-and-support-services/current-and-former-foster-youth.html | OK | 2026-11-21 |
+| CSUF Guardian Scholars | — | https://www.fullerton.edu/scholars/programs/guardian-scholars.html | OK | 2026-11-21 |
+| CSULB Guardian Scholars | — | https://www.csulb.edu/student-affairs/guardian-scholars | OK | 2026-11-21 |
+| Sacramento State Guardian Scholars | — | https://www.csus.edu/student-affairs/centers-programs/guardian-scholars/ | OK | 2026-11-21 |
+| UCLA Bruin Guardian Scholars | — | https://guardianscholars.ucla.edu/ | OK | 2026-11-21 |
+| UC Riverside Foster Youth Support Services | — | https://fosteryouth.ucr.edu/ | OK | 2026-11-21 |
+| UC Berkeley Hope Scholars | — | https://hope.berkeley.edu/ | OK | 2026-11-21 |
+| UC San Diego Hope Scholars | — | https://oasis.ucsd.edu/programs/hope-scholars/index.html | OK | 2026-11-21 |
 | Alameda County ILP (CDSS roster) (Alameda) | (510) 667-7610 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Alpine County ILP (CDSS roster) (Alpine) | (530) 694-2235 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Amador County ILP (CDSS roster) (Amador) | (209) 257-1980 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
@@ -145,9 +156,6 @@
 | Yuba County ILP (CDSS roster) (Yuba) | (530) 749-6266 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | CDSS Extended Foster Care (AB 12) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12 | OK | 2026-11-21 |
 | CDSS Independent Living Program (ILP) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program | OK | 2026-11-21 |
-| California Community Colleges — NextUp | — | https://icangotocollege.com/financial-aid/foster-youth-support | OK | 2026-11-21 |
-| CSU Fullerton — Guardian Scholars (Orange) | — | https://www.fullerton.edu/scholars/programs/guardian-scholars.html | OK | 2026-11-21 |
-| CSU Guardian Scholars (system overview) | — | https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx | OK | 2026-11-21 |
 
 ## Needs review
 
@@ -159,8 +167,11 @@
 
 _None this run._
 
-## Removed this pass
+## Removed
 
-See `docs/research/removed-listings.md` for listings dropped when official pages
-could not be confirmed (DNS failure, broken TLS, or persistent bot-blocks with no
-alternate official URL).
+| Former name / ID | Reason |
+| --- | --- |
+| Foster Care Counts (`foster-care-counts`) | Official URL `https://www.fostercarecounts.org` redirects to an unrelated pharmacy site (domain no longer hosts the foster org). |
+| Pursue Possibility (`pursue-possibility`) | Official URL dead (DNS/TLS failure); no primary-source page found confirming a current foster/youth program under that name. |
+| California Foster Youth Tuition Waiver (`california-foster-youth-tuition-waiver`) | URL was only the generic CCCCO homepage with no matching statewide tuition-waiver page; replaced by verified CCC NextUp listing. |
+| THP-Plus / Extended Foster Care (AB 12) (generic `cdss.ca.gov` root) | Replaced by `CDSS THP-Plus / Transitional Housing Programs` pointing at the official transitional-housing programs page (AB 12 EFC remains as `cdss-efc`). |

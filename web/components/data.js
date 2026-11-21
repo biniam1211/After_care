@@ -244,7 +244,8 @@ const CURATED_RESOURCES = {
   rightway: {
     name: "RightWay Foundation", cat: "Money & Jobs", catColor: "warm",
     blurb: "Job training, financial coaching, and mental health support built for foster youth.",
-    meta: "1.0 mi · South LA", phone: "(323) 463-1000", tag: "Foster-specific",
+    meta: "1.0 mi · South LA", phone: null, tag: "Foster-specific",
+    url: "https://therightwayfoundation.org",
   },
   james: {
     name: "James Storehouse", cat: "Essentials", catColor: "mint",

@@ -325,65 +325,6 @@ const main = () => {
       open247: true,
       keywords: ["trafficking", "text", "233733"],
     },
-    {
-      id: "ccc-nextup",
-      name: "California Community Colleges — NextUp",
-      cat: "Education",
-      catColor: "harbor",
-      blurb:
-        "Official NextUp overview for current and former foster youth at California community colleges: books, transportation, tutoring, food, emergency housing, and counseling. Confirm eligibility with your campus EOPS/NextUp office.",
-      meta: "Official · Statewide CA",
-      phone: null,
-      url: "https://icangotocollege.com/financial-aid/foster-youth-support",
-      sourceUrl: "https://icangotocollege.com/financial-aid/foster-youth-support",
-      open247: false,
-      keywords: ["nextup", "cafyes", "community college", "foster"],
-    },
-    {
-      id: "csac-foster-youth",
-      name: "CSAC — Foster Youth Students hub",
-      cat: "Education",
-      catColor: "harbor",
-      blurb:
-        "California Student Aid Commission page for foster youth: Chafee, campus support programs (NextUp / Guardian Scholars), and how to find a Foster Youth Liaison. Confirm deadlines on CSAC.",
-      meta: "Official · Statewide CA",
-      phone: "1-888-224-7268",
-      url: "https://www.csac.ca.gov/foster-youth",
-      sourceUrl: "https://www.csac.ca.gov/foster-youth",
-      open247: false,
-      keywords: ["chafee", "csac", "guardian scholars", "nextup"],
-    },
-    {
-      id: "csuf-guardian-scholars",
-      name: "CSU Fullerton — Guardian Scholars",
-      cat: "Education",
-      catColor: "harbor",
-      blurb:
-        "Official Cal State Fullerton Guardian Scholars program for current and former foster youth: priority registration, advising, and campus supports. Apply with a foster youth verification letter.",
-      meta: "Orange County · CSUF",
-      phone: null,
-      url: "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
-      sourceUrl: "https://www.fullerton.edu/scholars/programs/guardian-scholars.html",
-      county: "Orange",
-      counties: ["Orange"],
-      open247: false,
-      keywords: ["guardian scholars", "csu", "fullerton", "college"],
-    },
-    {
-      id: "csu-guardian-scholars-news",
-      name: "CSU Guardian Scholars (system overview)",
-      cat: "Education",
-      catColor: "harbor",
-      blurb:
-        "California State University overview of Guardian Scholars and similar foster youth support programs across CSU campuses. Contact your campus office for current services.",
-      meta: "Official · Statewide CSU",
-      phone: null,
-      url: "https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx",
-      sourceUrl:
-        "https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx",
-      open247: false,
-      keywords: ["guardian scholars", "csu", "foster"],
-    },
   ];
 
   for (const e of extras) {
