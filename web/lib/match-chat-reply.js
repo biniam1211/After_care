@@ -16,6 +16,10 @@ export function matchChatReply(text, detectCrisis) {
   if (/(bank|account|debit|checking|direct deposit)/.test(t)) return "bank";
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
+  if (/(seal|sealing|expunge|juvenile record)/.test(t)) return "seal";
+  if (/(ab\s*12|extended foster|stay in care|efc)/.test(t)) return "ab12";
+  if (/(attorney|court hearing|judge|dependency court|my lawyer)/.test(t)) return "court";
+  if (/(bill of rights|ombudsperson|grievance|my rights)/.test(t)) return "rights";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";
   if (
     /(transition plan|tilp|independent living plan|\baging out\b|\bageing out\b|\bage.?out\b)/.test(

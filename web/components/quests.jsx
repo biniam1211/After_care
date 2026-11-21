@@ -10,7 +10,18 @@ import { Logo } from "@/components/onboarding";
 import { QUESTS } from "@/components/data";
 
 const PRIMARY_SLUG = "first-bank-account";
-const FEATURED_SLUGS = ["drivers-license", "vital-documents", "first-job", "housing-plan"];
+const FEATURED_SLUGS = [
+  "drivers-license",
+  "vital-documents",
+  "first-job",
+  "housing-plan",
+  "ab12-extended-care",
+  "court-rights",
+  "seal-records",
+  "health-26",
+  "chafee-grant",
+  "credit",
+];
 
 /**
  * @param {{ questProgress: Record<string, number>, onOpenQuest: (slug: string) => void }} props
