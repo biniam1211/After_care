@@ -50,7 +50,7 @@ export const CHAT_REPLIES = {
     steps: [
       "File the FAFSA at studentaid.gov — answer \"yes\" to the foster care question to unlock independent status.",
       "Apply for the California Chafee Grant (up to $5,000/yr, just for foster youth) before the May deadline.",
-      "Ask each college about their foster-youth tuition waiver — 40+ states waive tuition at public colleges.",
+      "Ask each California college about foster-youth tuition waivers and campus support programs — confirm current rules with the school.",
     ],
     resources: ["jbay", "chafee-grant", "ed-transition-toolkit"],
     followup: "The Chafee Grant alone is up to $5k a year. Want me to walk you through claiming it?",
@@ -235,10 +235,11 @@ const CURATED_RESOURCES = {
     meta: "Open now · 1.2 mi · Hollywood", phone: "1-800-388-3888", tag: "Open 24/7",
   },
   "211": {
-    name: "211 LA / OC", cat: "Crisis", catColor: "panic",
+    name: "211 California", cat: "Crisis", catColor: "panic",
     blurb: "Free helpline that connects you to housing, food, health, and crisis support near you.",
-    meta: "Call or text · Countywide", phone: "211", tag: "Free",
+    meta: "Call or text · Statewide", phone: "211", tag: "Free",
     open247: true,
+    counties: ["Statewide"],
   },
   rightway: {
     name: "RightWay Foundation", cat: "Money & Jobs", catColor: "warm",
