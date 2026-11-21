@@ -13,14 +13,17 @@ import {
   getFounderPhoto,
 } from "@/components/founder-photos";
 import { PROGRAMS } from "@/components/programs-data";
+import { RESOURCES } from "@/components/data";
 import { NeedsFinder } from "@/components/needs-finder";
 import { AgeTimeline } from "@/components/age-timeline";
+import { SiteSearch } from "@/components/site-search";
+import { TaskPaths } from "@/components/task-paths";
 import "./marketing.css";
 
 export const metadata = {
   title: "AfterCare — Built by foster kids, for foster kids",
   description:
-    "The life navigator for foster youth in California — rights, documents, money, housing, school, health, court, and aging out. Free forever.",
+    "Search verified California foster youth resources by county, ask for help that cites real sources, and finish Quests step by step. Free forever.",
 };
 
 const FEATURED = [
@@ -37,6 +40,8 @@ const FEATURED = [
   .filter(Boolean);
 
 const heroPhoto = getFounderPhoto("grad-mom");
+const verifiedCount = Object.values(RESOURCES).filter((r) => r.verified).length;
+const totalResources = Object.keys(RESOURCES).length;
 
 export default function HomePage() {
   return (
@@ -57,40 +62,87 @@ export default function HomePage() {
           )}
         </div>
         <div className="mk-hero-scrim" />
-        <div className="mk-hero-stamp">Free forever for foster youth</div>
+        <div className="mk-hero-stamp">
+          {verifiedCount}+ verified
+          <br />
+          listings
+        </div>
         <div className="mk-wrap">
           <div className="mk-hero-copy">
-            <p className="mk-kicker">California · ages 14–26</p>
+            <p className="mk-kicker">California · ages 14–26 · {totalResources} resources</p>
             <h1 className="mk-h1">
               AfterCare.
               <br />
-              <em>Your life, mapped.</em>
+              <em>Ask. Find. Go.</em>
             </h1>
             <p className="mk-deck">
-              Built by a former foster youth for the kids still figuring it out —
-              rights, papers, money, housing, school, court, and the nights you
-              need a bed. Straight talk. Real steps. Official sources.
+              Type what you need. Jump to a real phone number or official link in
+              two taps. Built by a former foster youth — with sources you can check.
             </p>
+            <SiteSearch autoFocus />
             <div className="mk-cta-row">
-              <Link href="/find" className="mk-btn mk-btn-primary">
-                What do you need right now?
+              <Link href="/directory" className="mk-btn mk-btn-primary">
+                Open the directory
               </Link>
-              <Link href="/app" className="mk-btn mk-btn-ghost" style={{ color: "#f3e6cc", borderColor: "#f3e6cc" }}>
-                Open the app
+              <Link
+                href="/app"
+                className="mk-btn mk-btn-ghost"
+                style={{ color: "#f3e6cc", borderColor: "#f3e6cc" }}
+              >
+                Ask the navigator
               </Link>
             </div>
             <div className="mk-hero-meta">
               <span>No caseworker required</span>
-              <span>Crisis lines always one tap away</span>
+              <span>ZIP stays in your browser</span>
               <span>{ORG_STATUS}</span>
             </div>
           </div>
         </div>
       </header>
 
-      <section className="mk-section" id="finder">
+      <section className="mk-section" id="tasks">
+        <div className="mk-wrap">
+          <TaskPaths />
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-alt" id="finder">
         <div className="mk-wrap">
           <NeedsFinder />
+        </div>
+      </section>
+
+      <section className="mk-section" id="directory-cta">
+        <div className="mk-wrap mk-split">
+          <div>
+            <p className="mk-kicker">All 58 counties</p>
+            <h2 className="mk-h2">
+              County ILP contacts from <em>CDSS.</em>
+            </h2>
+            <p className="mk-lead">
+              Every California county Independent Living Program contact we could
+              pull from the official CDSS roster — plus statewide crisis lines,
+              Chafee, Medi-Cal, shelters, and legal aid. Filter by county or ZIP.
+            </p>
+            <div className="mk-cta-row">
+              <Link href="/directory?need=ilp" className="mk-btn mk-btn-primary">
+                My county ILP
+              </Link>
+              <Link href="/directory?need=crisis" className="mk-btn mk-btn-ghost">
+                Crisis lines
+              </Link>
+            </div>
+          </div>
+          <div className="mk-panel practical">
+            <h3>{verifiedCount} verified · {totalResources} total</h3>
+            <p>
+              Verified means we confirmed an official page or the CDSS county
+              roster. It does <strong>not</strong> mean we tested the phone line
+              live. Always call ahead.{" "}
+              <Link href="/directory">Browse directory →</Link>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -128,8 +180,8 @@ export default function HomePage() {
             What opens up at <em>14, 16, 17, 18, 21, 26.</em>
           </h2>
           <p className="mk-lead">
-            Foster care has deadlines nobody explains in plain language. Here is
-            the California map — confirm every rule with your worker or attorney.
+            Deadlines nobody explains in plain language — confirm every rule with
+            your worker or attorney.
           </p>
           <AgeTimeline />
         </div>
@@ -138,15 +190,15 @@ export default function HomePage() {
       <section className="mk-section mk-section-pine" id="flagship">
         <div className="mk-wrap mk-split">
           <div>
-            <p className="mk-kicker">Flagship</p>
+            <p className="mk-kicker">Flagship guide</p>
             <h2 className="mk-h2">Driver&rsquo;s license &amp; permit</h2>
             <p className="mk-deck">
-              Who can sign. Driver&rsquo;s ed. Insurance. The road test. Cited to
-              California DMV and CDSS — then finished as a Quest in the app.
+              Who can sign. Driver&rsquo;s ed. Insurance. Cited to DMV and CDSS —
+              finished as a Quest in the app.
             </p>
             <div className="mk-cta-row">
               <Link href="/programs/drivers-license" className="mk-btn mk-btn-on-dark">
-                Open the flagship guide
+                Open the guide
               </Link>
               <Link href="/app" className="mk-btn mk-btn-ghost-on-dark">
                 Start the Quest
@@ -159,14 +211,10 @@ export default function HomePage() {
 
       <section className="mk-section" id="needs">
         <div className="mk-wrap">
-          <p className="mk-kicker">54 guides · California first</p>
+          <p className="mk-kicker">{PROGRAMS.length} guides</p>
           <h2 className="mk-h2">
-            Not three cards. <em>Every foster need.</em>
+            Deep guides. <em>Not three cards.</em>
           </h2>
-          <p className="mk-lead">
-            Bill of Rights, court, credit checks, AB 12, Chafee, Medi-Cal to 26,
-            sealing records, SIJS, JV-220, NextUp — pick a line, get steps.
-          </p>
           <div className="mk-topic-rail">
             {FEATURED.map((p) => (
               <Link key={p.slug} href={`/programs/${p.slug}`}>
@@ -177,10 +225,7 @@ export default function HomePage() {
           </div>
           <div className="mk-cta-row">
             <Link href="/programs" className="mk-btn mk-btn-primary">
-              Browse all {PROGRAMS.length} guides
-            </Link>
-            <Link href="/start-here" className="mk-btn mk-btn-ghost">
-              Prefer a path? Start here
+              Browse all guides
             </Link>
           </div>
         </div>
@@ -189,19 +234,17 @@ export default function HomePage() {
       <section className="mk-pull" id="promise">
         <div className="mk-wrap">
           <p className="mk-pull-note">
-            We will never invent a hotline, a partner logo, or a statistic we
-            didn&rsquo;t earn.
+            If we don&rsquo;t know, we say so — and send you to 211 or a crisis line.
           </p>
           <p className="mk-pull-note">
-            Guidance — not legal or clinical advice. Official sources linked.
-            Crisis help always on the page.
+            No invented orgs. No fake numbers. Guidance, not legal or clinical advice.
           </p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-on-dark">
-              Get help now
+              Ask AfterCare
             </Link>
-            <Link href="/for-supporters" className="mk-btn mk-btn-ghost-on-dark">
-              I&rsquo;m a supporter
+            <Link href="/directory" className="mk-btn mk-btn-ghost-on-dark">
+              Directory
             </Link>
           </div>
         </div>

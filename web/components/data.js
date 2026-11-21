@@ -166,13 +166,13 @@ export const CHAT_REPLIES = {
   },
   default: {
     answer:
-      "I've got you. Give me a second to think this through with you — I'll always give you a straight answer, the next few steps, and real places near you that can help. Nothing here gets judged.",
+      "I don't have a specific scripted answer for that yet — and I won't make one up. Dial 211 for local referrals, or use a crisis line if you're in danger. You can also browse the verified directory.",
     steps: [
-      "Tell me a little more — your city or ZIP helps me find help that's actually close to you.",
-      "If this is an emergency, the red Panic Button gets you immediate local help.",
-      "Anything you ask stays private. Always.",
+      "If you're unsafe right now: call or text 988, or use the Panic Button.",
+      "For local food, shelter, or benefits: dial 211 (verified listing).",
+      "Browse /directory for county ILP contacts and verified programs — or rephrase with words like housing, Medi-Cal, court, or documents.",
     ],
-    resources: ["211", "rightway"],
+    resources: ["211", "988", "foster-ombuds"],
   },
   court: {
     answer:
@@ -358,6 +358,7 @@ export const RESOURCE_CATEGORIES = [
   { id: "Education", label: "School", icon: "grad" },
   { id: "Legal", label: "Legal", icon: "doc" },
   { id: "Crisis", label: "Crisis", icon: "shield" },
+  { id: "County ILP", label: "County ILP", icon: "pin" },
   { id: "Essentials", label: "Essentials", icon: "box" },
   { id: "All-in-one", label: "All-in-one", icon: "grid" },
 ];

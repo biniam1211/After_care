@@ -1237,6 +1237,354 @@ html:has(.mk) body {
   max-width: 36rem;
 }
 
+/* ── Search ── */
+.mk-search {
+  position: relative;
+  max-width: 640px;
+  margin: 18px 0 8px;
+}
+
+.mk-search-label {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.mk-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 4px 12px;
+  min-height: 56px;
+}
+
+.mk-search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  font-family: var(--sans);
+  font-weight: 600;
+  background: transparent;
+  min-height: 44px;
+}
+
+.mk-search-icon {
+  font-size: 22px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.mk-search-clear {
+  border: none;
+  background: var(--mustard-soft);
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: 2px solid var(--ink);
+}
+
+.mk-search-results {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  position: absolute;
+  z-index: 40;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  max-height: 360px;
+  overflow: auto;
+}
+
+.mk-search-results a {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.mk-search-results a:hover {
+  background: var(--mustard-soft);
+}
+
+.mk-search-type {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mk-search-blurb {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.mk-search-empty {
+  margin-top: 8px;
+  padding: 12px;
+  border: 2px dashed var(--ink);
+  background: var(--paper-2);
+}
+
+.mk-search-privacy {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin: 8px 0 0;
+}
+
+.mk-search-compact {
+  margin: 0;
+  max-width: none;
+  flex: 1;
+}
+
+.mk-search-compact .mk-search-privacy {
+  display: none;
+}
+
+/* ── Task paths ── */
+.mk-task-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+@media (min-width: 700px) {
+  .mk-task-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mk-task {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 16px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  min-height: 72px;
+}
+
+.mk-task:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--accent);
+}
+
+.mk-task strong {
+  font-family: var(--display);
+  font-size: 1.2rem;
+}
+
+.mk-task span {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ── Quick exit ── */
+.mk-quick-exit {
+  position: fixed;
+  z-index: 200;
+  right: 12px;
+  bottom: 12px;
+  min-height: 44px;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--mustard);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--mustard);
+}
+
+.mk-quick-exit:hover {
+  background: var(--accent);
+}
+
+/* ── Directory ── */
+.mk-dir-filters {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 800px) {
+  .mk-dir-filters {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.mk-dir-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mk-dir-filters select,
+.mk-dir-filters input {
+  min-height: 48px;
+  border: 2px solid var(--ink);
+  padding: 10px 12px;
+  font-size: 16px;
+  font-family: var(--sans);
+  font-weight: 600;
+  background: #fff;
+}
+
+.mk-dir-zip {
+  display: flex;
+  gap: 8px;
+}
+
+.mk-dir-zip input {
+  flex: 1;
+}
+
+.mk-dir-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 12px 0 20px;
+  font-weight: 650;
+}
+
+.mk-dir-count {
+  margin-left: auto;
+  color: var(--ink-soft);
+}
+
+.mk-cat-nav button {
+  border: 2px solid var(--ink);
+  padding: 8px 12px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  min-height: 44px;
+  font-family: var(--sans);
+}
+
+.mk-cat-nav button.is-on,
+.mk-cat-nav button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mk-dir-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mk-dir-card {
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 18px;
+  box-shadow: 4px 4px 0 var(--paper-deep);
+}
+
+.mk-dir-card h2 {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  margin: 8px 0 4px;
+}
+
+.mk-dir-meta {
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.mk-dir-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0 10px;
+}
+
+.mk-dir-verify {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+}
+
+.mk-dir-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Nav search row ── */
+.mk-nav-search {
+  display: none;
+  flex: 1;
+  max-width: 360px;
+}
+
+@media (min-width: 1100px) {
+  .mk-nav-search {
+    display: block;
+  }
+}
+
+/* Hero wow motion */
+.mk-hero-copy .mk-h1 {
+  animation: mk-rise 0.7s ease both;
+}
+
+.mk-hero-stamp {
+  animation: mk-stamp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation-delay: 0.25s;
+}
+
+@keyframes mk-stamp {
+  from {
+    opacity: 0;
+    transform: rotate(12deg) scale(1.4);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(12deg) scale(1);
+  }
+}
+
+.mk-task {
+  animation: mk-rise 0.45s ease both;
+}
+
+.mk-task:nth-child(2) { animation-delay: 0.05s; }
+.mk-task:nth-child(3) { animation-delay: 0.1s; }
+.mk-task:nth-child(4) { animation-delay: 0.15s; }
+.mk-task:nth-child(5) { animation-delay: 0.2s; }
+.mk-task:nth-child(6) { animation-delay: 0.25s; }
+
 /* Motion flourishes */
 @keyframes mk-rise {
   from {

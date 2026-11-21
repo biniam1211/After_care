@@ -53,8 +53,15 @@ function ResourceMini({ id, onOpen }) {
       <IconTile name={r.cat === "Crisis" ? "shield" : r.cat === "Housing" ? "home" : r.cat === "Health" ? "health" : r.cat === "Education" ? "grad" : "pin"} tone={r.catColor} size={38} r={11} iconSize={19} />
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)", letterSpacing: -0.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</div>
-        <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 1 }}>{r.meta}</div>
-        <div style={{ marginTop: 5 }}><VerificationBadge verified={!!r.verified} /></div>
+        <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 1 }}>{r.meta}{r.phone ? ` · ${r.phone}` : ""}</div>
+        <div style={{ marginTop: 5, display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+          <VerificationBadge verified={!!r.verified} />
+          {r.sourceUrl && (
+            <span style={{ fontSize: 11, color: "var(--ink-faint)", fontWeight: 600 }}>
+              Source on file{r.verifiedDate ? ` · ${r.verifiedDate}` : ""}
+            </span>
+          )}
+        </div>
       </div>
       {r.phone && <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 99, background: t.soft }}><Icon name="phone" size={17} color={t.solid} sw={2} /></span>}
     </button>

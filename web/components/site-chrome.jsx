@@ -6,6 +6,8 @@
  * See docs/ARCHITECTURE-SEPARATION.md.
  */
 import Link from "next/link";
+import { SiteSearch } from "@/components/site-search";
+import { QuickExit } from "@/components/quick-exit";
 
 /** Honest org status — never claim registered nonprofit / 501(c)(3). */
 export const ORG_STATUS =
@@ -79,14 +81,12 @@ export function CrisisStrip() {
 }
 
 const NAV_LINKS = [
-  { href: "/find", label: "Find help" },
-  { href: "/start-here", label: "Start here" },
-  { href: "/programs", label: "All needs" },
+  { href: "/directory", label: "Directory" },
+  { href: "/find", label: "Finder" },
+  { href: "/programs", label: "Guides" },
   { href: "/for-supporters", label: "Supporters" },
   { href: "/about", label: "About" },
-  { href: "/resources", label: "Resources" },
   { href: "/get-involved", label: "Get involved" },
-  { href: "/faq", label: "FAQ" },
 ];
 
 /** Sticky org navigation with Get help CTA. */
@@ -114,6 +114,9 @@ export function OrgNav() {
             AfterCare<i>.</i>
           </Link>
           <span className="mk-brand-tag">Built by foster kids, for foster kids</span>
+          <div className="mk-nav-search">
+            <SiteSearch compact />
+          </div>
           <ul className="mk-nav-links">
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
@@ -122,7 +125,7 @@ export function OrgNav() {
             ))}
           </ul>
           <Link href="/app" className="mk-btn mk-btn-primary mk-nav-cta">
-            Get help now
+            Ask
           </Link>
           <details className="mk-nav-menu">
             <summary aria-label="Open menu">Menu</summary>
@@ -132,14 +135,15 @@ export function OrgNav() {
                   {l.label}
                 </Link>
               ))}
-              <Link href="/services">Find services</Link>
-              <Link href="/research">Research</Link>
+              <Link href="/services">Legacy services</Link>
+              <Link href="/faq">FAQ</Link>
               <Link href="/contact">Contact</Link>
-              <Link href="/app">Get help now</Link>
+              <Link href="/app">Ask AfterCare</Link>
             </div>
           </details>
         </div>
       </div>
+      <QuickExit />
     </nav>
   );
 }
@@ -149,9 +153,9 @@ const FOOTER_COLS = [
     heading: "Explore",
     links: [
       { href: "/", label: "Home" },
+      { href: "/directory", label: "Resource directory" },
       { href: "/find", label: "What do you need?" },
-      { href: "/start-here", label: "Start here" },
-      { href: "/programs", label: "All needs" },
+      { href: "/programs", label: "All guides" },
       { href: "/about", label: "About" },
       { href: "/for-supporters", label: "For supporters" },
     ],
@@ -159,9 +163,9 @@ const FOOTER_COLS = [
   {
     heading: "Get help",
     links: [
-      { href: "/app", label: "Open the app" },
-      { href: "/resources", label: "Resources hub" },
-      { href: "/services", label: "Find services" },
+      { href: "/app", label: "Ask AfterCare" },
+      { href: "/directory?need=crisis", label: "Crisis lines" },
+      { href: "/directory?need=ilp", label: "County ILP contacts" },
       { href: "/programs/drivers-license", label: "Driver's license" },
       { href: "/programs/foster-youth-bill-of-rights", label: "Bill of Rights" },
       { href: "/programs/extended-foster-care", label: "AB 12" },
