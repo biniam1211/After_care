@@ -18,17 +18,26 @@ export function matchChatReply(text, detectCrisis) {
   if (/(ab\s*12|extended foster|stay in care|efc)/.test(t)) return "ab12";
   if (/(attorney|court hearing|judge|dependency court|my lawyer)/.test(t)) return "court";
   if (/(bill of rights|ombudsperson|grievance|my rights)/.test(t)) return "rights";
-  // Natural credit phrasing before bank — bare "account" must not win over fraud.
-  // Exclude college "credit hours" / "course credit" so school intents stay college.
-  if (
-    !/(credit hours?|course credit|college credit|partial credits?)/.test(t) &&
-    /(check (my )?credit|my credit|credit (check|report|score|file|history|freeze)|bad credit|identity theft|annualcreditreport|equifax|experian|transunion|fraud alert)/.test(
-      t
-    )
+  // Credit-report / identity-theft intent before bank.
+  // Word boundaries + exclusions so "my credits", "credit union", and
+  // "credit hours" do not steal college/bank replies.
+  if (/\bcredit union\b/.test(t)) {
+    // fall through — credit unions are banking
+  } else if (
+    !/\b(credit hours?|course credits?|college credits?|partial credits?|my credits)\b/.test(t) &&
+    (/\bcheck (?:my )?credit\b/.test(t) ||
+      /\bmy credit\b(?!\s+union)/.test(t) ||
+      /\bcredit (?:check|report|score|file|history|freeze)\b/.test(t) ||
+      /\bbad credit\b/.test(t) ||
+      /\b(identity theft|annualcreditreport|equifax|experian|transunion|fraud alert)\b/.test(t))
   ) {
     return "credit";
   }
-  if (/(bank|debit|checking|direct deposit|open an account|bank account)/.test(t)) return "bank";
+  if (
+    /(bank|debit|checking|direct deposit|open an account|bank account|credit union)/.test(t)
+  ) {
+    return "bank";
+  }
   if (/(chafee|grant|scholarship|free money|tuition)/.test(t)) return "chafee";
   if (/(college|university|fafsa|school|degree)/.test(t)) return "college";
   if (/(health|insurance|medi|medical|doctor|medicaid)/.test(t)) return "health";

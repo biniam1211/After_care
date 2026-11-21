@@ -41,4 +41,10 @@ describe("matchChatReply", () => {
     expect(matchChatReply("there's a fake account on my credit file", noCrisis)).toBe("credit");
     expect(matchChatReply("I need to open a bank account", noCrisis)).toBe("bank");
   });
+
+  it("does not confuse school credits or credit unions with credit reports", () => {
+    expect(matchChatReply("How do I get my credits for school?", noCrisis)).toBe("college");
+    expect(matchChatReply("Do I get partial credits under AB 490?", noCrisis)).toBe("college");
+    expect(matchChatReply("Can I open an account at a credit union?", noCrisis)).toBe("bank");
+  });
 });
