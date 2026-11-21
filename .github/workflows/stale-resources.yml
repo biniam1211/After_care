@@ -1,0 +1,75 @@
+name: Stale resources monitor
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  stale:
+    name: Flag stale / broken verified listings
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: node scripts/build-resources.mjs
+      - run: node scripts/stale-resources.mjs
+      - name: Open or update issue when stale/broken found
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'docs/research/stale-resources.md';
+            if (!fs.existsSync(path)) {
+              core.info('No stale report');
+              return;
+            }
+            const body = fs.readFileSync(path, 'utf8');
+            const staleMatch = body.match(/## Stale verified dates \((\d+)\)/);
+            const brokenMatch = body.match(/## Broken links spotted this run \((\d+)\)/);
+            const stale = Number(staleMatch?.[1] || 0);
+            const broken = Number(brokenMatch?.[1] || 0);
+            if (stale === 0 && broken === 0) {
+              core.info('Catalog healthy');
+              return;
+            }
+            const title = `Resource catalog needs re-verify (${stale} stale, ${broken} broken)`;
+            const labels = ['maintenance'];
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'maintenance',
+              per_page: 50,
+            });
+            const existing = issues.find((i) => i.title.startsWith('Resource catalog needs re-verify'));
+            const issueBody = `${body}\n\n_Opened by stale-resources workflow._`;
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                title,
+                body: issueBody,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body: issueBody,
+                labels,
+              });
+            }
