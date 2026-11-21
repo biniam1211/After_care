@@ -1,11 +1,11 @@
 # Resource verification report
 
 **Generated:** 2026-11-21  
-**Catalog size:** 132  
-**Verified flag:** 81  
-**Link check OK (verified with URL):** 81  
+**Catalog size:** 131  
+**Verified flag:** 131  
+**Link check OK (verified with URL):** 131  
 **Verified but link failed:** 0  
-**Needs review (unverified):** 51
+**Needs review (unverified):** 0
 
 ## Method
 
@@ -19,25 +19,72 @@
 | --- | --- | --- | --- | --- |
 | 211 California | 211 | https://www.211ca.org | OK | 2026-11-21 |
 | 988 Suicide & Crisis Lifeline | 988 | https://988lifeline.org | OK | 2026-11-21 |
+| California Youth Crisis Line | 1-800-843-5200 | https://calyouth.org | OK | 2026-11-21 |
 | National Runaway Safeline | 1-800-786-2929 | https://www.1800runaway.org/ | OK | 2026-11-21 |
 | The Trevor Project | 1-866-488-7386 | https://www.thetrevorproject.org | OK | 2026-11-21 |
 | Crisis Text Line | 741741 | https://www.crisistextline.org/ | OK | 2026-11-21 |
 | National Human Trafficking Hotline | 1-888-373-7888 | https://humantraffickinghotline.org/ | OK | 2026-11-21 |
 | National Human Trafficking Hotline (text) | 233733 | https://humantraffickinghotline.org/ | OK | 2026-11-21 |
 | Family Urgent Response System (FURS) | 1-833-939-3877 | https://fosteryouthhelp.ca.gov/ | OK | 2026-11-21 |
+| Trans Lifeline | 1-877-565-8860 | https://translifeline.org | OK | 2026-11-21 |
+| SAMHSA National Helpline | 1-800-662-4357 | https://www.samhsa.gov/find-help/helplines/national-helpline | OK | 2026-11-21 |
+| National Domestic Violence Hotline | 1-800-799-7233 | https://www.thehotline.org | OK | 2026-11-21 |
 | Covenant House California | 1-800-388-3888 | https://www.covenanthouse.org/california | OK | 2026-11-21 |
 | iFoster | — | https://www.ifoster.org | OK | 2026-11-21 |
 | iFoster — Peers Paving the Path | 530-550-8001 | https://www.ifoster.org/peers-paving-the-path/ | OK | 2026-11-21 |
 | John Burton Advocates for Youth | — | https://jbay.org | OK | 2026-11-21 |
+| RightWay Foundation | — | https://rightwayfoundation.org | OK | 2026-11-21 |
+| James Storehouse | — | https://jamesstorehouse.org | OK | 2026-11-21 |
+| Orangewood Foundation | — | https://www.orangewoodfoundation.org/ | OK | 2026-11-21 |
+| First Star | — | https://www.firststar.org | OK | 2026-11-21 |
 | California Youth Connection | — | https://calyouthconn.org | OK | 2026-11-21 |
+| Children Now | — | https://www.childrennow.org/ | OK | 2026-11-21 |
+| Alliance for Children's Rights | — | https://allianceforchildrensrights.org/ | OK | 2026-11-21 |
+| Public Counsel | — | https://publiccounsel.org | OK | 2026-11-21 |
+| Legal Aid Foundation of Los Angeles | — | https://lafla.org | OK | 2026-11-21 |
+| National Foster Youth Institute | — | https://nfyi.org | OK | 2026-11-21 |
+| California Student Aid Commission (Chafee Grant) | 1-888-224-7268 | https://www.csac.ca.gov/foster-youth | OK | 2026-11-21 |
+| CSAC — Foster Youth Students hub | 1-888-224-7268 | https://www.csac.ca.gov/foster-youth | OK | 2026-11-21 |
 | Covered California | 1-800-300-1506 | https://www.coveredca.com | OK | 2026-11-21 |
 | GetCalFresh | — | https://www.getcalfresh.org | OK | 2026-11-21 |
+| First Place for Youth | — | https://www.firstplaceforyouth.org/ | OK | 2026-11-21 |
+| Larkin Street Youth Services | — | https://larkinstreetyouth.org | OK | 2026-11-21 |
+| Safe Place for Youth | — | https://safeplaceforyouth.org | OK | 2026-11-21 |
+| Jovenes Inc | — | https://jovenesinc.org | OK | 2026-11-21 |
+| Bill Wilson Center | — | https://www.billwilsoncenter.org | OK | 2026-11-21 |
+| Beyond Emancipation | — | https://beyondemancipation.org/ | OK | 2026-11-21 |
 | Just in Time for Foster Youth | — | https://jitfosteryouth.org | OK | 2026-11-21 |
+| Unity Care | — | https://www.unitycare.org | OK | 2026-11-21 |
+| Aspiranet | — | https://www.aspiranet.org | OK | 2026-11-21 |
+| Foster Care Alumni of America | — | https://www.fostercarealumni.org | OK | 2026-11-21 |
+| Foster Youth to Independence (FYI) Vouchers | — | https://www.hud.gov/program_offices/public_indian_housing/programs/hcv/fyi | OK | 2026-11-21 |
+| THP-Plus / Extended Foster Care (AB 12) | — | https://www.cdss.ca.gov | OK | 2026-11-21 |
 | California Foster Care Ombudsperson | 1-877-846-1602 | https://fosteryouthhelp.ca.gov | OK | 2026-11-21 |
+| National Foster Care & Adoption Directory | — | https://www.childwelfare.gov | OK | 2026-11-21 |
+| United Friends of the Children | — | https://unitedfriends.org | OK | 2026-11-21 |
+| A Sense of Home | — | https://www.asenseofhome.org | OK | 2026-11-21 |
 | Children's Law Center of California | — | https://www.clccal.org | OK | 2026-11-21 |
+| Hathaway-Sycamores | — | https://www.hathaway-sycamores.org | OK | 2026-11-21 |
+| Hillsides | — | https://hillsides.org | OK | 2026-11-21 |
+| Olive Crest | — | https://www.olivecrest.org | OK | 2026-11-21 |
+| San Diego Youth Services | — | https://www.sdyouthservices.org | OK | 2026-11-21 |
+| Monarch School | — | https://www.monarchschools.org | OK | 2026-11-21 |
+| Sacramento Children's Home | — | https://www.kidshome.org | OK | 2026-11-21 |
+| Fresh Lifelines for Youth (FLY) | — | https://flyprogram.org | OK | 2026-11-21 |
+| Bay Area Legal Aid | — | https://baylegal.org | OK | 2026-11-21 |
+| Disability Rights California | — | https://www.disabilityrightsca.org | OK | 2026-11-21 |
+| Health Consumer Alliance | — | https://healthconsumer.org | OK | 2026-11-21 |
+| California Department of Health Care Services (Medi-Cal) | — | https://www.dhcs.ca.gov | OK | 2026-11-21 |
+| Year Up | — | https://www.yearup.org | OK | 2026-11-21 |
+| Job Corps | — | https://www.jobcorps.gov | OK | 2026-11-21 |
 | FosterClub | — | https://www.fosterclub.com | OK | 2026-11-21 |
 | FosterClub — Who's in Foster Care? | — | https://www.fosterclub.com/whos-foster-care | OK | 2026-11-21 |
 | ED Foster Care Transition Toolkit | — | https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf | OK | 2026-11-21 |
+| Think of Us | — | https://www.thinkofus.org/ | OK | 2026-11-21 |
+| Foster Care Counts | — | https://www.fostercarecounts.org | OK | 2026-11-21 |
+| Peace4Kids | — | https://www.peace4kids.org | OK | 2026-11-21 |
+| Fresno EOC Sanctuary | — | https://fresnoeoc.org/sanctuary | OK | 2026-11-21 |
+| California Foster Youth Tuition Waiver | — | https://www.cccco.edu | OK | 2026-11-21 |
 | Alameda County ILP (CDSS roster) (Alameda) | (510) 667-7610 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Alpine County ILP (CDSS roster) (Alpine) | (530) 694-2235 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | Amador County ILP (CDSS roster) (Amador) | (209) 257-1980 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
@@ -98,63 +145,22 @@
 | Yuba County ILP (CDSS roster) (Yuba) | (530) 749-6266 | https://cdss.ca.gov/inforesources/foster-care/county-contacts-for-efc-thp-and-ilp | OK | 2026-11-21 |
 | CDSS Extended Foster Care (AB 12) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/extended-foster-care-ab-12 | OK | 2026-11-21 |
 | CDSS Independent Living Program (ILP) | 916-651-7465 | https://www.cdss.ca.gov/inforesources/foster-care/independent-living-program | OK | 2026-11-21 |
+| California Community Colleges — NextUp | — | https://icangotocollege.com/financial-aid/foster-youth-support | OK | 2026-11-21 |
+| CSU Fullerton — Guardian Scholars (Orange) | — | https://www.fullerton.edu/scholars/programs/guardian-scholars.html | OK | 2026-11-21 |
+| CSU Guardian Scholars (system overview) | — | https://www.calstate.edu/csu-system/news/Pages/CSU-Celebrates-25-Years-of-Guardian-Scholars.aspx | OK | 2026-11-21 |
 
 ## Needs review
 
 | Name | Phone | URL | Notes |
 | --- | --- | --- | --- |
-| California Youth Crisis Line | 1-800-843-5200 | https://calyouth.org | Unverified — call to confirm |
-| Trans Lifeline | 1-877-565-8860 | https://translifeline.org | Unverified — call to confirm |
-| SAMHSA National Helpline | 1-800-662-4357 | https://www.samhsa.gov/find-help/national-helpline | Unverified — call to confirm |
-| National Domestic Violence Hotline | 1-800-799-7233 | https://www.thehotline.org | Unverified — call to confirm |
-| RightWay Foundation | — | https://rightwayfoundation.org | Unverified — call to confirm |
-| James Storehouse | — | https://jamesstorehouse.org | Unverified — call to confirm |
-| Orangewood Foundation | — | https://orangewoodfoundation.org | Unverified — call to confirm |
-| First Star | — | https://www.firststar.org | Unverified — call to confirm |
-| Children Now | — | https://www.childrennow.org | Unverified — call to confirm |
-| Alliance for Children's Rights | — | https://allianceforchildrensrights.org | Unverified — call to confirm |
-| Public Counsel | — | https://publiccounsel.org | Unverified — call to confirm |
-| Legal Aid Foundation of Los Angeles | — | https://lafla.org | Unverified — call to confirm |
-| National Foster Youth Institute | — | https://nfyi.org | Unverified — call to confirm |
-| California Student Aid Commission (Chafee Grant) | 1-888-224-7268 | https://www.csac.ca.gov | Unverified — call to confirm |
-| First Place for Youth | — | https://www.firstplaceforyouth.org | Unverified — call to confirm |
-| Larkin Street Youth Services | — | https://larkinstreetyouth.org | Unverified — call to confirm |
-| Safe Place for Youth | — | https://safeplaceforyouth.org | Unverified — call to confirm |
-| Jovenes Inc | — | https://jovenesinc.org | Unverified — call to confirm |
-| Bill Wilson Center | — | https://www.billwilsoncenter.org | Unverified — call to confirm |
-| Beyond Emancipation | — | https://www.beyondemancipation.org | Unverified — call to confirm |
-| Promises2Kids | — | https://promises2kids.org | Unverified — call to confirm |
-| Unity Care | — | https://www.unitycare.org | Unverified — call to confirm |
-| Aspiranet | — | https://www.aspiranet.org | Unverified — call to confirm |
-| Pursue Possibility | — | https://www.pursuepossibility.org | Unverified — call to confirm |
-| Foster Care Alumni of America | — | https://www.fostercarealumni.org | Unverified — call to confirm |
-| Foster Youth to Independence (FYI) Vouchers | — | https://www.hud.gov/program_offices/public_indian_housing/programs/hcv/fyi | Unverified — call to confirm |
-| THP-Plus / Extended Foster Care (AB 12) | — | https://www.cdss.ca.gov | Unverified — call to confirm |
-| National Foster Care & Adoption Directory | — | https://www.childwelfare.gov | Unverified — call to confirm |
-| United Friends of the Children | — | https://unitedfriends.org | Unverified — call to confirm |
-| A Sense of Home | — | https://www.asenseofhome.org | Unverified — call to confirm |
-| Hathaway-Sycamores | — | https://www.hathaway-sycamores.org | Unverified — call to confirm |
-| Hillsides | — | https://hillsides.org | Unverified — call to confirm |
-| Olive Crest | — | https://www.olivecrest.org | Unverified — call to confirm |
-| San Diego Youth Services | — | https://www.sdyouthservices.org | Unverified — call to confirm |
-| Monarch School | — | https://www.monarchschools.org | Unverified — call to confirm |
-| Walden Family Services | — | https://www.waldenfamily.org | Unverified — call to confirm |
-| Wind Youth Services | — | https://www.windyouth.org | Unverified — call to confirm |
-| Sacramento Children's Home | — | https://www.kidshome.org | Unverified — call to confirm |
-| Fresh Lifelines for Youth (FLY) | — | https://flyprogram.org | Unverified — call to confirm |
-| Bay Area Legal Aid | — | https://baylegal.org | Unverified — call to confirm |
-| Disability Rights California | — | https://www.disabilityrightsca.org | Unverified — call to confirm |
-| Health Consumer Alliance | — | https://healthconsumer.org | Unverified — call to confirm |
-| California Department of Health Care Services (Medi-Cal) | — | https://www.dhcs.ca.gov | Unverified — call to confirm |
-| Year Up | — | https://www.yearup.org | Unverified — call to confirm |
-| Job Corps | — | https://www.jobcorps.gov | Unverified — call to confirm |
-| Think of Us | — | https://www.thinkof.us | Unverified — call to confirm |
-| Foster Care Counts | — | https://www.fostercarecounts.org | Unverified — call to confirm |
-| Peace4Kids | — | https://www.peace4kids.org | Unverified — call to confirm |
-| Stanford Sierra Youth & Families | — | https://www.stanfordsierra.org | Unverified — call to confirm |
-| Fresno EOC Sanctuary | — | https://fresnoeoc.org/sanctuary | Unverified — call to confirm |
-| California Foster Youth Tuition Waiver | — | https://www.cccco.edu | Unverified — call to confirm |
+
 
 ## Link failures on verified rows
 
 _None this run._
+
+## Removed this pass
+
+See `docs/research/removed-listings.md` for listings dropped when official pages
+could not be confirmed (DNS failure, broken TLS, or persistent bot-blocks with no
+alternate official URL).
