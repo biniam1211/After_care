@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { OrgNav, OrgFooter, CrisisStrip } from "@/components/site-chrome";
 import { Contact } from "@/components/legal-page";
+import "../marketing.css";
 
 export const metadata = {
   title: "Contact",

@@ -1,67 +1,29 @@
 import Link from "next/link";
-import { OrgArt } from "@/components/org-art";
 import {
   OrgNav,
   OrgFooter,
   CrisisStrip,
 } from "@/components/site-chrome";
+import { FounderFigure } from "@/components/founder-photos";
+import { PROGRAMS } from "@/components/programs-data";
 import "../marketing.css";
 
 export const metadata = {
   title: "Programs",
   description:
-    "AfterCare programs: Housing, Health, Work & Money, Community & Belonging — plus the Navigator app and the Services directory.",
+    "AfterCare programs for foster youth: driver's license help, vital documents, housing, money, benefits, education, jobs, health, legal rights, AB 12, and parenting youth.",
   openGraph: {
     title: "Programs · AfterCare",
     description:
-      "AfterCare programs: Housing, Health, Work & Money, Community & Belonging — plus the Navigator app and the Services directory.",
+      "All-in-one life navigator programs — from learner's permit to benefits and housing.",
     type: "website",
   },
 };
 
-const PILLARS = [
-  {
-    id: "housing",
-    art: "door",
-    caption: "A door that opens. Shelter tonight, stability next month.",
-    title: "Housing",
-    body: "A safe place to sleep tonight, and a path to a stable one next month. Emergency shelter, transitional housing, and the numbers that actually pick up — plus the steps to keep a roof over your head once you have one.",
-    items: ["Emergency shelter near you", "Transitional housing options", "What to ask before you sign a lease"],
-  },
-  {
-    id: "health",
-    art: "letter",
-    caption: "The paperwork, made plain. Coverage you keep, care you reach.",
-    title: "Health",
-    body: "Coverage that follows you and care you can actually reach. In California, former foster youth keep free Medi-Cal to age 26 — most never find out. We make sure you do, and we help in a crisis.",
-    items: ["Medi-Cal to age 26 in California", "Finding a doctor or clinic near you", "Crisis help: 988, shelter, 911"],
-  },
-  {
-    id: "work-money",
-    art: "ledger",
-    caption: "The ledger. Every dollar accounted for, every benefit claimed.",
-    title: "Work & Money",
-    body: "First bank account, first job, benefits you qualify for. The Chafee Grant offers up to $5,000 a year for college or job training if you were in care between 16 and 18 — the navigator walks you through claiming it.",
-    items: ["First bank account, step by step", "Chafee Grant — up to $5,000/yr", "Job search and career readiness"],
-  },
-  {
-    id: "community",
-    art: "table",
-    caption: "The table. Belonging does not end at 18.",
-    title: "Community & Belonging",
-    body: "People who get it. Guidance from lived experience, not lectures — and a community that does not end when you turn 18. You never age out of belonging here.",
-    items: ["Guidance from lived experience", "A community that does not end at 18", "Help asking for help"],
-  },
-];
+export default function ProgramsPage() {
+  const flagship = PROGRAMS.find((p) => p.flagship);
+  const rest = PROGRAMS.filter((p) => !p.flagship);
 
-const ROADMAP = [
-  { step: "Now", text: "California — 65 listings in the directory, each labeled Verified or “Unverified — call to confirm.”" },
-  { step: "Next", text: "State by state. The directory grows until help near home is findable anywhere in America." },
-  { step: "Along the way", text: "Community features and mentor connections — planned, clearly labeled as roadmap, never presented as live before they exist." },
-  { step: "The destination", text: "Every ZIP code in America. A young person anywhere can find help near them, any hour of the day." },
-];
-
-export default function Programs() {
   return (
     <div className="mk">
       <OrgNav />
@@ -70,143 +32,79 @@ export default function Programs() {
         <div className="mk-wrap">
           <p className="mk-kicker">Programs</p>
           <h1 className="mk-h1">
-            Four pillars, <em>one navigator.</em>
+            Every how-do-I-adult step, <em>in one navigator.</em>
           </h1>
           <p className="mk-deck">
-            Housing, health, work &amp; money, and community — plus the
-            navigator app and the services directory that hold them together.
+            Service areas with clear next steps — and Quests in the app when you
+            are ready to finish the job. Free forever for foster youth.
           </p>
           <div className="mk-cta-row">
             <Link href="/app" className="mk-btn mk-btn-primary">
-              Open the app →
+              Get help now
             </Link>
-            <Link href="/services" className="mk-btn mk-btn-ghost">
-              Find services
+            <Link href="/programs/drivers-license" className="mk-btn mk-btn-ghost">
+              Driver&rsquo;s license flagship
             </Link>
           </div>
         </div>
       </header>
 
-      {/* ── Four pillars: alternating full-width splits ── */}
-      <section className="mk-section" id="pillars">
-        <div className="mk-wrap">
-          <p className="mk-kicker">The four pillars</p>
-          <h2 className="mk-h2">Everything a young person needs to stand on their own.</h2>
-        </div>
-        {PILLARS.map((p, i) => (
-          <div className="mk-section" key={p.id} id={p.id} style={{ borderTop: "1px solid var(--line)" }}>
-            <div className="mk-wrap">
-              <div className={`mk-split ${i % 2 === 1 ? "flip" : ""}`}>
-                <figure className="mk-art" aria-hidden="true">
-                  <OrgArt kind={p.art} />
-                  <figcaption>
-                    <b>Fig. {i + 1} —</b> {p.caption}
-                  </figcaption>
-                </figure>
-                <div>
-                  <p className="mk-kicker">Pillar 0{i + 1}</p>
-                  <h3 style={{ fontFamily: "var(--serif)", fontWeight: 900, fontSize: "clamp(28px, 3.6vw, 42px)", lineHeight: 1.05, letterSpacing: "-0.6px", margin: 0 }}>{p.title}</h3>
-                  <p className="mk-lead">{p.body}</p>
-                  <ul className="mk-checklist">
-                    {p.items.map((it) => (
-                      <li key={it}>{it}</li>
-                    ))}
-                  </ul>
-                </div>
+      {flagship && (
+        <section className="mk-section" id="flagship">
+          <div className="mk-wrap mk-split">
+            <FounderFigure photoId="first-car" sizes="(max-width: 860px) 100vw, 480px" />
+            <div>
+              <span className="mk-badge mk-badge-flagship">Flagship program</span>
+              <h2 className="mk-h2" style={{ marginTop: 12 }}>{flagship.title}</h2>
+              <p className="mk-lead">{flagship.summary}</p>
+              <ul className="mk-checklist">
+                {flagship.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
+              <div className="mk-cta-row">
+                <Link href={`/programs/${flagship.slug}`} className="mk-btn mk-btn-primary">
+                  Open driver&rsquo;s license program
+                </Link>
               </div>
             </div>
           </div>
-        ))}
-      </section>
+        </section>
+      )}
 
-      {/* ── Navigator program ── */}
-      <section className="mk-section" id="navigator">
-        <div className="mk-wrap mk-split">
-          <div>
-            <span className="mk-badge mk-badge-live">Live now</span>
-            <h2 className="mk-h2">The Navigator app.</h2>
-            <p className="mk-lead">
-              The navigator is one program of AfterCare — the one that turns
-              information into finished things. Ask anything, get a plain-language
-              answer, and follow steps until the task is done. It runs in your
-              browser today and installs to your Home Screen in under a minute.
-            </p>
-            <ul className="mk-checklist">
-              <li>Ask anything — judgment-free answers, any hour.</li>
-              <li>Quests that finish the job — bank account, Chafee Grant, coverage past 18.</li>
-              <li>Panic button that does something — shelter, a number that picks up, a message already written.</li>
-              <li>Recommendations only from our fixed catalog — never invented listings.</li>
-            </ul>
-            <div className="mk-cta-row">
-              <Link href="/app" className="mk-btn">
-                Open the app →
-              </Link>
-              <Link href="/download" className="mk-btn mk-btn-ghost">
-                Get it on your phone
-              </Link>
-            </div>
-          </div>
-          <figure className="mk-art" aria-hidden="true">
-            <OrgArt kind="compass" />
-            <figcaption>
-              <b>Fig. 5 —</b> The navigator. One guide, every direction
-              a young person needs to go.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* ── Directory program ── */}
-      <section className="mk-section" id="directory">
-        <div className="mk-wrap mk-split flip">
-          <figure className="mk-art" aria-hidden="true">
-            <OrgArt kind="map" />
-            <figcaption>
-              <b>Fig. 6 —</b> The map. Real programs, real places,
-              honestly labeled.
-            </figcaption>
-          </figure>
-          <div>
-            <span className="mk-badge mk-badge-live">Live now</span>
-            <h2 className="mk-h2">The Services directory.</h2>
-            <p className="mk-lead">
-              65 California listings across housing, health, school, money, and
-              legal help — each labeled Verified or “Unverified — call to
-              confirm,” so you always know what has and hasn&rsquo;t been checked
-              yet.
-            </p>
-            <p className="mk-lead">
-              <Link href="/services">Browse the directory →</Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Roadmap: road figure + milestone ledger ── */}
-      <section className="mk-section" id="roadmap">
+      <section className="mk-section mk-section-alt" id="all">
         <div className="mk-wrap">
-          <span className="mk-badge mk-badge-roadmap">Roadmap — not live yet</span>
-          <h2 className="mk-h2">The road ahead: every ZIP code in America.</h2>
-          <figure className="mk-art" style={{ marginTop: 36 }} aria-hidden="true">
-            <OrgArt kind="road" />
-            <figcaption>
-              <b>Fig. 7 —</b> The road ahead. California today; every ZIP
-              code in America at the destination.
-            </figcaption>
-          </figure>
-          <div className="mk-ledger">
-            {ROADMAP.map((r) => (
-              <div className="mk-ledger-row" key={r.step}>
-                <div className="mk-ledger-num accent" style={{ fontSize: "clamp(16px, 2vw, 20px)", letterSpacing: "0.04em" }}>{r.step}</div>
-                <div>
-                  <p style={{ margin: 0 }}>{r.text}</p>
-                </div>
-              </div>
+          <p className="mk-kicker">All programs</p>
+          <h2 className="mk-h2">Pick the step you need next.</h2>
+          <div className="mk-grid-3">
+            {rest.map((p) => (
+              <Link key={p.slug} href={`/programs/${p.slug}`} className="mk-tile">
+                <h3>{p.shortTitle}</h3>
+                <p>{p.tagline}</p>
+                <span className="mk-tile-link">
+                  {p.questSlug ? "Program + Quest →" : "View program →"}
+                </span>
+              </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-harbor">
+        <div className="mk-wrap">
+          <p className="mk-kicker">In the app</p>
+          <h2 className="mk-h2">Quests that finish the job.</h2>
+          <p className="mk-deck">
+            Driver&rsquo;s license, first bank account, Chafee Grant, and health
+            coverage to 26 are interactive Quests today. More programs get Quests
+            as we build them — until then, ask the chat.
+          </p>
           <div className="mk-cta-row">
-            <Link href="/get-involved" className="mk-btn">
-              Help us get there →
+            <Link href="/app" className="mk-btn mk-btn-on-dark">
+              Open the app
+            </Link>
+            <Link href="/how-it-works" className="mk-btn mk-btn-ghost-on-dark">
+              How it works
             </Link>
           </div>
         </div>

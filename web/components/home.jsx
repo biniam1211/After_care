@@ -19,7 +19,12 @@ export function Home({ profile, questProgress, onOpenQuest, onTab, onPanic, onAs
   const done = cur >= total;
   const activeStep = bank.steps[Math.min(cur, total - 1)];
 
-  const recommended = QUESTS.slice(1, 4);
+  // Keep bank as the home hero quest; surface new featured Quests next.
+  const recommended = [
+    QUESTS.find((q) => q.slug === "drivers-license"),
+    QUESTS.find((q) => q.slug === "vital-documents"),
+    QUESTS.find((q) => q.slug === "first-job"),
+  ].filter(Boolean);
 
   return (
     <Screen top={62}>

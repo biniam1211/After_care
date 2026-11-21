@@ -29,12 +29,12 @@ const fraunces = Fraunces({
 const SITE_URL = process.env.APP_URL || "http://localhost:3000";
 
 const DESCRIPTION =
-  "The AI life navigator built by foster kids, for foster kids. Money, housing, school, health and paperwork — figured out step by step. Free, always.";
+  "The AI life navigator built by foster kids, for foster kids. Driver's license help, money, housing, school, health and paperwork — figured out step by step. Free forever.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AfterCare — The missing parent in your pocket",
+    default: "AfterCare — Built by foster kids, for foster kids",
     template: "%s · AfterCare",
   },
   description: DESCRIPTION,
@@ -43,23 +43,25 @@ export const metadata = {
     "foster youth",
     "aging out of foster care",
     "former foster youth resources",
+    "foster youth driver's license California",
     "Chafee Grant",
     "AB 12 extended foster care",
     "foster care California",
+    "Biniam Efrem",
   ],
   // The link travels by text message and DM far more than by search, so the
   // share card matters more than the keywords do.
   openGraph: {
     type: "website",
     siteName: "AfterCare",
-    title: "AfterCare — The missing parent in your pocket",
+    title: "AfterCare — Built by foster kids, for foster kids",
     description: DESCRIPTION,
     url: SITE_URL,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AfterCare — The missing parent in your pocket",
+    title: "AfterCare — Built by foster kids, for foster kids",
     description: DESCRIPTION,
   },
   robots: { index: true, follow: true },

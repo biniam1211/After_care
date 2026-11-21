@@ -2,7 +2,7 @@
 // Source: supabase/seed/resources.sample.csv
 // Regenerate: cd web && node scripts/build-resources.mjs
 //
-// 65 resources (6 with official page confirmed).
+// 68 resources (10 with official page confirmed).
 // "Verified" = official page confirmed (see supabase/seed/README.md).
 // It does NOT mean the phone line was tested live.
 
@@ -123,6 +123,18 @@ export const GENERATED_RESOURCES = {
     "meta": "Online · Statewide",
     "phone": null,
     "url": "https://www.ifoster.org",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
+  },
+  "ifoster-peers": {
+    "name": "iFoster — Peers Paving the Path",
+    "cat": "Health",
+    "catColor": "mint",
+    "blurb": "Pairs current and former foster youth with a Medi-Cal Certified Peer Support Specialist who has lived experience. Free for eligible CA youth ages 16–26 enrolled in a Medi-Cal Managed Care Plan.",
+    "meta": "Call · Statewide",
+    "phone": "530-550-8001",
+    "url": "https://www.ifoster.org/peers-paving-the-path/",
     "address": null,
     "tag": "Verified",
     "verified": true
@@ -707,13 +719,37 @@ export const GENERATED_RESOURCES = {
     "name": "FosterClub",
     "cat": "Essentials",
     "catColor": "mint",
-    "blurb": "National peer network and transition resources for foster youth.",
+    "blurb": "National peer network for young people with foster care experience — community, leadership, and transition tools.",
     "meta": "Online · Statewide",
     "phone": null,
     "url": "https://www.fosterclub.com",
     "address": null,
-    "tag": null,
-    "verified": false
+    "tag": "Verified",
+    "verified": true
+  },
+  "fosterclub-whos": {
+    "name": "FosterClub — Who's in Foster Care?",
+    "cat": "Essentials",
+    "catColor": "mint",
+    "blurb": "FosterClub primer on national foster care numbers with AFCARS and NYTD source links. Cite their page; do not treat figures as AfterCare stats.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://www.fosterclub.com/whos-foster-care",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
+  },
+  "ed-transition-toolkit": {
+    "name": "ED Foster Care Transition Toolkit",
+    "cat": "Education",
+    "catColor": "harbor",
+    "blurb": "U.S. Department of Education public-domain Foster Care Transition Toolkit (May 2016) covering planning, school, jobs, money, documents, housing, health, and transportation.",
+    "meta": "Online · Statewide",
+    "phone": null,
+    "url": "https://www.ed.gov/sites/ed/files/about/inits/ed/foster-care/youth-transition-toolkit.pdf",
+    "address": null,
+    "tag": "Verified",
+    "verified": true
   },
   "think-of-us": {
     "name": "Think of Us",
