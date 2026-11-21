@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * AfterCare — shared org-site chrome (marketing surfaces only).
  *
@@ -8,15 +10,14 @@
 import Link from "next/link";
 import { SiteSearch } from "@/components/site-search";
 import { QuickExit } from "@/components/quick-exit";
+import { useLocale } from "@/lib/i18n/locale-context";
+import {
+  ORG_STATUS,
+  UNVERIFIED_LABEL,
+  VERIFIED_MEANING,
+} from "@/lib/trust-copy";
 
-/** Honest org status — never claim registered nonprofit / 501(c)(3). */
-export const ORG_STATUS =
-  "A social-impact project working toward nonprofit status.";
-
-export const VERIFIED_MEANING =
-  "Verified means we confirmed the organisation's official page. It does not mean the phone line was tested live — hours and who they serve still change, so call ahead.";
-
-export const UNVERIFIED_LABEL = "Unverified — call to confirm";
+export { ORG_STATUS, UNVERIFIED_LABEL, VERIFIED_MEANING };
 
 /**
  * Resource verification label.
@@ -62,80 +63,67 @@ export function VerificationBadge({ verified }) {
 
 /** Persistent crisis numbers on every org page. */
 export function CrisisStrip() {
+  const { t } = useLocale();
   return (
     <div className="mk-crisis" role="region" aria-label="Crisis hotlines">
-      <div className="mk-wrap">
-        <b>In danger right now?</b> Call or text <a href="tel:988">988</a>{" "}
-        (Suicide &amp; Crisis Lifeline). Nowhere to sleep? Covenant House{" "}
-        <a href="tel:18003883888">1-800-388-3888</a>. LGBTQ+ youth: Trevor
-        Project <a href="tel:18664887386">1-866-488-7386</a>. Crisis Text Line:{" "}
-        text HOME to <a href="sms:741741">741741</a>. Runaway / leaving: National
-        Runaway Safeline <a href="tel:18007862929">1-800-RUNAWAY</a>. Trafficking:
-        National Human Trafficking Hotline{" "}
-        <a href="tel:18883737888">1-888-373-7888</a>. Local help:{" "}
-        <a href="tel:211">211</a>. If someone is being hurt, call{" "}
-        <a href="tel:911">911</a>.
-      </div>
+      <div className="mk-wrap">{t("crisis.strip")}</div>
     </div>
   );
 }
 
-const NAV_LINKS = [
-  { href: "/directory", label: "Directory" },
-  { href: "/find", label: "Finder" },
-  { href: "/programs", label: "Guides" },
-  { href: "/for-supporters", label: "Supporters" },
-  { href: "/about", label: "About" },
-  { href: "/get-involved", label: "Get involved" },
-];
-
 /** Sticky org navigation with Get help CTA. */
 export function OrgNav() {
+  const { t, locale, setLocale } = useLocale();
+  const navLinks = [
+    { href: "/directory", label: t("nav.directory") },
+    { href: "/find", label: t("nav.finder") },
+    { href: "/programs", label: t("nav.guides") },
+    { href: "/my-plan", label: t("nav.plan") },
+    { href: "/map", label: t("nav.map") },
+    { href: "/for-supporters", label: t("nav.supporters") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/get-involved", label: t("nav.involved") },
+  ];
+
   return (
     <nav className="mk-nav" aria-label="Primary">
-      <div className="mk-nav-crisis">
-        Crisis? <a href="tel:988">988</a>
-        {" · "}
-        <a href="tel:18003883888">Covenant House</a>
-        {" · "}
-        <a href="tel:18664887386">Trevor</a>
-        {" · "}
-        <a href="sms:741741">Crisis Text 741741</a>
-        {" · "}
-        <a href="tel:18007862929">1-800-RUNAWAY</a>
-        {" · "}
-        <a href="tel:18883737888">Trafficking hotline</a>
-        {" · "}
-        <a href="tel:211">211</a>
-      </div>
+      <div className="mk-nav-crisis">{t("crisis.banner")}</div>
       <div className="mk-wrap">
         <div className="mk-nav-inner">
           <Link href="/" className="mk-brand">
             AfterCare<i>.</i>
           </Link>
-          <span className="mk-brand-tag">Built by foster kids, for foster kids</span>
+          <span className="mk-brand-tag">{t("nav.tag")}</span>
           <div className="mk-nav-search">
             <SiteSearch compact />
           </div>
           <ul className="mk-nav-links">
-            {NAV_LINKS.map((l) => (
+            {navLinks.slice(0, 6).map((l) => (
               <li key={l.href}>
                 <Link href={l.href}>{l.label}</Link>
               </li>
             ))}
           </ul>
+          <button
+            type="button"
+            className="mk-lang-toggle"
+            onClick={() => setLocale(locale === "es" ? "en" : "es")}
+            aria-label={locale === "es" ? "Switch to English" : "Cambiar a español"}
+          >
+            {t("lang.toggle")}
+          </button>
           <Link href="/app" className="mk-btn mk-btn-primary mk-nav-cta">
-            Ask
+            {t("nav.ask")}
           </Link>
           <details className="mk-nav-menu">
             <summary aria-label="Open menu">Menu</summary>
             <div className="mk-nav-menu-panel">
-              {NAV_LINKS.map((l) => (
+              {navLinks.map((l) => (
                 <Link key={l.href} href={l.href}>
                   {l.label}
                 </Link>
               ))}
-              <Link href="/services">Legacy services</Link>
+              <Link href="/how-we-verify">How we verify</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/contact">Contact</Link>
               <Link href="/app">Ask AfterCare</Link>
@@ -154,6 +142,8 @@ const FOOTER_COLS = [
     links: [
       { href: "/", label: "Home" },
       { href: "/directory", label: "Resource directory" },
+      { href: "/map", label: "County map" },
+      { href: "/my-plan", label: "My Plan" },
       { href: "/find", label: "What do you need?" },
       { href: "/programs", label: "All guides" },
       { href: "/about", label: "About" },
@@ -169,6 +159,7 @@ const FOOTER_COLS = [
       { href: "/programs/drivers-license", label: "Driver's license" },
       { href: "/programs/foster-youth-bill-of-rights", label: "Bill of Rights" },
       { href: "/programs/extended-foster-care", label: "AB 12" },
+      { href: "/how-we-verify", label: "How we verify" },
     ],
   },
   {

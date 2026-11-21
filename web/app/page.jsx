@@ -19,6 +19,7 @@ import { AgeTimeline } from "@/components/age-timeline";
 import { SiteSearch } from "@/components/site-search";
 import { TaskPaths } from "@/components/task-paths";
 import { CountyMosaic } from "@/components/county-mosaic";
+import { CitedAskDemo } from "@/components/cited-ask-demo";
 import "./marketing.css";
 
 export const metadata = {
@@ -105,6 +106,20 @@ export default function HomePage() {
       <section className="mk-section" id="tasks">
         <div className="mk-wrap">
           <TaskPaths />
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-alt" id="ask-demo">
+        <div className="mk-wrap">
+          <p className="mk-kicker">Ask with citations</p>
+          <h2 className="mk-h2">
+            Answers that <em>show their sources.</em>
+          </h2>
+          <p className="mk-lead">
+            Retrieval over verified listings and guides — with follow-ups for age,
+            county, and situation. If we don&rsquo;t know, we say so.
+          </p>
+          <CitedAskDemo />
         </div>
       </section>
 

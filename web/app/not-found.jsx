@@ -4,34 +4,40 @@ import "./marketing.css";
 
 export const metadata = { title: "Page not found" };
 
-// A 404 is a dead end, and someone can land here from a stale link at a bad
-// moment. So it points at the app and still carries the crisis numbers rather
-// than just saying "not found".
-
+/**
+ * Strong 404 — still carries crisis help and paths into directory / My Plan / Ask.
+ */
 export default function NotFound() {
   return (
     <div className="mk">
       <OrgNav />
 
-      <section className="mk-final" style={{ minHeight: "58vh", display: "flex", alignItems: "center" }}>
+      <section className="mk-page-hero" style={{ minHeight: "58vh" }}>
         <div className="mk-wrap">
           <p className="mk-kicker">404</p>
-          <h1 className="mk-h2" style={{ margin: "0 auto" }}>
-            That page isn&rsquo;t here.
+          <h1 className="mk-h1">
+            That page isn&rsquo;t here. <em>Help still is.</em>
           </h1>
-          <p className="mk-lead" style={{ margin: "20px auto 0" }}>
-            The link may be old, or we may have moved something. Whatever you
-            came looking for, the app is the fastest way to find it.
+          <p className="mk-deck">
+            The link may be old, or we moved something. Pick a path below — or
+            dial <a href="tel:211">211</a> / <a href="tel:988">988</a> if you need
+            a person now.
           </p>
-          <div className="mk-cta-row" style={{ justifyContent: "center" }}>
-            <Link href="/app" className="mk-btn mk-btn-primary">
-              Open the app
+          <div className="mk-cta-row">
+            <Link href="/directory" className="mk-btn mk-btn-primary">
+              Resource directory
+            </Link>
+            <Link href="/my-plan" className="mk-btn mk-btn-ghost">
+              My Plan
+            </Link>
+            <Link href="/map" className="mk-btn mk-btn-ghost">
+              County map
+            </Link>
+            <Link href="/app" className="mk-btn mk-btn-ghost">
+              Ask AfterCare
             </Link>
             <Link href="/" className="mk-btn mk-btn-ghost">
-              Back to the homepage
-            </Link>
-            <Link href="/sitemap.xml" className="mk-btn mk-btn-ghost">
-              Sitemap
+              Home
             </Link>
           </div>
         </div>

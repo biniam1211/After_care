@@ -3,6 +3,7 @@ import { MILESTONES } from "@/components/age-milestones";
 
 /**
  * California foster-youth age milestone timeline (14 → 26).
+ * Links into My Plan so youth can check off this year’s unlocks.
  */
 export function AgeTimeline() {
   return (
@@ -18,7 +19,12 @@ export function AgeTimeline() {
               <li key={u}>{u}</li>
             ))}
           </ul>
-          <Link href={m.href}>Open related guide →</Link>
+          <div className="mk-cta-row" style={{ marginTop: 10 }}>
+            <Link href={m.href}>Open related guide →</Link>
+            <Link href={`/my-plan?age=${m.age}`} className="mk-btn mk-btn-ghost">
+              Add age {m.age} to My Plan
+            </Link>
+          </div>
         </article>
       ))}
     </div>

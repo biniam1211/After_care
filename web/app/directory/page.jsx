@@ -17,6 +17,8 @@ import { SiteSearch } from "@/components/site-search";
 import { RESOURCES } from "@/components/data";
 import { CA_COUNTIES, countyFromZip } from "@/lib/ca-counties";
 import { contactHref } from "@/lib/contact-href";
+import { loadPlan, toggleResource } from "@/lib/my-plan";
+import { useLocale } from "@/lib/i18n/locale-context";
 import "../marketing.css";
 
 const NEED_FILTERS = [
@@ -75,6 +77,7 @@ function DirectoryFallback() {
 }
 
 function DirectoryInner() {
+  const { t } = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
   const needParam = searchParams.get("need") || "all";
@@ -87,6 +90,7 @@ function DirectoryInner() {
   const [only247, setOnly247] = useState(false);
   const [q, setQ] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [savedIds, setSavedIds] = useState([]);
 
   useEffect(() => {
     setMounted(true);
@@ -95,6 +99,7 @@ function DirectoryInner() {
       const savedZip = localStorage.getItem("aftercare_zip");
       if (saved) setCounty(saved);
       if (savedZip) setZip(savedZip);
+      setSavedIds(loadPlan().resources);
     } catch {
       /* ignore */
     }
@@ -164,13 +169,9 @@ function DirectoryInner() {
         <div className="mk-wrap">
           <p className="mk-kicker">Directory · {Object.keys(RESOURCES).length}+ listings</p>
           <h1 className="mk-h1">
-            Real help. <em>Near you.</em>
+            {t("dir.title").split(". ")[0]}. <em>{t("dir.title").includes(".") ? t("dir.title").split(". ").slice(1).join(". ") : ""}</em>
           </h1>
-          <p className="mk-deck">
-            Filter by what you need and your county. ZIP stays in your browser.
-            Every listing shows a source and a &ldquo;last verified&rdquo; date when we
-            have one.
-          </p>
+          <p className="mk-deck">{t("dir.deck")}</p>
           <SiteSearch />
         </div>
       </header>
@@ -292,6 +293,16 @@ function DirectoryInner() {
                       onClick={() => window.print()}
                     >
                       Print
+                    </button>
+                    <button
+                      type="button"
+                      className="mk-btn mk-btn-ghost"
+                      onClick={() => {
+                        const next = toggleResource(loadPlan(), id);
+                        setSavedIds(next.resources);
+                      }}
+                    >
+                      {savedIds.includes(id) ? "Saved ✓" : "Save to My Plan"}
                     </button>
                   </div>
                   <p className="mk-dir-verify">

@@ -6,9 +6,11 @@
 
 import { PROGRAMS } from "@/components/programs-data";
 import { RESOURCES } from "@/components/data";
+import { ES_SYNONYMS } from "@/lib/i18n/dictionaries";
 
 /** @type {Record<string, string[]>} */
 export const SEARCH_SYNONYMS = {
+  ...ES_SYNONYMS,
   sleep: ["homeless", "shelter", "housing", "kicked"],
   kicked: ["homeless", "shelter", "housing", "evict"],
   homeless: ["shelter", "housing", "211", "covenant"],

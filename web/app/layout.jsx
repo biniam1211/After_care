@@ -1,4 +1,5 @@
 import { Archivo, Bricolage_Grotesque, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -100,7 +101,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${bricolage.variable} ${jakarta.variable} ${fraunces.variable} ${archivo.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

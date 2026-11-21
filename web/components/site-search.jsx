@@ -8,11 +8,13 @@ import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { searchCatalog } from "@/lib/search-catalog";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 /**
  * @param {{ compact?: boolean, autoFocus?: boolean, className?: string }} props
  */
 export function SiteSearch({ compact = false, autoFocus = false, className = "" }) {
+  const { t } = useLocale();
   const [q, setQ] = useState("");
   const deferred = useDeferredValue(q);
   const [open, setOpen] = useState(false);
@@ -65,7 +67,7 @@ export function SiteSearch({ compact = false, autoFocus = false, className = "" 
     <div className={`mk-search ${compact ? "mk-search-compact" : ""} ${className}`.trim()} ref={wrapRef}>
       {!compact && (
         <label className="mk-search-label" htmlFor={listId + "-input"}>
-          What do you need?
+          {t("search.label")}
         </label>
       )}
       <div className="mk-search-box">
@@ -84,7 +86,7 @@ export function SiteSearch({ compact = false, autoFocus = false, className = "" 
           }
           autoComplete="off"
           autoFocus={autoFocus}
-          placeholder={compact ? "What do you need?" : "Try: kicked out, ID, food, Medi-Cal, court…"}
+          placeholder={compact ? t("search.label") : t("search.placeholder")}
           value={q}
           onChange={(e) => {
             setQ(e.target.value);
@@ -127,11 +129,12 @@ export function SiteSearch({ compact = false, autoFocus = false, className = "" 
       )}
       {open && deferred.trim().length > 1 && results.length === 0 && (
         <div className="mk-search-empty" role="status">
-          Nothing matched. Try <Link href="/directory?need=crisis">crisis lines</Link>,{" "}
-          <Link href="/directory">the directory</Link>, or dial <a href="tel:211">211</a>.
+          {t("search.empty")}{" "}
+          <Link href="/directory?need=crisis">crisis</Link> · <Link href="/directory">directory</Link> ·{" "}
+          <a href="tel:211">211</a>
         </div>
       )}
-      <p className="mk-search-privacy">Search stays on this device — we don&rsquo;t save what you type.</p>
+      <p className="mk-search-privacy">{t("search.privacy")}</p>
     </div>
   );
 }

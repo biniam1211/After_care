@@ -80,21 +80,52 @@ export default function GetInvolved() {
         </div>
       </section>
 
-      <section className="mk-section" id="partners">
+      <section className="mk-section" id="volunteer">
         <div className="mk-wrap">
-          <p className="mk-kicker">For orgs &amp; partners</p>
-          <h2 className="mk-h2">Build the map with us.</h2>
+          <p className="mk-kicker">Volunteer interest</p>
+          <h2 className="mk-h2">
+            Offer time — <em>without inventing a roster.</em>
+          </h2>
           <p className="mk-lead" style={{ maxWidth: "36em" }}>
-            If your organization serves foster youth, we want your program in
-            the directory — accurately listed, honestly labeled. Reach us through
-            the app chat to partner.
+            We do not publish fake volunteer openings. If you want to help with
+            verification, translation, design, or youth outreach when roles open,
+            email us. No account required.
           </p>
           <div className="mk-cta-row">
+            <a
+              className="mk-btn mk-btn-primary"
+              href="mailto:hello@aftercare.app?subject=Volunteer%20interest"
+            >
+              Email volunteer interest
+            </a>
+            <Link href="/how-we-verify" className="mk-btn mk-btn-ghost">
+              How we verify listings
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-section mk-section-alt" id="partners">
+        <div className="mk-wrap">
+          <p className="mk-kicker">Partner organizations</p>
+          <h2 className="mk-h2">Build the map with us.</h2>
+          <p className="mk-lead" style={{ maxWidth: "36em" }}>
+            If your organization serves foster youth, we want accurate listings —
+            never invented partners or testimonials. Email a public program page
+            we can verify, or use Report outdated info on any directory card.
+          </p>
+          <div className="mk-cta-row">
+            <a
+              className="mk-btn mk-btn-primary"
+              href="mailto:hello@aftercare.app?subject=Partner%20listing"
+            >
+              Suggest a verified listing
+            </a>
+            <Link href="/directory" className="mk-btn mk-btn-ghost">
+              Browse directory
+            </Link>
             <Link href="/contact" className="mk-btn mk-btn-ghost">
               Contact
-            </Link>
-            <Link href="/programs" className="mk-btn mk-btn-ghost">
-              See programs
             </Link>
           </div>
         </div>

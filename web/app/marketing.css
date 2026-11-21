@@ -1718,3 +1718,127 @@ html:has(.mk) body {
 .mk-timeline-item:nth-child(6) {
   animation-delay: 0.25s;
 }
+
+/* ── Locale / plan / map / ask demo ── */
+.mk-lang-toggle {
+  border: 2px solid var(--ink);
+  background: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.mk-untranslated {
+  background: var(--mustard-soft);
+  border: 2px dashed var(--ink);
+  padding: 12px 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.mk-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 12px 0 20px;
+}
+
+.mk-plan-grid label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.mk-plan-grid select,
+.mk-plan-grid input {
+  min-height: 44px;
+  border: 2px solid var(--ink);
+  padding: 8px 10px;
+  font: inherit;
+  background: #fff;
+}
+
+.mk-map-layout {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .mk-map-layout {
+    grid-template-columns: 220px 1fr;
+    align-items: start;
+  }
+}
+
+.mk-map-svg {
+  width: 100%;
+  max-width: 220px;
+  filter: drop-shadow(4px 4px 0 var(--ink));
+}
+
+.mk-map-hint {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.mk-map-stamps button {
+  width: 100%;
+  min-height: 44px;
+  border: 2px solid var(--ink);
+  background: #fffdf6;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--paper-deep);
+}
+
+.mk-map-stamps button.is-on,
+.mk-map-stamps button:hover,
+.mk-map-stamps button:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent-deep);
+}
+
+.mk-map-panel {
+  margin-top: 28px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 4px 4px 0 var(--paper-deep);
+}
+
+.mk-map-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.mk-ask-demo {
+  margin-top: 18px;
+  max-width: 720px;
+}
+
+.mk-ask-reply {
+  margin-top: 16px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 18px;
+  box-shadow: 4px 4px 0 var(--mustard);
+}
+
+.mk-citations ul,
+.mk-followups {
+  margin-top: 12px;
+}
+
+.mk-empty {
+  border: 2px dashed var(--line);
+  padding: 28px;
+  text-align: center;
+}
